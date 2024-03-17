@@ -1,0 +1,19 @@
+{
+  "navigationSchedule" : "schedule",
+  "navigationFunction" : "function",
+  "navigationPerson" : "person",
+
+  "loginViewTitle" : "Login",
+  "loginViewGreatText" : "Hello, welcome to use this YiQiu schedule!",
+  "loginViewUsername" : "Username",
+  "loginViewPassword" : "Password",
+  "loginViewCaptcha" : "Captcha",
+  "loginViewLoginButton" : "Let's start",
+  "loginViewTextEditNoNull" : "The username, password, and verification code cannot be empty!",
+  "loginViewLoginFiled" : "Login failed, please check your username, password, and verification code!",
+
+  "scheduleViewWeekName" : "Mon&Tues&Wed&Thur&Fri&Sat&Sun",
+  "scheduleViewCourseTimeName" : "1st&2nd&3rd&4th&5th",
+  "scheduleViewCurrentWeek" : "Week %%",
+  "scheduleViewYearAndMonth" : "%%/&& Month"
+}

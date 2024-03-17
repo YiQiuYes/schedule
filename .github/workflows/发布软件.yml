@@ -1,0 +1,117 @@
+name: 发布软件
+
+on:
+  push: # 代码推送到master分支自动触发工作流
+    branches:
+      - master
+  workflow_dispatch: # 手动触发
+
+permissions: write-all # 给所有工作写权限
+
+jobs:
+  job_v:
+    name: 构建版本号和变更信息
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.create_version.outputs.tag_name }} # 版本号
+      body: ${{ steps.create_version.outputs.body }} # 版本变更内容
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        id: create_version
+        with:
+          config-name: release-drafter.yml # 配置文件在 .github/release-drafter.yml
+          disable-autolabeler: true # 禁止自动标签
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      - name: 查看变量
+        run: |
+          echo ${{ format('version={0}', steps.create_version.outputs.tag_name ) }} 
+
+  job_apk:
+    needs: job_v # 等待 jobs_v 任务完成才执行
+    name: 构建android软件
+    runs-on: ubuntu-latest
+    env:
+      version: ${{ needs.jobs_v.outputs.version }}
+      body: ${{ needs.jobs_v.outputs.body }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: 读入环境信息
+        run: |
+          echo ${{ format('version {0}', env.version ) }} # 版本号
+      - name: 编译环境设置 Java 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: 编译apk
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.9'
+      - run: flutter pub get
+      - run: flutter build apk --release
+      - name: 上传产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk
+          path: build/app/outputs/apk/release/app-release.apk
+
+  job_ipa:
+    needs: job_v
+    name: 构建ios软件
+    runs-on: macos-latest
+    env:
+      version: ${{ needs.jobs_v.outputs.version }}
+      body: ${{ needs.jobs_v.outputs.body }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: 读入环境信息
+        run: |
+          echo ${{ format('version {0}', env.version ) }}
+      - name: 编译环境设置
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+      - name: Build (ios)
+        run: |
+          sh scripts/build-ipa.sh
+      - name: 上传产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: ipa
+          path: build/ios/iphoneos/release-ios.ipa
+
+  job_release:
+    needs: [ job_v,job_apk,job_ipa ]
+    name: 发布版本
+    runs-on: ubuntu-latest
+    env:
+      version: ${{ needs.job_v.outputs.version }}
+      body: ${{ needs.job_v.outputs.body }}
+    steps:
+      - name: 下载产物
+        id: download
+        uses: actions/download-artifact@v3
+        with:
+          path: ./
+      - name: 读入环境信息
+        run: |
+          echo ${{ format('version {0}', env.version ) }}
+          echo ${{steps.download.outputs.download-path}}
+          ls -R
+
+      - name: 发布文件
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.TOKEN_GITHUB }}
+          allowUpdates: true # 覆盖文件
+          #draft: true # 草稿 自己可见 版本号会保持一样 默认是自动发布 latest
+          #prerelease: true # 预发布 别人可以看到 版本号会继续加
+          tag: ${{ env.version }} # 版本号 v0.1.0
+          body: ${{ env.body }} # 输出的内容
+          artifacts: "apk/*.apk,ipa/*.ipa"

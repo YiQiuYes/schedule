@@ -1,0 +1,19 @@
+{
+  "navigationSchedule" : "课表",
+  "navigationFunction" : "功能",
+  "navigationPerson" : "我的",
+
+  "loginViewTitle" : "登录",
+  "loginViewGreatText" : "你好，欢迎使用易秋课表！",
+  "loginViewUsername" : "用户名",
+  "loginViewPassword" : "密码",
+  "loginViewCaptcha" : "验证码",
+  "loginViewLoginButton" : "点击登录",
+  "loginViewTextEditNoNull" : "用户名、密码、验证码不能为空！",
+  "loginViewLoginFiled" : "登录失败！请检查用户名、密码、验证码是否正确！",
+
+  "scheduleViewWeekName" : "周一&周二&周三&周四&周五&周六&周日",
+  "scheduleViewCourseTimeName" : "一&二&三&四&五",
+  "scheduleViewCurrentWeek" : "第%%周",
+  "scheduleViewYearAndMonth" : "%%/&&月"
+}
