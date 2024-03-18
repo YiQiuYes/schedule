@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/GlobalModel.dart';
+import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/ScheduleUtils.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/generated/l10n.dart';
@@ -27,11 +28,7 @@ class _ScheduleViewState extends State<ScheduleView>
     super.initState();
     GoRouteConfig.setContext = context;
     scheduleViewModel.init();
-    scheduleViewModel.tabController = TabController(
-      initialIndex: int.parse(globalModel.semesterWeekData["currentWeek"]) - 1,
-      length: 20,
-      vsync: this,
-    );
+    scheduleViewModel.initTabController(this);
   }
 
   @override
@@ -51,7 +48,7 @@ class _ScheduleViewState extends State<ScheduleView>
     );
   }
 
-  /// 获取1~20个Tabbar页面
+  /// 获取1~20个TabBarView页面
   Widget _getTabBarView() {
     // 构建1~20个页面
     List<Widget> tabBarViewList = [];
@@ -63,9 +60,18 @@ class _ScheduleViewState extends State<ScheduleView>
           // 日期标题
           _getDateTitle(i),
           // 日期周次
-          _getDateWeek(),
+          _getDateWeek(i),
           // 节次和课程
           _getTimeAndCourseList(i),
+          // 底部间隔
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: _screen.getLengthByOrientation(
+                vertical: 20.w,
+                horizon: 15.w,
+              ),
+            ),
+          ),
         ],
       ));
     }
@@ -112,6 +118,10 @@ class _ScheduleViewState extends State<ScheduleView>
           vertical: 25.w,
           horizon: 15.w,
         ),
+        top: _screen.getLengthByOrientation(
+          vertical: 5.w,
+          horizon: 2.w,
+        ),
       ),
       sliver: SliverToBoxAdapter(
         child: Text(
@@ -128,58 +138,77 @@ class _ScheduleViewState extends State<ScheduleView>
     );
   }
 
-  /// 获取日期周次
-  Widget _getDateWeek() {
+  /// 获取日期周次列表
+  Widget _getDateWeek(int showWeek) {
     List<String> weeks = S.of(context).scheduleViewWeekName.split("&");
 
     return SliverPadding(
       padding: EdgeInsets.only(
-        left: _screen.getLengthByOrientation(
-          vertical: 80.w,
-          horizon: 70.w,
+        top: _screen.getLengthByOrientation(
+          vertical: 27.w,
+          horizon: 17.w,
         ),
         right: _screen.getLengthByOrientation(
           vertical: 25.w,
           horizon: 15.w,
         ),
-        top: _screen.getLengthByOrientation(
-          vertical: 27.w,
-          horizon: 17.w,
-        ),
       ),
-      sliver: SliverAlignedGrid.count(
-        crossAxisCount: 7,
-        itemCount: 7,
-        crossAxisSpacing: _screen.getLengthByOrientation(
-          vertical: 10.w,
-          horizon: 8.w,
+      sliver: SliverGrid(
+        gridDelegate: SliverQuiltedGridDelegate(
+          crossAxisCount: 23,
+          mainAxisSpacing: _screen.getLengthByOrientation(
+            vertical: 11.w,
+            horizon: 8.6.w,
+          ),
+          crossAxisSpacing: _screen.getLengthByOrientation(
+            vertical: 11.w,
+            horizon: 8.6.w,
+          ),
+          pattern: [
+            const QuiltedGridTile(2, 2),
+            const QuiltedGridTile(2, 3),
+            const QuiltedGridTile(2, 3),
+            const QuiltedGridTile(2, 3),
+            const QuiltedGridTile(2, 3),
+            const QuiltedGridTile(2, 3),
+            const QuiltedGridTile(2, 3),
+            const QuiltedGridTile(2, 3),
+          ],
         ),
-        itemBuilder: (BuildContext context, int index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(
-              _screen.getLengthByOrientation(vertical: 17.w, horizon: 10.w),
-            ),
-            child: Container(
-              // color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(
-                vertical: _screen.getLengthByOrientation(
-                  vertical: 10.w,
-                  horizon: 8.w,
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            if (index == 0) {
+              return const SizedBox();
+            } else {
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  _screen.getLengthByOrientation(vertical: 17.w, horizon: 10.w),
                 ),
-              ),
-              child: Text(
-                weeks[index],
-                style: TextStyle(
-                  fontSize: _screen.getLengthByOrientation(
-                    vertical: 25.sp,
-                    horizon: 19.sp,
+                child: Container(
+                  color: scheduleViewModel.getTodayWeekColor(
+                      showWeek, index, context),
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(
+                    vertical: _screen.getLengthByOrientation(
+                      vertical: 10.w,
+                      horizon: 8.w,
+                    ),
+                  ),
+                  child: Text(
+                    weeks[index - 1],
+                    style: TextStyle(
+                      fontSize: _screen.getLengthByOrientation(
+                        vertical: 25.sp,
+                        horizon: 19.sp,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            }
+          },
+          childCount: 8,
+        ),
       ),
     );
   }
@@ -189,84 +218,17 @@ class _ScheduleViewState extends State<ScheduleView>
     return SliverPadding(
       padding: EdgeInsets.only(
         top: _screen.getLengthByOrientation(
-          vertical: 20.w,
+          vertical: 30.w,
+          horizon: 18.w,
+        ),
+        right: _screen.getLengthByOrientation(
+          vertical: 25.w,
           horizon: 15.w,
         ),
       ),
-      sliver: SliverToBoxAdapter(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 节次
-            _getTimeList(),
-            // 间距
-            SizedBox(
-              width: _screen.getLengthByOrientation(
-                vertical: 0,
-                horizon: 20.w,
-              ),
-            ),
-            // 课程
-            _getCourseList(showWeek),
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// 获取节次列表
-  Widget _getTimeList() {
-    List<String> time = S.of(context).scheduleViewCourseTimeName.split("&");
-
-    List<Widget> timeWidgetList = [];
-    for (int i = 0; i < time.length; i++) {
-      timeWidgetList.add(
-        Container(
-          width: _screen.getLengthByOrientation(
-            vertical: 80.w,
-            horizon: 50.w,
-          ),
-          height: _screen.getLengthByOrientation(
-            vertical: 160.w,
-            horizon: 120.w,
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            time[i],
-            style: TextStyle(
-              fontSize: _screen.getLengthByOrientation(
-                vertical: 25.sp,
-                horizon: 19.sp,
-              ),
-              height: 0,
-            ),
-          ),
-        ),
-      );
-    }
-    return Column(
-      children: timeWidgetList,
-    );
-  }
-
-  /// 获取课程列表
-  Widget _getCourseList(int showWeek) {
-    return SizedBox(
-      height: _screen.getLengthByOrientation(
-        vertical: 800.w,
-        horizon: 600.w,
-      ),
-      width: _screen.getLengthByOrientation(
-        vertical: 615.w,
-        horizon: 545.w,
-      ),
-      child: Consumer2<GlobalModel, ScheduleViewModel>(
-          builder: (context, globalModel, scheduleModel, child) {
-        // logger.i(globalModel.courseData[2]);
-        return AlignedGridView.count(
-          itemCount: globalModel.courseData[showWeek].length,
-          crossAxisCount: 7,
-          physics: const NeverScrollableScrollPhysics(),
+      sliver: SliverGrid(
+        gridDelegate: SliverQuiltedGridDelegate(
+          crossAxisCount: 23,
           mainAxisSpacing: _screen.getLengthByOrientation(
             vertical: 11.w,
             horizon: 8.6.w,
@@ -275,76 +237,119 @@ class _ScheduleViewState extends State<ScheduleView>
             vertical: 11.w,
             horizon: 8.6.w,
           ),
-          itemBuilder: (context, index) {
-            // 判断是否有课程数据
-            if (globalModel.courseData[showWeek][index].isEmpty) {
-              return const SizedBox();
+          pattern: [
+            const QuiltedGridTile(6, 2),
+            const QuiltedGridTile(6, 3),
+            const QuiltedGridTile(6, 3),
+            const QuiltedGridTile(6, 3),
+            const QuiltedGridTile(6, 3),
+            const QuiltedGridTile(6, 3),
+            const QuiltedGridTile(6, 3),
+            const QuiltedGridTile(6, 3),
+          ],
+        ),
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            if (index % 8 == 0) {
+              return _getTimeList(index ~/ 8);
+            } else {
+              return _getCourseList(showWeek, index ~/ 8 * 7 + index % 8 - 1);
             }
-
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(
-                _screen.getLengthByOrientation(
-                  vertical: 15.w,
-                  horizon: 10.w,
-                ),
-              ),
-              child: Container(
-                height: _screen.getLengthByOrientation(
-                  vertical: 160.w - 11.w,
-                  horizon: 120.w - 8.6.w,
-                ),
-                alignment: Alignment.topCenter,
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                padding: EdgeInsets.symmetric(
-                  vertical: _screen.getLengthByOrientation(
-                    vertical: 8.w,
-                    horizon: 6.w,
-                  ),
-                  horizontal: _screen.getLengthByOrientation(
-                    vertical: 11.w,
-                    horizon: 12.w,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    // 课程名称
-                    Text(
-                      ScheduleUtils.getCourseName(
-                          globalModel.courseData[showWeek][index]),
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: _screen.getLengthByOrientation(
-                          vertical: 18.sp,
-                          horizon: 14.sp,
-                        ),
-                        height: 1.2,
-                      ),
-                    ),
-                    // 课程地点
-                    Text(
-                      ScheduleUtils.getCourseAddress(
-                          globalModel.courseData[showWeek][index]),
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: _screen.getLengthByOrientation(
-                          vertical: 14.sp,
-                          horizon: 11.sp,
-                        ),
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
           },
-        );
-      }),
+          childCount: 40,
+        ),
+      ),
     );
+  }
+
+  /// 获取节次列表
+  Widget _getTimeList(int index) {
+    final List<String> time =
+        S.of(context).scheduleViewCourseTimeName.split("&");
+
+    return Container(
+      alignment: Alignment.center,
+      child: Text(
+        time[index],
+        style: TextStyle(
+          fontSize: _screen.getLengthByOrientation(
+            vertical: 25.sp,
+            horizon: 19.sp,
+          ),
+          height: 0,
+        ),
+      ),
+    );
+  }
+
+  /// 获取课程列表
+  Widget _getCourseList(int showWeek, int index) {
+    return Consumer2<GlobalModel, ScheduleViewModel>(
+        builder: (context, globalModel, scheduleModel, child) {
+      // 判断是否有课程数据
+      if (globalModel.courseData[showWeek].isEmpty ||
+          globalModel.courseData[showWeek][index].isEmpty) {
+        return const SizedBox();
+      }
+
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(
+          _screen.getLengthByOrientation(
+            vertical: 15.w,
+            horizon: 10.w,
+          ),
+        ),
+        child: Container(
+          alignment: Alignment.topCenter,
+          color: scheduleViewModel.getTodayCourseColor(
+              showWeek, index % 7 + 1, context),
+          padding: EdgeInsets.symmetric(
+            vertical: _screen.getLengthByOrientation(
+              vertical: 12.w,
+              horizon: 12.w,
+            ),
+            horizontal: _screen.getLengthByOrientation(
+              vertical: 11.w,
+              horizon: 13.w,
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              // 课程名称
+              Text(
+                ScheduleUtils.getCourseName(
+                    globalModel.courseData[showWeek][index]),
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: _screen.getLengthByOrientation(
+                    vertical: 18.sp,
+                    horizon: 15.sp,
+                  ),
+                  height: 1.2,
+                ),
+              ),
+              // 课程地点
+              Text(
+                ScheduleUtils.getCourseAddress(
+                    globalModel.courseData[showWeek][index]),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: _screen.getLengthByOrientation(
+                    vertical: 15.sp,
+                    horizon: 13.sp,
+                  ),
+                  height: 1.3,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 }

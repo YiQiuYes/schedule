@@ -11,6 +11,7 @@
   "loginViewLoginButton" : "点击登录",
   "loginViewTextEditNoNull" : "用户名、密码、验证码不能为空！",
   "loginViewLoginFiled" : "登录失败！请检查用户名、密码、验证码是否正确！",
+  "loginViewAutoLogin" : "自动登录失败，请手动登录！",
 
   "scheduleViewWeekName" : "周一&周二&周三&周四&周五&周六&周日",
   "scheduleViewCourseTimeName" : "一&二&三&四&五",

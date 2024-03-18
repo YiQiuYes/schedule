@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schedule/common/utils/DataStorageManager.dart';
+import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
 import 'package:schedule/pages/login/LoginView.dart';
 import 'package:schedule/pages/splash/SplashView.dart';
@@ -13,23 +14,15 @@ class GoRouteConfig {
 
   static BuildContext? context;
 
-  // 数据存储器
-  static final _storage= DataStorageManager();
-
   static final _router = GoRouter(
-    initialLocation: appMain,
+    initialLocation: splash,
     redirect: (context, state) {
-      if(state.fullPath == splash) {
+      if (state.fullPath == splash) {
         return splash;
       }
 
-      String? settings = _storage.getString("settings");
-      if (settings == null) {
-        return login;
-      }
-
-      Map<String, dynamic> settingsMap = jsonDecode(settings);
-      if (settingsMap["isLogin"] != true) {
+      bool isLogin = globalModel.settings["isLogin"];
+      if (!isLogin) {
         return login;
       }
       return state.fullPath;

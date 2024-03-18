@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:schedule/api/QueryApi.dart';
 import 'package:schedule/common/utils/DataStorageManager.dart';
@@ -7,18 +8,33 @@ import 'package:schedule/common/utils/ScheduleUtils.dart';
 
 class GlobalModel extends ChangeNotifier {
   // 课程数据
-  late List<dynamic> _courseData;
+  List<dynamic> _courseData = List.generate(20, (index) => []);
   // 设置数据
-  late Map<String, dynamic> _settings;
+  Map<String, dynamic> _settings = {
+    "isLogin": false,
+    "load20CountCourse": false,
+  };
   // 学期周次数据
-  late Map<String, dynamic> _semesterWeekData;
+  Map<String, dynamic> _semesterWeekData = {
+    "semester": "2023-2024-2",
+    "startDay": "2024-3-4",
+    "currentWeek": "3",
+  };
+  // 用户个人数据
+  Map<String, dynamic> _userInfoData = {
+    "username": "",
+    "password": "",
+  };
 
   final _storage = DataStorageManager();
   final queryApi = QueryApi();
 
   /// 获取课程数据
   void getPersonCourseData({required String week, required String semester}) {
-    queryApi.queryPersonCourse(week: week, semester: semester).then((value) {
+    queryApi
+        .queryPersonCourse(
+            week: week, semester: semester, cachePolicy: CachePolicy.refresh)
+        .then((value) {
       setCourseData(int.parse(week) - 1, value);
       notifyListeners();
     });
@@ -31,7 +47,6 @@ class GlobalModel extends ChangeNotifier {
     if (courseDataStr != null) {
       _courseData = jsonDecode(courseDataStr);
     } else {
-      _courseData = List.generate(20, (index) => []);
       _storage.setString("courseData", jsonEncode(_courseData));
     }
 
@@ -40,10 +55,6 @@ class GlobalModel extends ChangeNotifier {
     if (settingsStr != null) {
       _settings = jsonDecode(settingsStr);
     } else {
-      _settings = {
-        "isLogin": false,
-        "load20CountCourse": false,
-      };
       _storage.setString("settings", jsonEncode(_settings));
     }
 
@@ -62,12 +73,15 @@ class GlobalModel extends ChangeNotifier {
       _semesterWeekData["currentWeek"] = currentWeek.toString();
       // logger.i("当前周次: $currentWeek");
     } else {
-      _semesterWeekData = {
-        "semester": "2023-2024-2",
-        "startDay": "2024-3-4",
-        "currentWeek": "1",
-      };
       _storage.setString("semesterWeekData", jsonEncode(_semesterWeekData));
+    }
+
+    // 读取用户个人数据
+    String? userInfoDataStr = _storage.getString("userInfoData");
+    if (userInfoDataStr != null) {
+      _userInfoData = jsonDecode(userInfoDataStr);
+    } else {
+      _storage.setString("userInfoData", jsonEncode(_userInfoData));
     }
   }
 
@@ -96,6 +110,14 @@ class GlobalModel extends ChangeNotifier {
         "semesterWeekData", jsonEncode(_semesterWeekData));
   }
 
+  /// 设置数据
+  /// - [key] : 键
+  /// - [value] : 值
+  Future<bool> setUserInfoData(String key, dynamic value) async {
+    _userInfoData[key] = value;
+    return await _storage.setString("userInfoData", jsonEncode(_userInfoData));
+  }
+
   /// 获取课程数据
   List<dynamic> get courseData => _courseData;
 
@@ -104,4 +126,7 @@ class GlobalModel extends ChangeNotifier {
 
   /// 获取学期周次数据
   Map<String, dynamic> get semesterWeekData => _semesterWeekData;
+
+  /// 获取用户个人数据
+  Map<String, dynamic> get userInfoData => _userInfoData;
 }

@@ -29,6 +29,7 @@ class Assets {
   static const String splashSplashViewModel = 'lib/pages/splash/SplashViewModel.dart';
   static const String utilsAppTheme = 'lib/common/utils/AppTheme.dart';
   static const String utilsDataStorageManager = 'lib/common/utils/DataStorageManager.dart';
+  static const String utilsFileManager = 'lib/common/utils/FileManager.dart';
   static const String utilsFlutterToastUtil = 'lib/common/utils/FlutterToastUtil.dart';
   static const String utilsLoggerUtils = 'lib/common/utils/LoggerUtils.dart';
   static const String utilsPlatFormUtils = 'lib/common/utils/PlatFormUtils.dart';

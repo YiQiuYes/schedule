@@ -11,6 +11,7 @@
   "loginViewLoginButton" : "Let's start",
   "loginViewTextEditNoNull" : "The username, password, and verification code cannot be empty!",
   "loginViewLoginFiled" : "Login failed, please check your username, password, and verification code!",
+  "loginViewAutoLogin" : "Auto login failed, please log in manually!",
 
   "scheduleViewWeekName" : "Mon&Tues&Wed&Thur&Fri&Sat&Sun",
   "scheduleViewCourseTimeName" : "1st&2nd&3rd&4th&5th",

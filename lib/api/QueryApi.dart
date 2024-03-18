@@ -1,5 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:flutter/services.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
+import 'package:schedule/common/utils/DataStorageManager.dart';
+import 'package:schedule/common/utils/FileManager.dart';
 import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/RequestManager.dart';
 
@@ -14,12 +24,63 @@ class QueryApi {
 
   // 网络管家
   final _request = RequestManager();
+  // 数据存储
+  final _storage = DataStorageManager();
+  // 文件存储
+  final _file = FileManager();
+
+  /// 获取随机图片
+  Future<Uint8List> getRandomTwoDimensionalSpace() async {
+    // 判断本地是否有缓存
+    List<String> filePathList =
+        _file.loadFileList(headerPath: "randomTwoDimensionalSpace");
+
+    late List<Uint8List> randomTwoDimensionalSpace;
+    if (filePathList.isNotEmpty) {
+      // 异步读取文件
+      randomTwoDimensionalSpace = await _file.readAsUint8List(filePathList);
+    } else {
+      // 从本地读取图片数据
+      final image = await rootBundle.load("lib/assets/images/splash.jpg");
+      Uint8List data = image.buffer.asUint8List();
+      randomTwoDimensionalSpace = [data];
+    }
+
+    Options options =
+        _request.cacheOptions.copyWith(policy: CachePolicy.noCache).toOptions();
+    options.responseType = ResponseType.bytes;
+    _request.get("https://t.mwm.moe/mp", options: options).then((value) async {
+      final result = value.data;
+
+      if (randomTwoDimensionalSpace.length > 100) {
+        randomTwoDimensionalSpace = randomTwoDimensionalSpace.sublist(0, 1);
+        // 删除文件
+        _file.deleteFileList(filePathList);
+      }
+
+      randomTwoDimensionalSpace.add(result);
+      // 写入文件
+      _file.writeAsBytes(
+          "randomImage${randomTwoDimensionalSpace.length + 1}.png", result,
+          headerPath: "randomTwoDimensionalSpace");
+    });
+
+    final random = Random();
+    return randomTwoDimensionalSpace[
+        random.nextInt(randomTwoDimensionalSpace.length)];
+  }
 
   /// 查询所有课程
   /// - [week] : 周次
   /// - [semester] : 学期
   Future<List<Map>> queryPersonCourse(
-      {required String week, required String semester}) async {
+      {required String week,
+      required String semester,
+      CachePolicy? cachePolicy}) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
     Map<String, dynamic> params = {
       "xnxq01id": semester,
       "zc": week,
@@ -31,7 +92,7 @@ class QueryApi {
 
     // 处理返回数据
     return await _request
-        .post("/jsxsd/xskb/xskb_list.do", params: params)
+        .post("/jsxsd/xskb/xskb_list.do", params: params, options: options)
         .then((value) {
       Document doc = parse(value.data);
       List<Element> tables = doc.getElementsByTagName("table");
@@ -52,17 +113,10 @@ class QueryApi {
         for (int i = 0; i < list.length; i++) {
           Element element = list[i];
 
-          // logger.i(element.outerHtml);
-          // 正则表达式获取 class="kbcontent">...<br> 中的内容
-          RegExp regExp = RegExp(r'class="kbcontent">([\s\S]*?)<br>');
-          Iterable<RegExpMatch> matches = regExp.allMatches(element.outerHtml);
-
           // 获取课程名称
-          String? className;
-          for (var match in matches) {
-            className = match.group(1);
-          }
+          String? className = element.firstChild?.text;
           className ??= "";
+          className == " " ? className = "" : className = className;
 
           // 获取课程时间
           int index = i ~/ 7;

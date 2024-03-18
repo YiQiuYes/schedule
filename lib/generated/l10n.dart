@@ -160,6 +160,16 @@ class S {
     );
   }
 
+  /// `Auto login failed, please log in manually!`
+  String get loginViewAutoLogin {
+    return Intl.message(
+      'Auto login failed, please log in manually!',
+      name: 'loginViewAutoLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Mon&Tues&Wed&Thur&Fri&Sat&Sun`
   String get scheduleViewWeekName {
     return Intl.message(

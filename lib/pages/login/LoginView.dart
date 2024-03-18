@@ -25,6 +25,8 @@ class _LoginViewState extends State<LoginView> {
     FToast().init(context);
     // 页面初始化
     _loginViewModel.loginViewModelInit();
+    // 自动登录
+    _loginViewModel.autoLogin(context);
   }
 
   @override
@@ -71,11 +73,11 @@ class _LoginViewState extends State<LoginView> {
           // 用户名输入框
           SizedBox(
             width: _screen.getLengthByOrientation(
-              vertical: 350.w,
+              vertical: 400.w,
               horizon: 200.w,
             ),
             height: _screen.getLengthByOrientation(
-              vertical: 70.w,
+              vertical: 100.w,
               horizon: 40.w,
             ),
             child: TextField(
@@ -83,15 +85,13 @@ class _LoginViewState extends State<LoginView> {
               controller: _loginViewModel.usernameController,
               style: TextStyle(
                 fontSize: _screen.getLengthByOrientation(
-                  vertical: 20.sp,
+                  vertical: 30.sp,
                   horizon: 12.sp,
                 ),
               ),
               decoration: InputDecoration(
                 // 必须设置为true，fillColor才有效
                 filled: true,
-                // 相当于高度包裹的意思，必须设置为true
-                isCollapsed: true,
                 // 内容边距
                 contentPadding: EdgeInsets.only(
                   left: _screen.getLengthByOrientation(
@@ -139,11 +139,11 @@ class _LoginViewState extends State<LoginView> {
           // 密码输入框
           SizedBox(
             width: _screen.getLengthByOrientation(
-              vertical: 350.w,
+              vertical: 400.w,
               horizon: 200.w,
             ),
             height: _screen.getLengthByOrientation(
-              vertical: 70.w,
+              vertical: 100.w,
               horizon: 40.w,
             ),
             child: Consumer<LoginViewModel>(builder: (context, model, child) {
@@ -154,7 +154,7 @@ class _LoginViewState extends State<LoginView> {
                 obscureText: model.obscureText,
                 style: TextStyle(
                   fontSize: _screen.getLengthByOrientation(
-                    vertical: 20.sp,
+                    vertical: 30.sp,
                     horizon: 12.sp,
                   ),
                 ),
@@ -217,11 +217,11 @@ class _LoginViewState extends State<LoginView> {
           // 验证码输入框
           SizedBox(
             width: _screen.getLengthByOrientation(
-              vertical: 350.w,
+              vertical: 400.w,
               horizon: 200.w,
             ),
             height: _screen.getLengthByOrientation(
-              vertical: 70.w,
+              vertical: 100.w,
               horizon: 40.w,
             ),
             child: Row(
@@ -238,7 +238,7 @@ class _LoginViewState extends State<LoginView> {
                     maxLines: 1,
                     style: TextStyle(
                       fontSize: _screen.getLengthByOrientation(
-                        vertical: 20.sp,
+                        vertical: 30.sp,
                         horizon: 12.sp,
                       ),
                     ),
@@ -246,7 +246,7 @@ class _LoginViewState extends State<LoginView> {
                       // 必须设置为true，fillColor才有效
                       filled: true,
                       // 相当于高度包裹的意思，必须设置为true
-                      isCollapsed: true,
+                      // isCollapsed: true,
                       // 内容边距
                       contentPadding: EdgeInsets.only(
                         left: _screen.getLengthByOrientation(
@@ -296,12 +296,13 @@ class _LoginViewState extends State<LoginView> {
                   return FutureBuilder(
                     future: model.captchaData,
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.data!.isNotEmpty) {
                         return InkWell(
                           onTap: model.changeCaptcha,
                           child: SizedBox(
                             width: _screen.getLengthByOrientation(
-                              vertical: 90.w,
+                              vertical: 130.w,
                               horizon: 55.w,
                             ),
                             child: Image.memory(
@@ -321,18 +322,18 @@ class _LoginViewState extends State<LoginView> {
           // 间距
           SizedBox(
             height: _screen.getLengthByOrientation(
-              vertical: 40.w,
+              vertical: 60.w,
               horizon: 20.w,
             ),
           ),
           // 登录按钮
           SizedBox(
             width: _screen.getLengthByOrientation(
-              vertical: 350.w,
+              vertical: 400.w,
               horizon: 200.w,
             ),
             height: _screen.getLengthByOrientation(
-              vertical: 70.w,
+              vertical: 100.w,
               horizon: 40.w,
             ),
             child: Consumer<LoginViewModel>(builder: (context, model, child) {
@@ -356,7 +357,7 @@ class _LoginViewState extends State<LoginView> {
                   S.of(context).loginViewLoginButton,
                   style: TextStyle(
                     fontSize: _screen.getLengthByOrientation(
-                      vertical: 20.sp,
+                      vertical: 30.sp,
                       horizon: 12.sp,
                     ),
                   ),
@@ -383,7 +384,7 @@ class _LoginViewState extends State<LoginView> {
           S.of(context).loginViewGreatText,
           style: TextStyle(
             fontSize: _screen.getLengthByOrientation(
-              vertical: 25.sp,
+              vertical: 35.sp,
               horizon: 15.sp,
             ),
           ),
@@ -397,8 +398,8 @@ class _LoginViewState extends State<LoginView> {
     return Padding(
       padding: EdgeInsets.only(
         top: _screen.getLengthByOrientation(
-          vertical: 260.w,
-          horizon: 23.w,
+          vertical: 190.w,
+          horizon: 20.w,
         ),
       ),
       child: Center(
@@ -406,7 +407,7 @@ class _LoginViewState extends State<LoginView> {
           S.of(context).loginViewTitle,
           style: TextStyle(
             fontSize: _screen.getLengthByOrientation(
-              vertical: 40.sp,
+              vertical: 55.sp,
               horizon: 25.sp,
             ),
             fontWeight: FontWeight.bold,

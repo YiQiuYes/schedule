@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:schedule/GlobalModel.dart';
 import 'package:schedule/common/utils/AppTheme.dart';
 import 'package:schedule/common/utils/DataStorageManager.dart';
+import 'package:schedule/common/utils/FileManager.dart';
 import 'package:schedule/common/utils/RequestManager.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
@@ -18,6 +19,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // 初始化数据存储读取器
   await DataStorageManager().init();
+
+  // 初始化文件管理器
+  await FileManager().fileManagerInit();
 
   // 初始化网络请求管理
   await RequestManager().persistCookieJarInit();

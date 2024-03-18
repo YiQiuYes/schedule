@@ -81,6 +81,7 @@ class _AppMainViewState extends State<AppMainView>
       vertical: const SizedBox(),
       horizon: Consumer<AppMainViewModel>(builder: (context, model, child) {
         return NavigationRail(
+          groupAlignment: -0.95,
           destinations: [
             NavigationRailDestination(
               icon: const Icon(Icons.article_outlined),

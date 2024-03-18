@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "loginViewAutoLogin":
+            MessageLookupByLibrary.simpleMessage("自动登录失败，请手动登录！"),
         "loginViewCaptcha": MessageLookupByLibrary.simpleMessage("验证码"),
         "loginViewGreatText":
             MessageLookupByLibrary.simpleMessage("你好，欢迎使用易秋课表！"),

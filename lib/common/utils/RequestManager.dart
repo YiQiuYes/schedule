@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
@@ -21,12 +22,25 @@ class RequestManager {
   late PersistCookieJar _persistCookieJar;
   // 数据存储器
   final _storage = DataStorageManager();
+  final cacheOptions = CacheOptions(
+    store: MemCacheStore(),
+    policy: CachePolicy.request,
+    hitCacheOnErrorExcept: [401, 403],
+    maxStale: const Duration(minutes: 30),
+    priority: CachePriority.normal,
+    cipher: null,
+    keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+    allowPostMethod: false,
+  );
 
   /// 获取dio
   Dio getDio() {
-    _dio ??= Dio(BaseOptions(
-      baseUrl: "https://jwxt.hut.edu.cn",
-    ));
+    if (_dio == null) {
+      _dio ??= Dio(BaseOptions(
+        baseUrl: "https://jwxt.hut.edu.cn",
+      ));
+      _dio?.interceptors.add(DioCacheInterceptor(options: cacheOptions));
+    }
     return _dio!;
   }
 
@@ -51,16 +65,18 @@ class RequestManager {
   Future<void> isLoginInvalid(Response response, String url) async {
     const urlIgnore = [
       "/Logon.do?method=logon",
+      "/jsxsd/xk/LoginToXk"
     ];
 
     var data = response.data;
     if (data != null &&
         data is String &&
-        urlIgnore.any((element) => !url.contains(element))) {
+        !urlIgnore.any((element) => url.contains(element)) &&
+        url != "/") {
       // 正则表达式检测是否包含 <title>登录</title>
       if (RegExp(r"<title>登录</title>").hasMatch(data)) {
-        //logger.i("登录失效");
-        //logger.i(url);
+        logger.i("登录失效");
+        logger.i(url);
         await _storage.modifyMap("settings", "isLogin", false);
         GoRouter.of(GoRouteConfig.context!).go(GoRouteConfig.login);
       }
@@ -71,7 +87,7 @@ class RequestManager {
   Future<Response> get(String url,
       {Map<String, dynamic>? params, Options? options}) async {
     if (options == null) {
-      options = Options(); // 为空则创建
+      options = cacheOptions.toOptions(); // 为空则创建
       options.method = "GET";
       options.responseType = ResponseType.json;
     }
@@ -86,7 +102,7 @@ class RequestManager {
   Future<Response> post(String url,
       {Map<String, dynamic>? params, Options? options}) async {
     if (options == null) {
-      options = Options(); // 为空则创建
+      options = cacheOptions.toOptions(); // 为空则创建
       options.method = "POST";
       options.responseType = ResponseType.json;
     }
