@@ -24,9 +24,10 @@ version-resolver:
   default: patch
 # 这里填写更新内容
 template: |
-  测试版 1.0.1
+  测试版 1.0.2
   完成课表基本开发
   完成首页跳转开发
+  添加网络权限
 
   $CHANGES
 no-changes-template: |
