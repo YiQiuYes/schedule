@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationFunction": MessageLookupByLibrary.simpleMessage("功能"),
         "navigationPerson": MessageLookupByLibrary.simpleMessage("我的"),
         "navigationSchedule": MessageLookupByLibrary.simpleMessage("课表"),
+        "pickerCancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "pickerConfirm": MessageLookupByLibrary.simpleMessage("确认"),
         "scheduleViewCourseTimeName":
             MessageLookupByLibrary.simpleMessage("一&二&三&四&五"),
         "scheduleViewCurrentWeek": MessageLookupByLibrary.simpleMessage("第%%周"),

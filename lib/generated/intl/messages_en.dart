@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationFunction": MessageLookupByLibrary.simpleMessage("function"),
         "navigationPerson": MessageLookupByLibrary.simpleMessage("person"),
         "navigationSchedule": MessageLookupByLibrary.simpleMessage("schedule"),
+        "pickerCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "pickerConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "scheduleViewCourseTimeName":
             MessageLookupByLibrary.simpleMessage("1st&2nd&3rd&4th&5th"),
         "scheduleViewCurrentWeek":

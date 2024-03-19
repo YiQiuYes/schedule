@@ -209,6 +209,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Confirm`
+  String get pickerConfirm {
+    return Intl.message(
+      'Confirm',
+      name: 'pickerConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get pickerCancel {
+    return Intl.message(
+      'Cancel',
+      name: 'pickerCancel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

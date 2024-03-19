@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/generated/l10n.dart';
@@ -44,6 +45,7 @@ class _AppMainViewState extends State<AppMainView>
     return ChangeNotifierProvider<AppMainViewModel>.value(
       value: _scheduleViewModel,
       child: Scaffold(
+        primary: false,
         body: Row(
           children: [
             // 侧边导航栏
@@ -62,17 +64,21 @@ class _AppMainViewState extends State<AppMainView>
 
   /// 获取主页面
   Widget _getMainPage() {
-    return Consumer<AppMainViewModel>(builder: (context, model, child) {
-      return TabBarView(
-        controller: model.tabController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          ScheduleView(),
-          FunctionView(),
-          PersonView(),
-        ],
-      );
-    });
+    return SafeArea(
+      left: false,
+      bottom: false,
+      child: Consumer<AppMainViewModel>(builder: (context, model, child) {
+        return TabBarView(
+          controller: model.tabController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            ScheduleView(),
+            FunctionView(),
+            PersonView(),
+          ],
+        );
+      }),
+    );
   }
 
   /// 获取侧边导航栏
@@ -115,15 +121,18 @@ class _AppMainViewState extends State<AppMainView>
           return NavigationBar(
             destinations: [
               NavigationDestination(
-                icon: const Icon(Icons.article_rounded),
+                icon: const Icon(Icons.article_outlined),
+                selectedIcon: const Icon(Icons.article_rounded),
                 label: S.of(context).navigationSchedule,
               ),
               NavigationDestination(
-                icon: const Icon(Icons.explore_rounded),
+                icon: const Icon(Icons.explore_outlined),
+                selectedIcon: const Icon(Icons.explore_rounded),
                 label: S.of(context).navigationFunction,
               ),
               NavigationDestination(
-                icon: const Icon(Icons.person),
+                icon: const Icon(Icons.person_outline),
+                selectedIcon: const Icon(Icons.person),
                 label: S.of(context).navigationPerson,
               ),
             ],

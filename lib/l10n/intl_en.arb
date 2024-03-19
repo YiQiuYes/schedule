@@ -16,5 +16,9 @@
   "scheduleViewWeekName" : "Mon&Tues&Wed&Thur&Fri&Sat&Sun",
   "scheduleViewCourseTimeName" : "1st&2nd&3rd&4th&5th",
   "scheduleViewCurrentWeek" : "Week %%",
-  "scheduleViewYearAndMonth" : "%%/&& Month"
+  "scheduleViewYearAndMonth" : "%%/&& Month",
+
+
+  "pickerConfirm" : "Confirm",
+  "pickerCancel" : "Cancel"
 }

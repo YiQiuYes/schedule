@@ -16,5 +16,8 @@
   "scheduleViewWeekName" : "周一&周二&周三&周四&周五&周六&周日",
   "scheduleViewCourseTimeName" : "一&二&三&四&五",
   "scheduleViewCurrentWeek" : "第%%周",
-  "scheduleViewYearAndMonth" : "%%/&&月"
+  "scheduleViewYearAndMonth" : "%%/&&月",
+
+  "pickerConfirm" : "确认",
+  "pickerCancel" : "取消"
 }

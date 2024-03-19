@@ -26,6 +26,9 @@ Future<void> main() async {
   // 初始化网络请求管理
   await RequestManager().persistCookieJarInit();
 
+  // 状态栏和底部小白条沉浸
+  AppTheme.statusBarAndBottomBarImmersed();
+
   // 全局数据初始化
   globalModel.init();
 
@@ -33,9 +36,6 @@ Future<void> main() async {
     value: globalModel,
     child: const MyApp(),
   ));
-
-  // 状态栏和底部小白条沉浸
-  AppTheme.statusBarAndBottomBarImmersed();
 }
 
 class MyApp extends StatelessWidget {

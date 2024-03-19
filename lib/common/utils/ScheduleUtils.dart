@@ -1,4 +1,8 @@
+import 'package:schedule/common/utils/ScreenAdaptor.dart';
+
 class ScheduleUtils {
+  static final _screen = ScreenAdaptor();
+
   /// 获取课程名称
   static String getCourseName(Map course) {
     return course['className'] ?? '';
@@ -7,11 +11,13 @@ class ScheduleUtils {
   /// 获取课程地址
   static String getCourseAddress(Map course) {
     String address = course['classAddress'] ?? '';
+    final strLine = _screen.byOrientationReturn(vertical: "\n", horizon: "")!;
+
     if (address.isNotEmpty && !address.contains("楼")) {
       // 往倒数第三个位置插入“楼”
-      address = "${address.substring(0, address.length - 3)}楼\n${address.substring(address.length - 3)}";
+      address = "${address.substring(0, address.length - 3)}楼$strLine${address.substring(address.length - 3)}";
     } else if(address.isNotEmpty){
-      address = address.replaceAll("楼", "楼\n");
+      address = address.replaceAll("楼", "楼$strLine");
     }
 
     return address;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -41,10 +42,7 @@ class _ScheduleViewState extends State<ScheduleView>
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: scheduleViewModel,
-      child: SafeArea(
-        // TabBarView
-        child: _getTabBarView(),
-      ),
+      child: _getTabBarView(),
     );
   }
 
@@ -95,15 +93,30 @@ class _ScheduleViewState extends State<ScheduleView>
         ),
       ),
       sliver: SliverToBoxAdapter(
-        child: Text(
-          scheduleViewModel.getTabPageWeek(
-              S.of(context).scheduleViewCurrentWeek, showWeek),
-          style: TextStyle(
-            fontSize: _screen.getLengthByOrientation(
-              vertical: 50.sp,
-              horizon: 30.sp,
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(
+              _screen.getLengthByOrientation(
+                vertical: 15.w,
+                horizon: 10.w,
+              ),
             ),
-            fontWeight: FontWeight.bold,
+            onTap: () {
+              // 点击周次标题
+              scheduleViewModel.weekTitleTap(showWeek, context);
+            },
+            child: Text(
+              scheduleViewModel.getTabPageWeek(
+                  S.of(context).scheduleViewCurrentWeek, showWeek),
+              style: TextStyle(
+                fontSize: _screen.getLengthByOrientation(
+                  vertical: 50.sp,
+                  horizon: 23.sp,
+                ),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ),
@@ -130,7 +143,7 @@ class _ScheduleViewState extends State<ScheduleView>
           style: TextStyle(
             fontSize: _screen.getLengthByOrientation(
               vertical: 30.sp,
-              horizon: 19.sp,
+              horizon: 15.sp,
             ),
           ),
         ),
@@ -140,7 +153,7 @@ class _ScheduleViewState extends State<ScheduleView>
 
   /// 获取日期周次列表
   Widget _getDateWeek(int showWeek) {
-    List<String> weeks = S.of(context).scheduleViewWeekName.split("&");
+    final List<String> weeks = S.of(context).scheduleViewWeekName.split("&");
 
     return SliverPadding(
       padding: EdgeInsets.only(
@@ -150,6 +163,10 @@ class _ScheduleViewState extends State<ScheduleView>
         ),
         right: _screen.getLengthByOrientation(
           vertical: 25.w,
+          horizon: 15.w,
+        ),
+        left: _screen.getLengthByOrientation(
+          vertical: 8.w,
           horizon: 15.w,
         ),
       ),
@@ -180,27 +197,30 @@ class _ScheduleViewState extends State<ScheduleView>
             if (index == 0) {
               return const SizedBox();
             } else {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  _screen.getLengthByOrientation(vertical: 17.w, horizon: 10.w),
+              return Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(
+                  vertical: _screen.getLengthByOrientation(
+                    vertical: 10.w,
+                    horizon: 8.w,
+                  ),
                 ),
-                child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    _screen.getLengthByOrientation(
+                        vertical: 17.w, horizon: 10.w),
+                  ),
                   color: scheduleViewModel.getTodayWeekColor(
                       showWeek, index, context),
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(
-                    vertical: _screen.getLengthByOrientation(
-                      vertical: 10.w,
-                      horizon: 8.w,
-                    ),
-                  ),
-                  child: Text(
-                    weeks[index - 1],
-                    style: TextStyle(
-                      fontSize: _screen.getLengthByOrientation(
-                        vertical: 25.sp,
-                        horizon: 19.sp,
-                      ),
+                  boxShadow: scheduleViewModel.getTodayWeekBoxShadow(
+                      showWeek, index, context),
+                ),
+                child: Text(
+                  weeks[index - 1],
+                  style: TextStyle(
+                    fontSize: _screen.getLengthByOrientation(
+                      vertical: 25.sp,
+                      horizon: 18.sp,
                     ),
                   ),
                 ),
@@ -225,6 +245,10 @@ class _ScheduleViewState extends State<ScheduleView>
           vertical: 25.w,
           horizon: 15.w,
         ),
+        left: _screen.getLengthByOrientation(
+          vertical: 8.w,
+          horizon: 15.w,
+        ),
       ),
       sliver: SliverGrid(
         gridDelegate: SliverQuiltedGridDelegate(
@@ -238,20 +262,28 @@ class _ScheduleViewState extends State<ScheduleView>
             horizon: 8.6.w,
           ),
           pattern: [
-            const QuiltedGridTile(6, 2),
-            const QuiltedGridTile(6, 3),
-            const QuiltedGridTile(6, 3),
-            const QuiltedGridTile(6, 3),
-            const QuiltedGridTile(6, 3),
-            const QuiltedGridTile(6, 3),
-            const QuiltedGridTile(6, 3),
-            const QuiltedGridTile(6, 3),
+            QuiltedGridTile(
+                _screen.byOrientationReturn(vertical: 6, horizon: 3)!, 2),
+            QuiltedGridTile(
+                _screen.byOrientationReturn(vertical: 6, horizon: 3)!, 3),
+            QuiltedGridTile(
+                _screen.byOrientationReturn(vertical: 6, horizon: 3)!, 3),
+            QuiltedGridTile(
+                _screen.byOrientationReturn(vertical: 6, horizon: 3)!, 3),
+            QuiltedGridTile(
+                _screen.byOrientationReturn(vertical: 6, horizon: 3)!, 3),
+            QuiltedGridTile(
+                _screen.byOrientationReturn(vertical: 6, horizon: 3)!, 3),
+            QuiltedGridTile(
+                _screen.byOrientationReturn(vertical: 6, horizon: 3)!, 3),
+            QuiltedGridTile(
+                _screen.byOrientationReturn(vertical: 6, horizon: 3)!, 3),
           ],
         ),
         delegate: SliverChildBuilderDelegate(
           (context, index) {
             if (index % 8 == 0) {
-              return _getTimeList(index ~/ 8);
+              return _getTimeList(showWeek, index ~/ 8);
             } else {
               return _getCourseList(showWeek, index ~/ 8 * 7 + index % 8 - 1);
             }
@@ -263,20 +295,38 @@ class _ScheduleViewState extends State<ScheduleView>
   }
 
   /// 获取节次列表
-  Widget _getTimeList(int index) {
+  Widget _getTimeList(int showWeek, int index) {
     final List<String> time =
         S.of(context).scheduleViewCourseTimeName.split("&");
 
-    return Container(
-      alignment: Alignment.center,
-      child: Text(
-        time[index],
-        style: TextStyle(
-          fontSize: _screen.getLengthByOrientation(
-            vertical: 25.sp,
-            horizon: 19.sp,
+    return Align(
+      child: Container(
+        width: _screen.getLengthByOrientation(
+          vertical: 45.w,
+          horizon: 37.w,
+        ),
+        height: _screen.getLengthByOrientation(
+          vertical: 70.w,
+          horizon: 49.w,
+        ),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            _screen.getLengthByOrientation(vertical: 17.w, horizon: 10.w),
           ),
-          height: 0,
+          color: scheduleViewModel.getSectionColor(showWeek, index, context),
+          boxShadow:
+              scheduleViewModel.getSectionBoxShadow(showWeek, index, context),
+        ),
+        child: Text(
+          time[index],
+          style: TextStyle(
+            fontSize: _screen.getLengthByOrientation(
+              vertical: 25.sp,
+              horizon: 18.sp,
+            ),
+            height: 0,
+          ),
         ),
       ),
     );
@@ -292,62 +342,65 @@ class _ScheduleViewState extends State<ScheduleView>
         return const SizedBox();
       }
 
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(
-          _screen.getLengthByOrientation(
-            vertical: 15.w,
-            horizon: 10.w,
+      return Container(
+        alignment: Alignment.topCenter,
+        padding: EdgeInsets.symmetric(
+          vertical: _screen.getLengthByOrientation(
+            vertical: 12.w,
+            horizon: 6.w,
+          ),
+          horizontal: _screen.getLengthByOrientation(
+            vertical: 9.w,
+            horizon: 7.w,
           ),
         ),
-        child: Container(
-          alignment: Alignment.topCenter,
-          color: scheduleViewModel.getTodayCourseColor(
-              showWeek, index % 7 + 1, context),
-          padding: EdgeInsets.symmetric(
-            vertical: _screen.getLengthByOrientation(
-              vertical: 12.w,
-              horizon: 12.w,
-            ),
-            horizontal: _screen.getLengthByOrientation(
-              vertical: 11.w,
-              horizon: 13.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            _screen.getLengthByOrientation(
+              vertical: 15.w,
+              horizon: 10.w,
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              // 课程名称
-              Text(
-                ScheduleUtils.getCourseName(
-                    globalModel.courseData[showWeek][index]),
-                maxLines: 4,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: _screen.getLengthByOrientation(
-                    vertical: 18.sp,
-                    horizon: 15.sp,
-                  ),
-                  height: 1.2,
+          color:
+              scheduleViewModel.getTodayCourseColor(showWeek, index, context),
+          boxShadow: scheduleViewModel.getTodayCourseBoxShadow(
+              showWeek, index, context),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            // 课程名称
+            Text(
+              ScheduleUtils.getCourseName(
+                  globalModel.courseData[showWeek][index]),
+              maxLines: _screen.byOrientationReturn(vertical: 4, horizon: 3)!,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: _screen.getLengthByOrientation(
+                  vertical: 18.sp,
+                  horizon: 11.sp,
                 ),
+                height: 1.2,
               ),
-              // 课程地点
-              Text(
-                ScheduleUtils.getCourseAddress(
-                    globalModel.courseData[showWeek][index]),
-                maxLines: 2,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: _screen.getLengthByOrientation(
-                    vertical: 15.sp,
-                    horizon: 13.sp,
-                  ),
-                  height: 1.3,
+            ),
+            // 课程地点
+            Text(
+              ScheduleUtils.getCourseAddress(
+                  globalModel.courseData[showWeek][index]),
+              maxLines: _screen.byOrientationReturn(vertical: 1, horizon: 2)!,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: _screen.getLengthByOrientation(
+                  vertical: 15.sp,
+                  horizon: 9.sp,
                 ),
+                height: 1.3,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     });
