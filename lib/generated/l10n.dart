@@ -229,6 +229,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Setting`
+  String get settingViewTitle {
+    return Intl.message(
+      'Setting',
+      name: 'settingViewTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get settingViewGroupAbout {
+    return Intl.message(
+      'About',
+      name: 'settingViewGroupAbout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version updates`
+  String get settingViewUpdateMainTest {
+    return Intl.message(
+      'Version updates',
+      name: 'settingViewUpdateMainTest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current version {version}`
+  String settingViewCurrentVersion(Object version) {
+    return Intl.message(
+      'Current version $version',
+      name: 'settingViewCurrentVersion',
+      desc: '',
+      args: [version],
+    );
+  }
+
+  /// `Confirm`
+  String get updateDialogConfirm {
+    return Intl.message(
+      'Confirm',
+      name: 'updateDialogConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get updateDialogCancel {
+    return Intl.message(
+      'Cancel',
+      name: 'updateDialogCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The current version is the latest version!`
+  String get updateDialogCurrentIsLastVersion {
+    return Intl.message(
+      'The current version is the latest version!',
+      name: 'updateDialogCurrentIsLastVersion',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

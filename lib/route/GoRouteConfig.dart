@@ -1,18 +1,25 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schedule/common/utils/DataStorageManager.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
 import 'package:schedule/pages/login/LoginView.dart';
+import 'package:schedule/pages/setting/SettingView.dart';
+import 'package:schedule/pages/setting/SettingViewModel.dart';
 import 'package:schedule/pages/splash/SplashView.dart';
 
 class GoRouteConfig {
   static const String splash = '/splash';
   static const String appMain = '/appMain';
   static const String login = '/login';
+  static const String setting = '/setting';
 
   static BuildContext? context;
+
+  // settingViewModel
+  static final _settingViewModel = SettingViewModel();
 
   static final _router = GoRouter(
     initialLocation: appMain,
@@ -43,6 +50,13 @@ class GoRouteConfig {
         path: login,
         builder: (context, state) => const LoginView(),
       ),
+      GoRoute(
+        name: 'setting',
+        path: setting,
+        builder: (context, state) => SettingView(
+          settingViewModel: _settingViewModel,
+        ),
+      ),
     ],
   );
 
@@ -50,5 +64,6 @@ class GoRouteConfig {
 
   static set setContext(BuildContext context) {
     GoRouteConfig.context = context;
+    FToast().init(context);
   }
 }

@@ -22,6 +22,17 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('app/key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties.setProperty('storePassword', System.getenv('KEY_STORE_PASSWORD'))
+    keystoreProperties.setProperty('keyPassword', System.getenv('KEY_PASSWORD'))
+    keystoreProperties.setProperty('keyAlias', System.getenv('ALIAS'))
+    keystoreProperties.setProperty('storeFile', System.getenv('KEY_PATH'))
+}
+
 android {
     namespace "com.yiqiu.schedule"
     compileSdkVersion flutter.compileSdkVersion

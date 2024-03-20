@@ -47,24 +47,8 @@ class LoginViewModel with ChangeNotifier {
     String captcha = captchaController.text;
 
     if (username.isNotEmpty && password.isNotEmpty && captcha.isNotEmpty) {
-      FToast().removeQueuedCustomToasts();
-      FToast().removeCustomToast();
-
-      FToast().showToast(
-        child: Lottie.asset(
-          "lib/assets/lotties/loading.json",
-          width: ScreenAdaptor().getLengthByOrientation(
-            vertical: 500.w,
-            horizon: 250.w,
-          ),
-          height: ScreenAdaptor().getLengthByOrientation(
-            vertical: 500.w,
-            horizon: 250.w,
-          ),
-        ),
-        gravity: ToastGravity.CENTER,
-        toastDuration: const Duration(seconds: 60),
-      );
+      // 显示加载动画
+      FlutterToastUtil.showLoading(milliseconds: 5000);
       _userApi
           .loginEducationalSystem(
               userAccount: username, userPassword: password, captcha: captcha)

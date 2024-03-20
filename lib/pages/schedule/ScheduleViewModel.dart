@@ -92,7 +92,7 @@ class ScheduleViewModel with ChangeNotifier {
     return null;
   }
 
-  /// 获取今日课程阴影颜色
+  /// 获取今日是周几并且时间正确阴影颜色
   List<BoxShadow>? getTodayWeekBoxShadow(
       int showWeek, int day, BuildContext context) {
     // 获取当前周次
@@ -117,18 +117,36 @@ class ScheduleViewModel with ChangeNotifier {
 
   /// 获取节次背景颜色
   Color? getSectionColor(int showWeek, int index, BuildContext context) {
+    final defaultColor = Theme.of(context).colorScheme.primary.withOpacity(0.3);
     // 获取当前周次
     int week = int.parse(globalModel.semesterWeekData["currentWeek"]);
     if (week - 1 != showWeek) {
       return null;
     }
 
-    // 今天是星期几
-    DateTime today = DateTime.now();
-    int day = index % 7 + 1;
-    if (today.weekday == day) {
-      return Theme.of(context).colorScheme.primary.withOpacity(0.3);
+    const time = [
+      "09:45",
+      "11:40",
+      "15:40",
+      "17:40",
+      "20:40",
+    ];
+    final now = DateTime.now();
+    final currentHourAndMinute = "${now.hour}:${now.minute}";
+    // 最后一节课处理
+    if (index == 4 && currentHourAndMinute.compareTo(time[4]) >= 0) {
+      return defaultColor;
     }
+    for (int i = 0; i < time.length; i++) {
+      if (currentHourAndMinute.compareTo(time[i]) < 0) {
+        if (index == i) {
+          return defaultColor;
+        }
+        break;
+      }
+    }
+    return null;
+
     return null;
   }
 
@@ -141,17 +159,35 @@ class ScheduleViewModel with ChangeNotifier {
       return null;
     }
 
-    // 今天是星期几
-    DateTime today = DateTime.now();
-    int day = index % 7 + 1;
-    if (today.weekday == day) {
-      return [
-        BoxShadow(
-          color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
-          blurRadius: 4,
-          blurStyle: BlurStyle.outer,
-        ),
-      ];
+    const time = [
+      "09:45",
+      "11:40",
+      "15:40",
+      "17:40",
+      "20:40",
+    ];
+    final defaultShadowList = [
+      BoxShadow(
+        color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
+        blurRadius: 4,
+        blurStyle: BlurStyle.outer,
+      ),
+    ];
+    final now = DateTime.now();
+    final currentHourAndMinute = "${now.hour}:${now.minute}";
+
+    // 最后一节课处理
+    if (index == 4 && currentHourAndMinute.compareTo(time[4]) >= 0) {
+      return defaultShadowList;
+    }
+
+    for (int i = 0; i < time.length; i++) {
+      if (currentHourAndMinute.compareTo(time[i]) < 0) {
+        if (i == index) {
+          return defaultShadowList;
+        }
+        break;
+      }
     }
     return null;
   }
@@ -160,6 +196,7 @@ class ScheduleViewModel with ChangeNotifier {
   Color? getTodayCourseColor(int showWeek, int index, BuildContext context) {
     final defaultColor =
         Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.8);
+    final heightColor = Theme.of(context).colorScheme.primary.withOpacity(0.3);
     // 获取当前周次
     int week = int.parse(globalModel.semesterWeekData["currentWeek"]);
     if (week - 1 != showWeek) {
@@ -172,6 +209,7 @@ class ScheduleViewModel with ChangeNotifier {
     if (today.weekday == day) {
       // 计算当前课程为第几节课
       int currentSectionTime = index ~/ 7;
+
       const time = [
         "09:45",
         "11:40",
@@ -181,10 +219,17 @@ class ScheduleViewModel with ChangeNotifier {
       ];
       final now = DateTime.now();
       final currentHourAndMinute = "${now.hour}:${now.minute}";
+
+      // 最后一节课处理
+      if (currentSectionTime == 4 &&
+          currentHourAndMinute.compareTo(time[4]) >= 0) {
+        return heightColor;
+      }
+
       for (int i = 0; i < time.length; i++) {
         if (currentHourAndMinute.compareTo(time[i]) < 0) {
           if (currentSectionTime == i) {
-            return Theme.of(context).colorScheme.primary.withOpacity(0.3);
+            return heightColor;
           }
           break;
         }
@@ -214,43 +259,99 @@ class ScheduleViewModel with ChangeNotifier {
       pickerData.add(getTabPageWeek(S.of(context).scheduleViewCurrentWeek, i));
     }
 
+    var adapter = PickerDataAdapter<String>(pickerData: pickerData);
+
     // 弹出选择器
     Picker picker = Picker(
-        adapter: PickerDataAdapter<String>(pickerData: pickerData),
-        selecteds: [index],
-        changeToFirst: true,
-        textAlign: TextAlign.left,
-        columnPadding: EdgeInsets.only(
-          left: _screen.getLengthByOrientation(
-            vertical: 90.w,
-            horizon: 20.w,
+      adapter: adapter,
+      selecteds: [index],
+      changeToFirst: true,
+      textAlign: TextAlign.left,
+      headerDecoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 0.5,
           ),
+        ),
+      ),
+      columnPadding: EdgeInsets.only(
+        left: _screen.getLengthByOrientation(
+          vertical: 90.w,
+          horizon: 20.w,
+        ),
+        right: _screen.getLengthByOrientation(
+          vertical: 90.w,
+          horizon: 20.w,
+        ),
+        bottom: _screen.getLengthByOrientation(
+          vertical: 50.h,
+          horizon: 20.h,
+        ),
+        top: _screen.getLengthByOrientation(
+          vertical: 30.h,
+          horizon: 20.h,
+        ),
+      ),
+      containerColor:
+          Theme.of(context).colorScheme.primaryContainer.withOpacity(0.01),
+      backgroundColor: Colors.transparent,
+      height: _screen.getLengthByOrientation(
+        vertical: 500.w,
+        horizon: 150.w,
+      ),
+      itemExtent: _screen.getLengthByOrientation(
+        vertical: 70.w,
+        horizon: 40.w,
+      ),
+      confirm: Padding(
+        padding: EdgeInsets.only(
           right: _screen.getLengthByOrientation(
-            vertical: 90.w,
+            vertical: 20.w,
             horizon: 20.w,
           ),
-          bottom: _screen.getLengthByOrientation(
-            vertical: 50.h,
-            horizon: 20.h,
+        ),
+        child: TextButton(
+          onPressed: () {
+            adapter.picker!.doConfirm(context);
+          },
+          child: Text(
+            S.of(context).pickerConfirm,
+            style: TextStyle(
+              fontSize: _screen.getLengthByOrientation(
+                vertical: 30.sp,
+                horizon: 20.sp,
+              ),
+            ),
           ),
-          top: _screen.getLengthByOrientation(
-            vertical: 30.h,
-            horizon: 20.h,
+        ),
+      ),
+      cancel: Padding(
+        padding: EdgeInsets.only(
+          left: _screen.getLengthByOrientation(
+            vertical: 20.w,
+            horizon: 20.w,
           ),
         ),
-        height: _screen.getLengthByOrientation(
-          vertical: 500.w,
-          horizon: 500.w,
+        child: TextButton(
+          onPressed: () {
+            adapter.picker!.doCancel(context);
+          },
+          child: Text(
+            S.of(context).pickerCancel,
+            style: TextStyle(
+              fontSize: _screen.getLengthByOrientation(
+                vertical: 30.sp,
+                horizon: 20.sp,
+              ),
+            ),
+          ),
         ),
-        itemExtent: _screen.getLengthByOrientation(
-          vertical: 70.w,
-          horizon: 60.w,
-        ),
-        confirmText: S.of(context).pickerConfirm,
-        cancelText: S.of(context).pickerCancel,
-        onConfirm: (Picker picker, List value) {
-          tabController.animateTo(value[0]);
-        });
+      ),
+      onConfirm: (Picker picker, List value) {
+        tabController.animateTo(value[0]);
+      },
+    );
     picker.showModal(context);
   }
 }

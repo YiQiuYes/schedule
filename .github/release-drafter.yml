@@ -24,10 +24,13 @@ version-resolver:
   default: patch
 # 这里填写更新内容
 template: |
-  测试版 1.0.3
-  完成课表基本开发
-  完成首页跳转开发
-  添加网络权限
+  测试版 1.0.4
+  1.加入MarkDown文件介绍
+  2.禁用IOS Flutter Impeller引擎
+  3.修复竖屏不显示课程地址问题
+  4.修复课表高亮问题
+  5.优化splash查询随机图片api，减少卡顿
+  6.新增设置页面，增加版本更新查询
 
   $CHANGES
 no-changes-template: |

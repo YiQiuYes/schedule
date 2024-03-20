@@ -18,7 +18,14 @@
   "scheduleViewCurrentWeek" : "Week %%",
   "scheduleViewYearAndMonth" : "%%/&& Month",
 
-
   "pickerConfirm" : "Confirm",
-  "pickerCancel" : "Cancel"
+  "pickerCancel" : "Cancel",
+
+  "settingViewTitle" : "Setting",
+  "settingViewGroupAbout" : "About",
+  "settingViewUpdateMainTest" : "Version updates",
+  "settingViewCurrentVersion" : "Current version {version}",
+  "updateDialogConfirm" : "Confirm",
+  "updateDialogCancel" : "Cancel",
+  "updateDialogCurrentIsLastVersion": "The current version is the latest version!"
 }

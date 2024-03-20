@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
 class PersonView extends StatefulWidget {
@@ -17,6 +19,16 @@ class _PersonViewState extends State<PersonView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("页面功能正在开发中"));;
+    return ListView(
+      children: [
+        ListTile(
+          onTap: () {
+            GoRouter.of(context).push(GoRouteConfig.setting);
+          },
+          leading: const Icon(Icons.settings_rounded),
+          title: Text(S.of(context).settingViewTitle),
+        ),
+      ],
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 
 class FlutterToastUtil {
@@ -73,6 +74,27 @@ class FlutterToastUtil {
           ),
         ),
       ),
+      toastDuration: Duration(milliseconds: milliseconds),
+    );
+  }
+
+  static void showLoading({int milliseconds = 2000}) {
+    fToast.removeQueuedCustomToasts();
+    fToast.removeCustomToast();
+
+    fToast.showToast(
+      child: Lottie.asset(
+        "lib/assets/lotties/loading.json",
+        width: ScreenAdaptor().getLengthByOrientation(
+          vertical: 500.w,
+          horizon: 250.w,
+        ),
+        height: ScreenAdaptor().getLengthByOrientation(
+          vertical: 500.w,
+          horizon: 250.w,
+        ),
+      ),
+      gravity: ToastGravity.CENTER,
       toastDuration: Duration(milliseconds: milliseconds),
     );
   }

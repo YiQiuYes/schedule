@@ -389,7 +389,7 @@ class _ScheduleViewState extends State<ScheduleView>
             Text(
               ScheduleUtils.getCourseAddress(
                   globalModel.courseData[showWeek][index]),
-              maxLines: _screen.byOrientationReturn(vertical: 1, horizon: 2)!,
+              maxLines: _screen.byOrientationReturn(vertical: 2, horizon: 1)!,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

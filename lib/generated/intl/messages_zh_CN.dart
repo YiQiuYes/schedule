@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_CN';
 
+  static String m0(version) => "当前版本 ${version}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "loginViewAutoLogin":
@@ -46,6 +48,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "scheduleViewWeekName":
             MessageLookupByLibrary.simpleMessage("周一&周二&周三&周四&周五&周六&周日"),
         "scheduleViewYearAndMonth":
-            MessageLookupByLibrary.simpleMessage("%%/&&月")
+            MessageLookupByLibrary.simpleMessage("%%/&&月"),
+        "settingViewCurrentVersion": m0,
+        "settingViewGroupAbout": MessageLookupByLibrary.simpleMessage("关于"),
+        "settingViewTitle": MessageLookupByLibrary.simpleMessage("设置"),
+        "settingViewUpdateMainTest":
+            MessageLookupByLibrary.simpleMessage("版本更新"),
+        "updateDialogCancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "updateDialogConfirm": MessageLookupByLibrary.simpleMessage("确认"),
+        "updateDialogCurrentIsLastVersion":
+            MessageLookupByLibrary.simpleMessage("当前已是最新版本！")
       };
 }

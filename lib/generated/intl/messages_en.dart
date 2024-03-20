@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(version) => "Current version ${version}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "loginViewAutoLogin": MessageLookupByLibrary.simpleMessage(
@@ -48,6 +50,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "scheduleViewWeekName": MessageLookupByLibrary.simpleMessage(
             "Mon&Tues&Wed&Thur&Fri&Sat&Sun"),
         "scheduleViewYearAndMonth":
-            MessageLookupByLibrary.simpleMessage("%%/&& Month")
+            MessageLookupByLibrary.simpleMessage("%%/&& Month"),
+        "settingViewCurrentVersion": m0,
+        "settingViewGroupAbout": MessageLookupByLibrary.simpleMessage("About"),
+        "settingViewTitle": MessageLookupByLibrary.simpleMessage("Setting"),
+        "settingViewUpdateMainTest":
+            MessageLookupByLibrary.simpleMessage("Version updates"),
+        "updateDialogCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "updateDialogConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "updateDialogCurrentIsLastVersion":
+            MessageLookupByLibrary.simpleMessage(
+                "The current version is the latest version!")
       };
 }

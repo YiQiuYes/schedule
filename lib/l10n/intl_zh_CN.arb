@@ -19,5 +19,13 @@
   "scheduleViewYearAndMonth" : "%%/&&月",
 
   "pickerConfirm" : "确认",
-  "pickerCancel" : "取消"
+  "pickerCancel" : "取消",
+
+  "settingViewTitle" : "设置",
+  "settingViewGroupAbout" : "关于",
+  "settingViewUpdateMainTest" : "版本更新",
+  "settingViewCurrentVersion" : "当前版本 {version}",
+  "updateDialogConfirm" : "确认",
+  "updateDialogCancel" : "取消",
+  "updateDialogCurrentIsLastVersion" : "当前已是最新版本！"
 }

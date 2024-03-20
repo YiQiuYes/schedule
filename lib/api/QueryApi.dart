@@ -52,7 +52,7 @@ class QueryApi {
     _request.get("https://t.mwm.moe/mp", options: options).then((value) async {
       final result = value.data;
 
-      if (randomTwoDimensionalSpace.length > 100) {
+      if (randomTwoDimensionalSpace.length > 10) {
         randomTwoDimensionalSpace = randomTwoDimensionalSpace.sublist(0, 1);
         // 删除文件
         _file.deleteFileList(filePathList);

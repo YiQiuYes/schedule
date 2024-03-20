@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String apiOtherApi = 'lib/api/OtherApi.dart';
   static const String apiQueryApi = 'lib/api/QueryApi.dart';
   static const String apiUserApi = 'lib/api/UserApi.dart';
   static const String appMainAppMainView = 'lib/pages/appMain/AppMainView.dart';
@@ -10,6 +11,7 @@ class Assets {
   static const String functionFunctionView = 'lib/pages/function/FunctionView.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String generatedL10n = 'lib/generated/l10n.dart';
+  static const String imagesLogo = 'lib/assets/images/logo.png';
   static const String imagesSplash = 'lib/assets/images/splash.jpg';
   static const String intlMessagesAll = 'lib/generated/intl/messages_all.dart';
   static const String intlMessagesEn = 'lib/generated/intl/messages_en.dart';
@@ -25,6 +27,8 @@ class Assets {
   static const String routeGoRouteConfig = 'lib/route/GoRouteConfig.dart';
   static const String scheduleScheduleView = 'lib/pages/schedule/ScheduleView.dart';
   static const String scheduleScheduleViewModel = 'lib/pages/schedule/ScheduleViewModel.dart';
+  static const String settingSettingView = 'lib/pages/setting/SettingView.dart';
+  static const String settingSettingViewModel = 'lib/pages/setting/SettingViewModel.dart';
   static const String splashSplashView = 'lib/pages/splash/SplashView.dart';
   static const String splashSplashViewModel = 'lib/pages/splash/SplashViewModel.dart';
   static const String utilsAppTheme = 'lib/common/utils/AppTheme.dart';
@@ -32,6 +36,7 @@ class Assets {
   static const String utilsFileManager = 'lib/common/utils/FileManager.dart';
   static const String utilsFlutterToastUtil = 'lib/common/utils/FlutterToastUtil.dart';
   static const String utilsLoggerUtils = 'lib/common/utils/LoggerUtils.dart';
+  static const String utilsPackageInfoUtils = 'lib/common/utils/PackageInfoUtils.dart';
   static const String utilsPlatFormUtils = 'lib/common/utils/PlatFormUtils.dart';
   static const String utilsRequestManager = 'lib/common/utils/RequestManager.dart';
   static const String utilsScheduleUtils = 'lib/common/utils/ScheduleUtils.dart';

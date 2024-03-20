@@ -21,8 +21,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-    GoRouteConfig.setContext = context;
-    FToast().init(context);
     // 页面初始化
     _loginViewModel.loginViewModelInit();
     // 自动登录
@@ -38,6 +36,8 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    GoRouteConfig.setContext = context;
+
     return ChangeNotifierProvider.value(
       value: _loginViewModel,
       child: Scaffold(
