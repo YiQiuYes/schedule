@@ -33,7 +33,6 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/apache-snapshots/'}
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
 
-
         google()
         mavenCentral()
     }
