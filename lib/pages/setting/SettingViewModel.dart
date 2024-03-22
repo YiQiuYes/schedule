@@ -65,14 +65,35 @@ class SettingViewModel with ChangeNotifier {
           // 判断平台
           if (PlatformUtils.isAndroid) {
             for (String url in downloadUrls) {
-              if (url.contains("apk")) {
+              if (url.contains("android")) {
                 downloadUrl = url;
                 break;
               }
             }
           } else if (PlatformUtils.isIOS) {
             for (String url in downloadUrls) {
-              if (url.contains("ipa")) {
+              if (url.contains("ios")) {
+                downloadUrl = url;
+                break;
+              }
+            }
+          } else if(PlatformUtils.isWindows) {
+            for (String url in downloadUrls) {
+              if (url.contains("windows")) {
+                downloadUrl = url;
+                break;
+              }
+            }
+          } else if(PlatformUtils.isMacOS) {
+            for (String url in downloadUrls) {
+              if (url.contains("macos")) {
+                downloadUrl = url;
+                break;
+              }
+            }
+          } else if(PlatformUtils.isLinux) {
+            for (String url in downloadUrls) {
+              if (url.contains("linux")) {
                 downloadUrl = url;
                 break;
               }

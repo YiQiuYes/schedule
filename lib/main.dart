@@ -60,12 +60,12 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
-            fontFamily: PlatformUtils.isWeb ? '' : 'ZhuZiSWan',
+            fontFamily: 'ZhuZiSWan',
             brightness: Brightness.light,
           ),
           darkTheme: ThemeData(
             useMaterial3: true,
-            fontFamily: PlatformUtils.isWeb ? '' : 'ZhuZiSWan',
+            fontFamily: 'ZhuZiSWan',
             brightness: Brightness.dark,
           ),
           routerConfig: GoRouteConfig.router,

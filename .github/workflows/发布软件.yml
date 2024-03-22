@@ -33,8 +33,8 @@ jobs:
     name: 构建android软件
     runs-on: ubuntu-latest
     env:
-      version: ${{ needs.jobs_v.outputs.version }}
-      body: ${{ needs.jobs_v.outputs.body }}
+      version: ${{ needs.job_v.outputs.version }}
+      body: ${{ needs.job_v.outputs.body }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -73,8 +73,8 @@ jobs:
     name: 构建ios软件
     runs-on: macos-latest
     env:
-      version: ${{ needs.jobs_v.outputs.version }}
-      body: ${{ needs.jobs_v.outputs.body }}
+      version: ${{ needs.job_v.outputs.version }}
+      body: ${{ needs.job_v.outputs.body }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -99,13 +99,13 @@ jobs:
           name: ipa
           path: build/ios/iphoneos/ios-${{ env.version }}.ipa
 
-  jobs_windows:
+  job_windows:
     needs: job_v # 等待 jobs_v 任务完成才执行
     name: 构建windows软件
     runs-on: windows-latest
     env:
-      version: ${{ needs.jobs_v.outputs.version }}
-      body: ${{ needs.jobs_v.outputs.body }}
+      version: ${{ needs.job_v.outputs.version }}
+      body: ${{ needs.job_v.outputs.body }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -141,7 +141,7 @@ jobs:
           path: build/windows/runner/windows-${{ env.version }}.zip
 
   job_release:
-    needs: [ job_v,job_apk,job_ipa,jobs_windows ]
+    needs: [ job_v,job_apk,job_ipa,job_windows ]
     name: 发布版本
     runs-on: ubuntu-latest
     env:
