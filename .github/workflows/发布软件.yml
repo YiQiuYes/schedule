@@ -100,7 +100,7 @@ jobs:
           path: build/ios/iphoneos/ios-${{ env.version }}.ipa
 
   jobs_windows:
-    needs: jobs_v # 等待 jobs_v 任务完成才执行
+    needs: job_v # 等待 jobs_v 任务完成才执行
     name: 构建windows软件
     runs-on: windows-latest
     env:
