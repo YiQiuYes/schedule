@@ -45,8 +45,6 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>FLTEnableImpeller</key>
-    <false />
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>sms</string>

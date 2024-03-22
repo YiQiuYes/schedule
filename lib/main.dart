@@ -5,10 +5,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/GlobalModel.dart';
 import 'package:schedule/common/utils/AppTheme.dart';
-import 'package:schedule/common/utils/DataStorageManager.dart';
-import 'package:schedule/common/utils/FileManager.dart';
+import 'package:schedule/common/manager/DataStorageManager.dart';
+import 'package:schedule/common/manager/FileManager.dart';
 import 'package:schedule/common/utils/PackageInfoUtils.dart';
-import 'package:schedule/common/utils/RequestManager.dart';
+import 'package:schedule/common/manager/RequestManager.dart';
+import 'package:schedule/common/utils/PlatFormUtils.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
@@ -18,6 +19,7 @@ final globalModel = GlobalModel();
 Future<void> main() async {
   // 首先注册组件
   WidgetsFlutterBinding.ensureInitialized();
+
   // 初始化数据存储读取器
   await DataStorageManager().init();
 
@@ -58,12 +60,12 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
-            fontFamily: 'ZhuZiSWan',
+            fontFamily: PlatformUtils.isWeb ? '' : 'ZhuZiSWan',
             brightness: Brightness.light,
           ),
           darkTheme: ThemeData(
             useMaterial3: true,
-            fontFamily: 'ZhuZiSWan',
+            fontFamily: PlatformUtils.isWeb ? '' : 'ZhuZiSWan',
             brightness: Brightness.dark,
           ),
           routerConfig: GoRouteConfig.router,

@@ -7,7 +7,7 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:schedule/common/utils/LoggerUtils.dart';
-import 'package:schedule/common/utils/RequestManager.dart';
+import 'package:schedule/common/manager/RequestManager.dart';
 
 class UserApi {
   UserApi._privateConstructor();
@@ -88,15 +88,14 @@ class UserApi {
 
     res = await _request.post("/Logon.do?method=logon",
         params: params, options: options);
-
     if (res.data == "") {
       String url = res.headers.value("location")!;
       url = url.split("/jsxsd")[1];
-      url = "https://jwxt.hut.edu.cn/jsxsd$url";
+      url = "/jsxsd$url";
       res = await _request.get(url, options: options);
       url = res.headers.value("location")!;
       url = url.split("/jsxsd")[1];
-      url = "https://jwxt.hut.edu.cn/jsxsd$url";
+      url = "/jsxsd$url";
       res = await _request.get(url, options: options);
       return true;
     } else {

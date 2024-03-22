@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:lottie/lottie.dart';
 import 'dart:typed_data';
 
 import 'package:schedule/api/UserApi.dart';
-import 'package:schedule/common/utils/DataStorageManager.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/generated/l10n.dart';
@@ -26,6 +26,9 @@ class LoginViewModel with ChangeNotifier {
   // 密码是否可见
   bool obscureText = true;
 
+  // 获取验证码定时器
+  Timer? captchaTimer;
+
   // 验证码数据
   Future<Uint8List> captchaData = Future.value(Uint8List(0));
 
@@ -34,7 +37,11 @@ class LoginViewModel with ChangeNotifier {
 
   /// 初始化
   void loginViewModelInit() {
+    // 获取验证码
     captchaData = _userApi.getCaptcha();
+    captchaTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      changeCaptcha(isTimer: true);
+    });
     usernameController.text = globalModel.userInfoData["username"];
     passwordController.text = globalModel.userInfoData["password"];
     notifyListeners();
@@ -71,7 +78,7 @@ class LoginViewModel with ChangeNotifier {
           FToast().removeCustomToast();
           FlutterToastUtil.errorToast(S.of(context).loginViewLoginFiled);
           captchaController.clear();
-          changeCaptcha();
+          changeCaptcha(isTimer: false);
         }
       });
     } else {
@@ -86,21 +93,7 @@ class LoginViewModel with ChangeNotifier {
         globalModel.userInfoData["password"] != "") {
       // 显示加载动画 防止报错
       Future.delayed(const Duration(milliseconds: 10), () {
-        FToast().showToast(
-          child: Lottie.asset(
-            "lib/assets/lotties/loading.json",
-            width: ScreenAdaptor().getLengthByOrientation(
-              vertical: 500.w,
-              horizon: 250.w,
-            ),
-            height: ScreenAdaptor().getLengthByOrientation(
-              vertical: 500.w,
-              horizon: 250.w,
-            ),
-          ),
-          gravity: ToastGravity.CENTER,
-          toastDuration: const Duration(seconds: 60),
-        );
+        FlutterToastUtil.showLoading(milliseconds: 1000 * 60);
       });
 
       bool isLogin = await _userApi.autoLoginEducationalSystem(
@@ -119,14 +112,27 @@ class LoginViewModel with ChangeNotifier {
         FToast().removeQueuedCustomToasts();
         FToast().removeCustomToast();
         FlutterToastUtil.errorToast(S.current.loginViewAutoLogin);
-        changeCaptcha();
+        changeCaptcha(isTimer: false);
       }
     }
   }
 
   /// 点击切换验证码
-  void changeCaptcha() {
-    captchaData = _userApi.getCaptcha();
+  void changeCaptcha({required bool isTimer}) async {
+    Uint8List data = await captchaData;
+    if (isTimer && data.isNotEmpty) {
+      captchaTimer?.cancel();
+      return;
+    }
+
+    captchaData = _userApi.getCaptcha().then((value) {
+      captchaTimer?.cancel();
+      return value;
+    }).onError((error, stackTrace) {
+      FlutterToastUtil.errorToast(S.current.loginViewCaptchaFailed,
+          milliseconds: 5000);
+      return Uint8List(0);
+    });
     notifyListeners();
   }
 

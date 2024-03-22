@@ -1,6 +1,9 @@
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:schedule/api/OtherApi.dart';
+import 'package:schedule/api/UserApi.dart';
+import 'package:schedule/common/manager/RequestManager.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/PackageInfoUtils.dart';
@@ -32,9 +35,20 @@ class SettingViewModel with ChangeNotifier {
         FToast().removeCustomToast();
 
         String version = value['tag_name'].replaceAll("v", "");
+        List<String> netSplit = version.split(".");
+        List<String> localSplit = PackageInfoUtils.version.split(".");
+        bool isUpdate = false;
+        for (int i = 0; i < netSplit.length; i++) {
+          if (int.parse(netSplit[i]) > int.parse(localSplit[i])) {
+            isUpdate = true;
+            break;
+          } else if (int.parse(netSplit[i]) < int.parse(localSplit[i])) {
+            break;
+          }
+        }
 
         // logger.i("version: $version, info: $info");
-        if (version.compareTo(PackageInfoUtils.version) > 0) {
+        if (isUpdate) {
           // 有新版本
           // logger.i("有新版本");
 

@@ -170,6 +170,16 @@ class S {
     );
   }
 
+  /// `Verification code failed! Please check your network connection!`
+  String get loginViewCaptchaFailed {
+    return Intl.message(
+      'Verification code failed! Please check your network connection!',
+      name: 'loginViewCaptchaFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Mon&Tues&Wed&Thur&Fri&Sat&Sun`
   String get scheduleViewWeekName {
     return Intl.message(

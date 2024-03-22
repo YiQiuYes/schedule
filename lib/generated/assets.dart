@@ -23,6 +23,9 @@ class Assets {
   static const String loginLoginView = 'lib/pages/login/LoginView.dart';
   static const String loginLoginViewModel = 'lib/pages/login/LoginViewModel.dart';
   static const String lottiesLoading = 'lib/assets/lotties/loading.json';
+  static const String managerDataStorageManager = 'lib/common/manager/DataStorageManager.dart';
+  static const String managerFileManager = 'lib/common/manager/FileManager.dart';
+  static const String managerRequestManager = 'lib/common/manager/RequestManager.dart';
   static const String personPersonView = 'lib/pages/person/PersonView.dart';
   static const String routeGoRouteConfig = 'lib/route/GoRouteConfig.dart';
   static const String scheduleScheduleView = 'lib/pages/schedule/ScheduleView.dart';
@@ -32,13 +35,10 @@ class Assets {
   static const String splashSplashView = 'lib/pages/splash/SplashView.dart';
   static const String splashSplashViewModel = 'lib/pages/splash/SplashViewModel.dart';
   static const String utilsAppTheme = 'lib/common/utils/AppTheme.dart';
-  static const String utilsDataStorageManager = 'lib/common/utils/DataStorageManager.dart';
-  static const String utilsFileManager = 'lib/common/utils/FileManager.dart';
   static const String utilsFlutterToastUtil = 'lib/common/utils/FlutterToastUtil.dart';
   static const String utilsLoggerUtils = 'lib/common/utils/LoggerUtils.dart';
   static const String utilsPackageInfoUtils = 'lib/common/utils/PackageInfoUtils.dart';
   static const String utilsPlatFormUtils = 'lib/common/utils/PlatFormUtils.dart';
-  static const String utilsRequestManager = 'lib/common/utils/RequestManager.dart';
   static const String utilsScheduleUtils = 'lib/common/utils/ScheduleUtils.dart';
   static const String utilsScreenAdaptor = 'lib/common/utils/ScreenAdaptor.dart';
 

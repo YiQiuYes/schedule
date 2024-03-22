@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schedule/api/QueryApi.dart';
-import 'package:schedule/common/utils/DataStorageManager.dart';
+import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
 class SplashViewModel with ChangeNotifier {

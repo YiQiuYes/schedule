@@ -53,7 +53,7 @@
 
 基于 [MIT license](https://opensource.org/licenses/MIT) 许可进行开源。
 
-## 🖼️ 截图
+## 截图
 
 ![splash][splash-screenshot]
 ![login][login-screenshot]

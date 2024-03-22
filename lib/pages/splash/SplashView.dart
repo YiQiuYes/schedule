@@ -16,7 +16,6 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    GoRouteConfig.setContext = context;
     _viewModel.getRandomHomeImg();
     // 跳转主页面
     _viewModel.navigateToSchedule(context, 2500);

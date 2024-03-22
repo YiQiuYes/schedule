@@ -36,8 +36,6 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    GoRouteConfig.setContext = context;
-
     return ChangeNotifierProvider.value(
       value: _loginViewModel,
       child: Scaffold(
@@ -299,7 +297,9 @@ class _LoginViewState extends State<LoginView> {
                       if (snapshot.connectionState == ConnectionState.done &&
                           snapshot.data!.isNotEmpty) {
                         return InkWell(
-                          onTap: model.changeCaptcha,
+                          onTap: () {
+                            model.changeCaptcha(isTimer: false);
+                          },
                           child: SizedBox(
                             width: _screen.getLengthByOrientation(
                               vertical: 130.w,

@@ -27,6 +27,7 @@ jobs:
         run: |
           echo ${{ format('version={0}', steps.create_version.outputs.tag_name ) }} 
 
+
   job_apk:
     needs: job_v # 等待 jobs_v 任务完成才执行
     name: 构建android软件
@@ -53,17 +54,19 @@ jobs:
         with:
           flutter-version: '3.13.9'
       - run: flutter pub get
-      - run: flutter build apk --release
+      - run: flutter build apk --release --target-platform android-arm,android-arm64
         env:
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           ALIAS: ${{ secrets.ALIAS }}
           KEY_PATH: key.jks
+      - name: 重命名文件
+        run: mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/android-${{ env.version }}.apk
       - name: 上传产物
         uses: actions/upload-artifact@v3
         with:
           name: apk
-          path: build/app/outputs/apk/release/app-release.apk
+          path: build/app/outputs/apk/release/android-${{ env.version }}.apk
 
   job_ipa:
     needs: job_v
@@ -82,19 +85,63 @@ jobs:
       - name: 编译环境设置
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
-          architecture: x64
+#          channel: 'stable'
+#          architecture: x64
+          flutter-version: '3.13.9'
       - name: Build (ios)
         run: |
           sh scripts/build-ipa.sh
+      - name: 重命名文件
+        run:  mv build/ios/iphoneos/release-ios.ipa build/ios/iphoneos/ios-${{ env.version }}.ipa
       - name: 上传产物
         uses: actions/upload-artifact@v3
         with:
           name: ipa
-          path: build/ios/iphoneos/release-ios.ipa
+          path: build/ios/iphoneos/ios-${{ env.version }}.ipa
+
+  jobs_windows:
+    needs: jobs_v # 等待 jobs_v 任务完成才执行
+    name: 构建windows软件
+    runs-on: windows-latest
+    env:
+      version: ${{ needs.jobs_v.outputs.version }}
+      body: ${{ needs.jobs_v.outputs.body }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: 读入环境信息
+        run: |
+          echo ${{ format('version {0}', env.version ) }} # 版本号
+      - name: Flutter 环境
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.9'
+      - run: flutter pub get
+      - run: flutter build windows --release
+      - name: 压缩文件
+        # 删除android,ios,windows,linux,build,test文件夹
+        run: |
+          del build/windows/runner/Release/data/flutter_assets/android*
+          del build/windows/runner/Release/data/flutter_assets/ios*
+          del build/windows/runner/Release/data/flutter_assets/windows*
+          del build/windows/runner/Release/data/flutter_assets/linux*
+          del build/windows/runner/Release/data/flutter_assets/build*
+          del build/windows/runner/Release/data/flutter_assets/test*
+          del build/windows/runner/Release/data/flutter_assets/assets*
+          del build/windows/runner/Release/data/flutter_assets/.*
+          cd build/windows/runner
+          ren Release windows
+          curl -o zip.exe http://stahlworks.com/dev/zip.exe
+          .\zip -9 -r windows-${{ env.version }}.zip windows
+      - name: 上传产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows
+          path: build/windows/runner/windows-${{ env.version }}.zip
 
   job_release:
-    needs: [ job_v,job_apk,job_ipa ]
+    needs: [ job_v,job_apk,job_ipa,jobs_windows ]
     name: 发布版本
     runs-on: ubuntu-latest
     env:
@@ -121,4 +168,4 @@ jobs:
           #prerelease: true # 预发布 别人可以看到 版本号会继续加
           tag: ${{ env.version }} # 版本号 v0.1.0
           body: ${{ env.body }} # 输出的内容
-          artifacts: "apk/*.apk,ipa/*.ipa"
+          artifacts: "apk/*.apk,ipa/*.ipa,windows/*.zip"

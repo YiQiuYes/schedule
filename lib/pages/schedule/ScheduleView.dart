@@ -27,7 +27,6 @@ class _ScheduleViewState extends State<ScheduleView>
   @override
   void initState() {
     super.initState();
-    GoRouteConfig.setContext = context;
     scheduleViewModel.init();
     scheduleViewModel.initTabController(this);
   }

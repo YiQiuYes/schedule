@@ -8,10 +8,11 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/services.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:schedule/common/utils/DataStorageManager.dart';
-import 'package:schedule/common/utils/FileManager.dart';
+import 'package:schedule/common/manager/DataStorageManager.dart';
+import 'package:schedule/common/manager/FileManager.dart';
 import 'package:schedule/common/utils/LoggerUtils.dart';
-import 'package:schedule/common/utils/RequestManager.dart';
+import 'package:schedule/common/manager/RequestManager.dart';
+import 'package:schedule/common/utils/PlatFormUtils.dart';
 
 class QueryApi {
   QueryApi._privateConstructor();
@@ -33,7 +34,7 @@ class QueryApi {
   Future<Uint8List> getRandomTwoDimensionalSpace() async {
     // 判断本地是否有缓存
     List<String> filePathList =
-        _file.loadFileList(headerPath: "randomTwoDimensionalSpace");
+        await _file.loadFileList(headerPath: "randomTwoDimensionalSpace");
 
     late List<Uint8List> randomTwoDimensionalSpace;
     if (filePathList.isNotEmpty) {
@@ -55,7 +56,7 @@ class QueryApi {
       if (randomTwoDimensionalSpace.length > 10) {
         randomTwoDimensionalSpace = randomTwoDimensionalSpace.sublist(0, 1);
         // 删除文件
-        _file.deleteFileList(filePathList);
+        await _file.deleteFileList(filePathList);
       }
 
       randomTwoDimensionalSpace.add(result);

@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginViewAutoLogin":
             MessageLookupByLibrary.simpleMessage("自动登录失败，请手动登录！"),
         "loginViewCaptcha": MessageLookupByLibrary.simpleMessage("验证码"),
+        "loginViewCaptchaFailed":
+            MessageLookupByLibrary.simpleMessage("验证码获取失败！请检查网络连接！"),
         "loginViewGreatText":
             MessageLookupByLibrary.simpleMessage("你好，欢迎使用易秋课表！"),
         "loginViewLoginButton": MessageLookupByLibrary.simpleMessage("点击登录"),

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:schedule/api/QueryApi.dart';
-import 'package:schedule/common/utils/DataStorageManager.dart';
+import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/common/utils/ScheduleUtils.dart';
 
 class GlobalModel extends ChangeNotifier {

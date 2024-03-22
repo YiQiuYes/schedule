@@ -12,7 +12,6 @@ class _FunctionViewState extends State<FunctionView> {
   @override
   void initState() {
     super.initState();
-    GoRouteConfig.setContext = context;
   }
 
   @override

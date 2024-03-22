@@ -132,11 +132,9 @@ class ScheduleViewModel with ChangeNotifier {
       "20:40",
     ];
     final now = DateTime.now();
-    final currentHourAndMinute = "${now.hour}:${now.minute}";
-    // 最后一节课处理
-    if (index == 4 && currentHourAndMinute.compareTo(time[4]) >= 0) {
-      return defaultColor;
-    }
+    final currentHourAndMinute =
+        "${now.hour < 10 ? "0${now.hour}" : now.hour}:${now.minute}";
+
     for (int i = 0; i < time.length; i++) {
       if (currentHourAndMinute.compareTo(time[i]) < 0) {
         if (index == i) {
@@ -145,8 +143,6 @@ class ScheduleViewModel with ChangeNotifier {
         break;
       }
     }
-    return null;
-
     return null;
   }
 
@@ -174,12 +170,8 @@ class ScheduleViewModel with ChangeNotifier {
       ),
     ];
     final now = DateTime.now();
-    final currentHourAndMinute = "${now.hour}:${now.minute}";
-
-    // 最后一节课处理
-    if (index == 4 && currentHourAndMinute.compareTo(time[4]) >= 0) {
-      return defaultShadowList;
-    }
+    final currentHourAndMinute =
+        "${now.hour < 10 ? "0${now.hour}" : now.hour}:${now.minute}";
 
     for (int i = 0; i < time.length; i++) {
       if (currentHourAndMinute.compareTo(time[i]) < 0) {
@@ -218,13 +210,7 @@ class ScheduleViewModel with ChangeNotifier {
         "20:40",
       ];
       final now = DateTime.now();
-      final currentHourAndMinute = "${now.hour}:${now.minute}";
-
-      // 最后一节课处理
-      if (currentSectionTime == 4 &&
-          currentHourAndMinute.compareTo(time[4]) >= 0) {
-        return heightColor;
-      }
+      final currentHourAndMinute = "${now.hour < 10 ? "0${now.hour}" : now.hour}:${now.minute}";
 
       for (int i = 0; i < time.length; i++) {
         if (currentHourAndMinute.compareTo(time[i]) < 0) {
@@ -320,7 +306,7 @@ class ScheduleViewModel with ChangeNotifier {
             style: TextStyle(
               fontSize: _screen.getLengthByOrientation(
                 vertical: 30.sp,
-                horizon: 20.sp,
+                horizon: 15.sp,
               ),
             ),
           ),
@@ -342,7 +328,7 @@ class ScheduleViewModel with ChangeNotifier {
             style: TextStyle(
               fontSize: _screen.getLengthByOrientation(
                 vertical: 30.sp,
-                horizon: 20.sp,
+                horizon: 15.sp,
               ),
             ),
           ),

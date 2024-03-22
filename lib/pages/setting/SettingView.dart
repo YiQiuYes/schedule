@@ -6,36 +6,46 @@ import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/pages/setting/SettingViewModel.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
-class SettingView extends StatelessWidget {
-  const SettingView({super.key, required this.settingViewModel});
+class SettingView extends StatefulWidget {
+  const SettingView({super.key});
 
-  final SettingViewModel settingViewModel;
+  @override
+  State<SettingView> createState() => _SettingViewState();
+}
+
+class _SettingViewState extends State<SettingView> {
+  final SettingViewModel settingViewModel = SettingViewModel();
+
+  final _screen = ScreenAdaptor();
 
   @override
   Widget build(BuildContext context) {
-    GoRouteConfig.context = context;
-
     return ChangeNotifierProvider.value(
       value: settingViewModel,
       child: Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              // 获取SliverAppBar
-              _getSliverAppBar(context),
-            ];
-          },
-          body: CustomScrollView(
-            slivers: [
-              SliverList.list(
-                children: [
-                  // 关于文本
-                  _getGroupText(context, S.of(context).settingViewGroupAbout),
-                  // 获取版本更新
-                  _getVersionUpdate(context),
-                ],
-              ),
-            ],
+        body: SafeArea(
+          left: false,
+          right: false,
+          bottom: false,
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                // 获取SliverAppBar
+                _getSliverAppBar(context),
+              ];
+            },
+            body: CustomScrollView(
+              slivers: [
+                SliverList.list(
+                  children: [
+                    // 关于文本
+                    _getGroupText(context, S.of(context).settingViewGroupAbout),
+                    // 获取版本更新
+                    _getVersionUpdate(context),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -45,7 +55,10 @@ class SettingView extends StatelessWidget {
   /// 获取SliverAppBar
   Widget _getSliverAppBar(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 120,
+      expandedHeight: _screen.getLengthByOrientation(
+        vertical: 150.w,
+        horizon: 55.w,
+      ),
       pinned: true,
       surfaceTintColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
@@ -147,3 +160,4 @@ class SettingView extends StatelessWidget {
     );
   }
 }
+

@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginViewAutoLogin": MessageLookupByLibrary.simpleMessage(
             "Auto login failed, please log in manually!"),
         "loginViewCaptcha": MessageLookupByLibrary.simpleMessage("Captcha"),
+        "loginViewCaptchaFailed": MessageLookupByLibrary.simpleMessage(
+            "Verification code failed! Please check your network connection!"),
         "loginViewGreatText": MessageLookupByLibrary.simpleMessage(
             "Hello, welcome to use this YiQiu schedule!"),
         "loginViewLoginButton":

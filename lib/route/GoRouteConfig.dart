@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:schedule/common/utils/DataStorageManager.dart';
+import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
 import 'package:schedule/pages/login/LoginView.dart';
@@ -16,13 +16,10 @@ class GoRouteConfig {
   static const String login = '/login';
   static const String setting = '/setting';
 
-  static BuildContext? context;
-
-  // settingViewModel
-  static final _settingViewModel = SettingViewModel();
+  static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: appMain,
+    initialLocation: splash,
     redirect: (context, state) {
       if (state.fullPath == splash) {
         return splash;
@@ -38,32 +35,44 @@ class GoRouteConfig {
       GoRoute(
         name: 'splash',
         path: splash,
-        builder: (context, state) => const SplashView(),
+        builder: (context, state) {
+          _setContext = context;
+          return const SplashView();
+        },
       ),
       GoRoute(
         name: 'appMain',
         path: appMain,
-        builder: (context, state) => const AppMainView(),
+        builder: (context, state) {
+          _setContext = context;
+          return const AppMainView();
+        },
       ),
       GoRoute(
         name: 'login',
         path: login,
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) {
+          _setContext = context;
+          return const LoginView();
+        },
       ),
       GoRoute(
         name: 'setting',
         path: setting,
-        builder: (context, state) => SettingView(
-          settingViewModel: _settingViewModel,
-        ),
+        builder: (context, state) {
+          _setContext = context;
+          return const SettingView();
+        },
       ),
     ],
   );
 
   static GoRouter get router => _router;
 
-  static set setContext(BuildContext context) {
-    GoRouteConfig.context = context;
+  static BuildContext get context => _context;
+
+  static set _setContext(BuildContext context) {
+    _context = context;
     FToast().init(context);
   }
 }

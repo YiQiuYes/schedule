@@ -24,7 +24,6 @@ class _AppMainViewState extends State<AppMainView>
   @override
   void initState() {
     super.initState();
-    GoRouteConfig.setContext = context;
     // 设置tabbar控制器
     _scheduleViewModel.setTabController = TabController(
       initialIndex: 0,

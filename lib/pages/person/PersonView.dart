@@ -14,7 +14,6 @@ class _PersonViewState extends State<PersonView> {
   @override
   void initState() {
     super.initState();
-    GoRouteConfig.setContext = context;
   }
 
   @override
