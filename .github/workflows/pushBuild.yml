@@ -1,4 +1,4 @@
-name: 发布软件
+name: PushBuild
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     env:
       version: "pushAction"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: 编译环境设置 Java 17
@@ -49,7 +49,7 @@ jobs:
     env:
       version: "pushAction"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: 编译环境设置
@@ -64,7 +64,7 @@ jobs:
       - name: 上传产物
         uses: actions/upload-artifact@v3
         with:
-          name: ipa
+          name: ios
           path: build/ios/iphoneos/ios-${{ env.version }}.ipa
 
   job_windows:
@@ -74,7 +74,7 @@ jobs:
       version: "pushAction"
       versionNoV: "1.0.0"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Flutter 环境
@@ -126,7 +126,7 @@ jobs:
     env:
       version: "pushAction"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: 读入环境信息
