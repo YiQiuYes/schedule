@@ -76,7 +76,7 @@ jobs:
       - name: 重命名文件
         run: mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/android-${{ env.version }}.apk
       - name: 上传产物
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: android
           path: build/app/outputs/apk/release/android-${{ env.version }}.apk
@@ -105,7 +105,7 @@ jobs:
       - name: 重命名文件
         run:  mv build/ios/iphoneos/release-ios.ipa build/ios/iphoneos/ios-${{ env.version }}.ipa
       - name: 上传产物
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: ios
           path: build/ios/iphoneos/ios-${{ env.version }}.ipa
@@ -161,7 +161,7 @@ jobs:
           mv dist/schedule-windows-x86_64-setup.exe dist/schedule-windows-${{env.version}}-x86_64-setup.exe
 
       - name: 上传产物
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: windows
           path: |
@@ -195,7 +195,7 @@ jobs:
         run: |
           mv build/macos/Build/Products/Release/*.dmg build/macos/Build/Products/Release/macos-${{env.version}}.dmg
       - name: 上传产物
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: macos
           path: build/macos/Build/Products/Release/*.dmg
@@ -247,7 +247,7 @@ jobs:
           mv dist/**/schedule-*-linux.deb dist/schedule-linux-${{ env.version }}-x86_64.deb
           mv dist/**/schedule-*-linux.rpm dist/schedule-linux-${{ env.version }}-x86_64.rpm
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
           name: linux
