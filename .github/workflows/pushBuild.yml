@@ -44,7 +44,6 @@ jobs:
           path: build/app/outputs/apk/release/android-${{ env.version }}.apk
 
   job_ipa:
-    needs: job_v
     name: 构建ios软件
     runs-on: macos-latest
     env:
@@ -69,7 +68,6 @@ jobs:
           path: build/ios/iphoneos/ios-${{ env.version }}.ipa
 
   job_windows:
-    needs: job_v # 等待 jobs_v 任务完成才执行
     name: 构建windows软件
     runs-on: windows-latest
     env:
@@ -123,7 +121,6 @@ jobs:
             dist/schedule-windows-${{env.version}}-x86_64-setup.exe
 
   job_macos:
-    needs: job_v
     name: 构建macos
     runs-on: macos-latest
     env:
@@ -154,7 +151,6 @@ jobs:
           path: build/macos/Build/Products/Release/*.dmg
 
   job_linux:
-    needs: job_v
     name: 构建ubuntu
     runs-on: ubuntu-latest
     env:
