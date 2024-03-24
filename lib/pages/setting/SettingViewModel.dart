@@ -78,12 +78,7 @@ class SettingViewModel with ChangeNotifier {
               }
             }
           } else if(PlatformUtils.isWindows) {
-            for (String url in downloadUrls) {
-              if (url.contains("windows")) {
-                downloadUrl = url;
-                break;
-              }
-            }
+            downloadUrl = "https://github.com/YiQiuYes/schedule/releases";
           } else if(PlatformUtils.isMacOS) {
             for (String url in downloadUrls) {
               if (url.contains("macos")) {
@@ -92,12 +87,7 @@ class SettingViewModel with ChangeNotifier {
               }
             }
           } else if(PlatformUtils.isLinux) {
-            for (String url in downloadUrls) {
-              if (url.contains("linux")) {
-                downloadUrl = url;
-                break;
-              }
-            }
+            downloadUrl = "https://github.com/YiQiuYes/schedule/releases";
           }
 
           // 弹窗显示

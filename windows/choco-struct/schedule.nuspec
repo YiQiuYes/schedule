@@ -28,4 +28,7 @@
     </description>
     <releaseNotes>https://github.com/YiQiuYes/schedule/releases/tag/v%{{SCHEDULE_VERSION}}%</releaseNotes>
   </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
 </package>
