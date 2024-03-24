@@ -1,0 +1,26 @@
+icon: assets/images/logo.png
+summary: Schedule Application
+group: Applications/Schedule
+vendor: YiQiu
+packager: YiQiu
+packagerEmail: krtirtho@gmail.com
+license: BSD-4-Clause
+url: https://github.com/KRTirtho/spotube
+requires:
+  - mpv
+  - libappindicator
+  - jsoncpp
+  - libsecret
+  - libnotify
+  - xdg-user-dirs
+
+display_name: Schedule
+
+keywords:
+  - Schedule
+
+generic_name: Schedule Application
+categories:
+  - Schedule
+
+startup_notify: true

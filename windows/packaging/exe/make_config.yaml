@@ -1,0 +1,9 @@
+app_id: 80B901C8-D6FE-494E-8AF7-A2BD440E8644
+publisher: YiQiu
+publisher_url: https://github.com/YiQiuYes/schedule
+display_name: schedule
+create_desktop_icon: true
+install_dir_name: schedule
+script_template: inno_setup.iss
+locales:
+  - zh-CN

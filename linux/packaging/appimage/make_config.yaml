@@ -1,0 +1,12 @@
+display_name: Schedule
+icon: assets/images/logo.png
+
+keywords:
+  - Schedule
+
+generic_name: Schedule Application
+categories:
+  - Music
+
+supported_mime_type:
+  - x-scheme-handler/spotify

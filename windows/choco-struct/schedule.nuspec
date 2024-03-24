@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <!-- == PACKAGE SPECIFIC SECTION == -->
+    <id>schedule</id>
+    <version>%{{SCHEDULE_VERSION}}%</version>
+    <packageSourceUrl>https://github.com/YiQiuYes/schedule/tree/master/windows/choco-struct</packageSourceUrl>
+    <owners>YiQiu</owners>
+    <!-- ============================== -->
+
+    <!-- == SOFTWARE SPECIFIC SECTION == -->
+    <title>schedule (Install)</title>
+    <authors>YiQiu</authors>
+    <projectUrl>https://github.com/YiQiuYes/schedule/</projectUrl>
+    <iconUrl>https://github.com/YiQiuYes/schedule/blob/e3c8b5dffd3450bd90b12aa27bdccdaecc50d2f5/assets/images/logo.png</iconUrl>
+    <copyright>2024 Schedule</copyright>
+    <!-- If there is a license Url available, it is required for the community feed -->
+    <licenseUrl>https://github.com/YiQiuYes/schedule/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <projectSourceUrl>https://github.com/YiQiuYes/schedule</projectSourceUrl>
+    <docsUrl>https://github.com/KRTirtho/spotube#readme</docsUrl>
+    <bugTrackerUrl>https://github.com/YiQiuYes/schedule/issues/new</bugTrackerUrl>
+    <tags>schedule flutter</tags>
+    <summary>welcome come to use schedule!</summary>
+    <description>
+    A schedule for QiangZhi JWXT.
+    </description>
+    <releaseNotes>https://github.com/YiQiuYes/schedule/releases/tag/v%{{SCHEDULE_VERSION}}%</releaseNotes>
+  </metadata>
+</package>

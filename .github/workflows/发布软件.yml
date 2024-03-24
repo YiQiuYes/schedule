@@ -1,9 +1,6 @@
 name: 发布软件
 
 on:
-  push: # 代码推送到master分支自动触发工作流
-    branches:
-      - master
   workflow_dispatch: # 手动触发
 
 permissions: write-all # 给所有工作写权限
@@ -26,7 +23,6 @@ jobs:
       - name: 查看变量
         run: |
           echo ${{ format('version={0}', steps.create_version.outputs.tag_name ) }} 
-
 
   job_apk:
     needs: job_v # 等待 jobs_v 任务完成才执行
@@ -65,7 +61,7 @@ jobs:
       - name: 上传产物
         uses: actions/upload-artifact@v3
         with:
-          name: apk
+          name: android
           path: build/app/outputs/apk/release/android-${{ env.version }}.apk
 
   job_ipa:
@@ -140,8 +136,97 @@ jobs:
           name: windows
           path: build/windows/runner/windows-${{ env.version }}.zip
 
+  job_macos:
+    needs: job_v
+    name: 构建macos
+    runs-on: macos-latest
+    env:
+      version: ${{ needs.job_v.outputs.version }}
+      body: ${{ needs.job_v.outputs.body }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: 读入环境信息
+        run: |
+          echo ${{ format('version {0}', env.version ) }} # 版本号
+      - name: 构建Flutter环境
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.9'
+      - name: 编译dmg
+        run: |
+          flutter pub get
+          flutter build macos --release
+          sh scripts/build-macos.sh
+      - name: 重命名文件
+        run: |
+          mv build/macos/Build/Products/Release/*.dmg build/macos/Build/Products/Release/macos-${{env.version}}.dmg
+      - name: 上传产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos
+          path: build/macos/Build/Products/Release/*.dmg
+
+  job_linux:
+    needs: job_v
+    name: 构建ubuntu
+    runs-on: ubuntu-latest
+    env:
+      version: ${{ needs.job_v.outputs.version }}
+      body: ${{ needs.job_v.outputs.body }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Flutter 环境
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.9'
+
+      - name: 安装依赖
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y tar clang cmake ninja-build pkg-config libgtk-3-dev make python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libunwind-dev locate patchelf gir1.2-appindicator3-0.1 libappindicator3-1 libappindicator3-dev libsecret-1-0 libjsoncpp25 libsecret-1-dev libjsoncpp-dev libnotify-bin libnotify-dev mpv libmpv-dev
+
+      - name: 安装 AppImage Tool工具
+        run: |
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool
+          mv appimagetool /usr/local/bin/
+
+      - name: 开始构建
+        run: |
+          flutter config --enable-linux-desktop
+          flutter pub get
+          dart run build_runner build --delete-conflicting-outputs --enable-experiment=records,patterns
+
+      - name: 打包
+        run: |
+          dart pub global activate flutter_distributor
+          alias dpkg-deb="dpkg-deb --Zxz"
+          flutter_distributor package --platform=linux --targets=deb
+          flutter_distributor package --platform=linux --targets=rpm
+
+      - name: 创建 tar.xz
+        run: make tar VERSION=${{ env.version }} ARCH=x64 PKG_ARCH=x86_64
+
+      - name: Move Files to dist
+        run: |
+          mv build/schedule-linux-${{ env.version }}-x86_64.tar.xz dist/
+          mv dist/**/schedule-*-linux.deb dist/schedule-linux-${{ env.version }}-x86_64.deb
+          mv dist/**/schedule-*-linux.rpm dist/schedule-linux-${{ env.version }}-x86_64.rpm
+
+      - uses: actions/upload-artifact@v3
+        with:
+          if-no-files-found: error
+          name: linux
+          path: |
+            dist/schedule-linux-${{ env.version }}-x86_64.deb
+            dist/schedule-linux-${{ env.version }}-x86_64.rpm
+            dist/schedule-linux-${{ env.version }}-x86_64.tar.xz
+
+
   job_release:
-    needs: [ job_v,job_apk,job_ipa,job_windows ]
+    needs: [ job_v,job_apk,job_ipa,job_windows,job_macos,job_linux ]
     name: 发布版本
     runs-on: ubuntu-latest
     env:
@@ -168,4 +253,4 @@ jobs:
           #prerelease: true # 预发布 别人可以看到 版本号会继续加
           tag: ${{ env.version }} # 版本号 v0.1.0
           body: ${{ env.body }} # 输出的内容
-          artifacts: "apk/*.apk,ipa/*.ipa,windows/*.zip"
+          artifacts: "android/*,ipa/*,windows/*,macos/*"

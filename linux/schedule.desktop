@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Schedule
+Exec=/usr/bin/schedule
+Icon=/usr/share/icons/schedule/logo.png
+Comment=A Schedule App
+Terminal=false
+Categories=Schedule;
