@@ -22,6 +22,5 @@ innoinstall:
 	powershell build/installer.exe /verysilent /allusers /dir=build/iscc
 
 choco:
-	powershell mkdir windows/choco-struct/tools
 	powershell cp dist/schedule-windows-x86_64-setup.exe windows/choco-struct/tools
 	powershell choco pack ./windows/choco-struct/schedule.nuspec  --outputdirectory dist
