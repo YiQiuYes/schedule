@@ -1,4 +1,4 @@
-name: 发布软件
+name: Release
 
 on:
   workflow_dispatch: # 手动触发
@@ -37,7 +37,7 @@ jobs:
       version: ${{ needs.job_v.outputs.version }}
       body: ${{ needs.job_v.outputs.body }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: 读入环境信息
@@ -77,7 +77,7 @@ jobs:
       version: ${{ needs.job_v.outputs.version }}
       body: ${{ needs.job_v.outputs.body }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: 读入环境信息
@@ -95,7 +95,7 @@ jobs:
       - name: 上传产物
         uses: actions/upload-artifact@v3
         with:
-          name: ipa
+          name: ios
           path: build/ios/iphoneos/ios-${{ env.version }}.ipa
 
   job_windows:
@@ -107,7 +107,7 @@ jobs:
       body: ${{ needs.job_v.outputs.body }}
       versionNoV: ${{ inputs.version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: 读入环境信息
@@ -164,7 +164,7 @@ jobs:
       version: ${{ needs.job_v.outputs.version }}
       body: ${{ needs.job_v.outputs.body }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: 读入环境信息
@@ -273,4 +273,4 @@ jobs:
           #prerelease: true # 预发布 别人可以看到 版本号会继续加
           tag: ${{ env.version }} # 版本号 v0.1.0
           body: ${{ env.body }} # 输出的内容
-          artifacts: "android/*,ipa/*,windows/*,macos/*"
+          artifacts: "android/*,ios/*,windows/*,macos/*,linux/*"
