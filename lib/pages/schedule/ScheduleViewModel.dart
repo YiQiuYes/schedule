@@ -17,6 +17,9 @@ class ScheduleViewModel with ChangeNotifier {
 
   final _screen = ScreenAdaptor();
 
+  // 课程背景颜色高亮的是哪一节课
+  int isCourseColorHighLightIndex = 0;
+
   /// 初始化
   void init() {
     // 获取课程数据
@@ -210,14 +213,23 @@ class ScheduleViewModel with ChangeNotifier {
         "20:40",
       ];
       final now = DateTime.now();
-      final currentHourAndMinute = "${now.hour < 10 ? "0${now.hour}" : now.hour}:${now.minute}";
+      final currentHourAndMinute =
+          "${now.hour < 10 ? "0${now.hour}" : now.hour}:${now.minute}";
 
       for (int i = 0; i < time.length; i++) {
         if (currentHourAndMinute.compareTo(time[i]) < 0) {
           if (currentSectionTime == i) {
             return heightColor;
+          } else if (currentSectionTime > i) {
+            for (int j = day - 1;
+                j < index;
+                j += 7) {
+              if (globalModel.courseData[showWeek][j].isNotEmpty) {
+                return defaultColor;
+              }
+            }
+            return heightColor;
           }
-          break;
         }
       }
       return defaultColor;

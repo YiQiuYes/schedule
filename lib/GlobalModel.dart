@@ -1,30 +1,41 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:schedule/api/QueryApi.dart';
 import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/common/utils/ScheduleUtils.dart';
+import 'package:schedule/main.dart';
+import 'package:schedule/route/GoRouteConfig.dart';
+
+import 'common/utils/LoggerUtils.dart';
 
 class GlobalModel extends ChangeNotifier {
   // 课程数据
   List<dynamic> _courseData = List.generate(20, (index) => []);
   // 设置数据
-  Map<String, dynamic> _settings = {
+  final Map<String, dynamic> _settings = {
     "isLogin": false,
     "load20CountCourse": false,
+    "language": "default",
+    "deviceLocale": "zh-CN"
   };
   // 学期周次数据
-  Map<String, dynamic> _semesterWeekData = {
+  final Map<String, dynamic> _semesterWeekData = {
     "semester": "2023-2024-2",
     "startDay": "2024-3-4",
     "currentWeek": "3",
   };
   // 用户个人数据
-  Map<String, dynamic> _userInfoData = {
+  final Map<String, dynamic> _userInfoData = {
     "username": "",
     "password": "",
   };
+
+  // 定时器刷新数据
+  Timer? _timer;
 
   final _storage = DataStorageManager();
   final queryApi = QueryApi();
@@ -42,6 +53,12 @@ class GlobalModel extends ChangeNotifier {
 
   /// 初始化
   void init() {
+    _timer ??= Timer.periodic(const Duration(minutes: 10), (timer) {
+      logger.i("定时器刷新数据");
+      init();
+      notifyListeners();
+    });
+
     // 读取课程数据
     String? courseDataStr = _storage.getString("courseData");
     if (courseDataStr != null) {
@@ -53,7 +70,16 @@ class GlobalModel extends ChangeNotifier {
     // 读取设置数据
     String? settingsStr = _storage.getString("settings");
     if (settingsStr != null) {
-      _settings = jsonDecode(settingsStr);
+      Map<String, dynamic> map = jsonDecode(settingsStr);
+      map.forEach((key, value) {
+        _settings[key] = value;
+      });
+
+      // 防止报错
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _settings["deviceLocale"] =
+            "${Localizations.localeOf(GoRouteConfig.context).languageCode}-${Localizations.localeOf(GoRouteConfig.context).countryCode}";
+      });
     } else {
       _storage.setString("settings", jsonEncode(_settings));
     }
@@ -61,7 +87,10 @@ class GlobalModel extends ChangeNotifier {
     // 读取学期周次数据
     String? semesterWeekDataStr = _storage.getString("semesterWeekData");
     if (semesterWeekDataStr != null) {
-      _semesterWeekData = jsonDecode(semesterWeekDataStr);
+      Map<String, dynamic> map = jsonDecode(semesterWeekDataStr);
+      map.forEach((key, value) {
+        _semesterWeekData[key] = value;
+      });
 
       // 格式化日期格式
       String startDay =
@@ -79,7 +108,10 @@ class GlobalModel extends ChangeNotifier {
     // 读取用户个人数据
     String? userInfoDataStr = _storage.getString("userInfoData");
     if (userInfoDataStr != null) {
-      _userInfoData = jsonDecode(userInfoDataStr);
+      Map<String, dynamic> map = jsonDecode(userInfoDataStr);
+      map.forEach((key, value) {
+        _userInfoData[key] = value;
+      });
     } else {
       _storage.setString("userInfoData", jsonEncode(_userInfoData));
     }
@@ -90,6 +122,7 @@ class GlobalModel extends ChangeNotifier {
   /// - [value] : 值
   Future<bool> setCourseData(int index, List<dynamic> value) async {
     _courseData[index] = value;
+    notifyListeners();
     return await _storage.setString("courseData", jsonEncode(_courseData));
   }
 
@@ -98,6 +131,7 @@ class GlobalModel extends ChangeNotifier {
   /// - [value] : 值
   Future<bool> setSettings(String key, dynamic value) async {
     _settings[key] = value;
+    notifyListeners();
     return await _storage.setString("settings", jsonEncode(_settings));
   }
 
@@ -106,6 +140,7 @@ class GlobalModel extends ChangeNotifier {
   /// - [value] : 值
   Future<bool> setSemesterWeekData(String key, dynamic value) async {
     _semesterWeekData[key] = value;
+    notifyListeners();
     return await _storage.setString(
         "semesterWeekData", jsonEncode(_semesterWeekData));
   }
@@ -115,7 +150,22 @@ class GlobalModel extends ChangeNotifier {
   /// - [value] : 值
   Future<bool> setUserInfoData(String key, dynamic value) async {
     _userInfoData[key] = value;
+    notifyListeners();
     return await _storage.setString("userInfoData", jsonEncode(_userInfoData));
+  }
+
+  /// 获取语言
+  Locale? getLocale() {
+    String language = _settings["language"];
+    if (language == "default") {
+      language = _settings["deviceLocale"];
+    }
+    // setSettings("language", "default");
+    if (language.split("-").length > 1) {
+      return Locale(language.split("-")[0], language.split("-")[1]);
+    } else {
+      return Locale(language);
+    }
   }
 
   /// 获取课程数据

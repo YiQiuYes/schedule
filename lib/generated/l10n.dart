@@ -271,10 +271,10 @@ class S {
   }
 
   /// `Current version {version}`
-  String settingViewCurrentVersion(Object version) {
+  String settingCurrentVersion(Object version) {
     return Intl.message(
       'Current version $version',
-      name: 'settingViewCurrentVersion',
+      name: 'settingCurrentVersion',
       desc: '',
       args: [version],
     );
@@ -305,6 +305,36 @@ class S {
     return Intl.message(
       'The current version is the latest version!',
       name: 'updateDialogCurrentIsLastVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get settingViewGroupLanguage {
+    return Intl.message(
+      'Language',
+      name: 'settingViewGroupLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch languages`
+  String get settingViewSwitchLanguageTip {
+    return Intl.message(
+      'Switch languages',
+      name: 'settingViewSwitchLanguageTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Follow the system`
+  String get settingViewLanguageSystem {
+    return Intl.message(
+      'Follow the system',
+      name: 'settingViewLanguageSystem',
       desc: '',
       args: [],
     );

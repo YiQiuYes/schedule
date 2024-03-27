@@ -25,8 +25,12 @@
   "settingViewTitle" : "Setting",
   "settingViewGroupAbout" : "About",
   "settingViewUpdateMainTest" : "Version updates",
-  "settingViewCurrentVersion" : "Current version {version}",
+  "settingCurrentVersion" : "Current version {version}",
   "updateDialogConfirm" : "Confirm",
   "updateDialogCancel" : "Cancel",
-  "updateDialogCurrentIsLastVersion": "The current version is the latest version!"
+  "updateDialogCurrentIsLastVersion": "The current version is the latest version!",
+
+  "settingViewGroupLanguage" : "Language",
+  "settingViewSwitchLanguageTip" : "Switch languages",
+  "settingViewLanguageSystem" : "Follow the system"
 }

@@ -39,6 +39,7 @@ class Assets {
   static const String utilsLoggerUtils = 'lib/common/utils/LoggerUtils.dart';
   static const String utilsPackageInfoUtils = 'lib/common/utils/PackageInfoUtils.dart';
   static const String utilsPlatFormUtils = 'lib/common/utils/PlatFormUtils.dart';
+  static const String utilsRequestManager = 'lib/common/utils/RequestManager.dart';
   static const String utilsScheduleUtils = 'lib/common/utils/ScheduleUtils.dart';
   static const String utilsScreenAdaptor = 'lib/common/utils/ScreenAdaptor.dart';
 

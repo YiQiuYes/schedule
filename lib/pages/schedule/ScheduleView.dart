@@ -20,9 +20,12 @@ class ScheduleView extends StatefulWidget {
 }
 
 class _ScheduleViewState extends State<ScheduleView>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final scheduleViewModel = ScheduleViewModel();
   final _screen = ScreenAdaptor();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -39,6 +42,7 @@ class _ScheduleViewState extends State<ScheduleView>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider.value(
       value: scheduleViewModel,
       child: _getTabBarView(),

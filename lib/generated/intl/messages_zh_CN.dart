@@ -51,8 +51,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("周一&周二&周三&周四&周五&周六&周日"),
         "scheduleViewYearAndMonth":
             MessageLookupByLibrary.simpleMessage("%%/&&月"),
-        "settingViewCurrentVersion": m0,
+        "settingCurrentVersion": m0,
         "settingViewGroupAbout": MessageLookupByLibrary.simpleMessage("关于"),
+        "settingViewGroupLanguage": MessageLookupByLibrary.simpleMessage("语言"),
+        "settingViewLanguageSystem":
+            MessageLookupByLibrary.simpleMessage("跟随系统"),
+        "settingViewSwitchLanguageTip":
+            MessageLookupByLibrary.simpleMessage("切换语言"),
         "settingViewTitle": MessageLookupByLibrary.simpleMessage("设置"),
         "settingViewUpdateMainTest":
             MessageLookupByLibrary.simpleMessage("版本更新"),

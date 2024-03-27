@@ -7,6 +7,8 @@ on:
         description: Version to release (x.x.x)
         default: 1.0.0
         required: true
+env:
+  FLUTTER_VERSION: '3.19.4'
 
 permissions: write-all # 给所有工作写权限
 
@@ -53,7 +55,7 @@ jobs:
       - name: 编译apk
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.9'
+          flutter-version: ${{ env.FLUTTER_VERSION  }}
       - run: flutter pub get
       - run: flutter build apk --release --target-platform android-arm,android-arm64
       - name: 设置工具链环境变量
@@ -98,7 +100,7 @@ jobs:
       - name: 编译环境设置
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.9'
+          flutter-version: ${{ env.FLUTTER_VERSION  }}
       - name: Build (ios)
         run: |
           sh scripts/build-ipa.sh
@@ -128,7 +130,7 @@ jobs:
       - name: Flutter 环境
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.9'
+          flutter-version: ${{ env.FLUTTER_VERSION  }}
 
       - name: 构建
         run: |
@@ -185,7 +187,7 @@ jobs:
       - name: 构建Flutter环境
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.9'
+          flutter-version: ${{ env.FLUTTER_VERSION  }}
       - name: 编译dmg
         run: |
           flutter pub get
@@ -212,7 +214,7 @@ jobs:
       - name: Flutter 环境
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.9'
+          flutter-version: ${{ env.FLUTTER_VERSION  }}
 
       - name: 安装依赖
         run: |

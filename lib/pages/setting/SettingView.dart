@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:schedule/GlobalModel.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
+import 'package:schedule/components/MyPopupMenuButton.dart';
 import 'package:schedule/generated/l10n.dart';
+import 'package:schedule/main.dart';
 import 'package:schedule/pages/setting/SettingViewModel.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
@@ -17,6 +20,11 @@ class _SettingViewState extends State<SettingView> {
   final SettingViewModel settingViewModel = SettingViewModel();
 
   final _screen = ScreenAdaptor();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +46,11 @@ class _SettingViewState extends State<SettingView> {
               slivers: [
                 SliverList.list(
                   children: [
+                    // 语言文本
+                    _getGroupText(
+                        context, S.of(context).settingViewGroupLanguage),
+                    // 语言设置
+                    _getLanguageSetting(context),
                     // 关于文本
                     _getGroupText(context, S.of(context).settingViewGroupAbout),
                     // 获取版本更新
@@ -81,9 +94,17 @@ class _SettingViewState extends State<SettingView> {
   Widget _getGroupText(BuildContext context, String text) {
     return Padding(
       padding: EdgeInsets.only(
-        left: ScreenAdaptor().getLengthByOrientation(
+        left: _screen.getLengthByOrientation(
           vertical: 35.w,
           horizon: 20.w,
+        ),
+        top: _screen.getLengthByOrientation(
+          vertical: 20.w,
+          horizon: 10.w,
+        ),
+        bottom: _screen.getLengthByOrientation(
+          vertical: 10.w,
+          horizon: 10.w,
         ),
       ),
       child: Text(
@@ -92,7 +113,7 @@ class _SettingViewState extends State<SettingView> {
           color: Theme.of(context).colorScheme.primary,
           fontSize: ScreenAdaptor().getLengthByOrientation(
             vertical: 25.sp,
-            horizon: 20.sp,
+            horizon: 17.sp,
           ),
         ),
       ),
@@ -114,9 +135,23 @@ class _SettingViewState extends State<SettingView> {
         ),
       ),
       leading: const Icon(Icons.update_rounded),
-      title: Text(S.of(context).settingViewUpdateMainTest),
+      title: Text(
+        S.of(context).settingViewUpdateMainTest,
+        style: TextStyle(
+          fontSize: _screen.getLengthByOrientation(
+            vertical: 32.sp,
+            horizon: 17.sp,
+          ),
+        ),
+      ),
       subtitle: Text(
-        S.of(context).settingViewCurrentVersion(settingViewModel.getVersion()),
+        S.of(context).settingCurrentVersion(settingViewModel.getVersion()),
+        style: TextStyle(
+          fontSize: _screen.getLengthByOrientation(
+            vertical: 26.sp,
+            horizon: 15.sp,
+          ),
+        ),
       ),
     );
   }
@@ -159,5 +194,62 @@ class _SettingViewState extends State<SettingView> {
       ],
     );
   }
-}
 
+  Widget _getLanguageSetting(BuildContext context) {
+    return Consumer<GlobalModel>(builder: (context, model, child) {
+      return MyPopupMenuButton(
+        tooltip: S.of(context).settingViewSwitchLanguageTip,
+        initialValue: globalModel.settings["language"],
+        position: PopupMenuPosition.under,
+        onSelected: settingViewModel.setLanguageByKey,
+        offset: Offset(
+          _screen.getLengthByOrientation(
+            vertical: 100.w,
+            horizon: 60.w,
+          ),
+          0,
+        ),
+        itemBuilder: (context) {
+          List<PopupMenuEntry> widget = [];
+          settingViewModel.getLanguagesMap().forEach((key, value) {
+            widget.add(
+              PopupMenuItem(
+                value: key,
+                child: Text(value),
+              ),
+            );
+          });
+          return widget;
+        },
+        child: ListTile(
+          contentPadding: EdgeInsets.only(
+            left: ScreenAdaptor().getLengthByOrientation(
+              vertical: 35.w,
+              horizon: 20.w,
+            ),
+          ),
+          leading: const Icon(Icons.language_rounded),
+          title: Text(
+            S.of(context).settingViewGroupLanguage,
+            style: TextStyle(
+              fontSize: _screen.getLengthByOrientation(
+                vertical: 32.sp,
+                horizon: 17.sp,
+              ),
+            ),
+          ),
+          subtitle: Text(
+            settingViewModel
+                .getLanguagesMap()[globalModel.settings["language"]]!,
+            style: TextStyle(
+              fontSize: _screen.getLengthByOrientation(
+                vertical: 26.sp,
+                horizon: 15.sp,
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}

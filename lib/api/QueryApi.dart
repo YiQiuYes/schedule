@@ -71,7 +71,7 @@ class QueryApi {
         random.nextInt(randomTwoDimensionalSpace.length)];
   }
 
-  /// 查询所有课程
+  /// 查询个人课程
   /// - [week] : 周次
   /// - [semester] : 学期
   Future<List<Map>> queryPersonCourse(

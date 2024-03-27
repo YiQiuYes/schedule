@@ -53,8 +53,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mon&Tues&Wed&Thur&Fri&Sat&Sun"),
         "scheduleViewYearAndMonth":
             MessageLookupByLibrary.simpleMessage("%%/&& Month"),
-        "settingViewCurrentVersion": m0,
+        "settingCurrentVersion": m0,
         "settingViewGroupAbout": MessageLookupByLibrary.simpleMessage("About"),
+        "settingViewGroupLanguage":
+            MessageLookupByLibrary.simpleMessage("Language"),
+        "settingViewLanguageSystem":
+            MessageLookupByLibrary.simpleMessage("Follow the system"),
+        "settingViewSwitchLanguageTip":
+            MessageLookupByLibrary.simpleMessage("Switch languages"),
         "settingViewTitle": MessageLookupByLibrary.simpleMessage("Setting"),
         "settingViewUpdateMainTest":
             MessageLookupByLibrary.simpleMessage("Version updates"),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,7 +11,10 @@ import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/PackageInfoUtils.dart';
 import 'package:schedule/common/utils/PlatFormUtils.dart';
 import 'package:schedule/generated/l10n.dart';
+import 'package:schedule/main.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../common/manager/DataStorageManager.dart';
 
 class SettingViewModel with ChangeNotifier {
   final _otherApi = OtherApi();
@@ -77,16 +82,16 @@ class SettingViewModel with ChangeNotifier {
                 break;
               }
             }
-          } else if(PlatformUtils.isWindows) {
+          } else if (PlatformUtils.isWindows) {
             downloadUrl = "https://github.com/YiQiuYes/schedule/releases";
-          } else if(PlatformUtils.isMacOS) {
+          } else if (PlatformUtils.isMacOS) {
             for (String url in downloadUrls) {
               if (url.contains("macos")) {
                 downloadUrl = url;
                 break;
               }
             }
-          } else if(PlatformUtils.isLinux) {
+          } else if (PlatformUtils.isLinux) {
             downloadUrl = "https://github.com/YiQiuYes/schedule/releases";
           }
 
@@ -115,5 +120,20 @@ class SettingViewModel with ChangeNotifier {
   /// 跳转浏览器
   void jumpBrowser(String url) {
     launchUrl(Uri.parse(url));
+  }
+
+  /// 获取语言列表
+  Map<String, String> getLanguagesMap() {
+    final map = {
+      "default" : S.current.settingViewLanguageSystem,
+      "zh-CN" : "简体中文",
+      "en-US" : "English",
+    };
+    return map;
+  }
+
+  /// 设置语言
+  void setLanguageByKey(dynamic select) {
+    globalModel.setSettings("language", select);
   }
 }

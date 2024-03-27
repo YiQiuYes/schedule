@@ -6,7 +6,7 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:schedule/common/utils/DataStorageManager.dart';
+import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 

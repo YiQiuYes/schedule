@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +14,7 @@ import 'package:schedule/common/manager/RequestManager.dart';
 import 'package:schedule/common/utils/PlatFormUtils.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
+import 'package:window_manager/window_manager.dart';
 
 // 全局数据
 final globalModel = GlobalModel();
@@ -22,6 +25,35 @@ Future<void> main() async {
 
   // 初始化数据存储读取器
   await DataStorageManager().init();
+
+  // 初始化窗口管理器
+  if (PlatformUtils.isWindows ||
+      PlatformUtils.isLinux ||
+      PlatformUtils.isMacOS) {
+    await windowManager.ensureInitialized();
+    String? size = DataStorageManager().getString("windowsSize");
+    Size? windowSize;
+    if (size != null) {
+      Map<String, dynamic> sizeMap = jsonDecode(size);
+      windowSize = Size(sizeMap["width"], sizeMap["height"]);
+    }
+
+    WindowOptions windowOptions = WindowOptions(
+      size: windowSize ?? const Size(400, 700),
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      minimumSize: const Size(400, 700),
+    );
+    String? offset = DataStorageManager().getString("windowsOffsetPosition");
+    if (offset != null) {
+      Map<String, dynamic> offsetMap = jsonDecode(offset);
+      windowManager.setPosition(Offset(offsetMap["x"], offsetMap["y"]));
+    }
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
 
   // 初始化文件管理器
   await FileManager().fileManagerInit();
@@ -44,8 +76,61 @@ Future<void> main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WindowListener {
+  @override
+  void initState() {
+    super.initState();
+    if (PlatformUtils.isWindows ||
+        PlatformUtils.isLinux ||
+        PlatformUtils.isMacOS) {
+      windowManager.addListener(this);
+    }
+  }
+
+  @override
+  void onWindowMove() async {
+    super.onWindowMove();
+    if (PlatformUtils.isWindows ||
+        PlatformUtils.isLinux ||
+        PlatformUtils.isMacOS) {
+      Offset offset = await windowManager.getPosition();
+      await DataStorageManager().setString("windowsOffsetPosition",
+          jsonEncode({"x": offset.dx, "y": offset.dy}));
+    }
+  }
+
+  @override
+  void onWindowResize() async {
+    super.onWindowResize();
+    if (PlatformUtils.isWindows ||
+        PlatformUtils.isLinux ||
+        PlatformUtils.isMacOS) {
+      Offset offset = await windowManager.getPosition();
+      await DataStorageManager().setString("windowsOffsetPosition",
+          jsonEncode({"x": offset.dx, "y": offset.dy}));
+
+      Size size = await windowManager.getSize();
+      await DataStorageManager().setString(
+          "windowsSize",
+          jsonEncode({
+            "width": size.width,
+            "height": size.height,
+          }));
+    }
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,42 +139,48 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       ensureScreenSize: true,
       builder: (context, child) {
-        return MaterialApp.router(
-          title: 'Schedule',
-          builder: FToastBuilder(),
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-            fontFamily: 'ZhuZiSWan',
-            brightness: Brightness.light,
-          ),
-          darkTheme: ThemeData(
-            useMaterial3: true,
-            fontFamily: 'ZhuZiSWan',
-            brightness: Brightness.dark,
-          ),
-          routerConfig: GoRouteConfig.router,
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          localeResolutionCallback:
-              (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-            // 如果语言是英语
-            if (deviceLocale?.languageCode == 'en') {
-              DataStorageManager().setString("LanguageCode", "en");
-              //注意大小写，返回美国英语
-              return const Locale('en', 'US');
-            } else if (deviceLocale?.languageCode == 'zh') {
-              DataStorageManager().setString("LanguageCode", "zh");
-              //注意大小写，返回中文
-              return const Locale('zh', 'CN');
-            } else {
-              return deviceLocale;
-            }
+        return Consumer<GlobalModel>(
+          builder: (context, model, child) {
+            return MaterialApp.router(
+              title: 'Schedule',
+              builder: FToastBuilder(),
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                useMaterial3: true,
+                fontFamily: 'ZhuZiSWan',
+                brightness: Brightness.light,
+              ),
+              darkTheme: ThemeData(
+                useMaterial3: true,
+                fontFamily: 'ZhuZiSWan',
+                brightness: Brightness.dark,
+              ),
+              routerConfig: GoRouteConfig.router,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: S.delegate.supportedLocales,
+              locale: model.getLocale(),
+              localeResolutionCallback:
+                  (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+                String? locale =
+                    DataStorageManager().getString("localeLanguage");
+                if (locale != null) {
+                  String language = model.settings["language"];
+                  if (language == "default") {
+                    return deviceLocale;
+                  } else {
+                    return Locale(
+                        language.split("-")[0], language.split("-")[1]);
+                  }
+                } else {
+                  return deviceLocale;
+                }
+              },
+            );
           },
         );
       },

@@ -19,7 +19,7 @@ class GoRouteConfig {
   static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: splash,
+    initialLocation: appMain,
     redirect: (context, state) {
       if (state.fullPath == splash) {
         return splash;
