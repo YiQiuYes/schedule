@@ -54,6 +54,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "scheduleViewYearAndMonth":
             MessageLookupByLibrary.simpleMessage("%%/&& Month"),
         "settingCurrentVersion": m0,
+        "settingViewAboutApplication":
+            MessageLookupByLibrary.simpleMessage("Author: YiQiu"),
+        "settingViewAboutApplicationName":
+            MessageLookupByLibrary.simpleMessage("QiangZhi Schedule"),
         "settingViewGroupAbout": MessageLookupByLibrary.simpleMessage("About"),
         "settingViewGroupLanguage":
             MessageLookupByLibrary.simpleMessage("Language"),

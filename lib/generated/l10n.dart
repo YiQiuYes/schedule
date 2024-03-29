@@ -339,6 +339,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Author: YiQiu`
+  String get settingViewAboutApplication {
+    return Intl.message(
+      'Author: YiQiu',
+      name: 'settingViewAboutApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QiangZhi Schedule`
+  String get settingViewAboutApplicationName {
+    return Intl.message(
+      'QiangZhi Schedule',
+      name: 'settingViewAboutApplicationName',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

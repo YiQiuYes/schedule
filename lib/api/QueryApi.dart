@@ -154,4 +154,72 @@ class QueryApi {
       return result;
     });
   }
+
+  /// 查询个人实验课程
+  /// - [week] : 周次
+  /// - [semester] : 学期
+  Future<List<Map>> queryPersonExperimentCourse(
+      {required String week,
+      required String semester,
+      CachePolicy? cachePolicy}) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    Map<String, dynamic> params = {
+      "xnxq01id": semester,
+      "zc": week,
+    };
+
+    List<Map> result = [];
+    // 处理返回数据
+    return await _request
+        .get("/jsxsd/syjx/toXskb.do", params: params, options: options)
+        .then((value) {
+      Document doc = parse(value.data);
+      Element? table = doc.getElementById("tblHead");
+      if (table != null) {
+        List<Element> trs = table.getElementsByTagName("tr");
+        trs.removeAt(0);
+
+        const time = [
+          "8:00-9:40",
+          "10:00-11:40",
+          "14:00-15:40",
+          "16:30-17:40",
+          "19:00-20:40",
+        ];
+        for (int i = 0; i < 5; i++) {
+          Element tr = trs[i];
+          tr.querySelector("[rowspan]")?.remove();
+          List<Element> tds = tr.getElementsByTagName("td");
+
+          tds.removeAt(0);
+          for( int j = 0; j < tds.length; j++) {
+            // 获取课程时间
+            String classTime = time[i];
+
+            List<String> split = tds[i].innerHtml.split("<br>");
+            if (split.length != 1) {
+              // 获取课程名称
+              String className = split[0];
+              // 获取课程地点
+              String classAddress = split[2].split("   ")[1];
+
+              result.add({
+                "className": className,
+                "classTime": classTime,
+                "classAddress": classAddress,
+                "classTeacher": "",
+                "classWeek": week,
+              });
+            } else {
+              result.add({});
+            }
+          }
+        }
+      }
+      return result;
+    });
+  }
 }

@@ -32,5 +32,8 @@
 
   "settingViewGroupLanguage" : "Language",
   "settingViewSwitchLanguageTip" : "Switch languages",
-  "settingViewLanguageSystem" : "Follow the system"
+  "settingViewLanguageSystem" : "Follow the system",
+
+  "settingViewAboutApplication" : "Author: YiQiu",
+  "settingViewAboutApplicationName" : "QiangZhi Schedule"
 }

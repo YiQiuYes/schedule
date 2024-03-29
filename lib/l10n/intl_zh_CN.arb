@@ -32,5 +32,8 @@
 
   "settingViewGroupLanguage" : "语言",
   "settingViewSwitchLanguageTip" : "切换语言",
-  "settingViewLanguageSystem" : "跟随系统"
+  "settingViewLanguageSystem" : "跟随系统",
+
+  "settingViewAboutApplication" : "作者：易秋",
+  "settingViewAboutApplicationName" : "强智课表"
 }

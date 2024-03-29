@@ -14,19 +14,23 @@ import 'common/utils/LoggerUtils.dart';
 
 class GlobalModel extends ChangeNotifier {
   // 课程数据
-  List<dynamic> _courseData = List.generate(20, (index) => []);
+  List<dynamic> _courseData =
+      List.generate(20, (index) => [for (int i = 0; i < 35; i++) {}]);
+  // 实验课表数据
+  List<dynamic> _experimentData =
+      List.generate(20, (index) => [for (int i = 0; i < 35; i++) {}]);
   // 设置数据
   final Map<String, dynamic> _settings = {
     "isLogin": false,
     "load20CountCourse": false,
     "language": "default",
-    "deviceLocale": "zh-CN"
+    "deviceLocale": "default",
   };
   // 学期周次数据
   final Map<String, dynamic> _semesterWeekData = {
     "semester": "2023-2024-2",
     "startDay": "2024-3-4",
-    "currentWeek": "3",
+    "currentWeek": "1",
   };
   // 用户个人数据
   final Map<String, dynamic> _userInfoData = {
@@ -36,6 +40,7 @@ class GlobalModel extends ChangeNotifier {
 
   // 定时器刷新数据
   Timer? _timer;
+  // 是否第一次获取语言设置
 
   final _storage = DataStorageManager();
   final queryApi = QueryApi();
@@ -47,6 +52,18 @@ class GlobalModel extends ChangeNotifier {
             week: week, semester: semester, cachePolicy: CachePolicy.refresh)
         .then((value) {
       setCourseData(int.parse(week) - 1, value);
+      notifyListeners();
+    });
+  }
+
+  /// 获取实验课表数据
+  void getPersonExperimentData(
+      {required String week, required String semester}) {
+    queryApi
+        .queryPersonExperimentCourse(
+            week: week, semester: semester, cachePolicy: CachePolicy.refresh)
+        .then((value) {
+      setExperimentData(int.parse(week) - 1, value);
       notifyListeners();
     });
   }
@@ -67,18 +84,20 @@ class GlobalModel extends ChangeNotifier {
       _storage.setString("courseData", jsonEncode(_courseData));
     }
 
+    // 读取实验课表数据
+    String? experimentDataStr = _storage.getString("experimentData");
+    if (experimentDataStr != null) {
+      _experimentData = jsonDecode(experimentDataStr);
+    } else {
+      _storage.setString("experimentData", jsonEncode(_experimentData));
+    }
+
     // 读取设置数据
     String? settingsStr = _storage.getString("settings");
     if (settingsStr != null) {
       Map<String, dynamic> map = jsonDecode(settingsStr);
       map.forEach((key, value) {
         _settings[key] = value;
-      });
-
-      // 防止报错
-      Future.delayed(const Duration(milliseconds: 500), () {
-        _settings["deviceLocale"] =
-            "${Localizations.localeOf(GoRouteConfig.context).languageCode}-${Localizations.localeOf(GoRouteConfig.context).countryCode}";
       });
     } else {
       _storage.setString("settings", jsonEncode(_settings));
@@ -127,6 +146,16 @@ class GlobalModel extends ChangeNotifier {
   }
 
   /// 设置数据
+  /// - [index] : 索引
+  /// - [value] : 值
+  Future<bool> setExperimentData(int index, List<dynamic> value) async {
+    _experimentData[index] = value;
+    notifyListeners();
+    return await _storage.setString(
+        "experimentData", jsonEncode(_experimentData));
+  }
+
+  /// 设置数据
   /// - [key] : 键
   /// - [value] : 值
   Future<bool> setSettings(String key, dynamic value) async {
@@ -158,7 +187,7 @@ class GlobalModel extends ChangeNotifier {
   Locale? getLocale() {
     String language = _settings["language"];
     if (language == "default") {
-      language = _settings["deviceLocale"];
+      return null;
     }
     // setSettings("language", "default");
     if (language.split("-").length > 1) {
@@ -170,6 +199,9 @@ class GlobalModel extends ChangeNotifier {
 
   /// 获取课程数据
   List<dynamic> get courseData => _courseData;
+
+  /// 获取实验课表数据
+  List<dynamic> get experimentData => _experimentData;
 
   /// 获取设置数据
   Map<String, dynamic> get settings => _settings;

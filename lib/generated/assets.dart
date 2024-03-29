@@ -7,6 +7,7 @@ class Assets {
   static const String apiUserApi = 'lib/api/UserApi.dart';
   static const String appMainAppMainView = 'lib/pages/appMain/AppMainView.dart';
   static const String appMainAppMainViewModel = 'lib/pages/appMain/AppMainViewModel.dart';
+  static const String componentsMyPopupMenuButton = 'lib/components/MyPopupMenuButton.dart';
   static const String fontsZhuZiSWan = 'lib/assets/fonts/ZhuZiSWan.ttf';
   static const String functionFunctionView = 'lib/pages/function/FunctionView.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
@@ -23,6 +24,7 @@ class Assets {
   static const String loginLoginView = 'lib/pages/login/LoginView.dart';
   static const String loginLoginViewModel = 'lib/pages/login/LoginViewModel.dart';
   static const String lottiesLoading = 'lib/assets/lotties/loading.json';
+  static const String lottiesPerson = 'lib/assets/lotties/person.json';
   static const String managerDataStorageManager = 'lib/common/manager/DataStorageManager.dart';
   static const String managerFileManager = 'lib/common/manager/FileManager.dart';
   static const String managerRequestManager = 'lib/common/manager/RequestManager.dart';
@@ -39,7 +41,6 @@ class Assets {
   static const String utilsLoggerUtils = 'lib/common/utils/LoggerUtils.dart';
   static const String utilsPackageInfoUtils = 'lib/common/utils/PackageInfoUtils.dart';
   static const String utilsPlatFormUtils = 'lib/common/utils/PlatFormUtils.dart';
-  static const String utilsRequestManager = 'lib/common/utils/RequestManager.dart';
   static const String utilsScheduleUtils = 'lib/common/utils/ScheduleUtils.dart';
   static const String utilsScreenAdaptor = 'lib/common/utils/ScreenAdaptor.dart';
 

@@ -215,8 +215,6 @@ class _ScheduleViewState extends State<ScheduleView>
                   ),
                   color: scheduleViewModel.getTodayWeekColor(
                       showWeek, index, context),
-                  boxShadow: scheduleViewModel.getTodayWeekBoxShadow(
-                      showWeek, index, context),
                 ),
                 child: Text(
                   weeks[index - 1],
@@ -318,8 +316,6 @@ class _ScheduleViewState extends State<ScheduleView>
             _screen.getLengthByOrientation(vertical: 17.w, horizon: 10.w),
           ),
           color: scheduleViewModel.getSectionColor(showWeek, index, context),
-          boxShadow:
-              scheduleViewModel.getSectionBoxShadow(showWeek, index, context),
         ),
         child: Text(
           time[index],
@@ -340,8 +336,10 @@ class _ScheduleViewState extends State<ScheduleView>
     return Consumer2<GlobalModel, ScheduleViewModel>(
         builder: (context, globalModel, scheduleModel, child) {
       // 判断是否有课程数据
-      if (globalModel.courseData[showWeek].isEmpty ||
-          globalModel.courseData[showWeek][index].isEmpty) {
+      if ((globalModel.courseData[showWeek].isEmpty ||
+              globalModel.courseData[showWeek][index].isEmpty) &&
+          (globalModel.experimentData[showWeek].isEmpty ||
+              globalModel.experimentData[showWeek][index].isEmpty)) {
         return const SizedBox();
       }
 
@@ -366,8 +364,6 @@ class _ScheduleViewState extends State<ScheduleView>
           ),
           color:
               scheduleViewModel.getTodayCourseColor(showWeek, index, context),
-          boxShadow: scheduleViewModel.getTodayCourseBoxShadow(
-              showWeek, index, context),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -376,7 +372,9 @@ class _ScheduleViewState extends State<ScheduleView>
             // 课程名称
             Text(
               ScheduleUtils.getCourseName(
-                  globalModel.courseData[showWeek][index]),
+                globalModel.courseData[showWeek][index],
+                globalModel.experimentData[showWeek][index],
+              ),
               maxLines: _screen.byOrientationReturn(vertical: 4, horizon: 3)!,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -391,7 +389,9 @@ class _ScheduleViewState extends State<ScheduleView>
             // 课程地点
             Text(
               ScheduleUtils.getCourseAddress(
-                  globalModel.courseData[showWeek][index]),
+                globalModel.courseData[showWeek][index],
+                globalModel.experimentData[showWeek][index],
+              ),
               maxLines: _screen.byOrientationReturn(vertical: 2, horizon: 1)!,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,

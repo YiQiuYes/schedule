@@ -4,13 +4,19 @@ class ScheduleUtils {
   static final _screen = ScreenAdaptor();
 
   /// 获取课程名称
-  static String getCourseName(Map course) {
+  static String getCourseName(Map course, Map experiment) {
+    if (experiment.isNotEmpty) {
+      return experiment['className'] ?? '';
+    }
     return course['className'] ?? '';
   }
 
   /// 获取课程地址
-  static String getCourseAddress(Map course) {
+  static String getCourseAddress(Map course, Map experiment) {
     String address = course['classAddress'] ?? '';
+    if (experiment.isNotEmpty) {
+      address = experiment['classAddress'] ?? '';
+    }
     final strLine = _screen.byOrientationReturn(vertical: "\n", horizon: "")!;
 
     if (address.isNotEmpty && !address.contains("楼")) {

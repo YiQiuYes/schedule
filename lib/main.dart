@@ -16,6 +16,8 @@ import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'common/utils/LoggerUtils.dart';
+
 // 全局数据
 final globalModel = GlobalModel();
 
@@ -27,33 +29,7 @@ Future<void> main() async {
   await DataStorageManager().init();
 
   // 初始化窗口管理器
-  if (PlatformUtils.isWindows ||
-      PlatformUtils.isLinux ||
-      PlatformUtils.isMacOS) {
-    await windowManager.ensureInitialized();
-    String? size = DataStorageManager().getString("windowsSize");
-    Size? windowSize;
-    if (size != null) {
-      Map<String, dynamic> sizeMap = jsonDecode(size);
-      windowSize = Size(sizeMap["width"], sizeMap["height"]);
-    }
-
-    WindowOptions windowOptions = WindowOptions(
-      size: windowSize ?? const Size(400, 700),
-      backgroundColor: Colors.transparent,
-      skipTaskbar: false,
-      minimumSize: const Size(400, 700),
-    );
-    String? offset = DataStorageManager().getString("windowsOffsetPosition");
-    if (offset != null) {
-      Map<String, dynamic> offsetMap = jsonDecode(offset);
-      windowManager.setPosition(Offset(offsetMap["x"], offsetMap["y"]));
-    }
-    windowManager.waitUntilReadyToShow(windowOptions, () async {
-      await windowManager.show();
-      await windowManager.focus();
-    });
-  }
+  await PlatformUtils.initForDesktop();
 
   // 初始化文件管理器
   await FileManager().fileManagerInit();
@@ -139,50 +115,46 @@ class _MyAppState extends State<MyApp> with WindowListener {
       splitScreenMode: true,
       ensureScreenSize: true,
       builder: (context, child) {
-        return Consumer<GlobalModel>(
-          builder: (context, model, child) {
-            return MaterialApp.router(
-              title: 'Schedule',
-              builder: FToastBuilder(),
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                useMaterial3: true,
-                fontFamily: 'ZhuZiSWan',
-                brightness: Brightness.light,
-              ),
-              darkTheme: ThemeData(
-                useMaterial3: true,
-                fontFamily: 'ZhuZiSWan',
-                brightness: Brightness.dark,
-              ),
-              routerConfig: GoRouteConfig.router,
-              localizationsDelegates: const [
-                S.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: S.delegate.supportedLocales,
-              locale: model.getLocale(),
-              localeResolutionCallback:
-                  (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-                String? locale =
-                    DataStorageManager().getString("localeLanguage");
-                if (locale != null) {
-                  String language = model.settings["language"];
-                  if (language == "default") {
-                    return deviceLocale;
-                  } else {
-                    return Locale(
-                        language.split("-")[0], language.split("-")[1]);
-                  }
-                } else {
-                  return deviceLocale;
+        return Consumer<GlobalModel>(builder: (context, model, child) {
+          return MaterialApp.router(
+            title: 'schedule',
+            builder: FToastBuilder(),
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+              fontFamily: 'ZhuZiSWan',
+              brightness: Brightness.light,
+            ),
+            darkTheme: ThemeData(
+              useMaterial3: true,
+              fontFamily: 'ZhuZiSWan',
+              brightness: Brightness.dark,
+            ),
+            routerConfig: GoRouteConfig.router,
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            locale: model.getLocale(),
+            localeResolutionCallback:
+                (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+              // logger.i(deviceLocale);
+              String language = globalModel.settings["language"];
+              if (language == "default") {
+                if (model.settings["deviceLocale"] == "default") {
+                  model.setSettings("deviceLocale",
+                      "${deviceLocale?.languageCode}-${deviceLocale?.countryCode}");
                 }
-              },
-            );
-          },
-        );
+                return deviceLocale;
+              } else {
+                return Locale(language.split("-")[0], language.split("-")[1]);
+              }
+            },
+          );
+        });
       },
     );
   }

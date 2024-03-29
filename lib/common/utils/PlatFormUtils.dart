@@ -1,5 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
+
+import '../manager/DataStorageManager.dart';
 
 class PlatformUtils {
   static bool _isWeb() {
@@ -43,4 +48,32 @@ class PlatformUtils {
   static bool get isFuchsia => _isFuchsia();
 
   static bool get isLinux => _isLinux();
+
+  static Future<void> initForDesktop() async {
+    if (isWindows || isLinux || isMacOS) {
+      await windowManager.ensureInitialized();
+      String? size = DataStorageManager().getString("windowsSize");
+      Size? windowSize;
+      if (size != null) {
+        Map<String, dynamic> sizeMap = jsonDecode(size);
+        windowSize = Size(sizeMap["width"], sizeMap["height"]);
+      }
+
+      WindowOptions windowOptions = WindowOptions(
+        size: windowSize ?? const Size(400, 700),
+        backgroundColor: Colors.transparent,
+        skipTaskbar: false,
+        minimumSize: const Size(400, 700),
+      );
+      String? offset = DataStorageManager().getString("windowsOffsetPosition");
+      if (offset != null) {
+        Map<String, dynamic> offsetMap = jsonDecode(offset);
+        windowManager.setPosition(Offset(offsetMap["x"], offsetMap["y"]));
+      }
+      windowManager.waitUntilReadyToShow(windowOptions, () async {
+        await windowManager.show();
+        await windowManager.focus();
+      });
+    }
+  }
 }

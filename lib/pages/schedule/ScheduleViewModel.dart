@@ -29,10 +29,16 @@ class ScheduleViewModel with ChangeNotifier {
         globalModel.getPersonCourseData(
             week: i.toString(),
             semester: globalModel.semesterWeekData["semester"]);
+        globalModel.getPersonExperimentData(
+            week: i.toString(),
+            semester: globalModel.semesterWeekData["semester"]);
       }
       globalModel.setSettings("load20CountCourse", true);
     } else {
       globalModel.getPersonCourseData(
+          week: globalModel.semesterWeekData["currentWeek"],
+          semester: globalModel.semesterWeekData["semester"]);
+      globalModel.getPersonExperimentData(
           week: globalModel.semesterWeekData["currentWeek"],
           semester: globalModel.semesterWeekData["semester"]);
     }
@@ -69,7 +75,13 @@ class ScheduleViewModel with ChangeNotifier {
     tabController.addListener(() {
       timer?.cancel();
       timer = Timer(const Duration(milliseconds: 1000), () {
+        // 获取课程数据
         globalModel.getPersonCourseData(
+          week: (tabController.index + 1).toString(),
+          semester: globalModel.semesterWeekData["semester"],
+        );
+        // 获取实验课程数据
+        globalModel.getPersonExperimentData(
           week: (tabController.index + 1).toString(),
           semester: globalModel.semesterWeekData["semester"],
         );
@@ -91,29 +103,6 @@ class ScheduleViewModel with ChangeNotifier {
     DateTime today = DateTime.now();
     if (today.weekday == day) {
       return Theme.of(context).colorScheme.primary.withOpacity(0.3);
-    }
-    return null;
-  }
-
-  /// 获取今日是周几并且时间正确阴影颜色
-  List<BoxShadow>? getTodayWeekBoxShadow(
-      int showWeek, int day, BuildContext context) {
-    // 获取当前周次
-    int week = int.parse(globalModel.semesterWeekData["currentWeek"]);
-    if (week - 1 != showWeek) {
-      return null;
-    }
-
-    // 今天是星期几
-    DateTime today = DateTime.now();
-    if (today.weekday == day) {
-      return [
-        BoxShadow(
-          color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
-          blurRadius: 4,
-          blurStyle: BlurStyle.outer,
-        ),
-      ];
     }
     return null;
   }
@@ -142,44 +131,6 @@ class ScheduleViewModel with ChangeNotifier {
       if (currentHourAndMinute.compareTo(time[i]) < 0) {
         if (index == i) {
           return defaultColor;
-        }
-        break;
-      }
-    }
-    return null;
-  }
-
-  /// 获取节次阴影颜色
-  List<BoxShadow>? getSectionBoxShadow(
-      int showWeek, int index, BuildContext context) {
-    // 获取当前周次
-    int week = int.parse(globalModel.semesterWeekData["currentWeek"]);
-    if (week - 1 != showWeek) {
-      return null;
-    }
-
-    const time = [
-      "09:45",
-      "11:40",
-      "15:40",
-      "17:40",
-      "20:40",
-    ];
-    final defaultShadowList = [
-      BoxShadow(
-        color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
-        blurRadius: 4,
-        blurStyle: BlurStyle.outer,
-      ),
-    ];
-    final now = DateTime.now();
-    final currentHourAndMinute =
-        "${now.hour < 10 ? "0${now.hour}" : now.hour}:${now.minute}";
-
-    for (int i = 0; i < time.length; i++) {
-      if (currentHourAndMinute.compareTo(time[i]) < 0) {
-        if (i == index) {
-          return defaultShadowList;
         }
         break;
       }
@@ -221,9 +172,7 @@ class ScheduleViewModel with ChangeNotifier {
           if (currentSectionTime == i) {
             return heightColor;
           } else if (currentSectionTime > i) {
-            for (int j = day - 1;
-                j < index;
-                j += 7) {
+            for (int j = day - 1; j < index; j += 7) {
               if (globalModel.courseData[showWeek][j].isNotEmpty) {
                 return defaultColor;
               }
@@ -236,18 +185,6 @@ class ScheduleViewModel with ChangeNotifier {
     }
 
     return defaultColor;
-  }
-
-  /// 获取今日课程阴影颜色
-  List<BoxShadow>? getTodayCourseBoxShadow(
-      int showWeek, int index, BuildContext context) {
-    return [
-      BoxShadow(
-        color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
-        blurRadius: 2.5,
-        blurStyle: BlurStyle.outer,
-      ),
-    ];
   }
 
   /// 周次标题点击事件

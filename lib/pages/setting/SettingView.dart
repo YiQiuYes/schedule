@@ -9,6 +9,8 @@ import 'package:schedule/main.dart';
 import 'package:schedule/pages/setting/SettingViewModel.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
+import '../../common/utils/PackageInfoUtils.dart';
+
 class SettingView extends StatefulWidget {
   const SettingView({super.key});
 
@@ -55,6 +57,8 @@ class _SettingViewState extends State<SettingView> {
                     _getGroupText(context, S.of(context).settingViewGroupAbout),
                     // 获取版本更新
                     _getVersionUpdate(context),
+                    // 关于应用
+                    _getAboutApplicationDialog(context),
                   ],
                 ),
               ],
@@ -134,7 +138,13 @@ class _SettingViewState extends State<SettingView> {
           horizon: 20.w,
         ),
       ),
-      leading: const Icon(Icons.update_rounded),
+      leading: Icon(
+        Icons.update_rounded,
+        size: _screen.getLengthByOrientation(
+          vertical: 38.w,
+          horizon: 22.w,
+        ),
+      ),
       title: Text(
         S.of(context).settingViewUpdateMainTest,
         style: TextStyle(
@@ -195,6 +205,7 @@ class _SettingViewState extends State<SettingView> {
     );
   }
 
+  /// 获取语言设置
   Widget _getLanguageSetting(BuildContext context) {
     return Consumer<GlobalModel>(builder: (context, model, child) {
       return MyPopupMenuButton(
@@ -228,7 +239,13 @@ class _SettingViewState extends State<SettingView> {
               horizon: 20.w,
             ),
           ),
-          leading: const Icon(Icons.language_rounded),
+          leading: Icon(
+            Icons.language_rounded,
+            size: _screen.getLengthByOrientation(
+              vertical: 38.w,
+              horizon: 22.w,
+            ),
+          ),
           title: Text(
             S.of(context).settingViewGroupLanguage,
             style: TextStyle(
@@ -251,5 +268,61 @@ class _SettingViewState extends State<SettingView> {
         ),
       );
     });
+  }
+
+  /// 关于应用弹窗
+  Widget _getAboutApplicationDialog(BuildContext context) {
+    return ListTile(
+      onTap: () {
+        showAboutDialog(
+          context: context,
+          applicationName: S.of(context).settingViewAboutApplicationName,
+          applicationIcon: Image.asset(
+            "lib/assets/images/logo.png",
+            width: _screen.getLengthByOrientation(
+              vertical: 50.w,
+              horizon: 30.w,
+            ),
+            height: _screen.getLengthByOrientation(
+              vertical: 50.w,
+              horizon: 30.w,
+            ),
+          ),
+          applicationVersion: PackageInfoUtils.version,
+          applicationLegalese: "2024-3-17",
+        );
+      },
+      contentPadding: EdgeInsets.only(
+        left: ScreenAdaptor().getLengthByOrientation(
+          vertical: 35.w,
+          horizon: 20.w,
+        ),
+      ),
+      leading: Icon(
+        Icons.person_rounded,
+        size: _screen.getLengthByOrientation(
+          vertical: 38.w,
+          horizon: 22.w,
+        ),
+      ),
+      title: Text(
+        S.of(context).settingViewAboutApplication,
+        style: TextStyle(
+          fontSize: _screen.getLengthByOrientation(
+            vertical: 32.sp,
+            horizon: 17.sp,
+          ),
+        ),
+      ),
+      subtitle: Text(
+        S.of(context).settingViewAboutApplicationName,
+        style: TextStyle(
+          fontSize: _screen.getLengthByOrientation(
+            vertical: 26.sp,
+            horizon: 15.sp,
+          ),
+        ),
+      ),
+    );
   }
 }

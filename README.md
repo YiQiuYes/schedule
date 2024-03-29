@@ -1,7 +1,7 @@
 <br/>
 
 <p align="center">
-    <a href="https://github.com/YiQiuYes/schedule" target="blank">
+    <a href="https://github.com/YiQiuYes/schedule/releases" target="blank">
     <img src="assets/images/logo.png" alt="logo" width="156" height="156">
     </a>
     <h2 align="center" style="font-weight: 600">Schedule</h2>
@@ -10,7 +10,7 @@
     适用于强智教务系统的课表APP
     <br />
     <br />
-    <a href="https://github.com/YiQiuYes/schedule" target="blank"><strong>访问DEMO</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="https://github.com/YiQiuYes/schedule/releases" target="blank"><strong>访问DEMO</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;
     <a href="#section1" target="blank"><strong>下载安装包</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;
     <a href="https://github.com/YiQiuYes/schedule" target="blank"><strong>加入交流群</strong></a>
     <br />
@@ -37,9 +37,17 @@
 访问本项目的 [Releases](https://github.com/YiQiuYes/schedule/releases)
 页面下载安装包。
 
-- Android 用户可以直接通过 `Releases` 页面下载最新安装包来安装
+- Android 用户可以直接通过 `apk` 格式文件安装
 
-- IOS 用户下载 `ipa` 安装包后，通过 [TrollStore](https://github.com/opa334/TrollStore) 来安装
+- IOS 本安装包无签名，用户下载 `ipa` 格式安装包后，通过 [TrollStore](https://github.com/opa334/TrollStore) 签名或者自签安装
+  
+- Windows 用户直接下载 `exe` 格式文件或者 `nupkg` 格式安装包进行安装
+
+- MacOS 用户下载 `dmg` 格式安装包安装
+
+- Linux 用户自行选择系统架构版本安装
+
+- HarmonyOS 即将推出原生应用支持...
 
 ## Todo
 
