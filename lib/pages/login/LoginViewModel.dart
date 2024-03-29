@@ -67,7 +67,7 @@ class LoginViewModel with ChangeNotifier {
           globalModel.setUserInfoData("password", password);
 
           // 储存登录成功
-          globalModel.setSettings("isLogin", true);
+          globalModel.setIsLogin(true);
           Future.delayed(const Duration(milliseconds: 1500), () {
             FToast().removeQueuedCustomToasts();
             FToast().removeCustomToast();
@@ -102,7 +102,7 @@ class LoginViewModel with ChangeNotifier {
 
       if (isLogin) {
         // 储存登录成功
-        globalModel.setSettings("isLogin", true);
+        globalModel.setIsLogin(true);
         Future.delayed(const Duration(milliseconds: 1500), () {
           FToast().removeQueuedCustomToasts();
           FToast().removeCustomToast();

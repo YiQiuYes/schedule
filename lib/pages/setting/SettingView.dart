@@ -212,7 +212,9 @@ class _SettingViewState extends State<SettingView> {
         tooltip: S.of(context).settingViewSwitchLanguageTip,
         initialValue: globalModel.settings["language"],
         position: PopupMenuPosition.under,
-        onSelected: settingViewModel.setLanguageByKey,
+        onSelected: (value) {
+          settingViewModel.setLanguageByKey(value);
+        },
         offset: Offset(
           _screen.getLengthByOrientation(
             vertical: 100.w,

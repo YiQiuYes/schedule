@@ -134,6 +134,6 @@ class SettingViewModel with ChangeNotifier {
 
   /// 设置语言
   void setLanguageByKey(dynamic select) {
-    globalModel.setSettings("language", select);
+    globalModel.setLocale(select);
   }
 }

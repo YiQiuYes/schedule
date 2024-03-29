@@ -142,10 +142,10 @@ class _MyAppState extends State<MyApp> with WindowListener {
             localeResolutionCallback:
                 (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
               // logger.i(deviceLocale);
-              String language = globalModel.settings["language"];
+              String language = model.settings["language"];
               if (language == "default") {
                 if (model.settings["deviceLocale"] == "default") {
-                  model.setSettings("deviceLocale",
+                  model.setDeviceLocale(
                       "${deviceLocale?.languageCode}-${deviceLocale?.countryCode}");
                 }
                 return deviceLocale;

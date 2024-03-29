@@ -99,6 +99,7 @@ class GlobalModel extends ChangeNotifier {
       map.forEach((key, value) {
         _settings[key] = value;
       });
+      _settings["deviceLocale"] = "default";
     } else {
       _storage.setString("settings", jsonEncode(_settings));
     }
@@ -141,7 +142,6 @@ class GlobalModel extends ChangeNotifier {
   /// - [value] : 值
   Future<bool> setCourseData(int index, List<dynamic> value) async {
     _courseData[index] = value;
-    notifyListeners();
     return await _storage.setString("courseData", jsonEncode(_courseData));
   }
 
@@ -150,7 +150,6 @@ class GlobalModel extends ChangeNotifier {
   /// - [value] : 值
   Future<bool> setExperimentData(int index, List<dynamic> value) async {
     _experimentData[index] = value;
-    notifyListeners();
     return await _storage.setString(
         "experimentData", jsonEncode(_experimentData));
   }
@@ -158,9 +157,8 @@ class GlobalModel extends ChangeNotifier {
   /// 设置数据
   /// - [key] : 键
   /// - [value] : 值
-  Future<bool> setSettings(String key, dynamic value) async {
+  Future<bool> _setSettings(String key, dynamic value) async {
     _settings[key] = value;
-    notifyListeners();
     return await _storage.setString("settings", jsonEncode(_settings));
   }
 
@@ -195,6 +193,29 @@ class GlobalModel extends ChangeNotifier {
     } else {
       return Locale(language);
     }
+  }
+
+  /// 设置语言
+  Future<void> setLocale(String select) async {
+    await _setSettings("language", select);
+    notifyListeners();
+  }
+
+  /// 设置登录状态
+  Future<void> setIsLogin(bool isLogin)async {
+    await _setSettings("isLogin", isLogin);
+    notifyListeners();
+  }
+
+  /// 设置数据是否第一次初始化完成
+  Future<void> setLoad20CountCourse(bool load20CountCourse)async {
+    await _setSettings("load20CountCourse", load20CountCourse);
+    notifyListeners();
+  }
+
+  /// 设置本地默认语言
+  Future<void> setDeviceLocale(String deviceLocale)async {
+    await _setSettings("deviceLocale", deviceLocale);
   }
 
   /// 获取课程数据

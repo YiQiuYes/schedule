@@ -33,7 +33,7 @@ class ScheduleViewModel with ChangeNotifier {
             week: i.toString(),
             semester: globalModel.semesterWeekData["semester"]);
       }
-      globalModel.setSettings("load20CountCourse", true);
+      globalModel.setLoad20CountCourse(true);
     } else {
       globalModel.getPersonCourseData(
           week: globalModel.semesterWeekData["currentWeek"],
