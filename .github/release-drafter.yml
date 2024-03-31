@@ -32,6 +32,7 @@ template: |
   修复schedule页面日期文本行高问题
   添加列表动画
   person新增学期和开始日期的选择
+  修复安装签名
 
   $CHANGES
 no-changes-template: |
