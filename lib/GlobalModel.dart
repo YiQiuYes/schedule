@@ -11,6 +11,7 @@ import 'package:schedule/main.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
 import 'common/utils/LoggerUtils.dart';
+import 'generated/l10n.dart';
 
 class GlobalModel extends ChangeNotifier {
   // 课程数据
@@ -25,6 +26,9 @@ class GlobalModel extends ChangeNotifier {
     "load20CountCourse": false,
     "language": "default",
     "deviceLocale": "default",
+    "fontFamily": "default",
+    "themeMode": "default",
+    "colorTheme": "#673AB7",
   };
   // 学期周次数据
   final Map<String, dynamic> _semesterWeekData = {
@@ -40,40 +44,27 @@ class GlobalModel extends ChangeNotifier {
 
   // 定时器刷新数据
   Timer? _timer;
-  // 是否第一次获取语言设置
 
   final _storage = DataStorageManager();
   final queryApi = QueryApi();
 
-  /// 获取课程数据
-  void getPersonCourseData({required String week, required String semester}) {
-    queryApi
-        .queryPersonCourse(
-            week: week, semester: semester, cachePolicy: CachePolicy.refresh)
-        .then((value) {
-      setCourseData(int.parse(week) - 1, value);
-      notifyListeners();
-    });
-  }
-
-  /// 获取实验课表数据
-  void getPersonExperimentData(
-      {required String week, required String semester}) {
-    queryApi
-        .queryPersonExperimentCourse(
-            week: week, semester: semester, cachePolicy: CachePolicy.refresh)
-        .then((value) {
-      setExperimentData(int.parse(week) - 1, value);
-      notifyListeners();
-    });
+  void refreshData() {
+    logger.i("刷新数据");
+    // 格式化日期格式
+    String startDay =
+    ScheduleUtils.formatDateString(_semesterWeekData["startDay"]);
+    DateTime startDayTime = DateTime.parse(startDay);
+    DateTime now = DateTime.now();
+    // 计算当前周次
+    int currentWeek = now.difference(startDayTime).inDays ~/ 7 + 1;
+    _semesterWeekData["currentWeek"] = currentWeek.toString();
+    notifyListeners();
   }
 
   /// 初始化
   void init() {
     _timer ??= Timer.periodic(const Duration(minutes: 10), (timer) {
-      logger.i("定时器刷新数据");
-      init();
-      notifyListeners();
+      refreshData();
     });
 
     // 读取课程数据
@@ -137,17 +128,36 @@ class GlobalModel extends ChangeNotifier {
     }
   }
 
+  /// 获取课程数据
+  void getPersonCourseData({required String week, required String semester}) {
+    queryApi
+        .queryPersonCourse(
+        week: week, semester: semester, cachePolicy: CachePolicy.refresh)
+        .then((value) {
+      setCourseData(int.parse(week) - 1, value);
+      notifyListeners();
+    });
+  }
+
+  /// 获取实验课表数据
+  void getPersonExperimentData(
+      {required String week, required String semester}) {
+    queryApi
+        .queryPersonExperimentCourse(
+        week: week, semester: semester, cachePolicy: CachePolicy.refresh)
+        .then((value) {
+      setExperimentData(int.parse(week) - 1, value);
+      notifyListeners();
+    });
+  }
+
   /// 设置数据
-  /// - [index] : 索引
-  /// - [value] : 值
   Future<bool> setCourseData(int index, List<dynamic> value) async {
     _courseData[index] = value;
     return await _storage.setString("courseData", jsonEncode(_courseData));
   }
 
   /// 设置数据
-  /// - [index] : 索引
-  /// - [value] : 值
   Future<bool> setExperimentData(int index, List<dynamic> value) async {
     _experimentData[index] = value;
     return await _storage.setString(
@@ -155,17 +165,13 @@ class GlobalModel extends ChangeNotifier {
   }
 
   /// 设置数据
-  /// - [key] : 键
-  /// - [value] : 值
   Future<bool> _setSettings(String key, dynamic value) async {
     _settings[key] = value;
     return await _storage.setString("settings", jsonEncode(_settings));
   }
 
-  /// 设置数据
-  /// - [key] : 键
-  /// - [value] : 值
-  Future<bool> setSemesterWeekData(String key, dynamic value) async {
+  /// 设置学期数据
+  Future<bool> _setSemesterWeekData(String key, dynamic value) async {
     _semesterWeekData[key] = value;
     notifyListeners();
     return await _storage.setString(
@@ -173,8 +179,6 @@ class GlobalModel extends ChangeNotifier {
   }
 
   /// 设置数据
-  /// - [key] : 键
-  /// - [value] : 值
   Future<bool> setUserInfoData(String key, dynamic value) async {
     _userInfoData[key] = value;
     notifyListeners();
@@ -195,27 +199,81 @@ class GlobalModel extends ChangeNotifier {
     }
   }
 
+  /// 获取字体
+  String? getFontFamily() {
+    if (_settings["fontFamily"] == "default") {
+      return null;
+    }
+    return _settings["fontFamily"];
+  }
+
   /// 设置语言
   Future<void> setLocale(String select) async {
     await _setSettings("language", select);
     notifyListeners();
   }
 
+  /// 设置字体
+  Future<void> setFontFamily(String fontFamily) async {
+    await _setSettings("fontFamily", fontFamily);
+    notifyListeners();
+  }
+
   /// 设置登录状态
-  Future<void> setIsLogin(bool isLogin)async {
+  Future<void> setIsLogin(bool isLogin) async {
     await _setSettings("isLogin", isLogin);
     notifyListeners();
   }
 
   /// 设置数据是否第一次初始化完成
-  Future<void> setLoad20CountCourse(bool load20CountCourse)async {
+  Future<void> setLoad20CountCourse(bool load20CountCourse) async {
     await _setSettings("load20CountCourse", load20CountCourse);
     notifyListeners();
   }
 
   /// 设置本地默认语言
-  Future<void> setDeviceLocale(String deviceLocale)async {
+  Future<void> setDeviceLocale(String deviceLocale) async {
     await _setSettings("deviceLocale", deviceLocale);
+  }
+
+  /// 设置主题模式
+  Future<void> setThemeMode(String themeMode) async {
+    await _setSettings("themeMode", themeMode);
+    notifyListeners();
+  }
+
+  /// 获取主题模式
+  ThemeMode? getThemeMode() {
+    if (_settings["themeMode"] == "default") {
+      return ThemeMode.system;
+    } else if (_settings["themeMode"] == "light") {
+      return ThemeMode.light;
+    } else if (_settings["themeMode"] == "dark") {
+      return ThemeMode.dark;
+    }
+    return null;
+  }
+
+  /// 设置主题颜色
+  Future<void> setColorTheme(String colorTheme, String colorThemeName) async {
+    await _setSettings("colorTheme", colorTheme);
+    await _setSettings("colorThemeName", colorThemeName);
+    notifyListeners();
+  }
+
+  /// 获取主题颜色
+  Color getColorTheme() {
+    return Color(int.parse(_settings["colorTheme"].substring(1), radix: 16));
+  }
+
+  /// 设置开始日期
+  Future<void> setStartDate(String startDate) async {
+    await _setSemesterWeekData("startDay", startDate);
+  }
+
+  /// 设置学期
+  Future<void> setSemester(String semester) async {
+    await _setSemesterWeekData("semester", semester);
   }
 
   /// 获取课程数据

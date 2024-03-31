@@ -220,6 +220,26 @@ class S {
     );
   }
 
+  /// `Semester`
+  String get personViewSemesterTip {
+    return Intl.message(
+      'Semester',
+      name: 'personViewSemesterTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start day`
+  String get personViewStartDayTip {
+    return Intl.message(
+      'Start day',
+      name: 'personViewStartDayTip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm`
   String get pickerConfirm {
     return Intl.message(
@@ -261,10 +281,10 @@ class S {
   }
 
   /// `Version updates`
-  String get settingViewUpdateMainTest {
+  String get settingViewUpdateMainText {
     return Intl.message(
       'Version updates',
-      name: 'settingViewUpdateMainTest',
+      name: 'settingViewUpdateMainText',
       desc: '',
       args: [],
     );
@@ -295,6 +315,16 @@ class S {
     return Intl.message(
       'Cancel',
       name: 'updateDialogCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If the download fails, turn on the VPN`
+  String get updateDialogToastDownloadingVPN {
+    return Intl.message(
+      'If the download fails, turn on the VPN',
+      name: 'updateDialogToastDownloadingVPN',
       desc: '',
       args: [],
     );
@@ -331,10 +361,10 @@ class S {
   }
 
   /// `Follow the system`
-  String get settingViewLanguageSystem {
+  String get settingViewFollowSystem {
     return Intl.message(
       'Follow the system',
-      name: 'settingViewLanguageSystem',
+      name: 'settingViewFollowSystem',
       desc: '',
       args: [],
     );
@@ -355,6 +385,136 @@ class S {
     return Intl.message(
       'QiangZhi Schedule',
       name: 'settingViewAboutApplicationName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `UI`
+  String get settingViewGroupInterface {
+    return Intl.message(
+      'UI',
+      name: 'settingViewGroupInterface',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choice of font`
+  String get settingViewInterfaceFont {
+    return Intl.message(
+      'Choice of font',
+      name: 'settingViewInterfaceFont',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ZhuZiSWan`
+  String get settingViewFontZhuZiSWan {
+    return Intl.message(
+      'ZhuZiSWan',
+      name: 'settingViewFontZhuZiSWan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a light and shade theme`
+  String get settingViewInterfaceTheme {
+    return Intl.message(
+      'Select a light and shade theme',
+      name: 'settingViewInterfaceTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a color theme`
+  String get settingViewChoiceColorTheme {
+    return Intl.message(
+      'Select a color theme',
+      name: 'settingViewChoiceColorTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personalize global color matching`
+  String get settingViewChoiceColorSubTitle {
+    return Intl.message(
+      'Personalize global color matching',
+      name: 'settingViewChoiceColorSubTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light theme`
+  String get settingViewThemeLight {
+    return Intl.message(
+      'Light theme',
+      name: 'settingViewThemeLight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark theme`
+  String get settingViewThemeDark {
+    return Intl.message(
+      'Dark theme',
+      name: 'settingViewThemeDark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deep purple`
+  String get deepPurpleColor {
+    return Intl.message(
+      'Deep purple',
+      name: 'deepPurpleColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Green`
+  String get greenColor {
+    return Intl.message(
+      'Green',
+      name: 'greenColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pink`
+  String get pinkColor {
+    return Intl.message(
+      'Pink',
+      name: 'pinkColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blue`
+  String get blueColor {
+    return Intl.message(
+      'Blue',
+      name: 'blueColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lime`
+  String get limeColor {
+    return Intl.message(
+      'Lime',
+      name: 'limeColor',
       desc: '',
       args: [],
     );

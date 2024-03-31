@@ -24,6 +24,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "blueColor": MessageLookupByLibrary.simpleMessage("蓝色"),
+        "deepPurpleColor": MessageLookupByLibrary.simpleMessage("深紫色"),
+        "greenColor": MessageLookupByLibrary.simpleMessage("绿色"),
+        "limeColor": MessageLookupByLibrary.simpleMessage("青柠色"),
         "loginViewAutoLogin":
             MessageLookupByLibrary.simpleMessage("自动登录失败，请手动登录！"),
         "loginViewCaptcha": MessageLookupByLibrary.simpleMessage("验证码"),
@@ -42,8 +46,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationFunction": MessageLookupByLibrary.simpleMessage("功能"),
         "navigationPerson": MessageLookupByLibrary.simpleMessage("我的"),
         "navigationSchedule": MessageLookupByLibrary.simpleMessage("课表"),
+        "personViewSemesterTip": MessageLookupByLibrary.simpleMessage("学期"),
+        "personViewStartDayTip": MessageLookupByLibrary.simpleMessage("开始日期"),
         "pickerCancel": MessageLookupByLibrary.simpleMessage("取消"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("确认"),
+        "pinkColor": MessageLookupByLibrary.simpleMessage("粉色"),
         "scheduleViewCourseTimeName":
             MessageLookupByLibrary.simpleMessage("一&二&三&四&五"),
         "scheduleViewCurrentWeek": MessageLookupByLibrary.simpleMessage("第%%周"),
@@ -56,18 +63,32 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("作者：易秋"),
         "settingViewAboutApplicationName":
             MessageLookupByLibrary.simpleMessage("强智课表"),
+        "settingViewChoiceColorSubTitle":
+            MessageLookupByLibrary.simpleMessage("个性化全局配色"),
+        "settingViewChoiceColorTheme":
+            MessageLookupByLibrary.simpleMessage("选择主题颜色"),
+        "settingViewFollowSystem": MessageLookupByLibrary.simpleMessage("跟随系统"),
+        "settingViewFontZhuZiSWan":
+            MessageLookupByLibrary.simpleMessage("筑紫S丸"),
         "settingViewGroupAbout": MessageLookupByLibrary.simpleMessage("关于"),
+        "settingViewGroupInterface": MessageLookupByLibrary.simpleMessage("界面"),
         "settingViewGroupLanguage": MessageLookupByLibrary.simpleMessage("语言"),
-        "settingViewLanguageSystem":
-            MessageLookupByLibrary.simpleMessage("跟随系统"),
+        "settingViewInterfaceFont":
+            MessageLookupByLibrary.simpleMessage("选择字体"),
+        "settingViewInterfaceTheme":
+            MessageLookupByLibrary.simpleMessage("选择深浅主题"),
         "settingViewSwitchLanguageTip":
             MessageLookupByLibrary.simpleMessage("切换语言"),
+        "settingViewThemeDark": MessageLookupByLibrary.simpleMessage("深色主题"),
+        "settingViewThemeLight": MessageLookupByLibrary.simpleMessage("浅色主题"),
         "settingViewTitle": MessageLookupByLibrary.simpleMessage("设置"),
-        "settingViewUpdateMainTest":
+        "settingViewUpdateMainText":
             MessageLookupByLibrary.simpleMessage("版本更新"),
         "updateDialogCancel": MessageLookupByLibrary.simpleMessage("取消"),
         "updateDialogConfirm": MessageLookupByLibrary.simpleMessage("确认"),
         "updateDialogCurrentIsLastVersion":
-            MessageLookupByLibrary.simpleMessage("当前已是最新版本！")
+            MessageLookupByLibrary.simpleMessage("当前已是最新版本！"),
+        "updateDialogToastDownloadingVPN":
+            MessageLookupByLibrary.simpleMessage("如果遇到下载失败请开启VPN")
       };
 }

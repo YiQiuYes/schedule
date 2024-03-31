@@ -223,6 +223,7 @@ class _ScheduleViewState extends State<ScheduleView>
                       vertical: 25.sp,
                       horizon: 18.sp,
                     ),
+                    height: 0,
                   ),
                 ),
               );

@@ -10,16 +10,19 @@ import 'package:schedule/pages/setting/SettingView.dart';
 import 'package:schedule/pages/setting/SettingViewModel.dart';
 import 'package:schedule/pages/splash/SplashView.dart';
 
+import '../pages/colorTheme/ColorThemeView.dart';
+
 class GoRouteConfig {
   static const String splash = '/splash';
   static const String appMain = '/appMain';
   static const String login = '/login';
   static const String setting = '/setting';
+  static const String colorTheme = '/colorTheme';
 
   static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: splash,
+    initialLocation: appMain,
     redirect: (context, state) {
       if (state.fullPath == splash) {
         return splash;
@@ -61,7 +64,15 @@ class GoRouteConfig {
         path: setting,
         builder: (context, state) {
           _setContext = context;
-          return const SettingView();
+          return SettingView();
+        },
+      ),
+      GoRoute(
+        name: 'colorTheme',
+        path: colorTheme,
+        builder: (context, state) {
+          _setContext = context;
+          return const ColorThemeView();
         },
       ),
     ],

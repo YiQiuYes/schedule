@@ -12,8 +12,6 @@ import 'package:schedule/main.dart';
 class ScheduleViewModel with ChangeNotifier {
   // tabBarController
   late TabController tabController;
-  // 定时器限流
-  Timer? timer;
 
   final _screen = ScreenAdaptor();
 
@@ -73,21 +71,16 @@ class ScheduleViewModel with ChangeNotifier {
       vsync: vsync,
     );
     tabController.addListener(() {
-      timer?.cancel();
-      timer = Timer(const Duration(milliseconds: 1000), () {
-        // 获取课程数据
-        globalModel.getPersonCourseData(
-          week: (tabController.index + 1).toString(),
-          semester: globalModel.semesterWeekData["semester"],
-        );
-        // 获取实验课程数据
-        globalModel.getPersonExperimentData(
-          week: (tabController.index + 1).toString(),
-          semester: globalModel.semesterWeekData["semester"],
-        );
-        // 销毁定时器
-        timer?.cancel();
-      });
+      // 获取课程数据
+      globalModel.getPersonCourseData(
+        week: (tabController.index + 1).toString(),
+        semester: globalModel.semesterWeekData["semester"],
+      );
+      // 获取实验课程数据
+      globalModel.getPersonExperimentData(
+        week: (tabController.index + 1).toString(),
+        semester: globalModel.semesterWeekData["semester"],
+      );
     });
   }
 

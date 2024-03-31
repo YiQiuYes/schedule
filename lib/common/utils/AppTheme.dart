@@ -40,4 +40,9 @@ class AppTheme {
       };
     }
   }
+
+  /// 判断是否为light或者dart模式
+  static Brightness brightnessMode(BuildContext context) {
+    return Theme.of(context).brightness;
+  }
 }

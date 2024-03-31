@@ -24,6 +24,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "blueColor": MessageLookupByLibrary.simpleMessage("Blue"),
+        "deepPurpleColor": MessageLookupByLibrary.simpleMessage("Deep purple"),
+        "greenColor": MessageLookupByLibrary.simpleMessage("Green"),
+        "limeColor": MessageLookupByLibrary.simpleMessage("Lime"),
         "loginViewAutoLogin": MessageLookupByLibrary.simpleMessage(
             "Auto login failed, please log in manually!"),
         "loginViewCaptcha": MessageLookupByLibrary.simpleMessage("Captcha"),
@@ -43,8 +47,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationFunction": MessageLookupByLibrary.simpleMessage("function"),
         "navigationPerson": MessageLookupByLibrary.simpleMessage("person"),
         "navigationSchedule": MessageLookupByLibrary.simpleMessage("schedule"),
+        "personViewSemesterTip":
+            MessageLookupByLibrary.simpleMessage("Semester"),
+        "personViewStartDayTip":
+            MessageLookupByLibrary.simpleMessage("Start day"),
         "pickerCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "pinkColor": MessageLookupByLibrary.simpleMessage("Pink"),
         "scheduleViewCourseTimeName":
             MessageLookupByLibrary.simpleMessage("1st&2nd&3rd&4th&5th"),
         "scheduleViewCurrentWeek":
@@ -58,20 +67,37 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Author: YiQiu"),
         "settingViewAboutApplicationName":
             MessageLookupByLibrary.simpleMessage("QiangZhi Schedule"),
+        "settingViewChoiceColorSubTitle": MessageLookupByLibrary.simpleMessage(
+            "Personalize global color matching"),
+        "settingViewChoiceColorTheme":
+            MessageLookupByLibrary.simpleMessage("Select a color theme"),
+        "settingViewFollowSystem":
+            MessageLookupByLibrary.simpleMessage("Follow the system"),
+        "settingViewFontZhuZiSWan":
+            MessageLookupByLibrary.simpleMessage("ZhuZiSWan"),
         "settingViewGroupAbout": MessageLookupByLibrary.simpleMessage("About"),
+        "settingViewGroupInterface": MessageLookupByLibrary.simpleMessage("UI"),
         "settingViewGroupLanguage":
             MessageLookupByLibrary.simpleMessage("Language"),
-        "settingViewLanguageSystem":
-            MessageLookupByLibrary.simpleMessage("Follow the system"),
+        "settingViewInterfaceFont":
+            MessageLookupByLibrary.simpleMessage("Choice of font"),
+        "settingViewInterfaceTheme": MessageLookupByLibrary.simpleMessage(
+            "Select a light and shade theme"),
         "settingViewSwitchLanguageTip":
             MessageLookupByLibrary.simpleMessage("Switch languages"),
+        "settingViewThemeDark":
+            MessageLookupByLibrary.simpleMessage("Dark theme"),
+        "settingViewThemeLight":
+            MessageLookupByLibrary.simpleMessage("Light theme"),
         "settingViewTitle": MessageLookupByLibrary.simpleMessage("Setting"),
-        "settingViewUpdateMainTest":
+        "settingViewUpdateMainText":
             MessageLookupByLibrary.simpleMessage("Version updates"),
         "updateDialogCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "updateDialogConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "updateDialogCurrentIsLastVersion":
             MessageLookupByLibrary.simpleMessage(
-                "The current version is the latest version!")
+                "The current version is the latest version!"),
+        "updateDialogToastDownloadingVPN": MessageLookupByLibrary.simpleMessage(
+            "If the download fails, turn on the VPN")
       };
 }

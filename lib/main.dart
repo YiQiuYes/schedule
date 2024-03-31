@@ -120,16 +120,21 @@ class _MyAppState extends State<MyApp> with WindowListener {
             title: 'schedule',
             builder: FToastBuilder(),
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              colorScheme:
+                  ColorScheme.fromSeed(seedColor: model.getColorTheme()),
               useMaterial3: true,
-              fontFamily: 'ZhuZiSWan',
+              fontFamily: model.getFontFamily(),
               brightness: Brightness.light,
             ),
             darkTheme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: model.getColorTheme(),
+                brightness: Brightness.dark,
+              ),
               useMaterial3: true,
-              fontFamily: 'ZhuZiSWan',
-              brightness: Brightness.dark,
+              fontFamily: model.getFontFamily(),
             ),
+            themeMode: model.getThemeMode(),
             routerConfig: GoRouteConfig.router,
             localizationsDelegates: const [
               S.delegate,

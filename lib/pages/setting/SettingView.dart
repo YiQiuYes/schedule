@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/GlobalModel.dart';
+import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/components/MyPopupMenuButton.dart';
 import 'package:schedule/generated/l10n.dart';
@@ -20,12 +23,39 @@ class SettingView extends StatefulWidget {
 
 class _SettingViewState extends State<SettingView> {
   final SettingViewModel settingViewModel = SettingViewModel();
-
-  final _screen = ScreenAdaptor();
+  late List<Widget> _widgetList;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 页面widgetList
+    _widgetList = [
+      // 界面文本
+      _getGroupText(
+          context, S.of(context).settingViewGroupInterface),
+      // 深浅色主题设置
+      _getThemeSetting(context),
+      // 选择主题颜色
+      _getChoiceThemeColor(context),
+      // 字体设置
+      _getFontSetting(context),
+      // 语言文本
+      _getGroupText(
+          context, S.of(context).settingViewGroupLanguage),
+      // 语言设置
+      _getLanguageSetting(context),
+      // 关于文本
+      _getGroupText(context, S.of(context).settingViewGroupAbout),
+      // 获取版本更新
+      _getVersionUpdate(context),
+      // 关于应用
+      _getAboutApplicationDialog(context),
+    ];
   }
 
   @override
@@ -46,20 +76,22 @@ class _SettingViewState extends State<SettingView> {
             },
             body: CustomScrollView(
               slivers: [
-                SliverList.list(
-                  children: [
-                    // 语言文本
-                    _getGroupText(
-                        context, S.of(context).settingViewGroupLanguage),
-                    // 语言设置
-                    _getLanguageSetting(context),
-                    // 关于文本
-                    _getGroupText(context, S.of(context).settingViewGroupAbout),
-                    // 获取版本更新
-                    _getVersionUpdate(context),
-                    // 关于应用
-                    _getAboutApplicationDialog(context),
-                  ],
+                AnimationLimiter(
+                  child: SliverList.builder(
+                    itemCount: _widgetList.length,
+                    itemBuilder: (context, index) {
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 375),
+                        child: SlideAnimation(
+                          verticalOffset: 50.0,
+                          child: FadeInAnimation(
+                            child: _widgetList[index],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
@@ -72,9 +104,9 @@ class _SettingViewState extends State<SettingView> {
   /// 获取SliverAppBar
   Widget _getSliverAppBar(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: _screen.getLengthByOrientation(
-        vertical: 150.w,
-        horizon: 55.w,
+      expandedHeight: ScreenAdaptor().getLengthByOrientation(
+        vertical: 160.h,
+        horizon: 170.h,
       ),
       pinned: true,
       surfaceTintColor: Colors.transparent,
@@ -98,15 +130,15 @@ class _SettingViewState extends State<SettingView> {
   Widget _getGroupText(BuildContext context, String text) {
     return Padding(
       padding: EdgeInsets.only(
-        left: _screen.getLengthByOrientation(
+        left: ScreenAdaptor().getLengthByOrientation(
           vertical: 35.w,
           horizon: 20.w,
         ),
-        top: _screen.getLengthByOrientation(
+        top: ScreenAdaptor().getLengthByOrientation(
           vertical: 20.w,
           horizon: 10.w,
         ),
-        bottom: _screen.getLengthByOrientation(
+        bottom: ScreenAdaptor().getLengthByOrientation(
           vertical: 10.w,
           horizon: 10.w,
         ),
@@ -124,14 +156,11 @@ class _SettingViewState extends State<SettingView> {
     );
   }
 
-  /// 获取版本更新
-  Widget _getVersionUpdate(BuildContext context) {
+  /// 获取ListTile
+  Widget _getListTile(
+      String title, String subtitle, IconData icon, Function? onTap) {
     return ListTile(
-      onTap: () {
-        settingViewModel.updateVersion(context,
-            newVersionDialogBuilder: _getNewVersionDialog,
-            lastVersionDialogBuilder: _getLastVersionDialog);
-      },
+      onTap: onTap == null ? null : () => onTap(),
       contentPadding: EdgeInsets.only(
         left: ScreenAdaptor().getLengthByOrientation(
           vertical: 35.w,
@@ -139,37 +168,49 @@ class _SettingViewState extends State<SettingView> {
         ),
       ),
       leading: Icon(
-        Icons.update_rounded,
-        size: _screen.getLengthByOrientation(
+        icon,
+        size: ScreenAdaptor().getLengthByOrientation(
           vertical: 38.w,
           horizon: 22.w,
         ),
       ),
       title: Text(
-        S.of(context).settingViewUpdateMainTest,
+        title,
         style: TextStyle(
-          fontSize: _screen.getLengthByOrientation(
-            vertical: 32.sp,
-            horizon: 17.sp,
+          fontSize: ScreenAdaptor().getLengthByOrientation(
+            vertical: 28.sp,
+            horizon: 16.sp,
           ),
         ),
       ),
       subtitle: Text(
-        S.of(context).settingCurrentVersion(settingViewModel.getVersion()),
+        subtitle,
         style: TextStyle(
-          fontSize: _screen.getLengthByOrientation(
-            vertical: 26.sp,
-            horizon: 15.sp,
+          fontSize: ScreenAdaptor().getLengthByOrientation(
+            vertical: 22.sp,
+            horizon: 13.sp,
           ),
         ),
       ),
     );
   }
 
+  /// 获取版本更新
+  Widget _getVersionUpdate(BuildContext context) {
+    return _getListTile(
+        S.of(context).settingViewUpdateMainText,
+        S.of(context).settingCurrentVersion(settingViewModel.getVersion()),
+        Icons.update_rounded, () {
+      settingViewModel.updateVersion(context,
+          newVersionDialogBuilder: _getNewVersionDialog,
+          lastVersionDialogBuilder: _getLastVersionDialog);
+    });
+  }
+
   /// 有新版本弹窗builder构造函数
   Widget _getNewVersionDialog(BuildContext context, String info, String url) {
     return AlertDialog(
-      title: Text(S.of(context).settingViewUpdateMainTest),
+      title: Text(S.of(context).settingViewUpdateMainText),
       content: Text(info),
       actions: [
         TextButton(
@@ -180,6 +221,7 @@ class _SettingViewState extends State<SettingView> {
         ),
         TextButton(
           onPressed: () {
+            FlutterToastUtil.toastNoContent(S.of(context).updateDialogToastDownloadingVPN);
             // 跳转到浏览器
             settingViewModel.jumpBrowser(url);
           },
@@ -192,7 +234,7 @@ class _SettingViewState extends State<SettingView> {
   /// 当前已是最新版本弹窗builder构造函数
   Widget _getLastVersionDialog(BuildContext context) {
     return AlertDialog(
-      title: Text(S.of(context).settingViewUpdateMainTest),
+      title: Text(S.of(context).settingViewUpdateMainText),
       content: Text(S.of(context).updateDialogCurrentIsLastVersion),
       actions: [
         TextButton(
@@ -216,7 +258,7 @@ class _SettingViewState extends State<SettingView> {
           settingViewModel.setLanguageByKey(value);
         },
         offset: Offset(
-          _screen.getLengthByOrientation(
+          ScreenAdaptor().getLengthByOrientation(
             vertical: 100.w,
             horizon: 60.w,
           ),
@@ -234,39 +276,11 @@ class _SettingViewState extends State<SettingView> {
           });
           return widget;
         },
-        child: ListTile(
-          contentPadding: EdgeInsets.only(
-            left: ScreenAdaptor().getLengthByOrientation(
-              vertical: 35.w,
-              horizon: 20.w,
-            ),
-          ),
-          leading: Icon(
-            Icons.language_rounded,
-            size: _screen.getLengthByOrientation(
-              vertical: 38.w,
-              horizon: 22.w,
-            ),
-          ),
-          title: Text(
-            S.of(context).settingViewGroupLanguage,
-            style: TextStyle(
-              fontSize: _screen.getLengthByOrientation(
-                vertical: 32.sp,
-                horizon: 17.sp,
-              ),
-            ),
-          ),
-          subtitle: Text(
-            settingViewModel
-                .getLanguagesMap()[globalModel.settings["language"]]!,
-            style: TextStyle(
-              fontSize: _screen.getLengthByOrientation(
-                vertical: 26.sp,
-                horizon: 15.sp,
-              ),
-            ),
-          ),
+        child: _getListTile(
+          S.of(context).settingViewGroupLanguage,
+          settingViewModel.getLanguagesMap()[globalModel.settings["language"]]!,
+          Icons.language_rounded,
+          null,
         ),
       );
     });
@@ -274,57 +288,121 @@ class _SettingViewState extends State<SettingView> {
 
   /// 关于应用弹窗
   Widget _getAboutApplicationDialog(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        showAboutDialog(
-          context: context,
-          applicationName: S.of(context).settingViewAboutApplicationName,
-          applicationIcon: Image.asset(
-            "lib/assets/images/logo.png",
-            width: _screen.getLengthByOrientation(
-              vertical: 50.w,
-              horizon: 30.w,
-            ),
-            height: _screen.getLengthByOrientation(
-              vertical: 50.w,
-              horizon: 30.w,
-            ),
-          ),
-          applicationVersion: PackageInfoUtils.version,
-          applicationLegalese: "2024-3-17",
-        );
-      },
-      contentPadding: EdgeInsets.only(
-        left: ScreenAdaptor().getLengthByOrientation(
-          vertical: 35.w,
-          horizon: 20.w,
-        ),
-      ),
-      leading: Icon(
-        Icons.person_rounded,
-        size: _screen.getLengthByOrientation(
-          vertical: 38.w,
-          horizon: 22.w,
-        ),
-      ),
-      title: Text(
+    return _getListTile(
         S.of(context).settingViewAboutApplication,
-        style: TextStyle(
-          fontSize: _screen.getLengthByOrientation(
-            vertical: 32.sp,
-            horizon: 17.sp,
-          ),
-        ),
-      ),
-      subtitle: Text(
         S.of(context).settingViewAboutApplicationName,
-        style: TextStyle(
-          fontSize: _screen.getLengthByOrientation(
-            vertical: 26.sp,
-            horizon: 15.sp,
+        Icons.person_rounded, () {
+      showAboutDialog(
+        context: context,
+        applicationName: S.of(context).settingViewAboutApplicationName,
+        applicationIcon: Image.asset(
+          "lib/assets/images/logo.png",
+          width: ScreenAdaptor().getLengthByOrientation(
+            vertical: 50.w,
+            horizon: 30.w,
+          ),
+          height: ScreenAdaptor().getLengthByOrientation(
+            vertical: 50.w,
+            horizon: 30.w,
           ),
         ),
-      ),
+        applicationVersion: PackageInfoUtils.version,
+        applicationLegalese: "2024-3-17",
+      );
+    });
+  }
+
+  /// 获取界面
+  Widget _getFontSetting(BuildContext context) {
+    return Consumer<GlobalModel>(builder: (context, model, child) {
+      return MyPopupMenuButton(
+        tooltip: S.of(context).settingViewInterfaceFont,
+        initialValue: globalModel.settings["fontFamily"],
+        position: PopupMenuPosition.under,
+        onSelected: (value) {
+          settingViewModel.setFontByKey(value);
+        },
+        offset: Offset(
+          ScreenAdaptor().getLengthByOrientation(
+            vertical: 100.w,
+            horizon: 60.w,
+          ),
+          0,
+        ),
+        itemBuilder: (context) {
+          List<PopupMenuEntry> widget = [];
+          settingViewModel.getFontsMap().forEach((key, value) {
+            widget.add(
+              PopupMenuItem(
+                value: key,
+                child: Text(value),
+              ),
+            );
+          });
+          return widget;
+        },
+        child: _getListTile(
+          S.of(context).settingViewInterfaceFont,
+          settingViewModel.getFontsMap()[globalModel.settings["fontFamily"]]!,
+          Icons.font_download_rounded,
+          null,
+        ),
+      );
+    });
+  }
+
+  /// 获取深浅色主题模式
+  Widget _getThemeSetting(BuildContext context) {
+    return Consumer<GlobalModel>(builder: (context, model, child) {
+      return MyPopupMenuButton(
+        tooltip: S.of(context).settingViewInterfaceTheme,
+        initialValue: globalModel.settings["theme"],
+        position: PopupMenuPosition.under,
+        onSelected: (value) {
+          settingViewModel.setThemeByKey(value);
+        },
+        offset: Offset(
+          ScreenAdaptor().getLengthByOrientation(
+            vertical: 100.w,
+            horizon: 60.w,
+          ),
+          0,
+        ),
+        itemBuilder: (context) {
+          List<PopupMenuEntry> widget = [];
+          settingViewModel.getThemesMap().forEach((key, value) {
+            widget.add(
+              PopupMenuItem(
+                value: key,
+                child: Text(value),
+              ),
+            );
+          });
+          return widget;
+        },
+        child: _getListTile(
+          S.of(context).settingViewInterfaceTheme,
+          settingViewModel.getThemesMap()[globalModel.settings["themeMode"]]!,
+          Icons.dark_mode_rounded,
+          null,
+        ),
+      );
+    });
+  }
+
+  /// 选择主题
+  Widget _getChoiceThemeColor(BuildContext context) {
+    return Consumer<GlobalModel>(
+      builder: (context, model, child) {
+        return _getListTile(
+          S.of(context).settingViewChoiceColorTheme,
+          S.of(context).settingViewChoiceColorSubTitle,
+          Icons.palette_rounded,
+          () {
+            GoRouter.of(context).push("/colorTheme");
+          },
+        );
+      }
     );
   }
 }

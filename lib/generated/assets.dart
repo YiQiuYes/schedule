@@ -7,6 +7,8 @@ class Assets {
   static const String apiUserApi = 'lib/api/UserApi.dart';
   static const String appMainAppMainView = 'lib/pages/appMain/AppMainView.dart';
   static const String appMainAppMainViewModel = 'lib/pages/appMain/AppMainViewModel.dart';
+  static const String colorThemeColorThemeView = 'lib/pages/colorTheme/ColorThemeView.dart';
+  static const String colorThemeColorThemeViewModel = 'lib/pages/colorTheme/ColorThemeViewModel.dart';
   static const String componentsMyPopupMenuButton = 'lib/components/MyPopupMenuButton.dart';
   static const String fontsZhuZiSWan = 'lib/assets/fonts/ZhuZiSWan.ttf';
   static const String functionFunctionView = 'lib/pages/function/FunctionView.dart';
@@ -29,6 +31,7 @@ class Assets {
   static const String managerFileManager = 'lib/common/manager/FileManager.dart';
   static const String managerRequestManager = 'lib/common/manager/RequestManager.dart';
   static const String personPersonView = 'lib/pages/person/PersonView.dart';
+  static const String personPersonViewModel = 'lib/pages/person/PersonViewModel.dart';
   static const String routeGoRouteConfig = 'lib/route/GoRouteConfig.dart';
   static const String scheduleScheduleView = 'lib/pages/schedule/ScheduleView.dart';
   static const String scheduleScheduleViewModel = 'lib/pages/schedule/ScheduleViewModel.dart';

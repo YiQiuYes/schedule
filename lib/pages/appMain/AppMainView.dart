@@ -24,7 +24,7 @@ class _AppMainViewState extends State<AppMainView>
   @override
   void initState() {
     super.initState();
-    // 设置tabbar控制器
+    // 设置tabBar控制器
     _scheduleViewModel.setTabController = TabController(
       initialIndex: 0,
       length: 3,

@@ -19,21 +19,40 @@
   "scheduleViewCurrentWeek" : "第%%周",
   "scheduleViewYearAndMonth" : "%%/&&月",
 
+  "personViewSemesterTip" : "学期",
+  "personViewStartDayTip" : "开始日期",
+
   "pickerConfirm" : "确认",
   "pickerCancel" : "取消",
 
   "settingViewTitle" : "设置",
   "settingViewGroupAbout" : "关于",
-  "settingViewUpdateMainTest" : "版本更新",
+  "settingViewUpdateMainText" : "版本更新",
   "settingCurrentVersion" : "当前版本 {version}",
   "updateDialogConfirm" : "确认",
   "updateDialogCancel" : "取消",
+  "updateDialogToastDownloadingVPN" : "如果遇到下载失败请开启VPN",
   "updateDialogCurrentIsLastVersion" : "当前已是最新版本！",
 
   "settingViewGroupLanguage" : "语言",
   "settingViewSwitchLanguageTip" : "切换语言",
-  "settingViewLanguageSystem" : "跟随系统",
+  "settingViewFollowSystem" : "跟随系统",
 
   "settingViewAboutApplication" : "作者：易秋",
-  "settingViewAboutApplicationName" : "强智课表"
+  "settingViewAboutApplicationName" : "强智课表",
+
+  "settingViewGroupInterface" : "界面",
+  "settingViewInterfaceFont" : "选择字体",
+  "settingViewFontZhuZiSWan" : "筑紫S丸",
+  "settingViewInterfaceTheme" : "选择深浅主题",
+  "settingViewChoiceColorTheme" : "选择主题颜色",
+  "settingViewChoiceColorSubTitle" : "个性化全局配色",
+  "settingViewThemeLight" : "浅色主题",
+  "settingViewThemeDark" : "深色主题",
+
+  "deepPurpleColor" : "深紫色",
+  "greenColor" : "绿色",
+  "pinkColor" : "粉色",
+  "blueColor" : "蓝色",
+  "limeColor" : "青柠色"
 }

@@ -45,6 +45,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>CFBundleLocalizations</key>
+	<array>
+	    <string>en</string>
+	    <string>zh-CN</string>
+    </array>
+
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>sms</string>

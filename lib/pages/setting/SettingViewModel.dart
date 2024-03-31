@@ -125,7 +125,7 @@ class SettingViewModel with ChangeNotifier {
   /// 获取语言列表
   Map<String, String> getLanguagesMap() {
     final map = {
-      "default" : S.current.settingViewLanguageSystem,
+      "default" : S.current.settingViewFollowSystem,
       "zh-CN" : "简体中文",
       "en-US" : "English",
     };
@@ -135,5 +135,34 @@ class SettingViewModel with ChangeNotifier {
   /// 设置语言
   void setLanguageByKey(dynamic select) {
     globalModel.setLocale(select);
+  }
+
+  /// 获取字体列表
+  Map<String, String> getFontsMap() {
+    final map = {
+      "default" : S.current.settingViewFollowSystem,
+      "zhuZiSWan" : S.current.settingViewFontZhuZiSWan,
+    };
+    return map;
+  }
+
+  /// 设置字体
+  void setFontByKey(dynamic select) {
+    globalModel.setFontFamily(select);
+  }
+
+  /// 获取主题列表
+  Map<String, String> getThemesMap() {
+    final map = {
+      "default" : S.current.settingViewFollowSystem,
+      "light" : S.current.settingViewThemeLight,
+      "dark" : S.current.settingViewThemeDark,
+    };
+    return map;
+  }
+
+  /// 设置主题
+  void setThemeByKey(dynamic select) {
+    globalModel.setThemeMode(select);
   }
 }
