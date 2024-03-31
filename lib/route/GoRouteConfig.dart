@@ -22,7 +22,7 @@ class GoRouteConfig {
   static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: appMain,
+    initialLocation: splash,
     redirect: (context, state) {
       if (state.fullPath == splash) {
         return splash;
@@ -64,7 +64,7 @@ class GoRouteConfig {
         path: setting,
         builder: (context, state) {
           _setContext = context;
-          return SettingView();
+          return const SettingView();
         },
       ),
       GoRoute(
