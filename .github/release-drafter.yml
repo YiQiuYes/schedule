@@ -24,15 +24,10 @@ version-resolver:
   default: patch
 # 这里填写更新内容
 template: |
-  测试版 v0.1.8
-  修复ios语言异常问题
-  新增主题页面设置
-  更改macos默认图标
-  修复android gradle构建报错问题
-  修复schedule页面日期文本行高问题
-  添加列表动画
-  person新增学期和开始日期的选择
-  修复安装签名
+  测试版 0.1.9
+  更改刷新页数据
+  新增成绩查询
+  优化刘海屏的横屏适配
 
   $CHANGES
 no-changes-template: |

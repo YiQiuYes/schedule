@@ -12,6 +12,9 @@ class Assets {
   static const String componentsMyPopupMenuButton = 'lib/components/MyPopupMenuButton.dart';
   static const String fontsZhuZiSWan = 'lib/assets/fonts/ZhuZiSWan.ttf';
   static const String functionFunctionView = 'lib/pages/function/FunctionView.dart';
+  static const String functionFunctionViewModel = 'lib/pages/function/FunctionViewModel.dart';
+  static const String functionScoreFunctionScore = 'lib/pages/functionTab/functionScore/FunctionScoreView.dart';
+  static const String functionScoreFunctionScoreViewModel = 'lib/pages/functionTab/functionScore/FunctionScoreViewModel.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String generatedL10n = 'lib/generated/l10n.dart';
   static const String imagesLogo = 'lib/assets/images/logo.png';
@@ -27,6 +30,7 @@ class Assets {
   static const String loginLoginViewModel = 'lib/pages/login/LoginViewModel.dart';
   static const String lottiesLoading = 'lib/assets/lotties/loading.json';
   static const String lottiesPerson = 'lib/assets/lotties/person.json';
+  static const String lottiesSplash = 'lib/assets/lotties/splash.json';
   static const String managerDataStorageManager = 'lib/common/manager/DataStorageManager.dart';
   static const String managerFileManager = 'lib/common/manager/FileManager.dart';
   static const String managerRequestManager = 'lib/common/manager/RequestManager.dart';

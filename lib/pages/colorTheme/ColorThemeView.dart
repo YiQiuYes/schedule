@@ -19,8 +19,6 @@ class ColorThemeView extends StatelessWidget {
       create: (context) => ColorThemeViewModel(),
       child: Scaffold(
         body: SafeArea(
-          left: false,
-          right: false,
           bottom: false,
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {

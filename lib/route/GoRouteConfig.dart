@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
+import 'package:schedule/pages/functionTab/functionScore/FunctionScoreView.dart';
 import 'package:schedule/pages/login/LoginView.dart';
 import 'package:schedule/pages/setting/SettingView.dart';
 import 'package:schedule/pages/setting/SettingViewModel.dart';
@@ -18,6 +19,7 @@ class GoRouteConfig {
   static const String login = '/login';
   static const String setting = '/setting';
   static const String colorTheme = '/colorTheme';
+  static const String functionScore = '/functionScore';
 
   static late BuildContext _context;
 
@@ -73,6 +75,14 @@ class GoRouteConfig {
         builder: (context, state) {
           _setContext = context;
           return const ColorThemeView();
+        },
+      ),
+      GoRoute(
+        name: 'functionScore',
+        path: functionScore,
+        builder: (context, state) {
+          _setContext = context;
+          return const FunctionScoreView();
         },
       ),
     ],

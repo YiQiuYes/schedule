@@ -19,6 +19,9 @@
   "scheduleViewCurrentWeek" : "Week %%",
   "scheduleViewYearAndMonth" : "%%/&& Month",
 
+  "functionViewFunctionAreaName" : "Function area",
+  "functionViewScoreTitle" : "Score",
+
   "personViewSemesterTip" : "Semester",
   "personViewStartDayTip" : "Start day",
 
@@ -54,5 +57,8 @@
   "greenColor" : "Green",
   "pinkColor" : "Pink",
   "blueColor" : "Blue",
-  "limeColor" : "Lime"
+  "limeColor" : "Lime",
+
+  "functionScoreViewAppBarTitle" : "Score",
+  "functionScoreViewGPA" : "GPA:{score}"
 }

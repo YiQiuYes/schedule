@@ -19,6 +19,9 @@
   "scheduleViewCurrentWeek" : "第%%周",
   "scheduleViewYearAndMonth" : "%%/&&月",
 
+  "functionViewFunctionAreaName" : "功能区域",
+  "functionViewScoreTitle" : "成绩查询",
+
   "personViewSemesterTip" : "学期",
   "personViewStartDayTip" : "开始日期",
 
@@ -54,5 +57,8 @@
   "greenColor" : "绿色",
   "pinkColor" : "粉色",
   "blueColor" : "蓝色",
-  "limeColor" : "青柠色"
+  "limeColor" : "青柠色",
+
+  "functionScoreViewAppBarTitle" : "成绩查询",
+  "functionScoreViewGPA" : "绩点：{score}"
 }

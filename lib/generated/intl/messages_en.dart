@@ -20,12 +20,20 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(version) => "Current version ${version}";
+  static String m0(score) => "GPA:${score}";
+
+  static String m1(version) => "Current version ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "blueColor": MessageLookupByLibrary.simpleMessage("Blue"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("Deep purple"),
+        "functionScoreViewAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("Score"),
+        "functionScoreViewGPA": m0,
+        "functionViewFunctionAreaName":
+            MessageLookupByLibrary.simpleMessage("Function area"),
+        "functionViewScoreTitle": MessageLookupByLibrary.simpleMessage("Score"),
         "greenColor": MessageLookupByLibrary.simpleMessage("Green"),
         "limeColor": MessageLookupByLibrary.simpleMessage("Lime"),
         "loginViewAutoLogin": MessageLookupByLibrary.simpleMessage(
@@ -62,7 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mon&Tues&Wed&Thur&Fri&Sat&Sun"),
         "scheduleViewYearAndMonth":
             MessageLookupByLibrary.simpleMessage("%%/&& Month"),
-        "settingCurrentVersion": m0,
+        "settingCurrentVersion": m1,
         "settingViewAboutApplication":
             MessageLookupByLibrary.simpleMessage("Author: YiQiu"),
         "settingViewAboutApplicationName":

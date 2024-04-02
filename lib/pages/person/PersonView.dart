@@ -50,36 +50,31 @@ class _PersonViewState extends State<PersonView>
     ];
     return ChangeNotifierProvider.value(
       value: _viewModel,
-      child: SafeArea(
-        left: false,
-        right: false,
-        bottom: false,
-        child: Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [];
-            },
-            body: CustomScrollView(
-              slivers: [
-                AnimationLimiter(
-                  child: SliverList.builder(
-                    itemCount: _widgetList.length,
-                    itemBuilder: (context, index) {
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 375),
-                        child: SlideAnimation(
-                          verticalOffset: 50.0,
-                          child: FadeInAnimation(
-                            child: _widgetList[index],
-                          ),
+      child: Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [];
+          },
+          body: CustomScrollView(
+            slivers: [
+              AnimationLimiter(
+                child: SliverList.builder(
+                  itemCount: _widgetList.length,
+                  itemBuilder: (context, index) {
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 375),
+                      child: SlideAnimation(
+                        verticalOffset: 50.0,
+                        child: FadeInAnimation(
+                          child: _widgetList[index],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -117,105 +112,103 @@ class _PersonViewState extends State<PersonView>
 
   /// 获取学期和开始日期设置行
   Widget _getSemesterAndStartDate(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: _screen.getLengthByOrientation(
-          vertical: 40.w,
-          horizon: 30.w,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Expanded(child: SizedBox()),
+        // 学期设置
+        SizedBox(
+          width: _screen.getLengthByOrientation(
+            vertical: 290.w,
+            horizon: 150.w,
+          ),
+          child: TextField(
+            controller: _viewModel.semesterController,
+            readOnly: true,
+            textAlign: TextAlign.center,
+            onTap: () {
+              _showSemesterList(context);
+            },
+            style: TextStyle(
+              fontSize: _screen.getLengthByOrientation(
+                vertical: 32.sp,
+                horizon: 17.sp,
+              ),
+            ),
+            decoration: InputDecoration(
+              labelText: S.of(context).personViewSemesterTip,
+              labelStyle: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Expanded(child: SizedBox()),
-          // 学期设置
-          SizedBox(
-            width: _screen.getLengthByOrientation(
-              vertical: 240.w,
-              horizon: 128.w,
-            ),
-            child: TextField(
-              controller: _viewModel.semesterController,
-              readOnly: true,
-              textAlign: TextAlign.center,
-              onTap: () {
-                _showSemesterList(context);
-              },
-              style: TextStyle(
-                fontSize: _screen.getLengthByOrientation(
-                  vertical: 32.sp,
-                  horizon: 17.sp,
-                ),
-              ),
-              decoration: InputDecoration(
-                labelText: S.of(context).personViewSemesterTip,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
+        // 间隔
+        SizedBox(
+          width: _screen.getLengthByOrientation(
+            vertical: 50.w,
+            horizon: 140.w,
           ),
-          // 间隔
-          SizedBox(
-            width: _screen.getLengthByOrientation(
-              vertical: 80.w,
-              horizon: 150.w,
-            ),
+        ),
+        // 开始日期设置
+        SizedBox(
+          width: _screen.getLengthByOrientation(
+            vertical: 290.w,
+            horizon: 150.w,
           ),
-          // 开始日期设置
-          SizedBox(
-            width: _screen.getLengthByOrientation(
-              vertical: 240.w,
-              horizon: 128.w,
-            ),
-            child: TextField(
-              controller: _viewModel.startDateController,
-              readOnly: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: _screen.getLengthByOrientation(
-                  vertical: 32.sp,
-                  horizon: 17.sp,
-                ),
+          child: TextField(
+            controller: _viewModel.startDateController,
+            readOnly: true,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: _screen.getLengthByOrientation(
+                vertical: 32.sp,
+                horizon: 17.sp,
               ),
-              decoration: InputDecoration(
-                labelText: S.of(context).personViewStartDayTip,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              onTap: () {
-                _viewModel.selectStartDate(
-                    context, _viewModel.startDateController);
-              },
             ),
+            decoration: InputDecoration(
+              labelText: S.of(context).personViewStartDayTip,
+              labelStyle: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            onTap: () {
+              _viewModel.selectStartDate(
+                  context, _viewModel.startDateController);
+            },
           ),
-          const Expanded(child: SizedBox()),
-        ],
-      ),
+        ),
+        const Expanded(child: SizedBox()),
+      ],
     );
   }
 

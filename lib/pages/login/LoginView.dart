@@ -39,19 +39,16 @@ class _LoginViewState extends State<LoginView> {
     return ChangeNotifierProvider.value(
       value: _loginViewModel,
       child: Scaffold(
-        body: ConstrainedBox(
-          constraints: const BoxConstraints.expand(),
-          child: ListView(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // 登录文本
-              _getLoginText(),
-              // 欢迎文本
-              _getWelcomeText(),
-              // 登录表单
-              _getLoginForm(),
-            ],
-          ),
+        body: ListView(
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // 登录文本
+            _getLoginText(),
+            // 欢迎文本
+            _getWelcomeText(),
+            // 登录表单
+            _getLoginForm(),
+          ],
         ),
       ),
     );

@@ -220,6 +220,26 @@ class S {
     );
   }
 
+  /// `Function area`
+  String get functionViewFunctionAreaName {
+    return Intl.message(
+      'Function area',
+      name: 'functionViewFunctionAreaName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Score`
+  String get functionViewScoreTitle {
+    return Intl.message(
+      'Score',
+      name: 'functionViewScoreTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get personViewSemesterTip {
     return Intl.message(
@@ -517,6 +537,26 @@ class S {
       name: 'limeColor',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Score`
+  String get functionScoreViewAppBarTitle {
+    return Intl.message(
+      'Score',
+      name: 'functionScoreViewAppBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GPA:{score}`
+  String functionScoreViewGPA(Object score) {
+    return Intl.message(
+      'GPA:$score',
+      name: 'functionScoreViewGPA',
+      desc: '',
+      args: [score],
     );
   }
 }

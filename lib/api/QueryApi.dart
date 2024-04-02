@@ -71,6 +71,65 @@ class QueryApi {
         random.nextInt(randomTwoDimensionalSpace.length)];
   }
 
+  /// 查询个人成绩
+  /// - [semester] : 学期
+  /// - [retake] : 是否显示补重成绩
+  /// - [cachePolicy] : 缓存策略
+  Future<List<Map<String, dynamic>>> queryPersonScore(
+      {required String semester,
+      bool retake = false,
+      CachePolicy? cachePolicy}) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    Map<String, dynamic> params = {
+      "kksj": semester,
+      "xsfs": retake ? 'all' : '',
+      "kcxz": '',
+      "kcmc": '',
+    };
+
+    // 处理返回数据
+    return await _request
+        .post("/jsxsd/kscj/cjcx_list", params: params, options: options)
+        .then((value) {
+      Document doc = parse(value.data);
+      // logger.i(doc.outerHtml);
+      Element? table = doc.getElementById("dataList");
+
+      List<Map<String, dynamic>> result = [];
+      if (table != null) {
+        List<Element> trs = table.getElementsByTagName("tr");
+        trs.removeAt(0);
+
+        for (Element tr in trs) {
+          if (tr.outerHtml.contains("未查询到数据")) {
+            continue;
+          }
+          List<Element> tds = tr.getElementsByTagName("td");
+
+          String className = tds[3].text; // 课程名称
+          String classCredit = tds[7].text; // 学分
+          String classScore =
+              tds[5].text.replaceAll(RegExp(r'[\n\t]'), ""); // 成绩
+          String classGPA = tds[9].text; // 绩点
+          String classType = tds[13].text; // 课程性质
+
+          result.add({
+            "className": className,
+            "classCredit": classCredit,
+            "classScore": classScore,
+            "classGPA": classGPA,
+            "classType": classType,
+          });
+        }
+      }
+
+      return result;
+    });
+  }
+
   /// 查询个人课程
   /// - [week] : 周次
   /// - [semester] : 学期
@@ -195,7 +254,7 @@ class QueryApi {
           List<Element> tds = tr.getElementsByTagName("td");
 
           tds.removeAt(0);
-          for( int j = 0; j < tds.length; j++) {
+          for (int j = 0; j < tds.length; j++) {
             // 获取课程时间
             String classTime = time[i];
 

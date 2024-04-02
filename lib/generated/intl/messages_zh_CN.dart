@@ -20,12 +20,20 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_CN';
 
-  static String m0(version) => "当前版本 ${version}";
+  static String m0(score) => "绩点：${score}";
+
+  static String m1(version) => "当前版本 ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "blueColor": MessageLookupByLibrary.simpleMessage("蓝色"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("深紫色"),
+        "functionScoreViewAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("成绩查询"),
+        "functionScoreViewGPA": m0,
+        "functionViewFunctionAreaName":
+            MessageLookupByLibrary.simpleMessage("功能区域"),
+        "functionViewScoreTitle": MessageLookupByLibrary.simpleMessage("成绩查询"),
         "greenColor": MessageLookupByLibrary.simpleMessage("绿色"),
         "limeColor": MessageLookupByLibrary.simpleMessage("青柠色"),
         "loginViewAutoLogin":
@@ -58,7 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("周一&周二&周三&周四&周五&周六&周日"),
         "scheduleViewYearAndMonth":
             MessageLookupByLibrary.simpleMessage("%%/&&月"),
-        "settingCurrentVersion": m0,
+        "settingCurrentVersion": m1,
         "settingViewAboutApplication":
             MessageLookupByLibrary.simpleMessage("作者：易秋"),
         "settingViewAboutApplicationName":

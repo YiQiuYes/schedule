@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/pages/splash/SplashViewModel.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
@@ -10,15 +11,19 @@ class SplashView extends StatefulWidget {
   State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   final _viewModel = SplashViewModel();
 
   @override
   void initState() {
     super.initState();
-    _viewModel.getRandomHomeImg();
-    // 跳转主页面
-    _viewModel.navigateToSchedule(context, 2500);
+    _viewModel.initAnimationController(this, context);
+  }
+
+  @override
+  void dispose() {
+    _viewModel.animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -28,22 +33,10 @@ class _SplashViewState extends State<SplashView> {
       child: Scaffold(
         body: ConstrainedBox(
           constraints: const BoxConstraints.expand(),
-          child:
-              Consumer<SplashViewModel>(builder: (context, viewModel, child) {
-            return FutureBuilder(
-                future: viewModel.splashImg,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasData) {
-                    return Image.memory(
-                      snapshot.data!,
-                      fit: BoxFit.cover,
-                    );
-                  }
-
-                  return const SizedBox();
-                });
-          }),
+          child: Lottie.asset(
+            controller: _viewModel.animationController,
+            'lib/assets/lotties/splash.json',
+          ),
         ),
       ),
     );

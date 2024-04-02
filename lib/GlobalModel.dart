@@ -133,8 +133,8 @@ class GlobalModel extends ChangeNotifier {
     queryApi
         .queryPersonCourse(
         week: week, semester: semester, cachePolicy: CachePolicy.refresh)
-        .then((value) {
-      setCourseData(int.parse(week) - 1, value);
+        .then((value) async {
+      await setCourseData(int.parse(week) - 1, value);
       notifyListeners();
     });
   }
@@ -145,8 +145,8 @@ class GlobalModel extends ChangeNotifier {
     queryApi
         .queryPersonExperimentCourse(
         week: week, semester: semester, cachePolicy: CachePolicy.refresh)
-        .then((value) {
-      setExperimentData(int.parse(week) - 1, value);
+        .then((value) async {
+      await setExperimentData(int.parse(week) - 1, value);
       notifyListeners();
     });
   }

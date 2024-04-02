@@ -44,7 +44,6 @@ class _AppMainViewState extends State<AppMainView>
     return ChangeNotifierProvider<AppMainViewModel>.value(
       value: _scheduleViewModel,
       child: Scaffold(
-        primary: false,
         body: Row(
           children: [
             // 侧边导航栏

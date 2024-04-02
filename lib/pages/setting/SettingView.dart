@@ -64,8 +64,6 @@ class _SettingViewState extends State<SettingView> {
       value: settingViewModel,
       child: Scaffold(
         body: SafeArea(
-          left: false,
-          right: false,
           bottom: false,
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -306,7 +304,7 @@ class _SettingViewState extends State<SettingView> {
             horizon: 30.w,
           ),
         ),
-        applicationVersion: PackageInfoUtils.version,
+        applicationVersion: "v${PackageInfoUtils.version}",
         applicationLegalese: "2024-3-17",
       );
     });
