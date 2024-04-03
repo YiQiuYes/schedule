@@ -28,9 +28,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "blueColor": MessageLookupByLibrary.simpleMessage("Blue"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("Deep purple"),
-        "functionScoreViewAppBarTitle":
-            MessageLookupByLibrary.simpleMessage("Score"),
+        "functionScoreViewEmpty":
+            MessageLookupByLibrary.simpleMessage("No score information"),
         "functionScoreViewGPA": m0,
+        "functionViewAllCourseTitle":
+            MessageLookupByLibrary.simpleMessage("All courses"),
         "functionViewFunctionAreaName":
             MessageLookupByLibrary.simpleMessage("Function area"),
         "functionViewScoreTitle": MessageLookupByLibrary.simpleMessage("Score"),

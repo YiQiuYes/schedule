@@ -71,5 +71,5 @@
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [splash-screenshot]: assets/images/splash-screenshot.png
-[login-screenshot]: assets/images/appmain-screenshot.png
+[login-screenshot]: assets/images/login-screenshot.png
 [appmain-screenshot]: assets/images/appmain-screenshot.png

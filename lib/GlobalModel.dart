@@ -3,15 +3,11 @@ import 'dart:convert';
 
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:schedule/api/QueryApi.dart';
 import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/common/utils/ScheduleUtils.dart';
-import 'package:schedule/main.dart';
-import 'package:schedule/route/GoRouteConfig.dart';
 
 import 'common/utils/LoggerUtils.dart';
-import 'generated/l10n.dart';
 
 class GlobalModel extends ChangeNotifier {
   // 课程数据

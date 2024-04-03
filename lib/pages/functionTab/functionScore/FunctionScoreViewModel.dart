@@ -15,6 +15,9 @@ class FunctionScoreViewModel with ChangeNotifier {
     queryPersonScore(globalModel.semesterWeekData['semester']);
   }
 
+  // 当前选择的学期索引
+  int _currentSemesterIndex = 0;
+
   /// 查询个人成绩
   void queryPersonScore(String semester) {
     _queryApi
@@ -64,7 +67,10 @@ class FunctionScoreViewModel with ChangeNotifier {
   void selectSemesterConfirm(Picker picker, List value) {
     String select = picker.getSelectedValues()[0];
     queryPersonScore(select);
+    _currentSemesterIndex = value[0];
   }
 
   List<Map<String, dynamic>> get personScoreList => _personScoreList;
+
+  int get currentSemesterIndex => _currentSemesterIndex;
 }

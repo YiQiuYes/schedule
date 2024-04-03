@@ -1,16 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'dart:typed_data';
 
 import 'package:schedule/api/UserApi.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
-import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/route/GoRouteConfig.dart';

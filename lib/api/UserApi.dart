@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/manager/RequestManager.dart';
 
 class UserApi {

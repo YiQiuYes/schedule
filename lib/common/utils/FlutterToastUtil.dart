@@ -98,4 +98,9 @@ class FlutterToastUtil {
       toastDuration: Duration(milliseconds: milliseconds),
     );
   }
+
+  static void cancelToast() {
+    fToast.removeQueuedCustomToasts();
+    fToast.removeCustomToast();
+  }
 }

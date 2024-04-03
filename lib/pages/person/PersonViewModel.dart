@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:schedule/main.dart';
 
-import '../../common/utils/ScheduleUtils.dart';
 
 class PersonViewModel with ChangeNotifier {
   // 学期输入框控制器

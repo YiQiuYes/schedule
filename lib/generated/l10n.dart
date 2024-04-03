@@ -240,6 +240,16 @@ class S {
     );
   }
 
+  /// `All courses`
+  String get functionViewAllCourseTitle {
+    return Intl.message(
+      'All courses',
+      name: 'functionViewAllCourseTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get personViewSemesterTip {
     return Intl.message(
@@ -540,16 +550,6 @@ class S {
     );
   }
 
-  /// `Score`
-  String get functionScoreViewAppBarTitle {
-    return Intl.message(
-      'Score',
-      name: 'functionScoreViewAppBarTitle',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `GPA:{score}`
   String functionScoreViewGPA(Object score) {
     return Intl.message(
@@ -557,6 +557,16 @@ class S {
       name: 'functionScoreViewGPA',
       desc: '',
       args: [score],
+    );
+  }
+
+  /// `No score information`
+  String get functionScoreViewEmpty {
+    return Intl.message(
+      'No score information',
+      name: 'functionScoreViewEmpty',
+      desc: '',
+      args: [],
     );
   }
 }

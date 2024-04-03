@@ -21,6 +21,7 @@
 
   "functionViewFunctionAreaName" : "Function area",
   "functionViewScoreTitle" : "Score",
+  "functionViewAllCourseTitle" : "All courses",
 
   "personViewSemesterTip" : "Semester",
   "personViewStartDayTip" : "Start day",
@@ -59,6 +60,6 @@
   "blueColor" : "Blue",
   "limeColor" : "Lime",
 
-  "functionScoreViewAppBarTitle" : "Score",
-  "functionScoreViewGPA" : "GPA:{score}"
+  "functionScoreViewGPA" : "GPA:{score}",
+  "functionScoreViewEmpty" : "No score information"
 }

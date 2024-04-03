@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/generated/l10n.dart';
@@ -7,7 +6,6 @@ import 'package:schedule/pages/appMain/AppMainViewModel.dart';
 import 'package:schedule/pages/function/FunctionView.dart';
 import 'package:schedule/pages/person/PersonView.dart';
 import 'package:schedule/pages/schedule/ScheduleView.dart';
-import 'package:schedule/route/GoRouteConfig.dart';
 
 class AppMainView extends StatefulWidget {
   const AppMainView({super.key});

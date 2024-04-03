@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,29 +17,60 @@ class FunctionScoreView extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                // 获取SliverAppBar
-                _getSliverAppBar(context),
-              ];
-            },
-            body: CustomScrollView(
-              slivers: [
-                // 获取SliverList
-                _getSliverList(),
-                // 间距
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: ScreenAdaptor().getLengthByOrientation(
-                      vertical: 100.w,
-                      horizon: 10.w,
-                    ),
-                  ),
-                ),
-              ],
+          child: CustomScrollView(
+            slivers: [
+              // 获取SliverAppBar
+              _getSliverAppBar(context),
+              // 获取SliverList
+              _getSliverList(),
+              // 暂无成绩
+              _getEmptyScore(),
+              // 间距
+              _getHeightSpace(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 暂无成绩
+  Widget _getEmptyScore() {
+    return Consumer<FunctionScoreViewModel>(builder: (context, model, child) {
+      if (model.personScoreList.isEmpty) {
+        return SliverPadding(
+          padding: EdgeInsets.only(
+            top: ScreenAdaptor().getLengthByOrientation(
+              vertical: 350.w,
+              horizon: 120.w,
             ),
           ),
+          sliver: SliverToBoxAdapter(
+            child: Center(
+              child: Text(
+                S.of(context).functionScoreViewEmpty,
+                style: TextStyle(
+                  fontSize: ScreenAdaptor().getLengthByOrientation(
+                    vertical: 40.sp,
+                    horizon: 30.sp,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+      return const SliverToBoxAdapter(child: SizedBox());
+    });
+  }
+
+  /// 间距
+  Widget _getHeightSpace() {
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: ScreenAdaptor().getLengthByOrientation(
+          vertical: 100.w,
+          horizon: 50.w,
         ),
       ),
     );
@@ -56,7 +86,7 @@ class FunctionScoreView extends StatelessWidget {
             margin: EdgeInsets.symmetric(
               horizontal: ScreenAdaptor().getLengthByOrientation(
                 vertical: 30.w,
-                horizon: 10.w,
+                horizon: 15.w,
               ),
               vertical: ScreenAdaptor().getLengthByOrientation(
                 vertical: 10.w,
@@ -67,11 +97,11 @@ class FunctionScoreView extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: ScreenAdaptor().getLengthByOrientation(
                   vertical: 50.w,
-                  horizon: 10.w,
+                  horizon: 25.w,
                 ),
                 vertical: ScreenAdaptor().getLengthByOrientation(
                   vertical: 30.w,
-                  horizon: 5.w,
+                  horizon: 18.w,
                 ),
               ),
               child: Row(
@@ -85,14 +115,14 @@ class FunctionScoreView extends StatelessWidget {
                       SizedBox(
                         width: ScreenAdaptor().getLengthByOrientation(
                           vertical: 400.w,
-                          horizon: 200.w,
+                          horizon: 520.w,
                         ),
                         child: Text(
                           model.personScoreList[index]['className'],
                           style: TextStyle(
                             fontSize: ScreenAdaptor().getLengthByOrientation(
                               vertical: 35.sp,
-                              horizon: 20.sp,
+                              horizon: 24.sp,
                             ),
                           ),
                         ),
@@ -112,7 +142,7 @@ class FunctionScoreView extends StatelessWidget {
                           color: Theme.of(context).colorScheme.tertiary,
                           fontSize: ScreenAdaptor().getLengthByOrientation(
                             vertical: 35.sp,
-                            horizon: 20.sp,
+                            horizon: 24.sp,
                           ),
                         ),
                       ),
@@ -129,7 +159,7 @@ class FunctionScoreView extends StatelessWidget {
                               Theme.of(context).colorScheme.onPrimaryContainer,
                           fontSize: ScreenAdaptor().getLengthByOrientation(
                             vertical: 40.sp,
-                            horizon: 20.sp,
+                            horizon: 28.sp,
                           ),
                         ),
                       ),
@@ -155,7 +185,7 @@ class FunctionScoreView extends StatelessWidget {
       surfaceTintColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          S.of(context).functionScoreViewAppBarTitle,
+          S.of(context).functionViewScoreTitle,
           style: TextStyle(
             color: Theme.of(context).textTheme.titleLarge?.color,
             fontSize: ScreenAdaptor().getLengthByOrientation(
@@ -170,7 +200,7 @@ class FunctionScoreView extends StatelessWidget {
         Consumer<FunctionScoreViewModel>(builder: (context, model, child) {
           return IconButton(
             icon: Icon(
-              Icons.more_vert_rounded,
+              Icons.select_all_rounded,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
             onPressed: () {
@@ -190,7 +220,7 @@ class FunctionScoreView extends StatelessWidget {
     // 弹出选择器
     Picker picker = Picker(
       adapter: adapter,
-      selecteds: [0],
+      selecteds: [model.currentSemesterIndex],
       changeToFirst: true,
       textAlign: TextAlign.left,
       headerDecoration: BoxDecoration(

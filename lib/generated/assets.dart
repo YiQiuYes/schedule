@@ -9,11 +9,14 @@ class Assets {
   static const String appMainAppMainViewModel = 'lib/pages/appMain/AppMainViewModel.dart';
   static const String colorThemeColorThemeView = 'lib/pages/colorTheme/ColorThemeView.dart';
   static const String colorThemeColorThemeViewModel = 'lib/pages/colorTheme/ColorThemeViewModel.dart';
-  static const String componentsMyPopupMenuButton = 'lib/components/MyPopupMenuButton.dart';
+  static const String curriculumCurriculum = 'lib/components/curriculum/Curriculum.dart';
+  static const String curriculumCurriculumModel = 'lib/components/curriculum/CurriculumModel.dart';
   static const String fontsZhuZiSWan = 'lib/assets/fonts/ZhuZiSWan.ttf';
+  static const String functionAllCourseFunctionAllCourseView = 'lib/pages/functionTab/functionAllCourse/functionAllCourseView.dart';
+  static const String functionAllCourseFunctionAllCourseViewModel = 'lib/pages/functionTab/functionAllCourse/functionAllCourseViewModel.dart';
   static const String functionFunctionView = 'lib/pages/function/FunctionView.dart';
   static const String functionFunctionViewModel = 'lib/pages/function/FunctionViewModel.dart';
-  static const String functionScoreFunctionScore = 'lib/pages/functionTab/functionScore/FunctionScoreView.dart';
+  static const String functionScoreFunctionScoreView = 'lib/pages/functionTab/functionScore/FunctionScoreView.dart';
   static const String functionScoreFunctionScoreViewModel = 'lib/pages/functionTab/functionScore/FunctionScoreViewModel.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String generatedL10n = 'lib/generated/l10n.dart';
@@ -34,6 +37,7 @@ class Assets {
   static const String managerDataStorageManager = 'lib/common/manager/DataStorageManager.dart';
   static const String managerFileManager = 'lib/common/manager/FileManager.dart';
   static const String managerRequestManager = 'lib/common/manager/RequestManager.dart';
+  static const String myPopupMenuButtonMyPopupMenuButton = 'lib/components/myPopupMenuButton/MyPopupMenuButton.dart';
   static const String personPersonView = 'lib/pages/person/PersonView.dart';
   static const String personPersonViewModel = 'lib/pages/person/PersonViewModel.dart';
   static const String routeGoRouteConfig = 'lib/route/GoRouteConfig.dart';

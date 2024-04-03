@@ -6,11 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:schedule/GlobalModel.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
-import 'package:schedule/components/MyPopupMenuButton.dart';
+import 'package:schedule/components/myPopupMenuButton/MyPopupMenuButton.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/setting/SettingViewModel.dart';
-import 'package:schedule/route/GoRouteConfig.dart';
 
 import '../../common/utils/PackageInfoUtils.dart';
 
@@ -65,34 +64,28 @@ class _SettingViewState extends State<SettingView> {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                // 获取SliverAppBar
-                _getSliverAppBar(context),
-              ];
-            },
-            body: CustomScrollView(
-              slivers: [
-                AnimationLimiter(
-                  child: SliverList.builder(
-                    itemCount: _widgetList.length,
-                    itemBuilder: (context, index) {
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 375),
-                        child: SlideAnimation(
-                          verticalOffset: 50.0,
-                          child: FadeInAnimation(
-                            child: _widgetList[index],
-                          ),
+          child: CustomScrollView(
+            slivers: [
+              // 获取SliverAppBar
+              _getSliverAppBar(context),
+              AnimationLimiter(
+                child: SliverList.builder(
+                  itemCount: _widgetList.length,
+                  itemBuilder: (context, index) {
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 375),
+                      child: SlideAnimation(
+                        verticalOffset: 50.0,
+                        child: FadeInAnimation(
+                          child: _widgetList[index],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -10,9 +8,7 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/common/manager/FileManager.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/manager/RequestManager.dart';
-import 'package:schedule/common/utils/PlatFormUtils.dart';
 
 class QueryApi {
   QueryApi._privateConstructor();
@@ -25,8 +21,10 @@ class QueryApi {
 
   // 网络管家
   final _request = RequestManager();
+
   // 数据存储
   final _storage = DataStorageManager();
+
   // 文件存储
   final _file = FileManager();
 
@@ -217,6 +215,7 @@ class QueryApi {
   /// 查询个人实验课程
   /// - [week] : 周次
   /// - [semester] : 学期
+  /// - [cachePolicy] : 缓存策略
   Future<List<Map>> queryPersonExperimentCourse(
       {required String week,
       required String semester,
@@ -278,6 +277,173 @@ class QueryApi {
           }
         }
       }
+      return result;
+    });
+  }
+
+  /// 获取学院信息
+  /// - [cachePolicy] : 缓存策略
+  Future<List<Map>> queryCollegeInfo({
+    CachePolicy? cachePolicy,
+  }) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    return await _request
+        .get("/jsxsd/kbcx/kbxx_xzb", options: options)
+        .then((value) {
+      Document doc = parse(value.data);
+      Element? collegeElement = doc.getElementById("skyx");
+      List<Map> result = [];
+
+      if (collegeElement != null) {
+        List<Element> collegeList =
+            collegeElement.getElementsByTagName("option");
+        collegeList.removeAt(0);
+        for (Element college in collegeList) {
+          String collegeName = college.text;
+          String collegeId = college.attributes["value"] ?? "";
+          result.add({
+            "collegeName": collegeName.split("]")[1],
+            "collegeId": collegeId,
+          });
+        }
+      }
+      // logger.i(result);
+      return result;
+    });
+  }
+
+  /// 获取专业信息
+  Future<List<String>> queryMajorInfo({
+    required String collegeId,
+    required String semester,
+    CachePolicy? cachePolicy,
+  }) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    Map<String, dynamic> params = {
+      "skyx": collegeId,
+      "xnxqh": semester,
+    };
+
+    return await _request
+        .get("/jsxsd/kbcx/kbxx_xzb_ifr", params: params, options: options)
+        .then((value) {
+      List<String> result = [];
+      Document doc = parse(value.data);
+      Element? table = doc.getElementById("kbtable");
+      if (table != null) {
+        Element? unUse = doc.getElementById("thead1");
+        if (unUse != null) {
+          unUse.remove();
+        }
+
+        List<Element> trs = table.getElementsByTagName("tr");
+        for (Element tr in trs) {
+          String majorName = tr.getElementsByTagName("td").first.text;
+          result.add(majorName.replaceAll(RegExp(r'[\n\t]'), ""));
+        }
+      }
+
+      return result;
+    });
+  }
+
+  /// 获取班级课表
+  /// - [week] : 周次
+  /// - [semester] : 学期
+  /// - [majorName] : 专业名称
+  /// - [cachePolicy] : 缓存策略
+  Future<List<Map>> queryMajorCourse(
+      {required String week,
+      required String semester,
+      required String majorName,
+      CachePolicy? cachePolicy}) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    Map<String, dynamic> params = {
+      "xnxqh": semester,
+      "zc1": week,
+      "zc2": week,
+      "skbj": majorName,
+    };
+
+    return await _request
+        .post("/jsxsd/kbcx/kbxx_xzb_ifr", params: params, options: options)
+        .then((value) {
+      Document doc = parse(value.data);
+      Element? table = doc.getElementById("kbtable");
+
+      List<Map> result = [];
+      if (table != null) {
+        // 删除表头
+        table.querySelector("thead")?.remove();
+
+        List<Element> tds = table.getElementsByTagName("td");
+        if (tds.isEmpty) {
+          return result;
+        }
+
+        tds.removeAt(0);
+        for (int i = 0; i < tds.length; i++) {
+          List<Element> divs = tds[i].getElementsByTagName("div");
+          if (divs.isEmpty) {
+            result.add({});
+          } else {
+            Element div = divs.first;
+            List<String> split = div.innerHtml
+                .replaceAll(RegExp(r'<span>.*</span><br>'), "")
+                .split("<br>");
+            // logger.i(div.outerHtml);
+            split =
+                split.map((e) => e.replaceAll(RegExp(r'[\n\t]'), "")).toList();
+            String className = split[0];
+            String classAddress = split.length > 2 ? split[3] : "";
+            String classTeacher = split.length > 1 ? split[2] : "";
+
+            const time = [
+              "8:00-9:40",
+              "10:00-11:40",
+              "14:00-15:40",
+              "16:30-17:40",
+              "19:00-20:40",
+            ];
+            String classTime = time[i % 5];
+
+            result.add({
+              "className": className,
+              "classTime": classTime,
+              "classAddress": classAddress,
+              "classTeacher": classTeacher.split("(")[0],
+              "classWeek": week,
+            });
+          }
+        }
+      }
+
+      // 将数组转置
+      List<List<Map>> transposed = [];
+      for (int i = 0; i < 7; i++) {
+        List<Map> tmpList = [];
+        for (int j = 0; j < 5; j++) {
+          tmpList.add(result[i * 5 + j]);
+        }
+        transposed.add(tmpList);
+      }
+
+      result.clear();
+      for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 7; j++) {
+          result.add(transposed[j][i]);
+        }
+      }
+
       return result;
     });
   }

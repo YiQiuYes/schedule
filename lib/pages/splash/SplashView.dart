@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/pages/splash/SplashViewModel.dart';
-import 'package:schedule/route/GoRouteConfig.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

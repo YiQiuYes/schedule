@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,8 +16,6 @@ import 'package:schedule/common/utils/PlatFormUtils.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 import 'package:window_manager/window_manager.dart';
-
-import 'common/utils/LoggerUtils.dart';
 
 // 全局数据
 final globalModel = GlobalModel();
@@ -119,6 +118,12 @@ class _MyAppState extends State<MyApp> with WindowListener {
           return MaterialApp.router(
             title: 'schedule',
             builder: FToastBuilder(),
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              },
+            ),
             theme: ThemeData(
               colorScheme:
                   ColorScheme.fromSeed(seedColor: model.getColorTheme()),

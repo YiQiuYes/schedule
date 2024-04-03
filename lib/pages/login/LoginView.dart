@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/pages/login/LoginViewModel.dart';
-import 'package:schedule/route/GoRouteConfig.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});

@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/PlatFormUtils.dart';
 
 class FileManager {

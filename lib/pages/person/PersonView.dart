@@ -5,10 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
-import 'package:schedule/common/utils/ScheduleUtils.dart';
 import 'package:schedule/generated/l10n.dart';
-import 'package:schedule/main.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
 import '../../common/utils/ScreenAdaptor.dart';
@@ -51,31 +48,26 @@ class _PersonViewState extends State<PersonView>
     return ChangeNotifierProvider.value(
       value: _viewModel,
       child: Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [];
-          },
-          body: CustomScrollView(
-            slivers: [
-              AnimationLimiter(
-                child: SliverList.builder(
-                  itemCount: _widgetList.length,
-                  itemBuilder: (context, index) {
-                    return AnimationConfiguration.staggeredList(
-                      position: index,
-                      duration: const Duration(milliseconds: 375),
-                      child: SlideAnimation(
-                        verticalOffset: 50.0,
-                        child: FadeInAnimation(
-                          child: _widgetList[index],
-                        ),
+        body: CustomScrollView(
+          slivers: [
+            AnimationLimiter(
+              child: SliverList.builder(
+                itemCount: _widgetList.length,
+                itemBuilder: (context, index) {
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 375),
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: _widgetList[index],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

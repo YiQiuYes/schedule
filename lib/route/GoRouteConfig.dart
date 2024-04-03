@@ -1,14 +1,12 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
+import 'package:schedule/pages/functionTab/functionAllCourse/functionAllCourseView.dart';
 import 'package:schedule/pages/functionTab/functionScore/FunctionScoreView.dart';
 import 'package:schedule/pages/login/LoginView.dart';
 import 'package:schedule/pages/setting/SettingView.dart';
-import 'package:schedule/pages/setting/SettingViewModel.dart';
 import 'package:schedule/pages/splash/SplashView.dart';
 
 import '../pages/colorTheme/ColorThemeView.dart';
@@ -20,6 +18,7 @@ class GoRouteConfig {
   static const String setting = '/setting';
   static const String colorTheme = '/colorTheme';
   static const String functionScore = '/functionScore';
+  static const String functionAllCourse = '/functionAllCourse';
 
   static late BuildContext _context;
 
@@ -83,6 +82,14 @@ class GoRouteConfig {
         builder: (context, state) {
           _setContext = context;
           return const FunctionScoreView();
+        },
+      ),
+      GoRoute(
+        name: 'functionAllCourse',
+        path: functionAllCourse,
+        builder: (context, state) {
+          _setContext = context;
+          return const FunctionAllCourseView();
         },
       ),
     ],

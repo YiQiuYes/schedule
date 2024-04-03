@@ -20,19 +20,13 @@ class ColorThemeView extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                // 获取SliverAppBar
-                _getSliverAppBar(context),
-              ];
-            },
-            body: CustomScrollView(
-              slivers: [
-                // 获取SliverList
-                _getSliverList(context),
-              ],
-            ),
+          child: CustomScrollView(
+            slivers: [
+              // 获取SliverAppBar
+              _getSliverAppBar(context),
+              // 获取SliverList
+              _getSliverList(context),
+            ],
           ),
         ),
       ),

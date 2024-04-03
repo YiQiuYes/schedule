@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
@@ -13,6 +12,11 @@ class FunctionViewModel with ChangeNotifier {
         'title': S.of(context).functionViewScoreTitle,
         'route': GoRouteConfig.functionScore,
       },
+      {
+        'icon': Icons.book_rounded,
+        'title': S.of(context).functionViewAllCourseTitle,
+        'route': GoRouteConfig.functionAllCourse,
+      }
     ];
   }
 

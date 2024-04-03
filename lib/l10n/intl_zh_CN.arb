@@ -21,6 +21,7 @@
 
   "functionViewFunctionAreaName" : "功能区域",
   "functionViewScoreTitle" : "成绩查询",
+  "functionViewAllCourseTitle" : "全校课表",
 
   "personViewSemesterTip" : "学期",
   "personViewStartDayTip" : "开始日期",
@@ -59,6 +60,6 @@
   "blueColor" : "蓝色",
   "limeColor" : "青柠色",
 
-  "functionScoreViewAppBarTitle" : "成绩查询",
-  "functionScoreViewGPA" : "绩点：{score}"
+  "functionScoreViewGPA" : "绩点：{score}",
+  "functionScoreViewEmpty" : "暂无成绩"
 }

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:schedule/route/GoRouteConfig.dart';
 
 import '../../common/utils/ScreenAdaptor.dart';
 import '../../generated/l10n.dart';
@@ -126,6 +125,8 @@ class _FunctionViewState extends State<FunctionView> {
           ),
           Text(
             title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: _screen.getLengthByOrientation(
                 vertical: 20.sp,

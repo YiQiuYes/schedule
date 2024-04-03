@@ -1,13 +1,7 @@
-import 'dart:convert';
-
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:schedule/api/OtherApi.dart';
-import 'package:schedule/api/UserApi.dart';
-import 'package:schedule/common/manager/RequestManager.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/PackageInfoUtils.dart';
 import 'package:schedule/common/utils/PlatFormUtils.dart';
 import 'package:schedule/generated/l10n.dart';
