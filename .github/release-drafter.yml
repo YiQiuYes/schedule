@@ -24,10 +24,10 @@ version-resolver:
   default: patch
 # 这里填写更新内容
 template: |
-  测试版 0.1.9
-  更改刷新页数据
-  新增成绩查询
-  优化刘海屏的横屏适配
+  测试版 0.2.0
+  desktop修复鼠标手势滑动
+  新增全校课表查询
+  优化成绩显示页面
 
   $CHANGES
 no-changes-template: |
