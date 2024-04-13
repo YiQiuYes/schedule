@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.2.0
+version: 0.2.1
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
@@ -73,6 +73,16 @@ dependencies:
   window_manager: ^0.3.8
   # 动画列表
   flutter_staggered_animations: ^1.1.1
+  # 二维码解析
+  qr_code_vision: ^0.1.2
+  # 手势密码插件
+  flutter_gesture_pwd: ^1.0.1
+  # 相机插件
+  camera: ^0.10.5+9
+  # 图片选择插件
+  image_picker: ^1.0.7
+  # 二维码扫描
+  qr_code_scanner: ^1.0.1
   build_runner: ^2.4.8
 
   # The following adds the Cupertino Icons font to your application.
@@ -105,6 +115,7 @@ flutter:
   assets:
     - lib/assets/images/
     - lib/assets/lotties/
+    - lib/pages/camera/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

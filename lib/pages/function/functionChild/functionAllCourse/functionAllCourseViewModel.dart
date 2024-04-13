@@ -4,8 +4,9 @@ import 'package:flutter_picker/picker.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/main.dart';
 
-import '../../../api/QueryApi.dart';
-import '../../../generated/l10n.dart';
+import '../../../../api/schedule/QueryApi.dart';
+import '../../../../api/schedule/impl/QueryApiImpl.dart';
+import '../../../../generated/l10n.dart';
 
 class FunctionAllCourseViewModel with ChangeNotifier {
   // 列表选择数据
@@ -21,7 +22,7 @@ class FunctionAllCourseViewModel with ChangeNotifier {
   // 学院网络请求源信息
   List<Map> _originCollegeInfo = [];
 
-  final _queryApi = QueryApi();
+  final QueryApi _queryApi = QueryApiImpl();
 
   // 个人课表数据
   List<Map> _courseData = [];
@@ -32,6 +33,7 @@ class FunctionAllCourseViewModel with ChangeNotifier {
   // 当前选择的学院和专业
   List<int> _collegeAndMajorIndex = [0, 0];
 
+  /// 选择周次
   void selectWeekConfirm(Picker picker, List<int> value) {
     _week = (value[0] + 1).toString();
     getCourseData(
@@ -42,6 +44,7 @@ class FunctionAllCourseViewModel with ChangeNotifier {
     );
   }
 
+  /// 选择学院和专业
   void selectCollegeAndMajorConfirm(Picker picker, List<int> value) {
     // 获取课程信息
     getCourseData(pickerData[value[0]].children![value[1]].value!, _week);
@@ -100,8 +103,7 @@ class FunctionAllCourseViewModel with ChangeNotifier {
     await _queryApi
         .queryMajorInfo(
             collegeId: getCollegeIdByName(pickerData[index].value!),
-            semester: globalModel.semesterWeekData["semester"],
-            cachePolicy: CachePolicy.refresh)
+            semester: globalModel.semesterWeekData["semester"])
         .then((value) {
       pickerData[index].children?.clear();
       pickerData[index]
@@ -117,6 +119,7 @@ class FunctionAllCourseViewModel with ChangeNotifier {
         (element) => element["collegeName"] == collegeName)["collegeId"];
   }
 
+  /// 获取周次数据
   PickerDataAdapter getWeekPickerData(BuildContext context) {
     List<PickerItem<String>> weekPickerData = List.generate(20, (index) {
       return PickerItem<String>(

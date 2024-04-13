@@ -16,7 +16,12 @@ class FunctionViewModel with ChangeNotifier {
         'icon': Icons.book_rounded,
         'title': S.of(context).functionViewAllCourseTitle,
         'route': GoRouteConfig.functionAllCourse,
-      }
+      },
+      {
+        'icon': Icons.school_rounded,
+        'title': S.of(context).functionViewLearnThroughTitle,
+        'route': GoRouteConfig.functionLearnThrough,
+      },
     ];
   }
 

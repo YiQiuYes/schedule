@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:schedule/main.dart';
 
-import '../../../api/QueryApi.dart';
+import '../../../../api/schedule/QueryApi.dart';
+import '../../../../api/schedule/impl/QueryApiImpl.dart';
 
 class FunctionScoreViewModel with ChangeNotifier {
-  final _queryApi = QueryApi();
+  final QueryApi _queryApi = QueryApiImpl();
 
   // 用于存储个人成绩数据
   List<Map<String, dynamic>> _personScoreList = [];

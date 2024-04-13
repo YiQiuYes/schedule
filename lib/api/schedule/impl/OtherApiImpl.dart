@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:schedule/common/manager/RequestManager.dart';
 
-class OtherApi {
-  OtherApi._privateConstructor();
+import '../OtherApi.dart';
 
-  static final OtherApi _instance = OtherApi._privateConstructor();
+class OtherApiImpl extends OtherApi {
+  OtherApiImpl._privateConstructor();
 
-  factory OtherApi() {
+  static final OtherApiImpl _instance = OtherApiImpl._privateConstructor();
+
+  factory OtherApiImpl() {
     return _instance;
   }
 
@@ -14,6 +16,7 @@ class OtherApi {
   final _request = RequestManager();
 
   // 获取版本信息
+  @override
   Future<Map<String, dynamic>> getVersionInfo() async {
     // 获取版本信息
     Response response = await _request

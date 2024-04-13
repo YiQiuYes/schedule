@@ -64,28 +64,35 @@ class _SettingViewState extends State<SettingView> {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: CustomScrollView(
-            slivers: [
-              // 获取SliverAppBar
-              _getSliverAppBar(context),
-              AnimationLimiter(
-                child: SliverList.builder(
-                  itemCount: _widgetList.length,
-                  itemBuilder: (context, index) {
-                    return AnimationConfiguration.staggeredList(
-                      position: index,
-                      duration: const Duration(milliseconds: 375),
-                      child: SlideAnimation(
-                        verticalOffset: 50.0,
-                        child: FadeInAnimation(
-                          child: _widgetList[index],
+          child: NestedScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                // 获取SliverAppBar
+                _getSliverAppBar(context),
+              ];
+            },
+            body: CustomScrollView(
+              slivers: [
+                AnimationLimiter(
+                  child: SliverList.builder(
+                    itemCount: _widgetList.length,
+                    itemBuilder: (context, index) {
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 375),
+                        child: SlideAnimation(
+                          verticalOffset: 50.0,
+                          child: FadeInAnimation(
+                            child: _widgetList[index],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -98,6 +105,10 @@ class _SettingViewState extends State<SettingView> {
       expandedHeight: ScreenAdaptor().getLengthByOrientation(
         vertical: 160.h,
         horizon: 170.h,
+      ),
+      toolbarHeight: ScreenAdaptor().getLengthByOrientation(
+        vertical: 60.h,
+        horizon: 80.h,
       ),
       pinned: true,
       surfaceTintColor: Colors.transparent,

@@ -5,11 +5,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:typed_data';
 
-import 'package:schedule/api/UserApi.dart';
+import 'package:schedule/api/schedule/impl/UserApiImpl.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
+
+import '../../api/schedule/UserApi.dart';
 
 class LoginViewModel with ChangeNotifier {
   // 用户名输入框TextEditingController
@@ -29,7 +31,7 @@ class LoginViewModel with ChangeNotifier {
   Future<Uint8List> captchaData = Future.value(Uint8List(0));
 
   // userApi
-  final UserApi _userApi = UserApi();
+  final UserApi _userApi = UserApiImpl();
 
   /// 初始化
   void loginViewModelInit() {

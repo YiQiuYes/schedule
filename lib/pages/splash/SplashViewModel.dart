@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 
+import '../../api/schedule/UserApi.dart';
+import '../../api/schedule/impl/UserApiImpl.dart';
+import '../../main.dart';
+
 class SplashViewModel with ChangeNotifier {
   // 动画控制器
   late AnimationController animationController;
+
+  final UserApi _userApi = UserApiImpl();
 
   /// 初始化动画控制器
   void initAnimationController(TickerProvider vsync, BuildContext context) {
@@ -26,5 +32,12 @@ class SplashViewModel with ChangeNotifier {
   /// [milliseconds] 延迟时间
   void navigateToSchedule(BuildContext context) {
       GoRouter.of(context).replace(GoRouteConfig.appMain);
+  }
+
+  /// 登录
+  void login() {
+    _userApi.autoLoginEducationalSystem(
+        userAccount: globalModel.userInfoData["username"],
+        userPassword: globalModel.userInfoData["password"]);
   }
 }

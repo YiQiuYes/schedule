@@ -250,6 +250,16 @@ class S {
     );
   }
 
+  /// `Learn through`
+  String get functionViewLearnThroughTitle {
+    return Intl.message(
+      'Learn through',
+      name: 'functionViewLearnThroughTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get personViewSemesterTip {
     return Intl.message(
@@ -565,6 +575,266 @@ class S {
     return Intl.message(
       'No score information',
       name: 'functionScoreViewEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get functionViewLearnThroughSignIn {
+    return Intl.message(
+      'Sign in',
+      name: 'functionViewLearnThroughSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login failed, please check your username and password!`
+  String get functionViewLearnThroughLoginError {
+    return Intl.message(
+      'Login failed, please check your username and password!',
+      name: 'functionViewLearnThroughLoginError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login successful!`
+  String get functionViewLearnThroughLoginSuccess {
+    return Intl.message(
+      'Login successful!',
+      name: 'functionViewLearnThroughLoginSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are currently no check-in tasks!`
+  String get functionViewLearnThroughNoActive {
+    return Intl.message(
+      'There are currently no check-in tasks!',
+      name: 'functionViewLearnThroughNoActive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in to learn through`
+  String get functionViewLearnThroughLoginTitle {
+    return Intl.message(
+      'Sign in to learn through',
+      name: 'functionViewLearnThroughLoginTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number`
+  String get functionViewLearnThroughLoginPhone {
+    return Intl.message(
+      'Phone number',
+      name: 'functionViewLearnThroughLoginPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get functionViewLearnThroughLoginPassword {
+    return Intl.message(
+      'Password',
+      name: 'functionViewLearnThroughLoginPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gesture sign-in`
+  String get functionViewLearnThroughGestureSignTitle {
+    return Intl.message(
+      'Gesture sign-in',
+      name: 'functionViewLearnThroughGestureSignTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in successfully!`
+  String get functionViewLearnThroughGestureSignSuccess {
+    return Intl.message(
+      'Sign in successfully!',
+      name: 'functionViewLearnThroughGestureSignSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in failed!`
+  String get functionViewLearnThroughGestureSignFailed {
+    return Intl.message(
+      'Sign in failed!',
+      name: 'functionViewLearnThroughGestureSignFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign-in code sign-in`
+  String get functionViewLearnThroughSignCodeTitle {
+    return Intl.message(
+      'Sign-in code sign-in',
+      name: 'functionViewLearnThroughSignCodeTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in code`
+  String get functionViewLearnThroughSignCodeLabel {
+    return Intl.message(
+      'Sign in code',
+      name: 'functionViewLearnThroughSignCodeLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photo sign-in`
+  String get functionViewLearnThroughPhotoSign {
+    return Intl.message(
+      'Photo sign-in',
+      name: 'functionViewLearnThroughPhotoSign',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QR code sign-in`
+  String get functionViewLearnThroughQRCodeSign {
+    return Intl.message(
+      'QR code sign-in',
+      name: 'functionViewLearnThroughQRCodeSign',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jump to the camera to scan the QR code`
+  String get functionViewLearnThroughQRJumpTip {
+    return Intl.message(
+      'Jump to the camera to scan the QR code',
+      name: 'functionViewLearnThroughQRJumpTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The current QR code is invalid!`
+  String get functionViewLearnThroughQRCodeNoCurrent {
+    return Intl.message(
+      'The current QR code is invalid!',
+      name: 'functionViewLearnThroughQRCodeNoCurrent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location sign-in`
+  String get functionViewLearnThroughLocationSignTitle {
+    return Intl.message(
+      'Location sign-in',
+      name: 'functionViewLearnThroughLocationSignTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Latitude and longitude`
+  String get functionViewLearnThroughLocationSignLatitudeAndLongitude {
+    return Intl.message(
+      'Latitude and longitude',
+      name: 'functionViewLearnThroughLocationSignLatitudeAndLongitude',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get functionViewLearnThroughLocationSignAddress {
+    return Intl.message(
+      'Address',
+      name: 'functionViewLearnThroughLocationSignAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jump to the browser`
+  String get functionViewLearnThroughJumpToTheBrowser {
+    return Intl.message(
+      'Jump to the browser',
+      name: 'functionViewLearnThroughJumpToTheBrowser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get latitude and longitude coordinates from Baidu Maps and fill in the input box. For example:\nCoordinates: 113.114551,27.824458\nAddress: Chongxue Building, Hunan University of Technology, No. 88, Taishan West Road, Tianyuan District, Zhuzhou City, Hunan Province`
+  String get functionViewLearnThroughJumpTip {
+    return Intl.message(
+      'Get latitude and longitude coordinates from Baidu Maps and fill in the input box. For example:\nCoordinates: 113.114551,27.824458\nAddress: Chongxue Building, Hunan University of Technology, No. 88, Taishan West Road, Tianyuan District, Zhuzhou City, Hunan Province',
+      name: 'functionViewLearnThroughJumpTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chongxue Building, Hunan University of Technology, No. 88, Taishan West Road, Tianyuan District, Zhuzhou City, Hunan Province (Public Teaching Building)`
+  String get functionViewLearnThroughAddressHint {
+    return Intl.message(
+      'Chongxue Building, Hunan University of Technology, No. 88, Taishan West Road, Tianyuan District, Zhuzhou City, Hunan Province (Public Teaching Building)',
+      name: 'functionViewLearnThroughAddressHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the correct coordinates`
+  String get functionViewLearnThroughLocationError {
+    return Intl.message(
+      'Please enter the correct coordinates',
+      name: 'functionViewLearnThroughLocationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No photos found`
+  String get functionViewLearnThroughPhotoNoFound {
+    return Intl.message(
+      'No photos found',
+      name: 'functionViewLearnThroughPhotoNoFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No QR code found`
+  String get cameraViewNoFoundQRENCODE {
+    return Intl.message(
+      'No QR code found',
+      name: 'cameraViewNoFoundQRENCODE',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera Preview`
+  String get cameraViewAppBarTitle {
+    return Intl.message(
+      'Camera Preview',
+      name: 'cameraViewAppBarTitle',
       desc: '',
       args: [],
     );

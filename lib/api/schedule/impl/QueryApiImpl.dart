@@ -1,34 +1,32 @@
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/services.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/common/manager/FileManager.dart';
 import 'package:schedule/common/manager/RequestManager.dart';
 
-class QueryApi {
-  QueryApi._privateConstructor();
+import '../QueryApi.dart';
 
-  static final QueryApi _instance = QueryApi._privateConstructor();
+class QueryApiImpl extends QueryApi {
+  QueryApiImpl._privateConstructor();
 
-  factory QueryApi() {
+  static final QueryApiImpl _instance = QueryApiImpl._privateConstructor();
+
+  factory QueryApiImpl() {
     return _instance;
   }
 
   // 网络管家
   final _request = RequestManager();
 
-  // 数据存储
-  final _storage = DataStorageManager();
-
   // 文件存储
   final _file = FileManager();
 
   /// 获取随机图片
+  @override
   Future<Uint8List> getRandomTwoDimensionalSpace() async {
     // 判断本地是否有缓存
     List<String> filePathList =
@@ -73,6 +71,7 @@ class QueryApi {
   /// - [semester] : 学期
   /// - [retake] : 是否显示补重成绩
   /// - [cachePolicy] : 缓存策略
+  @override
   Future<List<Map<String, dynamic>>> queryPersonScore(
       {required String semester,
       bool retake = false,
@@ -131,6 +130,7 @@ class QueryApi {
   /// 查询个人课程
   /// - [week] : 周次
   /// - [semester] : 学期
+  @override
   Future<List<Map>> queryPersonCourse(
       {required String week,
       required String semester,
@@ -216,6 +216,7 @@ class QueryApi {
   /// - [week] : 周次
   /// - [semester] : 学期
   /// - [cachePolicy] : 缓存策略
+  @override
   Future<List<Map>> queryPersonExperimentCourse(
       {required String week,
       required String semester,
@@ -283,6 +284,7 @@ class QueryApi {
 
   /// 获取学院信息
   /// - [cachePolicy] : 缓存策略
+  @override
   Future<List<Map>> queryCollegeInfo({
     CachePolicy? cachePolicy,
   }) async {
@@ -316,6 +318,7 @@ class QueryApi {
   }
 
   /// 获取专业信息
+  @override
   Future<List<String>> queryMajorInfo({
     required String collegeId,
     required String semester,
@@ -358,6 +361,7 @@ class QueryApi {
   /// - [semester] : 学期
   /// - [majorName] : 专业名称
   /// - [cachePolicy] : 缓存策略
+  @override
   Future<List<Map>> queryMajorCourse(
       {required String week,
       required String semester,

@@ -16,6 +16,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _viewModel.login();
     _viewModel.initAnimationController(this, context);
   }
 

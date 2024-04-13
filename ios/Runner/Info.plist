@@ -51,5 +51,14 @@
       <string>sms</string>
       <string>tel</string>
     </array>
+
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
+    <key>NSCameraUsageDescription</key>
+    <string>使用摄像头识别二维码</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>使用摄像头识别二维码</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>使用相册选择图片</string>
 </dict>
 </plist>

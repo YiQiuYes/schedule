@@ -3,8 +3,8 @@ import 'package:flutter_picker/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/utils/ScreenAdaptor.dart';
-import '../../../generated/l10n.dart';
+import '../../../../common/utils/ScreenAdaptor.dart';
+import '../../../../generated/l10n.dart';
 import 'FunctionScoreViewModel.dart';
 
 class FunctionScoreView extends StatelessWidget {
@@ -17,17 +17,25 @@ class FunctionScoreView extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: CustomScrollView(
-            slivers: [
-              // 获取SliverAppBar
-              _getSliverAppBar(context),
-              // 获取SliverList
-              _getSliverList(),
-              // 暂无成绩
-              _getEmptyScore(),
-              // 间距
-              _getHeightSpace(),
-            ],
+          child: NestedScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                // 获取SliverAppBar
+                _getSliverAppBar(context),
+              ];
+            },
+            body: CustomScrollView(
+              slivers: [
+                // 获取SliverList
+                _getSliverList(),
+                // 暂无成绩
+                _getEmptyScore(),
+                // 间距
+                _getHeightSpace(),
+              ],
+            ),
           ),
         ),
       ),
@@ -180,6 +188,10 @@ class FunctionScoreView extends StatelessWidget {
       expandedHeight: ScreenAdaptor().getLengthByOrientation(
         vertical: 160.h,
         horizon: 170.h,
+      ),
+      toolbarHeight: ScreenAdaptor().getLengthByOrientation(
+        vertical: 60.h,
+        horizon: 80.h,
       ),
       pinned: true,
       surfaceTintColor: Colors.transparent,

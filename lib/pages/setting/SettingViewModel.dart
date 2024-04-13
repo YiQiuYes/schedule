@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:schedule/api/OtherApi.dart';
+import 'package:schedule/api/schedule/impl/OtherApiImpl.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/common/utils/PackageInfoUtils.dart';
 import 'package:schedule/common/utils/PlatFormUtils.dart';
@@ -8,10 +8,10 @@ import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../common/manager/DataStorageManager.dart';
+import '../../api/schedule/OtherApi.dart';
 
 class SettingViewModel with ChangeNotifier {
-  final _otherApi = OtherApi();
+  final OtherApi _otherApi = OtherApiImpl();
 
   /// 获取版本号
   String getVersion() {

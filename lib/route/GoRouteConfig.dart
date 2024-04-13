@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
-import 'package:schedule/pages/functionTab/functionAllCourse/functionAllCourseView.dart';
-import 'package:schedule/pages/functionTab/functionScore/FunctionScoreView.dart';
+import 'package:schedule/pages/function/functionChild/functionLearnThrough/LearnThroughView.dart';
 import 'package:schedule/pages/login/LoginView.dart';
 import 'package:schedule/pages/setting/SettingView.dart';
 import 'package:schedule/pages/splash/SplashView.dart';
 
-import '../pages/colorTheme/ColorThemeView.dart';
+import '../pages/camera/CameraView.dart';
+import '../pages/setting/colorTheme/ColorThemeView.dart';
+import '../pages/function/functionChild/functionAllCourse/functionAllCourseView.dart';
+import '../pages/function/functionChild/functionScore/FunctionScoreView.dart';
 
 class GoRouteConfig {
   static const String splash = '/splash';
@@ -19,11 +22,13 @@ class GoRouteConfig {
   static const String colorTheme = '/colorTheme';
   static const String functionScore = '/functionScore';
   static const String functionAllCourse = '/functionAllCourse';
+  static const String functionLearnThrough = '/functionLearnThrough';
+  static const String camera = '/camera';
 
   static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: splash,
+    initialLocation: functionLearnThrough,
     redirect: (context, state) {
       if (state.fullPath == splash) {
         return splash;
@@ -92,6 +97,21 @@ class GoRouteConfig {
           return const FunctionAllCourseView();
         },
       ),
+      GoRoute(
+        name: 'functionLearnThrough',
+        path: functionLearnThrough,
+        builder: (context, state) {
+          _setContext = context;
+          return const LearnThroughView();
+        },
+      ),
+      GoRoute(path: camera, builder: (context, state) {
+        _setContext = context;
+        return CameraView(
+          type: (state.extra as Map)["type"],
+          appBarTitle: (state.extra as Map)["appBarTitle"],
+        );
+      }),
     ],
   );
 

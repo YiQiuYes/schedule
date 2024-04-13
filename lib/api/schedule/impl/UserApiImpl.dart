@@ -8,12 +8,14 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:schedule/common/manager/RequestManager.dart';
 
-class UserApi {
-  UserApi._privateConstructor();
+import '../UserApi.dart';
 
-  static final UserApi _instance = UserApi._privateConstructor();
+class UserApiImpl extends UserApi {
+  UserApiImpl._privateConstructor();
 
-  factory UserApi() {
+  static final UserApiImpl _instance = UserApiImpl._privateConstructor();
+
+  factory UserApiImpl() {
     return _instance;
   }
 
@@ -21,6 +23,7 @@ class UserApi {
   final _request = RequestManager();
 
   /// 获取验证码数据
+  @override
   Future<Uint8List> getCaptcha() async {
     Random random = Random();
     double t = random.nextDouble();
@@ -42,6 +45,7 @@ class UserApi {
   }
 
   /// 登录api
+  @override
   Future<bool> loginEducationalSystem(
       {required String userAccount,
       required String userPassword,
@@ -103,6 +107,7 @@ class UserApi {
   }
 
   /// 自动登录api
+  @override
   Future<bool> autoLoginEducationalSystem(
       {required String userAccount, required String userPassword}) async {
     Options options =
@@ -132,6 +137,7 @@ class UserApi {
   }
 
   /// 获取个人信息
+  @override
   Future<Map<String, dynamic>> userInfo({CachePolicy? cachePolicy}) async {
     Options options = _request.cacheOptions
         .copyWith(policy: cachePolicy ?? CachePolicy.request)

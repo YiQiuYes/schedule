@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:schedule/GlobalModel.dart';
 import 'package:schedule/common/utils/AppTheme.dart';
 
-import '../../common/utils/ScreenAdaptor.dart';
-import '../../generated/l10n.dart';
+import '../../../common/utils/ScreenAdaptor.dart';
+import '../../../generated/l10n.dart';
 import 'ColorThemeViewModel.dart';
 
 class ColorThemeView extends StatelessWidget {
@@ -20,13 +20,20 @@ class ColorThemeView extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: CustomScrollView(
-            slivers: [
-              // 获取SliverAppBar
-              _getSliverAppBar(context),
-              // 获取SliverList
-              _getSliverList(context),
-            ],
+          child: NestedScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                // 获取SliverAppBar
+                _getSliverAppBar(context),
+              ];
+            },
+            body: CustomScrollView(
+              slivers: [
+                // 获取SliverList
+                _getSliverList(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -39,6 +46,10 @@ class ColorThemeView extends StatelessWidget {
       expandedHeight: ScreenAdaptor().getLengthByOrientation(
         vertical: 160.h,
         horizon: 170.h,
+      ),
+      toolbarHeight: ScreenAdaptor().getLengthByOrientation(
+        vertical: 60.h,
+        horizon: 80.h,
       ),
       pinned: true,
       surfaceTintColor: Colors.transparent,

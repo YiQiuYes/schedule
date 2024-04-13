@@ -27,6 +27,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "blueColor": MessageLookupByLibrary.simpleMessage("Blue"),
+        "cameraViewAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("Camera Preview"),
+        "cameraViewNoFoundQRENCODE":
+            MessageLookupByLibrary.simpleMessage("No QR code found"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("Deep purple"),
         "functionScoreViewEmpty":
             MessageLookupByLibrary.simpleMessage("No score information"),
@@ -35,6 +39,61 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("All courses"),
         "functionViewFunctionAreaName":
             MessageLookupByLibrary.simpleMessage("Function area"),
+        "functionViewLearnThroughAddressHint": MessageLookupByLibrary.simpleMessage(
+            "Chongxue Building, Hunan University of Technology, No. 88, Taishan West Road, Tianyuan District, Zhuzhou City, Hunan Province (Public Teaching Building)"),
+        "functionViewLearnThroughGestureSignFailed":
+            MessageLookupByLibrary.simpleMessage("Sign in failed!"),
+        "functionViewLearnThroughGestureSignSuccess":
+            MessageLookupByLibrary.simpleMessage("Sign in successfully!"),
+        "functionViewLearnThroughGestureSignTitle":
+            MessageLookupByLibrary.simpleMessage("Gesture sign-in"),
+        "functionViewLearnThroughJumpTip": MessageLookupByLibrary.simpleMessage(
+            "Get latitude and longitude coordinates from Baidu Maps and fill in the input box. For example:\nCoordinates: 113.114551,27.824458\nAddress: Chongxue Building, Hunan University of Technology, No. 88, Taishan West Road, Tianyuan District, Zhuzhou City, Hunan Province"),
+        "functionViewLearnThroughJumpToTheBrowser":
+            MessageLookupByLibrary.simpleMessage("Jump to the browser"),
+        "functionViewLearnThroughLocationError":
+            MessageLookupByLibrary.simpleMessage(
+                "Please enter the correct coordinates"),
+        "functionViewLearnThroughLocationSignAddress":
+            MessageLookupByLibrary.simpleMessage("Address"),
+        "functionViewLearnThroughLocationSignLatitudeAndLongitude":
+            MessageLookupByLibrary.simpleMessage("Latitude and longitude"),
+        "functionViewLearnThroughLocationSignTitle":
+            MessageLookupByLibrary.simpleMessage("Location sign-in"),
+        "functionViewLearnThroughLoginError":
+            MessageLookupByLibrary.simpleMessage(
+                "Login failed, please check your username and password!"),
+        "functionViewLearnThroughLoginPassword":
+            MessageLookupByLibrary.simpleMessage("Password"),
+        "functionViewLearnThroughLoginPhone":
+            MessageLookupByLibrary.simpleMessage("Phone number"),
+        "functionViewLearnThroughLoginSuccess":
+            MessageLookupByLibrary.simpleMessage("Login successful!"),
+        "functionViewLearnThroughLoginTitle":
+            MessageLookupByLibrary.simpleMessage("Sign in to learn through"),
+        "functionViewLearnThroughNoActive":
+            MessageLookupByLibrary.simpleMessage(
+                "There are currently no check-in tasks!"),
+        "functionViewLearnThroughPhotoNoFound":
+            MessageLookupByLibrary.simpleMessage("No photos found"),
+        "functionViewLearnThroughPhotoSign":
+            MessageLookupByLibrary.simpleMessage("Photo sign-in"),
+        "functionViewLearnThroughQRCodeNoCurrent":
+            MessageLookupByLibrary.simpleMessage(
+                "The current QR code is invalid!"),
+        "functionViewLearnThroughQRCodeSign":
+            MessageLookupByLibrary.simpleMessage("QR code sign-in"),
+        "functionViewLearnThroughQRJumpTip":
+            MessageLookupByLibrary.simpleMessage(
+                "Jump to the camera to scan the QR code"),
+        "functionViewLearnThroughSignCodeLabel":
+            MessageLookupByLibrary.simpleMessage("Sign in code"),
+        "functionViewLearnThroughSignCodeTitle":
+            MessageLookupByLibrary.simpleMessage("Sign-in code sign-in"),
+        "functionViewLearnThroughSignIn":
+            MessageLookupByLibrary.simpleMessage("Sign in"),
+        "functionViewLearnThroughTitle":
+            MessageLookupByLibrary.simpleMessage("Learn through"),
         "functionViewScoreTitle": MessageLookupByLibrary.simpleMessage("Score"),
         "greenColor": MessageLookupByLibrary.simpleMessage("Green"),
         "limeColor": MessageLookupByLibrary.simpleMessage("Lime"),

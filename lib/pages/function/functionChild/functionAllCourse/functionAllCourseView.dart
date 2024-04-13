@@ -3,10 +3,9 @@ import 'package:flutter_picker/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/components/curriculum/Curriculum.dart';
-import 'package:schedule/pages/functionTab/functionAllCourse/functionAllCourseViewModel.dart';
-
-import '../../../common/utils/ScreenAdaptor.dart';
-import '../../../generated/l10n.dart';
+import '../../../../common/utils/ScreenAdaptor.dart';
+import '../../../../generated/l10n.dart';
+import 'functionAllCourseViewModel.dart';
 
 class FunctionAllCourseView extends StatelessWidget {
   const FunctionAllCourseView({super.key});
@@ -22,22 +21,29 @@ class FunctionAllCourseView extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: CustomScrollView(
-            slivers: [
-              // SliverAppBar
-              _getSliverAppBar(context),
-              // 课表
-              _getCurriculum(),
-              // 底部间隔
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: ScreenAdaptor().getLengthByOrientation(
-                    vertical: 130.w,
-                    horizon: 25.w,
+          child: NestedScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                // SliverAppBar
+                _getSliverAppBar(context),
+              ];
+            },
+            body: CustomScrollView(
+              slivers: [
+                // 课表
+                _getCurriculum(),
+                // 底部间隔
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: ScreenAdaptor().getLengthByOrientation(
+                      vertical: 130.w,
+                      horizon: 25.w,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -62,6 +68,10 @@ class FunctionAllCourseView extends StatelessWidget {
       expandedHeight: ScreenAdaptor().getLengthByOrientation(
         vertical: 160.h,
         horizon: 170.h,
+      ),
+      toolbarHeight: ScreenAdaptor().getLengthByOrientation(
+        vertical: 60.h,
+        horizon: 80.h,
       ),
       pinned: true,
       surfaceTintColor: Colors.transparent,

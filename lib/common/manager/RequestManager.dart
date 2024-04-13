@@ -44,6 +44,11 @@ class RequestManager {
     return _dio!;
   }
 
+  /// 获取cookie管理器
+  PersistCookieJar getCookieJar() {
+    return _persistCookieJar;
+  }
+
   /// 清除Cookie
   Future<void> clearCookie() async {
     await _persistCookieJar.deleteAll();
@@ -63,10 +68,7 @@ class RequestManager {
 
   /// 判断是否登录失效
   Future<void> isLoginInvalid(Response response, String url) async {
-    const urlIgnore = [
-      "/Logon.do?method=logon",
-      "/jsxsd/xk/LoginToXk"
-    ];
+    const urlIgnore = ["/Logon.do?method=logon", "/jsxsd/xk/LoginToXk"];
 
     var data = response.data;
     if (data != null &&
@@ -85,30 +87,30 @@ class RequestManager {
 
   /// get请求
   Future<Response> get(String url,
-      {Map<String, dynamic>? params, Options? options}) async {
+      {Map<String, dynamic>? params, Options? options, Object? data}) async {
     if (options == null) {
       options = cacheOptions.toOptions(); // 为空则创建
       options.method = "GET";
       options.responseType = ResponseType.json;
     }
 
-    Response res =
-        await getDio().get(url, queryParameters: params, options: options);
+    Response res = await getDio()
+        .get(url, queryParameters: params, options: options, data: data);
     await isLoginInvalid(res, url);
     return res;
   }
 
   /// post请求
   Future<Response> post(String url,
-      {Map<String, dynamic>? params, Options? options}) async {
+      {Map<String, dynamic>? params, Object? data, Options? options}) async {
     if (options == null) {
       options = cacheOptions.toOptions(); // 为空则创建
       options.method = "POST";
       options.responseType = ResponseType.json;
     }
 
-    Response response =
-        await getDio().post(url, queryParameters: params, options: options);
+    Response response = await getDio()
+        .post(url, queryParameters: params, options: options, data: data);
     await isLoginInvalid(response, url);
     return response;
   }

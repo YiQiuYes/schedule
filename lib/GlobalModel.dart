@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:camera/camera.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
-import 'package:schedule/api/QueryApi.dart';
+import 'package:flutter/services.dart';
+import 'package:schedule/api/schedule/impl/QueryApiImpl.dart';
 import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/common/utils/ScheduleUtils.dart';
 
+import 'api/schedule/QueryApi.dart';
 import 'common/utils/LoggerUtils.dart';
 
 class GlobalModel extends ChangeNotifier {
@@ -42,7 +45,7 @@ class GlobalModel extends ChangeNotifier {
   Timer? _timer;
 
   final _storage = DataStorageManager();
-  final queryApi = QueryApi();
+  final QueryApi _queryApi = QueryApiImpl();
 
   void refreshData() {
     logger.i("刷新数据");
@@ -86,7 +89,6 @@ class GlobalModel extends ChangeNotifier {
       map.forEach((key, value) {
         _settings[key] = value;
       });
-      _settings["deviceLocale"] = "default";
     } else {
       _storage.setString("settings", jsonEncode(_settings));
     }
@@ -109,6 +111,14 @@ class GlobalModel extends ChangeNotifier {
       _semesterWeekData["currentWeek"] = currentWeek.toString();
       // logger.i("当前周次: $currentWeek");
     } else {
+      // 格式化日期格式
+      String startDay =
+      ScheduleUtils.formatDateString(_semesterWeekData["startDay"]);
+      DateTime startDayTime = DateTime.parse(startDay);
+      DateTime now = DateTime.now();
+      // 计算当前周次
+      int currentWeek = now.difference(startDayTime).inDays ~/ 7 + 1;
+      _semesterWeekData["currentWeek"] = currentWeek.toString();
       _storage.setString("semesterWeekData", jsonEncode(_semesterWeekData));
     }
 
@@ -126,7 +136,7 @@ class GlobalModel extends ChangeNotifier {
 
   /// 获取课程数据
   void getPersonCourseData({required String week, required String semester}) {
-    queryApi
+    _queryApi
         .queryPersonCourse(
         week: week, semester: semester, cachePolicy: CachePolicy.refresh)
         .then((value) async {
@@ -138,7 +148,7 @@ class GlobalModel extends ChangeNotifier {
   /// 获取实验课表数据
   void getPersonExperimentData(
       {required String week, required String semester}) {
-    queryApi
+    _queryApi
         .queryPersonExperimentCourse(
         week: week, semester: semester, cachePolicy: CachePolicy.refresh)
         .then((value) async {
@@ -185,7 +195,7 @@ class GlobalModel extends ChangeNotifier {
   Locale? getLocale() {
     String language = _settings["language"];
     if (language == "default") {
-      return null;
+      return const Locale("zh", "CN");
     }
     // setSettings("language", "default");
     if (language.split("-").length > 1) {
@@ -243,8 +253,20 @@ class GlobalModel extends ChangeNotifier {
     if (_settings["themeMode"] == "default") {
       return ThemeMode.system;
     } else if (_settings["themeMode"] == "light") {
+      SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      );
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
       return ThemeMode.light;
     } else if (_settings["themeMode"] == "dark") {
+      SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      );
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
       return ThemeMode.dark;
     }
     return null;

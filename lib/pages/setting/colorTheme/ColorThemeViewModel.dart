@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../generated/l10n.dart';
-import '../../main.dart';
+import '../../../generated/l10n.dart';
+import '../../../main.dart';
 
 class ColorThemeViewModel with ChangeNotifier {
   final _colorMap = {

@@ -27,6 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "blueColor": MessageLookupByLibrary.simpleMessage("蓝色"),
+        "cameraViewAppBarTitle": MessageLookupByLibrary.simpleMessage("摄像头预览"),
+        "cameraViewNoFoundQRENCODE":
+            MessageLookupByLibrary.simpleMessage("未找到二维码"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("深紫色"),
         "functionScoreViewEmpty": MessageLookupByLibrary.simpleMessage("暂无成绩"),
         "functionScoreViewGPA": m0,
@@ -34,6 +37,57 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("全校课表"),
         "functionViewFunctionAreaName":
             MessageLookupByLibrary.simpleMessage("功能区域"),
+        "functionViewLearnThroughAddressHint":
+            MessageLookupByLibrary.simpleMessage(
+                "湖南省株洲市天元区泰山西路88号湖南工业大学崇学楼(公共教学楼)"),
+        "functionViewLearnThroughGestureSignFailed":
+            MessageLookupByLibrary.simpleMessage("签到失败！"),
+        "functionViewLearnThroughGestureSignSuccess":
+            MessageLookupByLibrary.simpleMessage("签到成功！"),
+        "functionViewLearnThroughGestureSignTitle":
+            MessageLookupByLibrary.simpleMessage("手势签到"),
+        "functionViewLearnThroughJumpTip": MessageLookupByLibrary.simpleMessage(
+            "从百度地图中获取经纬度坐标并填到输入框中。如：\n坐标：113.114551,27.824458\n地址：湖南省株洲市天元区泰山西路88号湖南工业大学崇学楼(公共教学楼)"),
+        "functionViewLearnThroughJumpToTheBrowser":
+            MessageLookupByLibrary.simpleMessage("跳转到浏览器"),
+        "functionViewLearnThroughLocationError":
+            MessageLookupByLibrary.simpleMessage("请输入格式正确的坐标"),
+        "functionViewLearnThroughLocationSignAddress":
+            MessageLookupByLibrary.simpleMessage("地址"),
+        "functionViewLearnThroughLocationSignLatitudeAndLongitude":
+            MessageLookupByLibrary.simpleMessage("经纬度"),
+        "functionViewLearnThroughLocationSignTitle":
+            MessageLookupByLibrary.simpleMessage("位置签到"),
+        "functionViewLearnThroughLoginError":
+            MessageLookupByLibrary.simpleMessage("登录失败！请检查用户名、密码是否正确！"),
+        "functionViewLearnThroughLoginPassword":
+            MessageLookupByLibrary.simpleMessage("密码"),
+        "functionViewLearnThroughLoginPhone":
+            MessageLookupByLibrary.simpleMessage("手机号"),
+        "functionViewLearnThroughLoginSuccess":
+            MessageLookupByLibrary.simpleMessage("登录成功！"),
+        "functionViewLearnThroughLoginTitle":
+            MessageLookupByLibrary.simpleMessage("登录学习通"),
+        "functionViewLearnThroughNoActive":
+            MessageLookupByLibrary.simpleMessage("当前没有签到任务！"),
+        "functionViewLearnThroughPhotoNoFound":
+            MessageLookupByLibrary.simpleMessage("未找到照片"),
+        "functionViewLearnThroughPhotoSign":
+            MessageLookupByLibrary.simpleMessage("拍照签到"),
+        "functionViewLearnThroughQRCodeNoCurrent":
+            MessageLookupByLibrary.simpleMessage("当前二维码无效！"),
+        "functionViewLearnThroughQRCodeSign":
+            MessageLookupByLibrary.simpleMessage("二维码签到"),
+        "functionViewLearnThroughQRJumpTip":
+            MessageLookupByLibrary.simpleMessage("跳转到相机扫描二维码"),
+        "functionViewLearnThroughSignCodeLabel":
+            MessageLookupByLibrary.simpleMessage("签到码"),
+        "functionViewLearnThroughSignCodeTitle":
+            MessageLookupByLibrary.simpleMessage("签到码签到"),
+        "functionViewLearnThroughSignIn":
+            MessageLookupByLibrary.simpleMessage("签到"),
+        "functionViewLearnThroughTitle":
+            MessageLookupByLibrary.simpleMessage("学习通"),
         "functionViewScoreTitle": MessageLookupByLibrary.simpleMessage("成绩查询"),
         "greenColor": MessageLookupByLibrary.simpleMessage("绿色"),
         "limeColor": MessageLookupByLibrary.simpleMessage("青柠色"),
