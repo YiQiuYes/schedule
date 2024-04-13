@@ -27,17 +27,19 @@ jobs:
       - name: 构建签名环境
         env:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        run: echo $SIGNING_KEY | base64 -d > android/app/key.jks
+      - name: 编译apk
+        env:
           ALIAS: ${{ secrets.ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-        run: echo $SIGNING_KEY | base64 -d > android/app/key.jks
-      - name: 编译apk
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION  }}
           cache: true
-      - run: flutter pub get
-      - run: flutter build apk --release --target-platform android-arm,android-arm64
+        run: | 
+          flutter pub get
+          flutter build apk --release --target-platform android-arm,android-arm64
 #      - name: 设置工具链环境变量
 #        shell: bash
 #        run: |
