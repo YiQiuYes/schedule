@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/PlatFormUtils.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 
@@ -64,6 +63,10 @@ class CameraView extends StatelessWidget {
 
   /// 获取底部选择相册按钮
   Widget _getBottomPhotoBtn() {
+    if (type == CameraType.desktop) {
+      return const SizedBox();
+    }
+
     return Visibility(
       visible: type == CameraType.camera,
       child: Align(

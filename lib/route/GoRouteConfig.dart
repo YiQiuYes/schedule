@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
 import 'package:schedule/pages/function/functionChild/functionLearnThrough/LearnThroughView.dart';
@@ -28,7 +27,7 @@ class GoRouteConfig {
   static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: functionLearnThrough,
+    initialLocation: splash,
     redirect: (context, state) {
       if (state.fullPath == splash) {
         return splash;
