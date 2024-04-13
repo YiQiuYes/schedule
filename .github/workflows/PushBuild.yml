@@ -29,14 +29,15 @@ jobs:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: echo $SIGNING_KEY | base64 -d > android/app/key.jks
       - name: 编译apk
-        env:
-          ALIAS: ${{ secrets.ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION  }}
           cache: true
+      - name: 执行编译命令
+        env:
+          ALIAS: ${{ secrets.ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
         run: | 
           flutter pub get
           flutter build apk --release --target-platform android-arm,android-arm64
