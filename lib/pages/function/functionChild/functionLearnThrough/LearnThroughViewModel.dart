@@ -152,11 +152,22 @@ class LearnThroughViewModel with ChangeNotifier {
     }
 
     // 对活动预签到
-    await _learnSignApi.preSign(
+    final isNeedSign = await _learnSignApi.preSign(
       activeId: activity["activeId"].toString(),
       courseId: activity["courseId"].toString(),
       classId: activity["classId"].toString(),
     );
+
+    // 如果当前课程已经签到
+    if (!isNeedSign) {
+      // 无需签到
+      FlutterToastUtil.okToast(
+        S.current.functionViewLearnThroughNoActive,
+        milliseconds: 3000,
+      );
+      return;
+    }
+
     // 获取用户名
     String name = await _learnUserApi.getAccountInfo();
     activity["name"] = name;

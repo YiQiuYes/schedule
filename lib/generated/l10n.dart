@@ -220,6 +220,56 @@ class S {
     );
   }
 
+  /// `Course details`
+  String get scheduleViewCourseDetail {
+    return Intl.message(
+      'Course details',
+      name: 'scheduleViewCourseDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course name:`
+  String get scheduleViewCourseName {
+    return Intl.message(
+      'Course name:',
+      name: 'scheduleViewCourseName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Teacher:`
+  String get scheduleViewCourseTeacher {
+    return Intl.message(
+      'Teacher:',
+      name: 'scheduleViewCourseTeacher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Classroom:`
+  String get scheduleViewCourseRoom {
+    return Intl.message(
+      'Classroom:',
+      name: 'scheduleViewCourseRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time:`
+  String get scheduleViewCourseTime {
+    return Intl.message(
+      'Time:',
+      name: 'scheduleViewCourseTime',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Function area`
   String get functionViewFunctionAreaName {
     return Intl.message(
@@ -275,6 +325,26 @@ class S {
     return Intl.message(
       'Start day',
       name: 'personViewStartDayTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get personViewLogout {
+    return Intl.message(
+      'Logout',
+      name: 'personViewLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get personViewLogoutTip {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'personViewLogoutTip',
       desc: '',
       args: [],
     );

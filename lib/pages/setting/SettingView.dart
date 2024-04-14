@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:schedule/GlobalModel.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
-import 'package:schedule/components/myPopupMenuButton/MyPopupMenuButton.dart';
+import 'package:schedule/common/components/myPopupMenuButton/MyPopupMenuButton.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/setting/SettingViewModel.dart';
@@ -54,6 +54,8 @@ class _SettingViewState extends State<SettingView> {
       _getVersionUpdate(context),
       // 关于应用
       _getAboutApplicationDialog(context),
+      // 底部安全间距
+      _getBottomSafeArea(),
     ];
   }
 
@@ -95,6 +97,16 @@ class _SettingViewState extends State<SettingView> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  /// 底部安全间距
+  Widget _getBottomSafeArea() {
+    return SizedBox(
+      height: ScreenAdaptor().getLengthByOrientation(
+        vertical: 80.h,
+        horizon: 150.h,
       ),
     );
   }

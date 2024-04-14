@@ -116,6 +116,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationFunction": MessageLookupByLibrary.simpleMessage("function"),
         "navigationPerson": MessageLookupByLibrary.simpleMessage("person"),
         "navigationSchedule": MessageLookupByLibrary.simpleMessage("schedule"),
+        "personViewLogout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "personViewLogoutTip": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "personViewSemesterTip":
             MessageLookupByLibrary.simpleMessage("Semester"),
         "personViewStartDayTip":
@@ -123,6 +126,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "pickerCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "pinkColor": MessageLookupByLibrary.simpleMessage("Pink"),
+        "scheduleViewCourseDetail":
+            MessageLookupByLibrary.simpleMessage("Course details"),
+        "scheduleViewCourseName":
+            MessageLookupByLibrary.simpleMessage("Course name:"),
+        "scheduleViewCourseRoom":
+            MessageLookupByLibrary.simpleMessage("Classroom:"),
+        "scheduleViewCourseTeacher":
+            MessageLookupByLibrary.simpleMessage("Teacher:"),
+        "scheduleViewCourseTime": MessageLookupByLibrary.simpleMessage("Time:"),
         "scheduleViewCourseTimeName":
             MessageLookupByLibrary.simpleMessage("1st&2nd&3rd&4th&5th"),
         "scheduleViewCurrentWeek":

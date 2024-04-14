@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:schedule/common/AlertDialogTextField.dart';
+import 'package:schedule/common/utils/LoggerUtils.dart';
 
-import '../../main.dart';
+import '../../../generated/l10n.dart';
+import '../../../main.dart';
 
 class CurriculumModel with ChangeNotifier {
   /// 获取节次背景颜色
@@ -37,7 +41,7 @@ class CurriculumModel with ChangeNotifier {
   /// 获取今日课程背景颜色
   Color? getTodayCourseColor(int showWeek, int index, BuildContext context) {
     final defaultColor =
-    Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.8);
+        Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.8);
     final heightColor = Theme.of(context).colorScheme.primary.withOpacity(0.3);
     // 获取当前周次
     int week = int.parse(globalModel.semesterWeekData["currentWeek"]);
@@ -97,5 +101,49 @@ class CurriculumModel with ChangeNotifier {
       return Theme.of(context).colorScheme.primary.withOpacity(0.3);
     }
     return null;
+  }
+
+  /// 点击查看课程详细
+  void showCourseDetail(BuildContext context, Map course, Map experiment) {
+    List<Map> listData = [];
+    if (course.isNotEmpty) {
+      listData.add(course);
+    }
+
+    if (experiment.isNotEmpty) {
+      listData.add(experiment);
+    }
+
+    List<Widget> list = [];
+    for (Map data in listData) {
+      const heightWidget = SizedBox(height: 10);
+      list.add(Text("${S.of(context).scheduleViewCourseName}${course["className"]}"));
+      list.add(heightWidget);
+      list.add(Text("${S.of(context).scheduleViewCourseTeacher}${course["classTeacher"]}"));
+      list.add(heightWidget);
+      list.add(Text("${S.of(context).scheduleViewCourseTime}${course["classTime"]}"));
+      list.add(heightWidget);
+      list.add(Text("${S.of(context).scheduleViewCourseRoom}${course["classAddress"]}"));
+      list.add(const Text("----------------------"));
+    }
+    list.removeLast();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialogTextField(
+          title: S.of(context).scheduleViewCourseDetail,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: list,
+          ),
+          confirmText: S.of(context).pickerConfirm,
+          confirmCallback: () {
+            GoRouter.of(context).pop();
+          },
+        );
+      },
+    );
   }
 }

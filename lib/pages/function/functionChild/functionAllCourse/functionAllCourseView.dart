@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:schedule/components/curriculum/Curriculum.dart';
+import 'package:schedule/common/components/curriculum/Curriculum.dart';
 import '../../../../common/utils/ScreenAdaptor.dart';
 import '../../../../generated/l10n.dart';
 import 'functionAllCourseViewModel.dart';

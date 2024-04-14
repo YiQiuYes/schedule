@@ -109,11 +109,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationFunction": MessageLookupByLibrary.simpleMessage("功能"),
         "navigationPerson": MessageLookupByLibrary.simpleMessage("我的"),
         "navigationSchedule": MessageLookupByLibrary.simpleMessage("课表"),
+        "personViewLogout": MessageLookupByLibrary.simpleMessage("退出登录"),
+        "personViewLogoutTip": MessageLookupByLibrary.simpleMessage("确定退出登录？"),
         "personViewSemesterTip": MessageLookupByLibrary.simpleMessage("学期"),
         "personViewStartDayTip": MessageLookupByLibrary.simpleMessage("开始日期"),
         "pickerCancel": MessageLookupByLibrary.simpleMessage("取消"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("确认"),
         "pinkColor": MessageLookupByLibrary.simpleMessage("粉色"),
+        "scheduleViewCourseDetail":
+            MessageLookupByLibrary.simpleMessage("课程详情"),
+        "scheduleViewCourseName": MessageLookupByLibrary.simpleMessage("课程名称："),
+        "scheduleViewCourseRoom": MessageLookupByLibrary.simpleMessage("上课地点："),
+        "scheduleViewCourseTeacher":
+            MessageLookupByLibrary.simpleMessage("课程教师："),
+        "scheduleViewCourseTime": MessageLookupByLibrary.simpleMessage("上课时间："),
         "scheduleViewCourseTimeName":
             MessageLookupByLibrary.simpleMessage("一&二&三&四&五"),
         "scheduleViewCurrentWeek": MessageLookupByLibrary.simpleMessage("第%%周"),

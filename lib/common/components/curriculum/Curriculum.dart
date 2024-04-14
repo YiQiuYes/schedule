@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
-import 'package:schedule/components/curriculum/CurriculumModel.dart';
+import 'package:schedule/common/components/curriculum/CurriculumModel.dart';
 
-import '../../common/utils/ScheduleUtils.dart';
-import '../../generated/l10n.dart';
+import '../../../common/utils/ScheduleUtils.dart';
+import '../../../generated/l10n.dart';
 
 class Curriculum extends StatelessWidget {
   const Curriculum(
@@ -61,7 +61,7 @@ class Curriculum extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverQuiltedGridDelegate(
-          crossAxisCount: 23,
+          crossAxisCount: 46,
           mainAxisSpacing: screen.getLengthByOrientation(
             vertical: 11.w,
             horizon: 8.6.w,
@@ -71,14 +71,14 @@ class Curriculum extends StatelessWidget {
             horizon: 8.6.w,
           ),
           pattern: [
-            const QuiltedGridTile(2, 2),
-            const QuiltedGridTile(2, 3),
-            const QuiltedGridTile(2, 3),
-            const QuiltedGridTile(2, 3),
-            const QuiltedGridTile(2, 3),
-            const QuiltedGridTile(2, 3),
-            const QuiltedGridTile(2, 3),
-            const QuiltedGridTile(2, 3),
+            const QuiltedGridTile(5, 4),
+            const QuiltedGridTile(5, 6),
+            const QuiltedGridTile(5, 6),
+            const QuiltedGridTile(5, 6),
+            const QuiltedGridTile(5, 6),
+            const QuiltedGridTile(5, 6),
+            const QuiltedGridTile(5, 6),
+            const QuiltedGridTile(5, 6),
           ],
         ),
         childrenDelegate: SliverChildBuilderDelegate(
@@ -90,12 +90,7 @@ class Curriculum extends StatelessWidget {
                   builder: (context, model, child) {
                 return Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(
-                    vertical: screen.getLengthByOrientation(
-                      vertical: 10.w,
-                      horizon: 8.w,
-                    ),
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                       screen.getLengthByOrientation(
@@ -103,15 +98,39 @@ class Curriculum extends StatelessWidget {
                     ),
                     color: model.getTodayWeekColor(showWeek, index, context),
                   ),
-                  child: Text(
-                    weeks[index - 1],
-                    style: TextStyle(
-                      fontSize: screen.getLengthByOrientation(
-                        vertical: 25.sp,
-                        horizon: 18.sp,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // 星期几
+                      Text(
+                        weeks[index - 1],
+                        style: TextStyle(
+                          fontSize: screen.getLengthByOrientation(
+                            vertical: 25.sp,
+                            horizon: 18.sp,
+                          ),
+                          height: 0,
+                        ),
                       ),
-                      height: 0,
-                    ),
+                      // 间距
+                      SizedBox(
+                        height: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 2.w,
+                          horizon: 3.w,
+                        ),
+                      ),
+                      // 日期
+                      Text(
+                        ScheduleUtils.getWeekDate(index - 1, showWeek + 1),
+                        style: TextStyle(
+                          fontSize: screen.getLengthByOrientation(
+                            vertical: 15.sp,
+                            horizon: 11.sp,
+                          ),
+                          height: 0,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               });
@@ -254,66 +273,124 @@ class Curriculum extends StatelessWidget {
         experiment = {};
       }
 
-      return Container(
-        alignment: Alignment.topCenter,
-        padding: EdgeInsets.symmetric(
-          vertical: screen.getLengthByOrientation(
-            vertical: 12.w,
-            horizon: 6.w,
-          ),
-          horizontal: screen.getLengthByOrientation(
-            vertical: 9.w,
-            horizon: 7.w,
+      return InkWell(
+        onTap: () {
+          // 显示课程详细
+          curriculumModel.showCourseDetail(context, course, experiment);
+        },
+        borderRadius: BorderRadius.circular(
+          screen.getLengthByOrientation(
+            vertical: 15.w,
+            horizon: 10.w,
           ),
         ),
-        decoration: BoxDecoration(
+        child: ClipRRect(
           borderRadius: BorderRadius.circular(
             screen.getLengthByOrientation(
               vertical: 15.w,
               horizon: 10.w,
             ),
           ),
-          color: curriculumModel.getTodayCourseColor(showWeek, index, context),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            // 课程名称
-            Text(
-              ScheduleUtils.getCourseName(
-                course,
-                experiment,
-              ),
-              maxLines: screen.byOrientationReturn(vertical: 4, horizon: 3)!,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: screen.getLengthByOrientation(
-                  vertical: 18.sp,
-                  horizon: 11.sp,
+          child: Stack(
+            children: [
+              // 课程容器
+              Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.symmetric(
+                  vertical: screen.getLengthByOrientation(
+                    vertical: 12.w,
+                    horizon: 6.w,
+                  ),
+                  horizontal: screen.getLengthByOrientation(
+                    vertical: 9.w,
+                    horizon: 7.w,
+                  ),
                 ),
-                height: 1.2,
-              ),
-            ),
-            // 课程地点
-            Text(
-              ScheduleUtils.getCourseAddress(
-                course,
-                experiment,
-              ),
-              maxLines: screen.byOrientationReturn(vertical: 2, horizon: 1)!,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: screen.getLengthByOrientation(
-                  vertical: 15.sp,
-                  horizon: 9.sp,
+                decoration: BoxDecoration(
+                  color: curriculumModel.getTodayCourseColor(
+                      showWeek, index, context),
                 ),
-                height: 1.3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    // 课程名称
+                    Text(
+                      ScheduleUtils.getCourseName(
+                        course,
+                        experiment,
+                      ),
+                      maxLines:
+                          screen.byOrientationReturn(vertical: 4, horizon: 3)!,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: screen.getLengthByOrientation(
+                          vertical: 18.sp,
+                          horizon: 11.sp,
+                        ),
+                        height: 1.2,
+                      ),
+                    ),
+                    // 课程地点
+                    Text(
+                      ScheduleUtils.getCourseAddress(
+                        course,
+                        experiment,
+                      ),
+                      maxLines:
+                          screen.byOrientationReturn(vertical: 2, horizon: 1)!,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: screen.getLengthByOrientation(
+                          vertical: 15.sp,
+                          horizon: 9.sp,
+                        ),
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              // 冲突课程高亮
+              Visibility(
+                visible: course.isNotEmpty && experiment.isNotEmpty,
+                child: Positioned(
+                  right: screen.getLengthByOrientation(
+                    vertical: -13.w,
+                    horizon: -4.w,
+                  ),
+                  bottom: screen.getLengthByOrientation(
+                    vertical: -13.w,
+                    horizon: -4.w,
+                  ),
+                  child: Container(
+                    height: screen.getLengthByOrientation(
+                      vertical: 30.w,
+                      horizon: 15.w,
+                    ),
+                    width: screen.getLengthByOrientation(
+                      vertical: 30.w,
+                      horizon: 15.w,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(
+                        screen.getLengthByOrientation(
+                          vertical: 15.w,
+                          horizon: 7.5.w,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       );
     });

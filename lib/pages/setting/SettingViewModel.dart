@@ -34,17 +34,7 @@ class SettingViewModel with ChangeNotifier {
         FToast().removeCustomToast();
 
         String version = value['tag_name'].replaceAll("v", "");
-        List<String> netSplit = version.split(".");
-        List<String> localSplit = PackageInfoUtils.version.split(".");
-        bool isUpdate = false;
-        for (int i = 0; i < netSplit.length; i++) {
-          if (int.parse(netSplit[i]) > int.parse(localSplit[i])) {
-            isUpdate = true;
-            break;
-          } else if (int.parse(netSplit[i]) < int.parse(localSplit[i])) {
-            break;
-          }
-        }
+        bool isUpdate = PackageInfoUtils.compareVersion(version);
 
         // logger.i("version: $version, info: $info");
         if (isUpdate) {

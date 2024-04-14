@@ -44,6 +44,10 @@ class _PersonViewState extends State<PersonView>
       _getSemesterAndStartDate(context),
       // 获取设置项
       _getSettingItem(context),
+      // 获取退出登录项
+      _getLogoutItem(context),
+      // 底部安全间距
+      _getBottomSafeArea(),
     ];
     return ChangeNotifierProvider.value(
       value: _viewModel,
@@ -69,6 +73,16 @@ class _PersonViewState extends State<PersonView>
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// 底部安全间距
+  Widget _getBottomSafeArea() {
+    return SizedBox(
+      height: ScreenAdaptor().getLengthByOrientation(
+        vertical: 80.h,
+        horizon: 150.h,
       ),
     );
   }
@@ -322,6 +336,45 @@ class _PersonViewState extends State<PersonView>
         ),
         title: Text(
           S.of(context).settingViewTitle,
+          style: TextStyle(
+            fontSize: _screen.getLengthByOrientation(
+              vertical: 32.sp,
+              horizon: 17.sp,
+            ),
+          ),
+        ),
+        contentPadding: EdgeInsets.only(
+          left: _screen.getLengthByOrientation(
+            vertical: 35.w,
+            horizon: 20.w,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 获取退出登录项
+  Widget _getLogoutItem(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: _screen.getLengthByOrientation(
+          vertical: 40.w,
+          horizon: 25.w,
+        ),
+      ),
+      child: ListTile(
+        onTap: () {
+          _viewModel.logout(context);
+        },
+        leading: Icon(
+          Icons.logout_rounded,
+          size: _screen.getLengthByOrientation(
+            vertical: 38.w,
+            horizon: 22.w,
+          ),
+        ),
+        title: Text(
+          S.of(context).personViewLogout,
           style: TextStyle(
             fontSize: _screen.getLengthByOrientation(
               vertical: 32.sp,

@@ -18,6 +18,11 @@
   "scheduleViewCourseTimeName" : "1st&2nd&3rd&4th&5th",
   "scheduleViewCurrentWeek" : "Week %%",
   "scheduleViewYearAndMonth" : "%%/&& Month",
+  "scheduleViewCourseDetail" : "Course details",
+  "scheduleViewCourseName" : "Course name:",
+  "scheduleViewCourseTeacher" : "Teacher:",
+  "scheduleViewCourseRoom" : "Classroom:",
+  "scheduleViewCourseTime" : "Time:",
 
   "functionViewFunctionAreaName" : "Function area",
   "functionViewScoreTitle" : "Score",
@@ -26,6 +31,8 @@
 
   "personViewSemesterTip" : "Semester",
   "personViewStartDayTip" : "Start day",
+  "personViewLogout" : "Logout",
+  "personViewLogoutTip" : "Are you sure you want to log out?",
 
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel",

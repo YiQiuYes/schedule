@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/GlobalModel.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
-import 'package:schedule/components/curriculum/Curriculum.dart';
+import 'package:schedule/common/components/curriculum/Curriculum.dart';
 import 'package:schedule/generated/l10n.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/schedule/ScheduleViewModel.dart';

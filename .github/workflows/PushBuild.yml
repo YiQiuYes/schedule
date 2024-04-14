@@ -33,6 +33,8 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION  }}
           cache: true
+          cache-key: "flutter-linux-stable-3.19.4-x64-68bfaea224880b488c617afe30ab12091ea8fa4e"
+          pub-cache-key: "flutter-pub-linux-stable-3.19.4-x64-68bfaea224880b488c617afe30ab12091ea8fa4e-83c53fcb102a1a8c7cf6459df89e9069e48111c609f2513ffd98050aeee06ab5"
       - name: 执行编译命令
         env:
           ALIAS: ${{ secrets.ALIAS }}

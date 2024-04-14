@@ -1,4 +1,5 @@
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
+import 'package:schedule/main.dart';
 
 class ScheduleUtils {
   static final _screen = ScreenAdaptor();
@@ -43,5 +44,15 @@ class ScheduleUtils {
     }
     startDay = startDay.substring(0, startDay.length - 1);
     return startDay;
+  }
+
+  /// 获取星期几对应的日期
+  static String getWeekDate(int i, int showWeek) {
+    final startDay = globalModel.semesterWeekData["startDay"];
+    final startDayTime = DateTime.parse(formatDateString(startDay));
+    // 获取距离开学第几天
+    final day = (showWeek - 1) * 7 + i;
+    final month = startDayTime.add(Duration(days: day));
+    return "${month.month}.${month.day}";
   }
 }

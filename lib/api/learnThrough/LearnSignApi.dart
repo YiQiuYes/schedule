@@ -59,7 +59,7 @@ abstract class LearnSignApi {
   /// [courseId] 课程id
   /// [classId] 班级id
   /// return: 签到结果
-  Future<String> preSign(
+  Future<bool> preSign(
       {required String activeId,
       required String courseId,
       required String classId});

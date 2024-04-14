@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:html/dom.dart';
+import 'package:html/parser.dart';
 import 'package:schedule/api/learnThrough/LearnSignApi.dart';
-import 'package:schedule/common/manager/DataStorageManager.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/ResponseUtils.dart';
 
 import '../../../common/manager/RequestManager.dart';
@@ -22,35 +20,6 @@ class LearnSignApiImpl extends LearnSignApi {
 
   // 网络管家
   final _request = RequestManager();
-
-  // 储存管理器
-  final _storage = DataStorageManager();
-
-  /// 储存签到成功的id
-  Future<void> _saveSignId(String id) async {
-    String? signIdsStr = _storage.getString("learnSignApiImplSignIds");
-    List<dynamic> signIdList = [];
-    if (signIdsStr != null) {
-      signIdList = jsonDecode(signIdsStr);
-    }
-
-    if (signIdList.length > 100) {
-      signIdList.clear();
-    }
-
-    signIdList.add(id);
-    await _storage.setString("learnSignApiImplSignIds", jsonEncode(signIdList));
-  }
-
-  /// 检查是否签到过
-  Future<bool> _checkSignId(String id) async {
-    String? signIdsStr = _storage.getString("learnSignApiImplSignIds");
-    List<dynamic> signIdList = [];
-    if (signIdsStr != null) {
-      signIdList = jsonDecode(signIdsStr);
-    }
-    return signIdList.contains(id);
-  }
 
   /// 获取cookie中的值
   Future<String> _getCookieItem(String url, String key) async {
@@ -96,9 +65,6 @@ class LearnSignApiImpl extends LearnSignApi {
         .get(url, options: options, params: params)
         .then((value) {
       final result = "${value.data}";
-      if (result == "success") {
-        _saveSignId(activeId);
-      }
       return result;
     });
   }
@@ -134,9 +100,6 @@ class LearnSignApiImpl extends LearnSignApi {
         .get(url, options: options, params: params)
         .then((value) {
       final result = "${value.data}";
-      if (result == "success") {
-        _saveSignId(activeId);
-      }
       return result;
     });
   }
@@ -173,9 +136,6 @@ class LearnSignApiImpl extends LearnSignApi {
         .get(url, options: options, params: params)
         .then((value) {
       final result = "${value.data}";
-      if (result == "success") {
-        _saveSignId(activeId);
-      }
       return result;
     });
   }
@@ -214,9 +174,6 @@ class LearnSignApiImpl extends LearnSignApi {
         .get(url, options: options, params: params)
         .then((value) {
       final result = "${value.data}";
-      if (result == "success") {
-        _saveSignId(activeId);
-      }
       return result;
     });
   }
@@ -263,9 +220,6 @@ class LearnSignApiImpl extends LearnSignApi {
         .get(url, options: options, params: params)
         .then((value) {
       final result = "${value.data}";
-      if (result == "success") {
-        _saveSignId(activeId);
-      }
       return result;
     });
   }
@@ -304,11 +258,6 @@ class LearnSignApiImpl extends LearnSignApi {
                 res["data"]["activeList"][0]["status"] == 1) {
               // logger.i(DateTime.now().millisecondsSinceEpoch);
               // logger.i(res);
-              // 判断是否签到过
-              if (await _checkSignId(
-                  res["data"]["activeList"][0]["id"].toString())) {
-                return {};
-              }
 
               // 活动开始超过2个小时则忽略
               if ((DateTime.now().millisecondsSinceEpoch -
@@ -366,9 +315,9 @@ class LearnSignApiImpl extends LearnSignApi {
   /// [activeId] 活动id
   /// [courseId] 课程id
   /// [classId] 班级id
-  /// return: 签到结果
+  /// return: 是否需要签到
   @override
-  Future<String> preSign(
+  Future<bool> preSign(
       {required String activeId,
       required String courseId,
       required String classId}) async {
@@ -376,17 +325,7 @@ class LearnSignApiImpl extends LearnSignApi {
         _request.cacheOptions.copyWith(policy: CachePolicy.refresh).toOptions();
 
     String url = "https://mobilelearn.chaoxing.com/newsign/preSign";
-    String uid = await _request
-        .getCookieJar()
-        .loadForRequest(Uri.parse(url))
-        .then((value) {
-      for (var element in value) {
-        if (element.name == "_uid") {
-          return element.value;
-        }
-      }
-      return "";
-    });
+    String uid = await _getCookieItem(url, "_uid");
 
     Map<String, dynamic> params = {
       "courseId": courseId,
@@ -401,7 +340,18 @@ class LearnSignApiImpl extends LearnSignApi {
       "ut": "s",
     };
 
-    await _request.get(url, options: options, params: params);
+    final isNeedSign =
+        await _request.get(url, options: options, params: params).then((value) {
+      Document doc = parse(value.data);
+      Element? h1 = doc.getElementById("statuscontent");
+      if (h1 != null) {
+        List<Element> ems = h1.getElementsByTagName("em");
+        if (ems.isNotEmpty) {
+          return !(ems.first.text == "签到成功");
+        }
+      }
+      return true;
+    });
 
     // 第一步分析
     String url1 = "https://mobilelearn.chaoxing.com/pptSign/analysis";
@@ -428,13 +378,12 @@ class LearnSignApiImpl extends LearnSignApi {
       "DB_STRATEGY": "RANDOM",
       "code": code,
     };
-    final result = await _request
+    await _request
         .get(url2, options: options, params: params)
         .then((value) {
       return value.data;
     });
 
-    await Future.delayed(const Duration(milliseconds: 500));
-    return "$result";
+    return isNeedSign;
   }
 }

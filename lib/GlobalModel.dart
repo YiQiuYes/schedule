@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:camera/camera.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schedule/api/schedule/impl/QueryApiImpl.dart';
 import 'package:schedule/common/manager/DataStorageManager.dart';
+import 'package:schedule/common/utils/PackageInfoUtils.dart';
 import 'package:schedule/common/utils/ScheduleUtils.dart';
 
 import 'api/schedule/QueryApi.dart';
@@ -28,6 +28,7 @@ class GlobalModel extends ChangeNotifier {
     "fontFamily": "default",
     "themeMode": "default",
     "colorTheme": "#673AB7",
+    "version": PackageInfoUtils.version,
   };
   // 学期周次数据
   final Map<String, dynamic> _semesterWeekData = {
@@ -223,6 +224,11 @@ class GlobalModel extends ChangeNotifier {
   Future<void> setFontFamily(String fontFamily) async {
     await _setSettings("fontFamily", fontFamily);
     notifyListeners();
+  }
+
+  /// 设置版本信息
+  Future<void> setVersion(String version) async {
+    await _setSettings("version", version);
   }
 
   /// 设置登录状态

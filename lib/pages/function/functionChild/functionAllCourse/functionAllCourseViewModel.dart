@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
+import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/main.dart';
 
 import '../../../../api/schedule/QueryApi.dart';
@@ -32,6 +35,9 @@ class FunctionAllCourseViewModel with ChangeNotifier {
 
   // 当前选择的学院和专业
   List<int> _collegeAndMajorIndex = [0, 0];
+
+  // 滑动选择定时器限流
+  Timer? _timer;
 
   /// 选择周次
   void selectWeekConfirm(Picker picker, List<int> value) {
@@ -100,17 +106,21 @@ class FunctionAllCourseViewModel with ChangeNotifier {
       return;
     }
 
-    await _queryApi
-        .queryMajorInfo(
-            collegeId: getCollegeIdByName(pickerData[index].value!),
-            semester: globalModel.semesterWeekData["semester"])
-        .then((value) {
-      pickerData[index].children?.clear();
-      pickerData[index]
-          .children
-          ?.addAll(value.map((e) => PickerItem<String>(value: e)).toList());
+    _timer?.cancel();
+    _timer = Timer(const Duration(milliseconds: 400), () async {
+      logger.i("index: $index");
+      await _queryApi
+          .queryMajorInfo(
+          collegeId: getCollegeIdByName(pickerData[index].value!),
+          semester: globalModel.semesterWeekData["semester"])
+          .then((value) {
+        pickerData[index].children?.clear();
+        pickerData[index]
+            .children
+            ?.addAll(value.map((e) => PickerItem<String>(value: e)).toList());
+      });
+      picker.state?.update();
     });
-    picker.state?.update();
   }
 
   /// 根据名称获取学院ID

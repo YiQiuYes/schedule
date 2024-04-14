@@ -34,22 +34,6 @@ class LearnThroughView extends StatelessWidget {
               slivers: <Widget>[
                 // 获取签到按钮
                 _getSignInButton(context),
-                SliverToBoxAdapter(
-                  child: Consumer<LearnThroughViewModel>(
-                    builder: (context, model, child) {
-                      return SizedBox(
-                        width: ScreenAdaptor().getLengthByOrientation(
-                          vertical: 750.w,
-                          horizon: 1334.w,
-                        ),
-                        height: ScreenAdaptor().getLengthByOrientation(
-                          vertical: 1334.w,
-                          horizon: 750.w,
-                        ),
-                      );
-                    }
-                  ),
-                )
               ],
             ),
           ),

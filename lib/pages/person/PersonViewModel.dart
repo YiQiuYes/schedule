@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
+import 'package:go_router/go_router.dart';
+import 'package:schedule/common/AlertDialogTextField.dart';
 import 'package:schedule/main.dart';
+import 'package:schedule/route/GoRouteConfig.dart';
 
+import '../../generated/l10n.dart';
 
 class PersonViewModel with ChangeNotifier {
   // 学期输入框控制器
@@ -76,6 +80,29 @@ class PersonViewModel with ChangeNotifier {
     globalModel.getPersonCourseData(
       week: globalModel.semesterWeekData["currentWeek"],
       semester: select,
+    );
+  }
+
+  /// 退出登录
+  void logout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialogTextField(
+        title: S.of(context).personViewLogout,
+        content: Text(S.of(context).personViewLogoutTip),
+        confirmText: S.of(context).pickerConfirm,
+        cancelText: S.of(context).pickerCancel,
+        cancelCallback: () {
+          GoRouter.of(context).pop();
+        },
+        confirmCallback: () {
+          globalModel.setUserInfoData("username", "");
+          globalModel.setUserInfoData("password", "");
+          globalModel.setIsLogin(false);
+          globalModel.setLoad20CountCourse(false);
+          GoRouter.of(context).go(GoRouteConfig.login);
+        },
+      ),
     );
   }
 }
