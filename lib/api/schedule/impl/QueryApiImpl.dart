@@ -131,7 +131,7 @@ class QueryApiImpl extends QueryApi {
   /// - [week] : 周次
   /// - [semester] : 学期
   @override
-  Future<List<Map>> queryPersonCourse(
+  Future<List> queryPersonCourse(
       {required String week,
       required String semester,
       CachePolicy? cachePolicy}) async {
@@ -155,7 +155,7 @@ class QueryApiImpl extends QueryApi {
       Document doc = parse(value.data);
       List<Element> tables = doc.getElementsByTagName("table");
 
-      List<Map> result = [];
+      List result = [];
       if (tables.isNotEmpty) {
         Element table = tables[0];
         List<Element> list = table.getElementsByClassName("kbcontent");
@@ -173,35 +173,76 @@ class QueryApiImpl extends QueryApi {
 
           // 获取课程名称
           String? className = element.firstChild?.text;
+          List<String> classNameList = [];
           className ??= "";
           className == " " ? className = "" : className = className;
+          classNameList.add(className);
+
+          // 正则表达式取出 >面向过程程序设计(C语言)<br> 之间的内容
+          RegExp regExp =
+              RegExp(r'<br>---------------------<br>(.*)<br><font title="老师">');
+          Iterable<RegExpMatch> matches = regExp.allMatches(element.outerHtml);
+          for (RegExpMatch match in matches) {
+            classNameList
+                .add(match.group(1)?.replaceAll(RegExp(r'[<br>]'), "") ?? "");
+          }
 
           // 获取课程时间
           int index = i ~/ 7;
           String classTime = time[index];
 
           // 获取课程地点
-          String? classAddress;
-          classAddress = element.querySelector('[title=教室]')?.text;
-          classAddress ??= "";
+          List<String> classAddressList = [];
+          element.querySelectorAll('[title=教室]').forEach((element) {
+            classAddressList.add(element.text);
+          });
+          if (classNameList.length > classAddressList.length) {
+            for (int i = classAddressList.length;
+                i < classNameList.length;
+                i++) {
+              classAddressList.add("");
+            }
+          }
 
           // 获取课程老师
-          String? classTeacher;
-          classTeacher = element.querySelector('[title=老师]')?.text;
-          classTeacher ??= "";
+          List<String> classTeacherList = [];
+          element.querySelectorAll('[title=老师]').forEach((element) {
+            classTeacherList.add(element.text);
+          });
+          if (classNameList.length > classTeacherList.length) {
+            for (int i = classTeacherList.length;
+                i < classNameList.length;
+                i++) {
+              classTeacherList.add("");
+            }
+          }
 
           // 获取课程周数
           String classWeek;
           classWeek = week;
 
           if (className.isNotEmpty) {
-            result.add({
-              "className": className,
-              "classTime": classTime,
-              "classAddress": classAddress,
-              "classTeacher": classTeacher,
-              "classWeek": classWeek,
-            });
+            if (classNameList.length > 1) {
+              List<Map> classContent = [];
+              for (int i = 0; i < classNameList.length; i++) {
+                classContent.add({
+                  "className": classNameList[i],
+                  "classTime": classTime,
+                  "classAddress": classAddressList[i],
+                  "classTeacher": classTeacherList[i],
+                  "classWeek": classWeek,
+                });
+              }
+              result.add(classContent);
+            } else {
+              result.add({
+                "className": classNameList[0],
+                "classTime": classTime,
+                "classAddress": classAddressList[0],
+                "classTeacher": classTeacherList[0],
+                "classWeek": classWeek,
+              });
+            }
           } else {
             result.add({});
           }
@@ -258,7 +299,7 @@ class QueryApiImpl extends QueryApi {
             // 获取课程时间
             String classTime = time[i];
 
-            List<String> split = tds[i].innerHtml.split("<br>");
+            List<String> split = tds[j].innerHtml.split("<br>");
             if (split.length != 1) {
               // 获取课程名称
               String className = split[0];

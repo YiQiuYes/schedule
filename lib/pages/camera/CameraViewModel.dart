@@ -38,7 +38,7 @@ class CameraViewModel with ChangeNotifier {
   Future<CameraController> _initCamera() async {
     // 获取相机列表
     final List<CameraDescription> cameras = await availableCameras();
-    final controller = CameraController(cameras[0], ResolutionPreset.medium);
+    final controller = CameraController(cameras[0], ResolutionPreset.max);
     await controller.initialize();
     controller.setFlashMode(FlashMode.off);
     return controller;

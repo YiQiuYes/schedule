@@ -106,7 +106,7 @@ class Curriculum extends StatelessWidget {
                         weeks[index - 1],
                         style: TextStyle(
                           fontSize: screen.getLengthByOrientation(
-                            vertical: 25.sp,
+                            vertical: 22.sp,
                             horizon: 18.sp,
                           ),
                           height: 0,
@@ -262,7 +262,9 @@ class Curriculum extends StatelessWidget {
       late Map experiment;
 
       if (courseData.isNotEmpty && courseData.length > index) {
-        course = courseData[index];
+        course = (courseData[index] is List)
+            ? courseData[index][0]
+            : courseData[index];
       } else {
         course = {};
       }
@@ -276,7 +278,8 @@ class Curriculum extends StatelessWidget {
       return InkWell(
         onTap: () {
           // 显示课程详细
-          curriculumModel.showCourseDetail(context, course, experiment);
+          curriculumModel.showCourseDetail(
+              context, courseData[index], experiment);
         },
         borderRadius: BorderRadius.circular(
           screen.getLengthByOrientation(
@@ -355,7 +358,8 @@ class Curriculum extends StatelessWidget {
               ),
               // 冲突课程高亮
               Visibility(
-                visible: course.isNotEmpty && experiment.isNotEmpty,
+                visible: (course.isNotEmpty && experiment.isNotEmpty) ||
+                    courseData[index] is List,
                 child: Positioned(
                   right: screen.getLengthByOrientation(
                     vertical: -13.w,

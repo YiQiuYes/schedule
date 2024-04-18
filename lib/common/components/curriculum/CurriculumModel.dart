@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schedule/common/AlertDialogTextField.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../main.dart';
@@ -104,10 +103,16 @@ class CurriculumModel with ChangeNotifier {
   }
 
   /// 点击查看课程详细
-  void showCourseDetail(BuildContext context, Map course, Map experiment) {
+  void showCourseDetail(BuildContext context, dynamic course, Map experiment) {
     List<Map> listData = [];
     if (course.isNotEmpty) {
-      listData.add(course);
+      if (course is List) {
+        for (Map data in course) {
+          listData.add(data);
+        }
+      } else {
+        listData.add(course);
+      }
     }
 
     if (experiment.isNotEmpty) {
@@ -117,13 +122,13 @@ class CurriculumModel with ChangeNotifier {
     List<Widget> list = [];
     for (Map data in listData) {
       const heightWidget = SizedBox(height: 10);
-      list.add(Text("${S.of(context).scheduleViewCourseName}${course["className"]}"));
+      list.add(Text("${S.of(context).scheduleViewCourseName}${data["className"]}"));
       list.add(heightWidget);
-      list.add(Text("${S.of(context).scheduleViewCourseTeacher}${course["classTeacher"]}"));
+      list.add(Text("${S.of(context).scheduleViewCourseTeacher}${data["classTeacher"]}"));
       list.add(heightWidget);
-      list.add(Text("${S.of(context).scheduleViewCourseTime}${course["classTime"]}"));
+      list.add(Text("${S.of(context).scheduleViewCourseTime}${data["classTime"]}"));
       list.add(heightWidget);
-      list.add(Text("${S.of(context).scheduleViewCourseRoom}${course["classAddress"]}"));
+      list.add(Text("${S.of(context).scheduleViewCourseRoom}${data["classAddress"]}"));
       list.add(const Text("----------------------"));
     }
     list.removeLast();

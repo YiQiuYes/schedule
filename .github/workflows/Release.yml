@@ -36,7 +36,8 @@ jobs:
     name: 构建android软件
     runs-on: ubuntu-latest
     env:
-      version: "pushAction"
+      version: ${{ needs.job_v.outputs.version }}
+      body: ${{ needs.job_v.outputs.body }}
     steps:
       - uses: actions/checkout@v4
         with:

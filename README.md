@@ -12,7 +12,7 @@
     <br />
     <a href="https://github.com/YiQiuYes/schedule/releases" target="blank"><strong>访问DEMO</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;
     <a href="#section1" target="blank"><strong>下载安装包</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="https://github.com/YiQiuYes/schedule" target="blank"><strong>加入交流群</strong></a>
+    <a href="https://qm.qq.com/cgi-bin/qm/qr?k=bbKNBbiwIRcPznrRXO9xWX38ec_iFwN9&jump_from=webapi&authKey=gc4E3bzfE+GJ0uFkHXzQPA4lHc3tg+BdBbMOGWfBysPbnzaWtRqeKVPKqt/eK+Lj" target="blank"><strong>加入交流群</strong></a>
     <br />
     <br />
   </p>

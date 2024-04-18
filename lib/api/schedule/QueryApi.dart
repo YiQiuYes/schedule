@@ -18,7 +18,7 @@ abstract class QueryApi {
   /// 查询个人课程
   /// - [week] : 周次
   /// - [semester] : 学期
-  Future<List<Map>> queryPersonCourse(
+  Future<List> queryPersonCourse(
       {required String week,
         required String semester,
         CachePolicy? cachePolicy});

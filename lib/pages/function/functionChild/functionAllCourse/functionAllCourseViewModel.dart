@@ -4,7 +4,6 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/main.dart';
 
 import '../../../../api/schedule/QueryApi.dart';
@@ -108,7 +107,7 @@ class FunctionAllCourseViewModel with ChangeNotifier {
 
     _timer?.cancel();
     _timer = Timer(const Duration(milliseconds: 400), () async {
-      logger.i("index: $index");
+      // logger.i("index: $index");
       await _queryApi
           .queryMajorInfo(
           collegeId: getCollegeIdByName(pickerData[index].value!),
