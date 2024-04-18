@@ -301,7 +301,7 @@ class Curriculum extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.symmetric(
                   vertical: screen.getLengthByOrientation(
-                    vertical: 12.w,
+                    vertical: 9.w,
                     horizon: 6.w,
                   ),
                   horizontal: screen.getLengthByOrientation(
@@ -342,7 +342,7 @@ class Curriculum extends StatelessWidget {
                         experiment,
                       ),
                       maxLines:
-                          screen.byOrientationReturn(vertical: 2, horizon: 1)!,
+                          screen.byOrientationReturn(vertical: 3, horizon: 2)!,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

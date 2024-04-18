@@ -20,12 +20,15 @@ class ScheduleUtils {
     }
     final strLine = _screen.byOrientationReturn(vertical: "\n", horizon: "")!;
 
-    if (address.isNotEmpty && address.contains(RegExp(r"\d\d\d"))) {
+    if (address.isNotEmpty &&
+        address.contains(RegExp(r"\d\d\d")) &&
+        !address.contains("楼")) {
       // 往倒数第三个位置插入“楼”
       address =
           "${address.substring(0, address.length - 3)}楼$strLine${address.substring(address.length - 3)}";
     } else if (address.isNotEmpty && address.contains(RegExp(r"\d\d\d"))) {
       address = address.replaceAll("楼", "楼$strLine");
+      print(address);
     }
 
     return address;

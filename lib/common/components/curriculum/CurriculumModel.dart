@@ -122,6 +122,7 @@ class CurriculumModel with ChangeNotifier {
     List<Widget> list = [];
     for (Map data in listData) {
       const heightWidget = SizedBox(height: 10);
+      list.add(heightWidget);
       list.add(Text("${S.of(context).scheduleViewCourseName}${data["className"]}"));
       list.add(heightWidget);
       list.add(Text("${S.of(context).scheduleViewCourseTeacher}${data["classTeacher"]}"));
@@ -129,7 +130,8 @@ class CurriculumModel with ChangeNotifier {
       list.add(Text("${S.of(context).scheduleViewCourseTime}${data["classTime"]}"));
       list.add(heightWidget);
       list.add(Text("${S.of(context).scheduleViewCourseRoom}${data["classAddress"]}"));
-      list.add(const Text("----------------------"));
+      list.add(heightWidget);
+      list.add(const Text("ヾ(≧▽≦*)o"));
     }
     list.removeLast();
 
