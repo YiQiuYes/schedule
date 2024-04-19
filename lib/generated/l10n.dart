@@ -1080,6 +1080,26 @@ class S {
     );
   }
 
+  /// `Code`
+  String get functionViewDrinkCode {
+    return Intl.message(
+      'Code',
+      name: 'functionViewDrinkCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device QR code`
+  String get functionViewDrinkDeviceQRCode {
+    return Intl.message(
+      'Device QR code',
+      name: 'functionViewDrinkDeviceQRCode',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No QR code found`
   String get cameraViewNoFoundQRENCODE {
     return Intl.message(

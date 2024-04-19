@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:schedule/api/drink798/drink798Api.dart';
 import 'package:schedule/api/drink798/impl/drink798ApiImpl.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
@@ -13,6 +14,7 @@ import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import '../../../../common/components/alertDialogTextField/AlertDialogTextField.dart';
 import '../../../../common/manager/DataStorageManager.dart';
 import '../../../../generated/l10n.dart';
+import '../../../camera/CameraView.dart';
 
 class Function798ViewModel with ChangeNotifier {
   final Drink798API _drink798UserApi = Drink798ApiImpl();
@@ -107,189 +109,196 @@ class Function798ViewModel with ChangeNotifier {
       builder: (context) {
         return AlertDialogTextField(
           content: StatefulBuilder(builder: (context, setState) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AlertDialogTextField.getCustomTextFiled(
-                  context,
-                  controller: phoneController,
-                  labelText: S.current.functionViewDrinkLoginPhone,
-                ),
-                // 纵向间距
-                SizedBox(
-                  height: ScreenAdaptor().getLengthByOrientation(
-                    vertical: 20.w,
-                    horizon: 13.w,
+            return SizedBox(
+              width: ScreenAdaptor().getLengthByOrientation(
+                vertical: 600.w,
+                horizon: 250.w,
+              ),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  SizedBox(
+                    width: ScreenAdaptor().getLengthByOrientation(
+                      vertical: 440.w,
+                      horizon: 120.w,
+                    ),
+                    child: AlertDialogTextField.getCustomTextFiled(
+                      context,
+                      controller: phoneController,
+                      labelText: S.current.functionViewDrinkLoginPhone,
+                    ),
                   ),
-                ),
-                // 图片验证码
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // 验证码输入框
-                    SizedBox(
-                      width: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 250.w,
-                        horizon: 120.w,
-                      ),
-                      child: AlertDialogTextField.getCustomTextFiled(
-                        context,
-                        controller: photoCaptchaController,
-                        labelText: S.current.functionViewDrinkLoginPhotoCode,
-                      ),
+                  // 纵向间距
+                  SizedBox(
+                    height: ScreenAdaptor().getLengthByOrientation(
+                      vertical: 20.w,
+                      horizon: 13.w,
                     ),
-                    // 横向间距
-                    SizedBox(
-                      width: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 20.w,
-                        horizon: 10.w,
+                  ),
+                  // 图片验证码
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // 验证码输入框
+                      SizedBox(
+                        width: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 220.w,
+                          horizon: 120.w,
+                        ),
+                        child: AlertDialogTextField.getCustomTextFiled(
+                          context,
+                          controller: photoCaptchaController,
+                          labelText: S.current.functionViewDrinkLoginPhotoCode,
+                        ),
                       ),
-                    ),
-                    // 图片验证码
-                    SizedBox(
-                      width: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 120.w,
-                        horizon: 70.w,
+                      // 横向间距
+                      SizedBox(
+                        width: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 20.w,
+                          horizon: 10.w,
+                        ),
                       ),
-                      height: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 50.w,
-                        horizon: 30.w,
-                      ),
-                      child: FutureBuilder(
-                        future: captchaData,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                ScreenAdaptor().getLengthByOrientation(
-                                  vertical: 10.w,
-                                  horizon: 5.w,
-                                ),
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  getPhotoCaptchaData();
-                                  setState(() {});
-                                },
+                      // 图片验证码
+                      SizedBox(
+                        width: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 180.w,
+                          horizon: 120.w,
+                        ),
+                        height: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 90.w,
+                          horizon: 50.w,
+                        ),
+                        child: FutureBuilder(
+                          future: captchaData,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return ClipRRect(
                                 borderRadius: BorderRadius.circular(
                                   ScreenAdaptor().getLengthByOrientation(
                                     vertical: 10.w,
                                     horizon: 5.w,
                                   ),
                                 ),
-                                child: Image.memory(
-                                  snapshot.data!,
-                                  fit: BoxFit.fill,
+                                child: InkWell(
+                                  onTap: () {
+                                    getPhotoCaptchaData();
+                                    setState(() {});
+                                  },
+                                  borderRadius: BorderRadius.circular(
+                                    ScreenAdaptor().getLengthByOrientation(
+                                      vertical: 10.w,
+                                      horizon: 5.w,
+                                    ),
+                                  ),
+                                  child: Image.memory(
+                                    snapshot.data!,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                          return const SizedBox();
-                        },
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
                       ),
-                    ),
-                    // 横向间距
-                    SizedBox(
-                      width: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 20.w,
-                        horizon: 10.w,
+                      // 横向间距
+                      SizedBox(
+                        width: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 20.w,
+                          horizon: 10.w,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                // 纵向间距
-                SizedBox(
-                  height: ScreenAdaptor().getLengthByOrientation(
-                    vertical: 20.w,
-                    horizon: 13.w,
+                    ],
                   ),
-                ),
-                // 短信验证码
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // 验证码输入框
-                    SizedBox(
-                      width: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 250.w,
-                        horizon: 120.w,
-                      ),
-                      child: AlertDialogTextField.getCustomTextFiled(
-                        context,
-                        controller: messageCaptchaController,
-                        labelText: S.current.functionViewDrinkLoginMessageCode,
-                      ),
+                  // 纵向间距
+                  SizedBox(
+                    height: ScreenAdaptor().getLengthByOrientation(
+                      vertical: 20.w,
+                      horizon: 13.w,
                     ),
-                    // 横向间距
-                    SizedBox(
-                      width: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 20.w,
-                        horizon: 10.w,
+                  ),
+                  // 短信验证码
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // 验证码输入框
+                      SizedBox(
+                        width: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 220.w,
+                          horizon: 120.w,
+                        ),
+                        child: AlertDialogTextField.getCustomTextFiled(
+                          context,
+                          controller: messageCaptchaController,
+                          labelText: S.current.functionViewDrinkLoginMessageCode,
+                        ),
                       ),
-                    ),
-                    // 短信验证码按钮
-                    SizedBox(
-                      width: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 120.w,
-                        horizon: 70.w,
+                      // 横向间距
+                      SizedBox(
+                        width: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 20.w,
+                          horizon: 10.w,
+                        ),
                       ),
-                      height: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 50.w,
-                        horizon: 30.w,
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // 如果验证码不为0则退出
-                          if (time != 0) {
-                            return;
-                          }
-                          String phone = phoneController.text;
-                          String photoCode = photoCaptchaController.text;
-                          // 获取短信验证码
-                          getMessageCaptcha(photoCode, phone).then((value) {
-                            if (value) {
-                              FlutterToastUtil.okToast(S
-                                  .of(context)
-                                  .functionViewDrinkLoginMessageCodeSuccess);
-                            } else {
-                              FlutterToastUtil.errorToast(S
-                                  .of(context)
-                                  .functionViewDrinkLoginMessageCodeFail);
-                              getPhotoCaptchaData();
-                              time = 0;
-                              captchaTimer?.cancel();
-                              setState(() {});
+                      // 短信验证码按钮
+                      SizedBox(
+                        width: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 200.w,
+                          horizon: 120.w,
+                        ),
+                        height: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 90.w,
+                          horizon: 50.w,
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // 如果验证码不为0则退出
+                            if (time != 0) {
+                              return;
                             }
-                          });
+                            String phone = phoneController.text;
+                            String photoCode = photoCaptchaController.text;
+                            // 获取短信验证码
+                            getMessageCaptcha(photoCode, phone).then((value) {
+                              if (value) {
+                                FlutterToastUtil.okToast(S
+                                    .of(context)
+                                    .functionViewDrinkLoginMessageCodeSuccess);
+                              } else {
+                                FlutterToastUtil.errorToast(S
+                                    .of(context)
+                                    .functionViewDrinkLoginMessageCodeFail);
+                                getPhotoCaptchaData();
+                                time = 0;
+                                captchaTimer?.cancel();
+                                setState(() {});
+                              }
+                            });
 
-                          // 防止内存泄露
-                          captchaTimer?.cancel();
-                          time = 60;
-                          captchaTimer = Timer.periodic(
-                              const Duration(seconds: 1), (timer) {
-                            time--;
-                            if (time <= 0) {
-                              timer.cancel();
-                            } else {
-                              setState(() {});
-                            }
-                          });
-                          setState(() {});
-                        },
-                        child: Text(time == 0 ? "发送验证码" : "$time"),
+                            // 防止内存泄露
+                            captchaTimer?.cancel();
+                            time = 60;
+                            captchaTimer = Timer.periodic(
+                                const Duration(seconds: 1), (timer) {
+                              time--;
+                              if (time <= 0) {
+                                timer.cancel();
+                              } else {
+                                setState(() {});
+                              }
+                            });
+                            setState(() {});
+                          },
+                          child: Text(time == 0
+                              ? S.of(context).functionViewDrinkCode
+                              : "$time"),
+                        ),
                       ),
-                    ),
-                    // 横向间距
-                    SizedBox(
-                      width: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 20.w,
-                        horizon: 10.w,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             );
           }),
           title: S.current.functionViewDrinkLoginTitle,
@@ -411,8 +420,8 @@ class Function798ViewModel with ChangeNotifier {
         FlutterToastUtil.okToast(S.current.functionViewDrinkBtnStartSuccess);
         deviceStatusTimer =
             Timer.periodic(const Duration(seconds: 1), (timer) async {
-          bool isAvailable = await _drink798UserApi
-              .isAvailableDevice(id: deviceList[choiceDevice]["id"]);
+          bool isAvailable = await _drink798UserApi.isAvailableDevice(
+              id: deviceList[choiceDevice]["id"]);
           // logger.i(isAvailable);
           if (isAvailable && count > 3) {
             drinkStatus = 0;
@@ -441,5 +450,28 @@ class Function798ViewModel with ChangeNotifier {
       }
       notifyListeners();
     });
+  }
+
+  /// 扫描二维码逻辑
+  void scanQRCode(BuildContext context) async {
+    final result = await GoRouter.of(context).push('/camera', extra: {
+      "type": CameraType.qrCode,
+      "appBarTitle": S.of(context).functionViewDrinkDeviceQRCode,
+    });
+
+    if (result != null) {
+      String enc = (result as Map)["enc"];
+      enc = enc.split("/").last;
+
+      // 添加到喜好
+      bool isFavo = await favoDevice(enc, false);
+      if (isFavo) {
+        FlutterToastUtil.okToast(S.of(context).functionViewDrinkfavoriteSuccess);
+        // 获取设备列表
+        getDeviceList(context);
+      } else {
+        FlutterToastUtil.errorToast(S.of(context).functionViewDrinkfavoriteFail);
+      }
+    }
   }
 }

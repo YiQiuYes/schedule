@@ -52,8 +52,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Drink"),
         "functionViewDrinkBtnStatus1Tip":
             MessageLookupByLibrary.simpleMessage("Billing"),
+        "functionViewDrinkCode": MessageLookupByLibrary.simpleMessage("Code"),
         "functionViewDrinkDeviceManage":
             MessageLookupByLibrary.simpleMessage("Device management"),
+        "functionViewDrinkDeviceQRCode":
+            MessageLookupByLibrary.simpleMessage("Device QR code"),
         "functionViewDrinkLoginFail": MessageLookupByLibrary.simpleMessage(
             "Please check if the mobile phone number or verification code is correct!"),
         "functionViewDrinkLoginMessageCode":

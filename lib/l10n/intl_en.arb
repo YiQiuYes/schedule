@@ -114,6 +114,8 @@
   "functionViewDrinkfavoriteSuccess" : "Collected successfully!",
   "functionViewDrinkfavoriteFail" : "Bookmark failed!",
   "functionViewDrinkDeviceManage" : "Device management",
+  "functionViewDrinkCode" : "Code",
+  "functionViewDrinkDeviceQRCode" : "Device QR code",
 
   "cameraViewNoFoundQRENCODE" : "No QR code found",
   "cameraViewAppBarTitle" : "Camera Preview"

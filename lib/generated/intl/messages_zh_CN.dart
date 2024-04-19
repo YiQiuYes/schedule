@@ -48,8 +48,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("喝水"),
         "functionViewDrinkBtnStatus1Tip":
             MessageLookupByLibrary.simpleMessage("结算"),
+        "functionViewDrinkCode": MessageLookupByLibrary.simpleMessage("验证码"),
         "functionViewDrinkDeviceManage":
             MessageLookupByLibrary.simpleMessage("设备管理"),
+        "functionViewDrinkDeviceQRCode":
+            MessageLookupByLibrary.simpleMessage("扫描设备二维码"),
         "functionViewDrinkLoginFail":
             MessageLookupByLibrary.simpleMessage("登录失败！请检查手机号或验证码是否正确！"),
         "functionViewDrinkLoginMessageCode":

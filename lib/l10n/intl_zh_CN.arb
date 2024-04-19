@@ -114,6 +114,8 @@
   "functionViewDrinkfavoriteSuccess" : "收藏成功！",
   "functionViewDrinkfavoriteFail" : "收藏失败！",
   "functionViewDrinkDeviceManage" : "设备管理",
+  "functionViewDrinkCode" : "验证码",
+  "functionViewDrinkDeviceQRCode" : "扫描设备二维码",
 
   "cameraViewNoFoundQRENCODE" : "未找到二维码",
   "cameraViewAppBarTitle" : "摄像头预览"

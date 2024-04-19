@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schedule/common/components/alertDialogTextField/AlertDialogTextField.dart';
+import 'package:schedule/common/utils/ScreenAdaptor.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../main.dart';
@@ -38,7 +40,8 @@ class CurriculumModel with ChangeNotifier {
   }
 
   /// 获取今日课程背景颜色
-  Color? getTodayCourseColor(int showWeek, int index, BuildContext context) {
+  Color? getTodayCourseColor(
+      int showWeek, int index, BuildContext context, List course) {
     final defaultColor =
         Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.8);
     final heightColor = Theme.of(context).colorScheme.primary.withOpacity(0.3);
@@ -72,7 +75,7 @@ class CurriculumModel with ChangeNotifier {
             return heightColor;
           } else if (currentSectionTime > i) {
             for (int j = day - 1; j < index; j += 7) {
-              if (globalModel.courseData[showWeek][j].isNotEmpty) {
+              if (course[j].isNotEmpty) {
                 return defaultColor;
               }
             }
@@ -123,13 +126,17 @@ class CurriculumModel with ChangeNotifier {
     for (Map data in listData) {
       const heightWidget = SizedBox(height: 10);
       list.add(heightWidget);
-      list.add(Text("${S.of(context).scheduleViewCourseName}${data["className"]}"));
+      list.add(
+          Text("${S.of(context).scheduleViewCourseName}${data["className"]}"));
       list.add(heightWidget);
-      list.add(Text("${S.of(context).scheduleViewCourseTeacher}${data["classTeacher"]}"));
+      list.add(Text(
+          "${S.of(context).scheduleViewCourseTeacher}${data["classTeacher"]}"));
       list.add(heightWidget);
-      list.add(Text("${S.of(context).scheduleViewCourseTime}${data["classTime"]}"));
+      list.add(
+          Text("${S.of(context).scheduleViewCourseTime}${data["classTime"]}"));
       list.add(heightWidget);
-      list.add(Text("${S.of(context).scheduleViewCourseRoom}${data["classAddress"]}"));
+      list.add(Text(
+          "${S.of(context).scheduleViewCourseRoom}${data["classAddress"]}"));
       list.add(heightWidget);
       list.add(const Text("ヾ(≧▽≦*)o"));
     }
@@ -140,10 +147,15 @@ class CurriculumModel with ChangeNotifier {
       builder: (BuildContext context) {
         return AlertDialogTextField(
           title: S.of(context).scheduleViewCourseDetail,
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: list,
+          content: SizedBox(
+            width: ScreenAdaptor().getLengthByOrientation(
+              vertical: 200.w,
+              horizon: 250.w,
+            ),
+            child: ListView(
+              shrinkWrap: true,
+              children: list,
+            ),
           ),
           confirmText: S.of(context).pickerConfirm,
           confirmCallback: () {

@@ -23,9 +23,7 @@ class Function798View extends StatelessWidget {
         return model;
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(S.of(context).functionViewDrink798),
-        ),
+        appBar: _getAppBar(context),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           bottom: false,
@@ -176,6 +174,26 @@ class Function798View extends StatelessWidget {
     );
   }
 
+  /// 获取AppBar
+  PreferredSizeWidget _getAppBar(BuildContext context) {
+    return AppBar(
+      title: Text(S.of(context).functionViewDrink798),
+      actions: [
+        // 扫描二维码
+        Consumer<Function798ViewModel>(
+          builder: (context, model, child) {
+            return IconButton(
+              icon: const Icon(Icons.qr_code_scanner_rounded),
+              onPressed: ()  {
+                model.scanQRCode(context);
+              },
+            );
+          }
+        ),
+      ],
+    );
+  }
+
   /// 获取喝水按钮
   Widget _getDrinkBtnWidget(BuildContext context) {
     return Padding(
@@ -188,6 +206,10 @@ class Function798View extends StatelessWidget {
       child: Consumer<Function798ViewModel>(builder: (context, model, child) {
         return ElevatedButton(
           onPressed: () {
+            if (model.deviceList.isEmpty) {
+              return;
+            }
+
             switch(model.drinkStatus) {
               case 0:
                 model.startDrink(model.deviceList[model.choiceDevice]["id"]);
