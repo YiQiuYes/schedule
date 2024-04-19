@@ -12,7 +12,7 @@ class LearnUserApiImpl extends LearnUserApi {
   LearnUserApiImpl._privateConstructor();
 
   static final LearnUserApiImpl _instance =
-  LearnUserApiImpl._privateConstructor();
+      LearnUserApiImpl._privateConstructor();
 
   factory LearnUserApiImpl() {
     return _instance;
@@ -61,13 +61,13 @@ class LearnUserApiImpl extends LearnUserApi {
           return e;
         }).toList();
         // logger.i(value);
-        await _request
-            .getCookieJar()
-            .saveFromResponse(Uri.parse("https://mooc1.hut.edu.cn"), value);
+        // await _request
+        //     .getCookieJar()
+        //     .saveFromResponse(Uri.parse("https://mooc1.hut.edu.cn"), value);
 
-        await _request
-            .getCookieJar()
-            .saveFromResponse(Uri.parse("http://i.mooc.hut.edu.cn"), value);
+        // await _request
+        //     .getCookieJar()
+        //     .saveFromResponse(Uri.parse("http://i.mooc.hut.edu.cn"), value);
       });
       return result["status"];
     });
@@ -86,7 +86,7 @@ class LearnUserApiImpl extends LearnUserApi {
       return status! < 500;
     };
 
-    String url = "http://mooc1.hut.edu.cn/visit/courses";
+    String url = "https://mooc1-1.chaoxing.com/visit/courses";
     return await _request.get(url, options: options).then((value) {
       if (value.statusCode == 302) {
         return [302];
@@ -120,13 +120,14 @@ class LearnUserApiImpl extends LearnUserApi {
     Options options =
         _request.cacheOptions.copyWith(policy: CachePolicy.refresh).toOptions();
 
-    String url = "http://i.mooc.hut.edu.cn/space";
+    String url = "https://passport2.chaoxing.com/mooc/accountManage";
     return await _request.get(url, options: options).then((value) {
       Document doc = parse(value.data);
-      List<Element> ps = doc.getElementsByClassName("personalName");
+      logger.i(doc.outerHtml);
+      Element? span = doc.getElementById("messageName");
       // logger.i(ps[0].attributes["title"]!);
-      if (ps.isNotEmpty) {
-        return ps[0].attributes["title"]!;
+      if (span != null) {
+        return span.text;
       }
       return "";
     });
@@ -137,7 +138,7 @@ class LearnUserApiImpl extends LearnUserApi {
   @override
   Future<String> getPanToken() async {
     Options options =
-    _request.cacheOptions.copyWith(policy: CachePolicy.refresh).toOptions();
+        _request.cacheOptions.copyWith(policy: CachePolicy.refresh).toOptions();
 
     String url = "https://pan-yz.chaoxing.com/api/token/uservalid";
     return await _request.get(url, options: options).then((value) {

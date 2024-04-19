@@ -156,7 +156,7 @@ jobs:
           path: build/macos/Build/Products/Release/*.dmg
 
   job_linux:
-    name: 构建linux
+    name: 构建linux软件
     runs-on: ubuntu-latest
     env:
       version: "pushAction"

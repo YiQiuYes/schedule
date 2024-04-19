@@ -82,7 +82,6 @@ class LearnThroughView extends StatelessWidget {
                 child: Text(
                   S.of(context).functionViewLearnThroughSignIn,
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.titleLarge?.color,
                     fontSize: ScreenAdaptor().getLengthByOrientation(
                       vertical: 55.sp,
                       horizon: 28.sp,

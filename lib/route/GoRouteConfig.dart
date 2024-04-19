@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
+import 'package:schedule/pages/function/functionChild/function798/function798View.dart';
 import 'package:schedule/pages/function/functionChild/functionLearnThrough/LearnThroughView.dart';
 import 'package:schedule/pages/login/LoginView.dart';
 import 'package:schedule/pages/setting/SettingView.dart';
@@ -22,6 +23,7 @@ class GoRouteConfig {
   static const String functionScore = '/functionScore';
   static const String functionAllCourse = '/functionAllCourse';
   static const String functionLearnThrough = '/functionLearnThrough';
+  static const String function798 = '/function798';
   static const String camera = '/camera';
 
   static late BuildContext _context;
@@ -102,6 +104,14 @@ class GoRouteConfig {
         builder: (context, state) {
           _setContext = context;
           return const LearnThroughView();
+        },
+      ),
+      GoRoute(
+        name: 'function798',
+        path: function798,
+        builder: (context, state) {
+          _setContext = context;
+          return const Function798View();
         },
       ),
       GoRoute(path: camera, builder: (context, state) {

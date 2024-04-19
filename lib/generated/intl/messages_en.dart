@@ -37,6 +37,47 @@ class MessageLookup extends MessageLookupByLibrary {
         "functionScoreViewGPA": m0,
         "functionViewAllCourseTitle":
             MessageLookupByLibrary.simpleMessage("All courses"),
+        "functionViewDrink798":
+            MessageLookupByLibrary.simpleMessage("ILife798"),
+        "functionViewDrinkBtnEndFail":
+            MessageLookupByLibrary.simpleMessage("Settlement failed!"),
+        "functionViewDrinkBtnEndSuccess":
+            MessageLookupByLibrary.simpleMessage("Settlement successful!"),
+        "functionViewDrinkBtnStartFail": MessageLookupByLibrary.simpleMessage(
+            "Failed to turn on the device!"),
+        "functionViewDrinkBtnStartSuccess":
+            MessageLookupByLibrary.simpleMessage(
+                "The device is turned on successfully!"),
+        "functionViewDrinkBtnStatus0Tip":
+            MessageLookupByLibrary.simpleMessage("Drink"),
+        "functionViewDrinkBtnStatus1Tip":
+            MessageLookupByLibrary.simpleMessage("Billing"),
+        "functionViewDrinkDeviceManage":
+            MessageLookupByLibrary.simpleMessage("Device management"),
+        "functionViewDrinkLoginFail": MessageLookupByLibrary.simpleMessage(
+            "Please check if the mobile phone number or verification code is correct!"),
+        "functionViewDrinkLoginMessageCode":
+            MessageLookupByLibrary.simpleMessage("Message Code"),
+        "functionViewDrinkLoginMessageCodeFail":
+            MessageLookupByLibrary.simpleMessage(
+                "Failed to obtain SMS verification code!"),
+        "functionViewDrinkLoginMessageCodeSuccess":
+            MessageLookupByLibrary.simpleMessage(
+                "Obtained the SMS verification code successfully!"),
+        "functionViewDrinkLoginPhone":
+            MessageLookupByLibrary.simpleMessage("Phone number"),
+        "functionViewDrinkLoginPhotoCode":
+            MessageLookupByLibrary.simpleMessage("Photo Code"),
+        "functionViewDrinkLoginSuccess":
+            MessageLookupByLibrary.simpleMessage("Login success!"),
+        "functionViewDrinkLoginTitle":
+            MessageLookupByLibrary.simpleMessage("Log in to Hui Life 798"),
+        "functionViewDrinkUnfavorite":
+            MessageLookupByLibrary.simpleMessage("Unfavorite"),
+        "functionViewDrinkfavoriteFail":
+            MessageLookupByLibrary.simpleMessage("Bookmark failed!"),
+        "functionViewDrinkfavoriteSuccess":
+            MessageLookupByLibrary.simpleMessage("Collected successfully!"),
         "functionViewFunctionAreaName":
             MessageLookupByLibrary.simpleMessage("Function area"),
         "functionViewLearnThroughAddressHint": MessageLookupByLibrary.simpleMessage(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:go_router/go_router.dart';
-import 'package:schedule/common/AlertDialogTextField.dart';
+import 'package:schedule/common/components/alertDialogTextField/AlertDialogTextField.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:schedule/common/AlertDialogTextField.dart';
+import 'package:schedule/common/components/alertDialogTextField/AlertDialogTextField.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../main.dart';

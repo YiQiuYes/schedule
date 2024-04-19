@@ -28,7 +28,6 @@ class ScheduleUtils {
           "${address.substring(0, address.length - 3)}楼$strLine${address.substring(address.length - 3)}";
     } else if (address.isNotEmpty && address.contains(RegExp(r"\d\d\d"))) {
       address = address.replaceAll("楼", "楼$strLine");
-      print(address);
     }
 
     return address;

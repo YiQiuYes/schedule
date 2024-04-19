@@ -2,16 +2,19 @@
 class Assets {
   Assets._();
 
+  static const String alertDialogTextFieldAlertDialogTextField = 'lib/common/components/alertDialogTextField/AlertDialogTextField.dart';
   static const String appMainAppMainView = 'lib/pages/appMain/AppMainView.dart';
   static const String appMainAppMainViewModel = 'lib/pages/appMain/AppMainViewModel.dart';
   static const String cameraCameraView = 'lib/pages/camera/CameraView.dart';
   static const String cameraCameraViewModel = 'lib/pages/camera/CameraViewModel.dart';
   static const String colorThemeColorThemeView = 'lib/pages/setting/colorTheme/ColorThemeView.dart';
   static const String colorThemeColorThemeViewModel = 'lib/pages/setting/colorTheme/ColorThemeViewModel.dart';
-  static const String commonAlertDialogTextField = 'lib/common/AlertDialogTextField.dart';
   static const String curriculumCurriculum = 'lib/common/components/curriculum/Curriculum.dart';
   static const String curriculumCurriculumModel = 'lib/common/components/curriculum/CurriculumModel.dart';
+  static const String drink798Drink798UserApi = 'lib/api/drink798/drink798Api.dart';
   static const String fontsZhuZiSWan = 'lib/assets/fonts/ZhuZiSWan.ttf';
+  static const String function798Function798View = 'lib/pages/function/functionChild/function798/function798View.dart';
+  static const String function798Function798ViewModel = 'lib/pages/function/functionChild/function798/function798ViewModel.dart';
   static const String functionAllCourseFunctionAllCourseView = 'lib/pages/function/functionChild/functionAllCourse/functionAllCourseView.dart';
   static const String functionAllCourseFunctionAllCourseViewModel = 'lib/pages/function/functionChild/functionAllCourse/functionAllCourseViewModel.dart';
   static const String functionFunctionView = 'lib/pages/function/FunctionView.dart';
@@ -24,6 +27,7 @@ class Assets {
   static const String generatedL10n = 'lib/generated/l10n.dart';
   static const String imagesLogo = 'lib/assets/images/logo.png';
   static const String imagesSplash = 'lib/assets/images/splash.jpg';
+  static const String implDrink798UserApiImpl = 'lib/api/drink798/impl/drink798ApiImpl.dart';
   static const String implLearnOtherApiImpl = 'lib/api/learnThrough/impl/LearnOtherApiImpl.dart';
   static const String implLearnSignApiImpl = 'lib/api/learnThrough/impl/LearnSignApiImpl.dart';
   static const String implLearnUserApiImpl = 'lib/api/learnThrough/impl/LearnUserApiImpl.dart';

@@ -41,52 +41,11 @@ class AlertDialogTextField extends StatelessWidget {
     if (labelTextList != null) {
       for (var i = 0; i < labelTextList!.length; i++) {
         listWidget.addAll([
-          TextField(
+          getCustomTextFiled(
+            context,
             controller: textControllerList![i],
-            decoration: InputDecoration(
-              labelText: labelTextList![i],
-              hintText: hintTextList != null ? hintTextList![i] : null,
-              // 内容边距
-              contentPadding: EdgeInsets.only(
-                left: screen.getLengthByOrientation(
-                  vertical: 20.w,
-                  horizon: 13.w,
-                ),
-                top: screen.getLengthByOrientation(
-                  vertical: 18.w,
-                  horizon: 10.w,
-                ),
-                bottom: screen.getLengthByOrientation(
-                  vertical: 18.w,
-                  horizon: 10.w,
-                ),
-              ),
-              //设置输入框可编辑时的边框样式
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  screen.getLengthByOrientation(
-                    vertical: 20.w,
-                    horizon: 17.w,
-                  ),
-                ),
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 2,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  screen.getLengthByOrientation(
-                    vertical: 20.w,
-                    horizon: 17.w,
-                  ),
-                ),
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 2,
-                ),
-              ),
-            ),
+            labelText: labelTextList![i],
+            hintText: hintTextList != null ? hintTextList![i] : null,
           ),
           SizedBox(
             height: screen.getLengthByOrientation(
@@ -126,6 +85,60 @@ class AlertDialogTextField extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  static getCustomTextFiled(BuildContext context,
+      {TextEditingController? controller,
+      String? labelText,
+      String? hintText}) {
+    final screen = ScreenAdaptor();
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        hintText: hintText,
+        // 内容边距
+        contentPadding: EdgeInsets.only(
+          left: screen.getLengthByOrientation(
+            vertical: 20.w,
+            horizon: 13.w,
+          ),
+          top: screen.getLengthByOrientation(
+            vertical: 18.w,
+            horizon: 10.w,
+          ),
+          bottom: screen.getLengthByOrientation(
+            vertical: 18.w,
+            horizon: 10.w,
+          ),
+        ),
+        //设置输入框可编辑时的边框样式
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            screen.getLengthByOrientation(
+              vertical: 20.w,
+              horizon: 17.w,
+            ),
+          ),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 2,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            screen.getLengthByOrientation(
+              vertical: 20.w,
+              horizon: 17.w,
+            ),
+          ),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 2,
+          ),
+        ),
+      ),
     );
   }
 }

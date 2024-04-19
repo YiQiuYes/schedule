@@ -35,6 +35,43 @@ class MessageLookup extends MessageLookupByLibrary {
         "functionScoreViewGPA": m0,
         "functionViewAllCourseTitle":
             MessageLookupByLibrary.simpleMessage("全校课表"),
+        "functionViewDrink798": MessageLookupByLibrary.simpleMessage("慧生活798"),
+        "functionViewDrinkBtnEndFail":
+            MessageLookupByLibrary.simpleMessage("结算失败！"),
+        "functionViewDrinkBtnEndSuccess":
+            MessageLookupByLibrary.simpleMessage("结算成功！"),
+        "functionViewDrinkBtnStartFail":
+            MessageLookupByLibrary.simpleMessage("开启设备失败！"),
+        "functionViewDrinkBtnStartSuccess":
+            MessageLookupByLibrary.simpleMessage("开启设备成功！"),
+        "functionViewDrinkBtnStatus0Tip":
+            MessageLookupByLibrary.simpleMessage("喝水"),
+        "functionViewDrinkBtnStatus1Tip":
+            MessageLookupByLibrary.simpleMessage("结算"),
+        "functionViewDrinkDeviceManage":
+            MessageLookupByLibrary.simpleMessage("设备管理"),
+        "functionViewDrinkLoginFail":
+            MessageLookupByLibrary.simpleMessage("登录失败！请检查手机号或验证码是否正确！"),
+        "functionViewDrinkLoginMessageCode":
+            MessageLookupByLibrary.simpleMessage("短信验证码"),
+        "functionViewDrinkLoginMessageCodeFail":
+            MessageLookupByLibrary.simpleMessage("获取短信验证码失败！"),
+        "functionViewDrinkLoginMessageCodeSuccess":
+            MessageLookupByLibrary.simpleMessage("获取短信验证码成功！"),
+        "functionViewDrinkLoginPhone":
+            MessageLookupByLibrary.simpleMessage("手机号"),
+        "functionViewDrinkLoginPhotoCode":
+            MessageLookupByLibrary.simpleMessage("图片验证码"),
+        "functionViewDrinkLoginSuccess":
+            MessageLookupByLibrary.simpleMessage("登录成功！"),
+        "functionViewDrinkLoginTitle":
+            MessageLookupByLibrary.simpleMessage("登录惠生活798"),
+        "functionViewDrinkUnfavorite":
+            MessageLookupByLibrary.simpleMessage("取消收藏"),
+        "functionViewDrinkfavoriteFail":
+            MessageLookupByLibrary.simpleMessage("收藏失败！"),
+        "functionViewDrinkfavoriteSuccess":
+            MessageLookupByLibrary.simpleMessage("收藏成功！"),
         "functionViewFunctionAreaName":
             MessageLookupByLibrary.simpleMessage("功能区域"),
         "functionViewLearnThroughAddressHint":

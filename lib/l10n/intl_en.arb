@@ -28,6 +28,7 @@
   "functionViewScoreTitle" : "Score",
   "functionViewAllCourseTitle" : "All courses",
   "functionViewLearnThroughTitle" : "Learn through",
+  "functionViewDrink798" : "ILife798",
 
   "personViewSemesterTip" : "Semester",
   "personViewStartDayTip" : "Start day",
@@ -94,6 +95,26 @@
   "functionViewLearnThroughAddressHint" : "Chongxue Building, Hunan University of Technology, No. 88, Taishan West Road, Tianyuan District, Zhuzhou City, Hunan Province (Public Teaching Building)",
   "functionViewLearnThroughLocationError" : "Please enter the correct coordinates",
   "functionViewLearnThroughPhotoNoFound" : "No photos found",
+
+  "functionViewDrinkBtnStatus0Tip" : "Drink",
+  "functionViewDrinkBtnStatus1Tip" : "Billing",
+  "functionViewDrinkBtnStartSuccess" : "The device is turned on successfully!",
+  "functionViewDrinkBtnStartFail" : "Failed to turn on the device!",
+  "functionViewDrinkBtnEndSuccess" : "Settlement successful!",
+  "functionViewDrinkBtnEndFail" : "Settlement failed!",
+  "functionViewDrinkLoginTitle" : "Log in to Hui Life 798",
+  "functionViewDrinkLoginPhone" : "Phone number",
+  "functionViewDrinkLoginPhotoCode" : "Photo Code",
+  "functionViewDrinkLoginMessageCode" : "Message Code",
+  "functionViewDrinkLoginMessageCodeSuccess" : "Obtained the SMS verification code successfully!",
+  "functionViewDrinkLoginMessageCodeFail" : "Failed to obtain SMS verification code!",
+  "functionViewDrinkLoginSuccess" : "Login success!",
+  "functionViewDrinkLoginFail" : "Please check if the mobile phone number or verification code is correct!",
+  "functionViewDrinkUnfavorite" : "Unfavorite",
+  "functionViewDrinkfavoriteSuccess" : "Collected successfully!",
+  "functionViewDrinkfavoriteFail" : "Bookmark failed!",
+  "functionViewDrinkDeviceManage" : "Device management",
+
   "cameraViewNoFoundQRENCODE" : "No QR code found",
   "cameraViewAppBarTitle" : "Camera Preview"
 }

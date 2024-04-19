@@ -9,9 +9,8 @@ import 'package:go_router/go_router.dart';
 import 'package:schedule/api/learnThrough/LearnOtherApi.dart';
 import 'package:schedule/api/learnThrough/LearnSignApi.dart';
 import 'package:schedule/api/learnThrough/impl/LearnUserApiImpl.dart';
-import 'package:schedule/common/AlertDialogTextField.dart';
+import 'package:schedule/common/components/alertDialogTextField/AlertDialogTextField.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/common/utils/ResponseUtils.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
@@ -66,6 +65,16 @@ class LearnThroughViewModel with ChangeNotifier {
         _learnThroughUserData["password"] == "") {
       showLoginDialog(context);
     }
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    passwordController.dispose();
+    signCodeController.dispose();
+    lonAndLatController.dispose();
+    addressController.dispose();
+    super.dispose();
   }
 
   /// 弹出登录窗口

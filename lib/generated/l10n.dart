@@ -310,6 +310,16 @@ class S {
     );
   }
 
+  /// `ILife798`
+  String get functionViewDrink798 {
+    return Intl.message(
+      'ILife798',
+      name: 'functionViewDrink798',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get personViewSemesterTip {
     return Intl.message(
@@ -885,6 +895,186 @@ class S {
     return Intl.message(
       'No photos found',
       name: 'functionViewLearnThroughPhotoNoFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drink`
+  String get functionViewDrinkBtnStatus0Tip {
+    return Intl.message(
+      'Drink',
+      name: 'functionViewDrinkBtnStatus0Tip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Billing`
+  String get functionViewDrinkBtnStatus1Tip {
+    return Intl.message(
+      'Billing',
+      name: 'functionViewDrinkBtnStatus1Tip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The device is turned on successfully!`
+  String get functionViewDrinkBtnStartSuccess {
+    return Intl.message(
+      'The device is turned on successfully!',
+      name: 'functionViewDrinkBtnStartSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to turn on the device!`
+  String get functionViewDrinkBtnStartFail {
+    return Intl.message(
+      'Failed to turn on the device!',
+      name: 'functionViewDrinkBtnStartFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settlement successful!`
+  String get functionViewDrinkBtnEndSuccess {
+    return Intl.message(
+      'Settlement successful!',
+      name: 'functionViewDrinkBtnEndSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settlement failed!`
+  String get functionViewDrinkBtnEndFail {
+    return Intl.message(
+      'Settlement failed!',
+      name: 'functionViewDrinkBtnEndFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log in to Hui Life 798`
+  String get functionViewDrinkLoginTitle {
+    return Intl.message(
+      'Log in to Hui Life 798',
+      name: 'functionViewDrinkLoginTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number`
+  String get functionViewDrinkLoginPhone {
+    return Intl.message(
+      'Phone number',
+      name: 'functionViewDrinkLoginPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photo Code`
+  String get functionViewDrinkLoginPhotoCode {
+    return Intl.message(
+      'Photo Code',
+      name: 'functionViewDrinkLoginPhotoCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message Code`
+  String get functionViewDrinkLoginMessageCode {
+    return Intl.message(
+      'Message Code',
+      name: 'functionViewDrinkLoginMessageCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Obtained the SMS verification code successfully!`
+  String get functionViewDrinkLoginMessageCodeSuccess {
+    return Intl.message(
+      'Obtained the SMS verification code successfully!',
+      name: 'functionViewDrinkLoginMessageCodeSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to obtain SMS verification code!`
+  String get functionViewDrinkLoginMessageCodeFail {
+    return Intl.message(
+      'Failed to obtain SMS verification code!',
+      name: 'functionViewDrinkLoginMessageCodeFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login success!`
+  String get functionViewDrinkLoginSuccess {
+    return Intl.message(
+      'Login success!',
+      name: 'functionViewDrinkLoginSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check if the mobile phone number or verification code is correct!`
+  String get functionViewDrinkLoginFail {
+    return Intl.message(
+      'Please check if the mobile phone number or verification code is correct!',
+      name: 'functionViewDrinkLoginFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unfavorite`
+  String get functionViewDrinkUnfavorite {
+    return Intl.message(
+      'Unfavorite',
+      name: 'functionViewDrinkUnfavorite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Collected successfully!`
+  String get functionViewDrinkfavoriteSuccess {
+    return Intl.message(
+      'Collected successfully!',
+      name: 'functionViewDrinkfavoriteSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bookmark failed!`
+  String get functionViewDrinkfavoriteFail {
+    return Intl.message(
+      'Bookmark failed!',
+      name: 'functionViewDrinkfavoriteFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device management`
+  String get functionViewDrinkDeviceManage {
+    return Intl.message(
+      'Device management',
+      name: 'functionViewDrinkDeviceManage',
       desc: '',
       args: [],
     );

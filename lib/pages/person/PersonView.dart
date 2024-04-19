@@ -254,6 +254,13 @@ class _PersonViewState extends State<PersonView>
           horizon: 20.h,
         ),
       ),
+      textStyle: TextStyle(
+        color: Theme.of(context).colorScheme.onBackground,
+        fontSize: _screen.getLengthByOrientation(
+          vertical: 22.sp,
+          horizon: 15.sp,
+        ),
+      ),
       containerColor:
           Theme.of(context).colorScheme.primaryContainer.withOpacity(0.01),
       backgroundColor: Colors.transparent,

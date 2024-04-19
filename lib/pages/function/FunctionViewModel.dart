@@ -22,6 +22,11 @@ class FunctionViewModel with ChangeNotifier {
         'title': S.of(context).functionViewLearnThroughTitle,
         'route': GoRouteConfig.functionLearnThrough,
       },
+      {
+        'icon': Icons.water_drop_rounded,
+        'title': S.of(context).functionViewDrink798,
+        'route': GoRouteConfig.function798,
+      },
     ];
   }
 

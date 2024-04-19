@@ -263,6 +263,13 @@ class FunctionScoreView extends StatelessWidget {
       ),
       containerColor:
           Theme.of(context).colorScheme.primaryContainer.withOpacity(0.01),
+      textStyle: TextStyle(
+        color: Theme.of(context).colorScheme.onBackground,
+        fontSize: screen.getLengthByOrientation(
+          vertical: 22.sp,
+          horizon: 15.sp,
+        ),
+      ),
       backgroundColor: Colors.transparent,
       height: screen.getLengthByOrientation(
         vertical: 500.w,

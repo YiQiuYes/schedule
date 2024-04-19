@@ -192,7 +192,7 @@ jobs:
 
   job_linux:
     needs: job_v
-    name: 构建linux
+    name: 构建linux软件
     runs-on: ubuntu-latest
     env:
       version: ${{ needs.job_v.outputs.version }}

@@ -28,6 +28,7 @@
   "functionViewScoreTitle" : "成绩查询",
   "functionViewAllCourseTitle" : "全校课表",
   "functionViewLearnThroughTitle" : "学习通",
+  "functionViewDrink798" : "慧生活798",
 
   "personViewSemesterTip" : "学期",
   "personViewStartDayTip" : "开始日期",
@@ -94,6 +95,26 @@
   "functionViewLearnThroughAddressHint" : "湖南省株洲市天元区泰山西路88号湖南工业大学崇学楼(公共教学楼)",
   "functionViewLearnThroughLocationError" : "请输入格式正确的坐标",
   "functionViewLearnThroughPhotoNoFound" : "未找到照片",
+
+  "functionViewDrinkBtnStatus0Tip" : "喝水",
+  "functionViewDrinkBtnStatus1Tip" : "结算",
+  "functionViewDrinkBtnStartSuccess" : "开启设备成功！",
+  "functionViewDrinkBtnStartFail" : "开启设备失败！",
+  "functionViewDrinkBtnEndSuccess" : "结算成功！",
+  "functionViewDrinkBtnEndFail" : "结算失败！",
+  "functionViewDrinkLoginTitle" : "登录惠生活798",
+  "functionViewDrinkLoginPhone" : "手机号",
+  "functionViewDrinkLoginPhotoCode" : "图片验证码",
+  "functionViewDrinkLoginMessageCode" : "短信验证码",
+  "functionViewDrinkLoginMessageCodeSuccess" : "获取短信验证码成功！",
+  "functionViewDrinkLoginMessageCodeFail" : "获取短信验证码失败！",
+  "functionViewDrinkLoginSuccess" : "登录成功！",
+  "functionViewDrinkLoginFail" : "登录失败！请检查手机号或验证码是否正确！",
+  "functionViewDrinkUnfavorite" : "取消收藏",
+  "functionViewDrinkfavoriteSuccess" : "收藏成功！",
+  "functionViewDrinkfavoriteFail" : "收藏失败！",
+  "functionViewDrinkDeviceManage" : "设备管理",
+
   "cameraViewNoFoundQRENCODE" : "未找到二维码",
   "cameraViewAppBarTitle" : "摄像头预览"
 }
