@@ -121,8 +121,6 @@ class Drink798ApiImpl extends Drink798API {
     Options options =
         _request.cacheOptions.copyWith(policy: CachePolicy.noCache).toOptions();
     String url = "https://i.ilife798.com/api/v1/ui/app/master";
-    // _token["token"] = "c7755e5e931641f18ebbbc4397b9afd7";
-    // _storage.setString("drink798UsrApiToken", jsonEncode(_token));
     options.headers = {
       "Authorization": _token["token"],
     };
