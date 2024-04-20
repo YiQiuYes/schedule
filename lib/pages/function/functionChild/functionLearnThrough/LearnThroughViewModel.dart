@@ -11,6 +11,7 @@ import 'package:schedule/api/learnThrough/LearnSignApi.dart';
 import 'package:schedule/api/learnThrough/impl/LearnUserApiImpl.dart';
 import 'package:schedule/common/components/alertDialogTextField/AlertDialogTextField.dart';
 import 'package:schedule/common/utils/FlutterToastUtil.dart';
+import 'package:schedule/common/utils/PlatFormUtils.dart';
 import 'package:schedule/common/utils/ResponseUtils.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
@@ -355,11 +356,17 @@ class LearnThroughViewModel with ChangeNotifier {
             GoRouter.of(context).pop();
           },
           confirmCallback: () async {
+            CameraType type = CameraType.qrCode;
+            // 判断是否是移动端平台
+            if (!PlatformUtils.isAndroid && !PlatformUtils.isIOS) {
+              type = CameraType.desktop;
+            }
+
             // 二维码签到
             final result = await GoRouter.of(context).push(
               GoRouteConfig.camera,
               extra: {
-                "type": CameraType.qrCode,
+                "type": type,
                 "appBarTitle": S.current.functionViewLearnThroughQRCodeSign,
               },
             );

@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "blueColor": MessageLookupByLibrary.simpleMessage("蓝色"),
         "cameraViewAppBarTitle": MessageLookupByLibrary.simpleMessage("摄像头预览"),
+        "cameraViewDesktopDragFile":
+            MessageLookupByLibrary.simpleMessage("拖拽文件到此处"),
         "cameraViewNoFoundQRENCODE":
             MessageLookupByLibrary.simpleMessage("未找到二维码"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("深紫色"),
@@ -69,6 +71,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("登录成功！"),
         "functionViewDrinkLoginTitle":
             MessageLookupByLibrary.simpleMessage("登录惠生活798"),
+        "functionViewDrinkTokenManageLabel":
+            MessageLookupByLibrary.simpleMessage("Token"),
+        "functionViewDrinkTokenManageTitle":
+            MessageLookupByLibrary.simpleMessage("Token管理"),
         "functionViewDrinkUnfavorite":
             MessageLookupByLibrary.simpleMessage("取消收藏"),
         "functionViewDrinkfavoriteFail":

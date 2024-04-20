@@ -30,6 +30,7 @@ class GoRouteConfig {
 
   static final _router = GoRouter(
     initialLocation: splash,
+    // initialExtra: {"type": CameraType.desktop, "appBarTitle": "拍照"},
     redirect: (context, state) {
       if (state.fullPath == splash) {
         return splash;

@@ -1100,6 +1100,26 @@ class S {
     );
   }
 
+  /// `Token management`
+  String get functionViewDrinkTokenManageTitle {
+    return Intl.message(
+      'Token management',
+      name: 'functionViewDrinkTokenManageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Token`
+  String get functionViewDrinkTokenManageLabel {
+    return Intl.message(
+      'Token',
+      name: 'functionViewDrinkTokenManageLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No QR code found`
   String get cameraViewNoFoundQRENCODE {
     return Intl.message(
@@ -1115,6 +1135,16 @@ class S {
     return Intl.message(
       'Camera Preview',
       name: 'cameraViewAppBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drag the file to the desktop`
+  String get cameraViewDesktopDragFile {
+    return Intl.message(
+      'Drag the file to the desktop',
+      name: 'cameraViewDesktopDragFile',
       desc: '',
       args: [],
     );

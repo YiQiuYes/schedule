@@ -160,7 +160,7 @@ jobs:
 
   job_macos:
     needs: job_v
-    name: 构建macos
+    name: 构建macos软件
     runs-on: macos-latest
     env:
       version: ${{ needs.job_v.outputs.version }}

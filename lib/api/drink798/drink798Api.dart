@@ -46,4 +46,12 @@ abstract class Drink798API {
   /// [id] 设备id
   /// return 设备是否可用
   Future<bool> isAvailableDevice({required String id});
+
+  /// 获取Token
+  /// return Token
+  Future<String> getToken();
+
+  /// 设置Token
+  /// [token] Token
+  Future<void> setToken({required String token});
 }

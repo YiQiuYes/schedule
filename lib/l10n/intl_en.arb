@@ -116,7 +116,10 @@
   "functionViewDrinkDeviceManage" : "Device management",
   "functionViewDrinkCode" : "Code",
   "functionViewDrinkDeviceQRCode" : "Device QR code",
+  "functionViewDrinkTokenManageTitle" : "Token management",
+  "functionViewDrinkTokenManageLabel" : "Token",
 
   "cameraViewNoFoundQRENCODE" : "No QR code found",
-  "cameraViewAppBarTitle" : "Camera Preview"
+  "cameraViewAppBarTitle" : "Camera Preview",
+  "cameraViewDesktopDragFile" : "Drag the file to the desktop"
 }

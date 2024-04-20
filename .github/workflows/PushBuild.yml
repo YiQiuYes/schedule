@@ -126,7 +126,7 @@ jobs:
             dist/schedule-windows-${{env.version}}-x86_64-setup.exe
 
   job_macos:
-    name: 构建macos
+    name: 构建macos软件
     runs-on: macos-latest
     env:
       version: "pushAction"

@@ -83,6 +83,12 @@ dependencies:
   image_picker: ^1.0.7
   # 二维码扫描
   qr_code_scanner: ^1.0.1
+  # 可拓展浮动按钮
+  flutter_expandable_fab: ^2.0.0
+  # 拖拽文件到app
+  desktop_drop_for_t: ^0.4.6
+  # 虚线框
+  dotted_decoration : ^2.0.0
   build_runner: ^2.4.8
 
   # The following adds the Cupertino Icons font to your application.

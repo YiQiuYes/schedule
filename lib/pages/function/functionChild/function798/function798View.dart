@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,7 @@ class Function798View extends StatelessWidget {
           ),
         ),
         floatingActionButton: _getSettingFloatBtn(context),
+        floatingActionButtonLocation: ExpandableFab.location,
       ),
     );
   }
@@ -45,72 +47,115 @@ class Function798View extends StatelessWidget {
   Widget _getSettingFloatBtn(BuildContext context) {
     return Consumer<Function798ViewModel>(
       builder: (context, model, child) {
-        return FloatingActionButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) {
-                return AlertDialogTextField(
-                  title: S.of(context).functionViewDrinkDeviceManage,
-                  content: SizedBox(
-                    width: ScreenAdaptor().getLengthByOrientation(
-                      vertical: 400.w,
-                      horizon: 300.w,
-                    ),
-                    child: StatefulBuilder(builder: (context, setState) {
-                      List<Widget> listTile = [];
-                      for (int i = 0; i < model.deviceList.length; i++) {
-                        listTile.add(
-                          ListTile(
-                            title: Text(
-                              model.getDeviceName(model.deviceList[i]["name"]),
-                            ),
-                            trailing: MyPopupMenuButton(
-                              itemBuilder: (BuildContext context) {
-                                List<PopupMenuEntry> widget = [];
-                                widget.add(
-                                  PopupMenuItem(
-                                    value: 0,
-                                    child: Text(S
-                                        .of(context)
-                                        .functionViewDrinkUnfavorite),
-                                  ),
-                                );
-                                return widget;
-                              },
-                              child: const Icon(Icons.more_vert_rounded),
-                              onSelected: (select) {
-                                if (select == 0) {
-                                  model.favoDevice(
-                                      model.deviceList[i]["id"].toString(),
-                                      true);
-                                  model.removeDeviceByName(
-                                      model.deviceList[i]["name"]);
-                                  listTile.remove(this);
-                                  setState(() {});
-                                }
-                              },
-                            ),
-                          ),
-                        );
-                      }
+        return ExpandableFab(
+          type: ExpandableFabType.fan,
+          children: [
+            // 设备管理
+            FloatingActionButton.small(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AlertDialogTextField(
+                      title: S.of(context).functionViewDrinkDeviceManage,
+                      content: SizedBox(
+                        width: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 400.w,
+                          horizon: 300.w,
+                        ),
+                        child: StatefulBuilder(builder: (context, setState) {
+                          List<Widget> listTile = [];
+                          for (int i = 0; i < model.deviceList.length; i++) {
+                            listTile.add(
+                              ListTile(
+                                title: Text(
+                                  model.getDeviceName(model.deviceList[i]["name"]),
+                                ),
+                                trailing: MyPopupMenuButton(
+                                  itemBuilder: (BuildContext context) {
+                                    List<PopupMenuEntry> widget = [];
+                                    widget.add(
+                                      PopupMenuItem(
+                                        value: 0,
+                                        child: Text(S
+                                            .of(context)
+                                            .functionViewDrinkUnfavorite),
+                                      ),
+                                    );
+                                    return widget;
+                                  },
+                                  child: const Icon(Icons.more_vert_rounded),
+                                  onSelected: (select) {
+                                    if (select == 0) {
+                                      model.favoDevice(
+                                          model.deviceList[i]["id"].toString(),
+                                          true);
+                                      model.removeDeviceByName(
+                                          model.deviceList[i]["name"]);
+                                      listTile.remove(this);
+                                      setState(() {});
+                                    }
+                                  },
+                                ),
+                              ),
+                            );
+                          }
 
-                      return ListView(
-                        shrinkWrap: true,
-                        children: listTile,
-                      );
-                    }),
-                  ),
-                  confirmText: S.of(context).pickerConfirm,
-                  confirmCallback: () {
-                    GoRouter.of(context).pop();
+                          return ListView(
+                            shrinkWrap: true,
+                            children: listTile,
+                          );
+                        }),
+                      ),
+                      confirmText: S.of(context).pickerConfirm,
+                      confirmCallback: () {
+                        GoRouter.of(context).pop();
+                      },
+                    );
                   },
                 );
               },
-            );
-          },
-          child: const Icon(Icons.settings_rounded),
+              child: const Icon(Icons.web_stories_rounded),
+            ),
+            // 添加设备
+            Consumer<Function798ViewModel>(builder: (context, model, child) {
+              return FloatingActionButton.small(
+                onPressed: () {
+                  model.scanQRCode(context);
+                },
+                child: const Icon(Icons.qr_code_scanner_rounded),
+              );
+            }),
+            // token管理
+            FloatingActionButton.small(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AlertDialogTextField(
+                      title: S.of(context).functionViewDrinkTokenManageTitle,
+                      labelTextList: [
+                        S.of(context).functionViewDrinkTokenManageLabel,
+                      ],
+                      textControllerList: [model.tokenController],
+                      confirmText: S.of(context).pickerConfirm,
+                      confirmCallback: () {
+                        model.setToken(model.tokenController.text);
+                        GoRouter.of(context).pop();
+                      },
+                      cancelText: S.of(context).pickerCancel,
+                      cancelCallback: () {
+                        GoRouter.of(context).pop();
+                      },
+                    );
+                  },
+                );
+              },
+              child: const Icon(Icons.key_rounded),
+            ),
+          ],
         );
       },
     );
@@ -178,19 +223,6 @@ class Function798View extends StatelessWidget {
   PreferredSizeWidget _getAppBar(BuildContext context) {
     return AppBar(
       title: Text(S.of(context).functionViewDrink798),
-      actions: [
-        // 扫描二维码
-        Consumer<Function798ViewModel>(
-          builder: (context, model, child) {
-            return IconButton(
-              icon: const Icon(Icons.qr_code_scanner_rounded),
-              onPressed: ()  {
-                model.scanQRCode(context);
-              },
-            );
-          }
-        ),
-      ],
     );
   }
 
@@ -210,7 +242,7 @@ class Function798View extends StatelessWidget {
               return;
             }
 
-            switch(model.drinkStatus) {
+            switch (model.drinkStatus) {
               case 0:
                 model.startDrink(model.deviceList[model.choiceDevice]["id"]);
                 break;

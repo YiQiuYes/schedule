@@ -255,4 +255,19 @@ class Drink798ApiImpl extends Drink798API {
       return result["data"]["device"]["gene"]["status"] == 99;
     });
   }
+
+  /// 获取Token
+  /// return Token
+  @override
+  Future<String> getToken() async {
+    return _token["token"];
+  }
+
+  /// 设置Token
+  /// [token] Token
+  @override
+  Future<void> setToken({required String token}) async {
+    _token["token"] = token;
+    _storage.setString("drink798UsrApiToken", jsonEncode(_token));
+  }
 }

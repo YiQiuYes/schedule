@@ -1,4 +1,6 @@
 import 'package:camera/camera.dart';
+import 'package:desktop_drop_for_t/desktop_drop_for_t.dart';
+import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -39,7 +41,7 @@ class CameraView extends StatelessWidget {
         body: Stack(
           children: [
             // 获取相册类型
-            _switchType(type),
+            _switchType(context, type),
             // 获取底部操作行
             _getBottomPhotoBtn(),
           ],
@@ -49,16 +51,92 @@ class CameraView extends StatelessWidget {
   }
 
   /// 获取相册类型
-  /// TODO: 尚未完成桌面端拖拽文件
-  Widget _switchType(CameraType type) {
+  Widget _switchType(BuildContext context, CameraType type) {
     switch (type) {
       case CameraType.qrCode:
         return _getQrViewPreview(type);
       case CameraType.camera:
         return _getCameraPreview(type);
       case CameraType.desktop:
-        return const SizedBox();
+        return _getDesktopDragFile(context, type);
     }
+  }
+
+  /// 桌面端拖拽文件
+  Widget _getDesktopDragFile(BuildContext context, CameraType type) {
+    if (!PlatformUtils.isLinux &&
+        !PlatformUtils.isWindows &&
+        type != CameraType.desktop) {
+      return const SizedBox();
+    }
+
+    return Center(
+      child: Consumer<CameraViewModel>(
+        builder: (context, model, child) {
+          return DropTarget(
+            onDragDone: (detail) {
+              detail.files.first.readAsBytes().then((value) {
+                model.scanQrCodeData(context, value);
+              });
+            },
+            child: Container(
+              width: ScreenAdaptor().getLengthByOrientation(
+                vertical: 400.w,
+                horizon: 200.w,
+              ),
+              height: ScreenAdaptor().getLengthByOrientation(
+                vertical: 400.w,
+                horizon: 200.w,
+              ),
+              decoration: DottedDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: BorderRadius.circular(
+                  ScreenAdaptor().getLengthByOrientation(
+                    vertical: 40.w,
+                    horizon: 20.w,
+                  ),
+                ),
+                shape: Shape.box,
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // 拖拽文件图标
+                    Icon(
+                      Icons.image_rounded,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: ScreenAdaptor().getLengthByOrientation(
+                        vertical: 100.w,
+                        horizon: 50.w,
+                      ),
+                    ),
+                    // 间距
+                    SizedBox(
+                      height: ScreenAdaptor().getLengthByOrientation(
+                        vertical: 20.w,
+                        horizon: 10.w,
+                      ),
+                    ),
+                    // 拖拽文件提示
+                    Text(
+                      S.of(context).cameraViewDesktopDragFile,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 40.sp,
+                          horizon: 20.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      ),
+    );
   }
 
   /// 获取底部选择相册按钮
@@ -67,9 +145,44 @@ class CameraView extends StatelessWidget {
       return const SizedBox();
     }
 
-    return Visibility(
-      visible: type == CameraType.camera,
-      child: Align(
+    if (type == CameraType.qrCode) {
+      return Align(
+        alignment: const Alignment(0, 0.5),
+        child: Consumer<CameraViewModel>(
+          builder: (context, model, child) {
+            List<Widget> list = [];
+            list.addAll([
+              // 闪光灯按钮
+              IconButton(
+                onPressed: () {
+                  // 翻转闪光灯
+                  model.qrViewController?.toggleFlash();
+                },
+                padding: EdgeInsets.all(
+                  ScreenAdaptor().getLengthByOrientation(
+                    vertical: 20.w,
+                    horizon: 12.w,
+                  ),
+                ),
+                icon: Icon(
+                  Icons.flash_on_rounded,
+                  color: Colors.white,
+                  size: ScreenAdaptor().getLengthByOrientation(
+                    vertical: 80.w,
+                    horizon: 40.w,
+                  ),
+                ),
+              ),
+            ]);
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: list,
+            );
+          },
+        ),
+      );
+    } else {
+      return Align(
         alignment: const Alignment(0, 0.7),
         child: Consumer<CameraViewModel>(
           builder: (context, model, child) {
@@ -190,8 +303,8 @@ class CameraView extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
+      );
+    }
   }
 
   /// 获取二维码扫描预览
@@ -202,22 +315,47 @@ class CameraView extends StatelessWidget {
       return const SizedBox();
     }
 
-    return Consumer<CameraViewModel>(builder: (context, model, child) {
-      return ConstrainedBox(
-        constraints: const BoxConstraints.expand(),
-        child: QRView(
-          key: model.qrKey,
-          onQRViewCreated: (controller) {
-            model.qrViewController = controller;
-            controller.scannedDataStream.listen((scanData) {
-              controller.stopCamera();
-              // 处理识别结果并返回上一个页面
-              GoRouter.of(context).pop({'enc': scanData.code});
-            });
-          },
-        ),
-      );
-    });
+    return Consumer<CameraViewModel>(
+      builder: (context, model, child) {
+        return ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: QRView(
+            key: model.qrKey,
+            overlay: QrScannerOverlayShape(
+              borderColor: Theme.of(context).colorScheme.primary,
+              borderRadius: ScreenAdaptor().getLengthByOrientation(
+                vertical: 20.w,
+                horizon: 10.w,
+              ),
+              borderLength: ScreenAdaptor().getLengthByOrientation(
+                vertical: 35.w,
+                horizon: 20.w,
+              ),
+              borderWidth: ScreenAdaptor().getLengthByOrientation(
+                vertical: 8.w,
+                horizon: 5.w,
+              ),
+              cutOutSize: ScreenAdaptor().getLengthByOrientation(
+                vertical: 350.w,
+                horizon: 180.w,
+              ),
+              cutOutBottomOffset: ScreenAdaptor().getLengthByOrientation(
+                vertical: 150.w,
+                horizon: 65.w,
+              ),
+            ),
+            onQRViewCreated: (controller) {
+              model.qrViewController = controller;
+              controller.scannedDataStream.listen((scanData) {
+                controller.stopCamera();
+                // 处理识别结果并返回上一个页面
+                GoRouter.of(context).pop({'enc': scanData.code});
+              });
+            },
+          ),
+        );
+      },
+    );
   }
 
   /// 获取照相预览

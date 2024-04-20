@@ -116,7 +116,10 @@
   "functionViewDrinkDeviceManage" : "设备管理",
   "functionViewDrinkCode" : "验证码",
   "functionViewDrinkDeviceQRCode" : "扫描设备二维码",
+  "functionViewDrinkTokenManageTitle" : "Token管理",
+  "functionViewDrinkTokenManageLabel" : "Token",
 
   "cameraViewNoFoundQRENCODE" : "未找到二维码",
-  "cameraViewAppBarTitle" : "摄像头预览"
+  "cameraViewAppBarTitle" : "摄像头预览",
+  "cameraViewDesktopDragFile" : "拖拽文件到此处"
 }

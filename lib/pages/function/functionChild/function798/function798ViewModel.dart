@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -12,13 +11,11 @@ import 'package:schedule/common/utils/FlutterToastUtil.dart';
 import 'package:schedule/common/utils/ScreenAdaptor.dart';
 
 import '../../../../common/components/alertDialogTextField/AlertDialogTextField.dart';
-import '../../../../common/manager/DataStorageManager.dart';
 import '../../../../generated/l10n.dart';
 import '../../../camera/CameraView.dart';
 
 class Function798ViewModel with ChangeNotifier {
   final Drink798API _drink798UserApi = Drink798ApiImpl();
-  final _storage = DataStorageManager();
 
   // 账号控制器
   final TextEditingController phoneController = TextEditingController();
@@ -29,6 +26,9 @@ class Function798ViewModel with ChangeNotifier {
   // 短信验证码控制器
   final TextEditingController messageCaptchaController =
       TextEditingController();
+
+  // Token框控制器
+  final TextEditingController tokenController = TextEditingController();
 
   // 验证码倒计时Timer
   Timer? captchaTimer;
@@ -41,11 +41,6 @@ class Function798ViewModel with ChangeNotifier {
 
   // 随机数
   double doubleRandom = 0;
-
-  // 用户个人数据
-  final Map<String, dynamic> _798UserData = {
-    "phone": "",
-  };
 
   // 验证码数据
   Future<Uint8List> captchaData = Future.value(Uint8List(0));
@@ -61,28 +56,12 @@ class Function798ViewModel with ChangeNotifier {
 
   /// 初始化
   void init(BuildContext context) {
-    // 读取用户个人数据
-    String? userInfoDataStr = _storage.getString("798UserData");
-    if (userInfoDataStr != null) {
-      Map<String, dynamic> map = jsonDecode(userInfoDataStr);
-      map.forEach((key, value) {
-        _798UserData[key] = value;
-      });
-    } else {
-      _storage.setString("798UserData", jsonEncode(_798UserData));
-    }
-
-    // _drink798UserApi.favoDevice(id: "863781051446392", isUnFavo: false);
-
-    // 用户名为空则需要登录
-    if (_798UserData["phone"] == "") {
-      // 获取验证码
-      getPhotoCaptchaData();
-      showLoginDialog(context);
-    } else {
-      // 获取设备列表
-      getDeviceList(context);
-    }
+    // 获取设备列表
+    getDeviceList(context);
+    // 获取token
+    _drink798UserApi.getToken().then((value) {
+      tokenController.text = value;
+    });
   }
 
   @override
@@ -90,6 +69,7 @@ class Function798ViewModel with ChangeNotifier {
     phoneController.dispose();
     photoCaptchaController.dispose();
     messageCaptchaController.dispose();
+    tokenController.dispose();
     captchaTimer?.cancel();
     deviceStatusTimer?.cancel();
     super.dispose();
@@ -231,7 +211,8 @@ class Function798ViewModel with ChangeNotifier {
                         child: AlertDialogTextField.getCustomTextFiled(
                           context,
                           controller: messageCaptchaController,
-                          labelText: S.current.functionViewDrinkLoginMessageCode,
+                          labelText:
+                              S.current.functionViewDrinkLoginMessageCode,
                         ),
                       ),
                       // 横向间距
@@ -311,7 +292,6 @@ class Function798ViewModel with ChangeNotifier {
                     S.of(context).functionViewDrinkLoginSuccess);
                 // 获取设备列表
                 getDeviceList(context);
-                set798UserData("phone", phone);
                 Navigator.of(context).pop();
               } else {
                 FlutterToastUtil.errorToast(
@@ -345,6 +325,12 @@ class Function798ViewModel with ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  /// 设置token
+  void setToken(String token) {
+    _drink798UserApi.setToken(token: token);
+    notifyListeners();
   }
 
   /// 获取图片验证码
@@ -391,12 +377,6 @@ class Function798ViewModel with ChangeNotifier {
   void setChoiceDevice(int device) {
     choiceDevice = device;
     notifyListeners();
-  }
-
-  /// 设置用户数据
-  void set798UserData(String key, dynamic value) {
-    _798UserData[key] = value;
-    _storage.setString("798UserData", jsonEncode(_798UserData));
   }
 
   /// 获取设备名称，格式化
@@ -466,11 +446,13 @@ class Function798ViewModel with ChangeNotifier {
       // 添加到喜好
       bool isFavo = await favoDevice(enc, false);
       if (isFavo) {
-        FlutterToastUtil.okToast(S.of(context).functionViewDrinkfavoriteSuccess);
+        FlutterToastUtil.okToast(
+            S.of(context).functionViewDrinkfavoriteSuccess);
         // 获取设备列表
         getDeviceList(context);
       } else {
-        FlutterToastUtil.errorToast(S.of(context).functionViewDrinkfavoriteFail);
+        FlutterToastUtil.errorToast(
+            S.of(context).functionViewDrinkfavoriteFail);
       }
     }
   }

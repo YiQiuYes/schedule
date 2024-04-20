@@ -27,6 +27,7 @@
 - 成绩查询
 - 全校课表
 - 学习通签到
+- 慧生活798喝水
 - 无任何广告
 - 更多特性开发中
 
@@ -63,13 +64,12 @@
 
 ## 截图
 
-![splash][splash-screenshot]
-![login][login-screenshot]
 ![appmain][appmain-screenshot]
+![person][person-screenshot]
+![all-course][all-course-screenshot]
+![drink][drink-screenshot]
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[splash-screenshot]: assets/images/splash-screenshot.png
-[login-screenshot]: assets/images/login-screenshot.png
 [appmain-screenshot]: assets/images/appmain-screenshot.png
+[person-screenshot]: assets/images/person-screenshot.png
+[all-course-screenshot]: assets/images/all-course-screenshot.png
+[drink-screenshot]: assets/images/drink-screenshot.png

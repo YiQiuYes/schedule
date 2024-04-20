@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "blueColor": MessageLookupByLibrary.simpleMessage("Blue"),
         "cameraViewAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Camera Preview"),
+        "cameraViewDesktopDragFile": MessageLookupByLibrary.simpleMessage(
+            "Drag the file to the desktop"),
         "cameraViewNoFoundQRENCODE":
             MessageLookupByLibrary.simpleMessage("No QR code found"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("Deep purple"),
@@ -75,6 +77,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Login success!"),
         "functionViewDrinkLoginTitle":
             MessageLookupByLibrary.simpleMessage("Log in to Hui Life 798"),
+        "functionViewDrinkTokenManageLabel":
+            MessageLookupByLibrary.simpleMessage("Token"),
+        "functionViewDrinkTokenManageTitle":
+            MessageLookupByLibrary.simpleMessage("Token management"),
         "functionViewDrinkUnfavorite":
             MessageLookupByLibrary.simpleMessage("Unfavorite"),
         "functionViewDrinkfavoriteFail":
