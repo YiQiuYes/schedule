@@ -64,7 +64,7 @@ dependencies:
   # 列表选择器
   flutter_picker: ^2.1.0
   # 获取版本信息
-  package_info_plus: ^4.2.0
+  package_info_plus: ^7.0.0
   # url跳转
   url_launcher: ^6.2.4
   # 权限检查
@@ -86,7 +86,7 @@ dependencies:
   # 可拓展浮动按钮
   flutter_expandable_fab: ^2.0.0
   # 拖拽文件到app
-  desktop_drop_for_t: ^0.4.6
+  desktop_drop: ^0.4.0
   # 虚线框
   dotted_decoration : ^2.0.0
   build_runner: ^2.4.8
