@@ -86,7 +86,8 @@ dependencies:
   # 可拓展浮动按钮
   flutter_expandable_fab: ^2.0.0
   # 拖拽文件到app
-  desktop_drop: 0.4.0
+  # desktop_drop: ^0.3.3
+  desktop_drop_for_t: ^0.4.6
   # 虚线框
   dotted_decoration : ^2.0.0
   build_runner: ^2.4.8
