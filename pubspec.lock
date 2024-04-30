@@ -257,14 +257,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.6"
-  desktop_drop_for_t:
+  desktop_drop:
     dependency: "direct main"
     description:
-      name: desktop_drop_for_t
-      sha256: "661828a3410a8d0d42809e68a0edd8e5888cee3eeb74a7e985cf30ee3c1ca8a1"
+      name: desktop_drop
+      sha256: "4ca4d960f4b11c032e9adfd2a0a8ac615bc3fddb4cbe73dcf840dd8077582186"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.6"
+    version: "0.4.1"
   dio:
     dependency: "direct main"
     description:
