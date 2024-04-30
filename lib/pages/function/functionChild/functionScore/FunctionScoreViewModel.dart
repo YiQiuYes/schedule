@@ -18,13 +18,17 @@ class FunctionScoreViewModel with ChangeNotifier {
 
   // 当前选择的学期索引
   int _currentSemesterIndex = 0;
+  // 是否正在加载
+  bool _isLoading = true;
 
   /// 查询个人成绩
   void queryPersonScore(String semester) {
+    _isLoading = true;
     _queryApi
         .queryPersonScore(semester: semester, cachePolicy: CachePolicy.refresh)
         .then((value) {
       _personScoreList = value;
+      _isLoading = false;
       notifyListeners();
     });
   }
@@ -74,4 +78,6 @@ class FunctionScoreViewModel with ChangeNotifier {
   List<Map<String, dynamic>> get personScoreList => _personScoreList;
 
   int get currentSemesterIndex => _currentSemesterIndex;
+
+  bool get isLoading => _isLoading;
 }

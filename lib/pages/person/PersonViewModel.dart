@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schedule/common/components/alertDialogTextField/AlertDialogTextField.dart';
+import 'package:schedule/common/utils/PlatFormUtils.dart';
 import 'package:schedule/main.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../generated/l10n.dart';
 
@@ -101,6 +103,38 @@ class PersonViewModel with ChangeNotifier {
           globalModel.setIsLogin(false);
           globalModel.setLoad20CountCourse(false);
           GoRouter.of(context).go(GoRouteConfig.login);
+        },
+      ),
+    );
+  }
+
+  /// 加入交流群
+  void joinQQGroup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialogTextField(
+        title: S.of(context).personViewJoinQQGroup,
+        content: Text(S.of(context).personViewJoinQQGroupTip),
+        confirmText: S.of(context).pickerConfirm,
+        cancelText: S.of(context).pickerCancel,
+        cancelCallback: () {
+          GoRouter.of(context).pop();
+        },
+        confirmCallback: () {
+          GoRouter.of(context).pop();
+          if (PlatformUtils.isAndroid || PlatformUtils.isAndroid) {
+            launchUrl(
+              Uri.parse(
+                  "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=161324332&card_type=group&source=qrcode"),
+              mode: LaunchMode.externalApplication,
+            );
+          } else {
+            launchUrl(
+              Uri.parse(
+                  "https://qm.qq.com/cgi-bin/qm/qr?k=GMRIQg1MaMrDM_g7yShEjzK2fLAwf5Lg&jump_from=webapi&authKey=CGtV/q3yj4GX34mX5KcQsSDwD9bULknUAj4NSAhaDnzRqKBp0Uv1KWvzU3nJuYoR"),
+              mode: LaunchMode.externalApplication,
+            );
+          }
         },
       ),
     );

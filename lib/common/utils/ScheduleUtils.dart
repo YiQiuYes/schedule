@@ -12,6 +12,24 @@ class ScheduleUtils {
     return course['className'] ?? '';
   }
 
+  /// 格式化课程地址
+  static String formatAddress(String address) {
+    if (address.isNotEmpty &&
+        address.contains(RegExp(r"\d\d\d")) &&
+        !address.contains("楼")) {
+      // 往倒数第三个位置插入“楼”
+      address =
+      "${address.substring(0, address.length - 3)}楼${address.substring(address.length - 3)}";
+    }
+    // 打断字符
+    String str = '';
+    for (var element in address.runes) {
+      str += String.fromCharCode(element);
+      str += '\u200B';
+    }
+    return str;
+  }
+
   /// 获取课程地址
   static String getCourseAddress(Map course, Map experiment) {
     String address = course['classAddress'] ?? '';

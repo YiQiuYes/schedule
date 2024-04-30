@@ -378,9 +378,7 @@ class LearnSignApiImpl extends LearnSignApi {
       "DB_STRATEGY": "RANDOM",
       "code": code,
     };
-    await _request
-        .get(url2, options: options, params: params)
-        .then((value) {
+    await _request.get(url2, options: options, params: params).then((value) {
       return value.data;
     });
 

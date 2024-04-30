@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:schedule/common/components/scoreCard/ScoreCard.dart';
 
 import '../../../../common/utils/ScreenAdaptor.dart';
 import '../../../../generated/l10n.dart';
@@ -45,7 +46,7 @@ class FunctionScoreView extends StatelessWidget {
   /// 暂无成绩
   Widget _getEmptyScore() {
     return Consumer<FunctionScoreViewModel>(builder: (context, model, child) {
-      if (model.personScoreList.isEmpty) {
+      if (model.personScoreList.isEmpty && !model.isLoading) {
         return SliverPadding(
           padding: EdgeInsets.only(
             top: ScreenAdaptor().getLengthByOrientation(
@@ -90,92 +91,11 @@ class FunctionScoreView extends StatelessWidget {
       return SliverList.builder(
         itemCount: model.personScoreList.length,
         itemBuilder: (context, index) {
-          return Card(
-            margin: EdgeInsets.symmetric(
-              horizontal: ScreenAdaptor().getLengthByOrientation(
-                vertical: 30.w,
-                horizon: 15.w,
-              ),
-              vertical: ScreenAdaptor().getLengthByOrientation(
-                vertical: 10.w,
-                horizon: 5.w,
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ScreenAdaptor().getLengthByOrientation(
-                  vertical: 50.w,
-                  horizon: 25.w,
-                ),
-                vertical: ScreenAdaptor().getLengthByOrientation(
-                  vertical: 30.w,
-                  horizon: 18.w,
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // 课程名称
-                      SizedBox(
-                        width: ScreenAdaptor().getLengthByOrientation(
-                          vertical: 400.w,
-                          horizon: 520.w,
-                        ),
-                        child: Text(
-                          model.personScoreList[index]['className'],
-                          style: TextStyle(
-                            fontSize: ScreenAdaptor().getLengthByOrientation(
-                              vertical: 35.sp,
-                              horizon: 24.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                      // 间距
-                      SizedBox(
-                        height: ScreenAdaptor().getLengthByOrientation(
-                          vertical: 15.w,
-                          horizon: 5.w,
-                        ),
-                      ),
-                      // 绩点
-                      Text(
-                        S.of(context).functionScoreViewGPA(
-                            model.personScoreList[index]['classGPA']),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontSize: ScreenAdaptor().getLengthByOrientation(
-                            vertical: 35.sp,
-                            horizon: 24.sp,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // 课程成绩
-                      Text(
-                        model.personScoreList[index]['classScore'],
-                        style: TextStyle(
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
-                          fontSize: ScreenAdaptor().getLengthByOrientation(
-                            vertical: 40.sp,
-                            horizon: 28.sp,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+          return ScoreCard(
+            subjectName: model.personScoreList[index]['className'],
+            subTitle: S.of(context).functionScoreViewGPA(
+                model.personScoreList[index]['classGPA']),
+            score: model.personScoreList[index]['classScore'],
           );
         },
       );

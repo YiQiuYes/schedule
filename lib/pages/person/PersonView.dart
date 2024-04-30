@@ -44,6 +44,8 @@ class _PersonViewState extends State<PersonView>
       _getSemesterAndStartDate(context),
       // 获取设置项
       _getSettingItem(context),
+      // 获取交流方式
+      _getContactItem(context),
       // 获取退出登录项
       _getLogoutItem(context),
       // 底部安全间距
@@ -321,6 +323,41 @@ class _PersonViewState extends State<PersonView>
     picker.showModal(context);
   }
 
+  /// 获取ListTile
+  Widget _getListTileItem({
+    Function? onTap,
+    IconData? iconData,
+    String? title,
+  }) {
+    return ListTile(
+      onTap: () {
+        onTap?.call();
+      },
+      leading: Icon(
+        iconData,
+        size: _screen.getLengthByOrientation(
+          vertical: 38.w,
+          horizon: 22.w,
+        ),
+      ),
+      title: Text(
+        title ?? "",
+        style: TextStyle(
+          fontSize: _screen.getLengthByOrientation(
+            vertical: 32.sp,
+            horizon: 17.sp,
+          ),
+        ),
+      ),
+      contentPadding: EdgeInsets.only(
+        left: _screen.getLengthByOrientation(
+          vertical: 35.w,
+          horizon: 20.w,
+        ),
+      ),
+    );
+  }
+
   /// 获取设置项
   Widget _getSettingItem(BuildContext context) {
     return Padding(
@@ -330,32 +367,35 @@ class _PersonViewState extends State<PersonView>
           horizon: 25.w,
         ),
       ),
-      child: ListTile(
+      child: _getListTileItem(
         onTap: () {
           GoRouter.of(context).push(GoRouteConfig.setting);
         },
-        leading: Icon(
-          Icons.settings_rounded,
-          size: _screen.getLengthByOrientation(
-            vertical: 38.w,
-            horizon: 22.w,
-          ),
+        title: S.of(context).settingViewTitle,
+        iconData: Icons.settings_rounded,
+      ),
+    );
+  }
+
+  /// 获取交流方式
+  Widget _getContactItem(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: _screen.getLengthByOrientation(
+          vertical: 40.w,
+          horizon: 25.w,
         ),
-        title: Text(
-          S.of(context).settingViewTitle,
-          style: TextStyle(
-            fontSize: _screen.getLengthByOrientation(
-              vertical: 32.sp,
-              horizon: 17.sp,
-            ),
-          ),
-        ),
-        contentPadding: EdgeInsets.only(
-          left: _screen.getLengthByOrientation(
-            vertical: 35.w,
-            horizon: 20.w,
-          ),
-        ),
+      ),
+      child: Consumer<PersonViewModel>(
+        builder: (context, model, child) {
+          return _getListTileItem(
+            onTap: () {
+              model.joinQQGroup(context);
+            },
+            title: S.of(context).personViewContact,
+            iconData: Icons.contact_support_rounded,
+          );
+        }
       ),
     );
   }
@@ -369,32 +409,12 @@ class _PersonViewState extends State<PersonView>
           horizon: 25.w,
         ),
       ),
-      child: ListTile(
+      child: _getListTileItem(
         onTap: () {
           _viewModel.logout(context);
         },
-        leading: Icon(
-          Icons.logout_rounded,
-          size: _screen.getLengthByOrientation(
-            vertical: 38.w,
-            horizon: 22.w,
-          ),
-        ),
-        title: Text(
-          S.of(context).personViewLogout,
-          style: TextStyle(
-            fontSize: _screen.getLengthByOrientation(
-              vertical: 32.sp,
-              horizon: 17.sp,
-            ),
-          ),
-        ),
-        contentPadding: EdgeInsets.only(
-          left: _screen.getLengthByOrientation(
-            vertical: 35.w,
-            horizon: 20.w,
-          ),
-        ),
+        title: S.of(context).personViewLogout,
+        iconData: Icons.logout_rounded,
       ),
     );
   }

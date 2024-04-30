@@ -280,6 +280,16 @@ class S {
     );
   }
 
+  /// `Life assistant`
+  String get functionViewLifeAssistantAreaName {
+    return Intl.message(
+      'Life assistant',
+      name: 'functionViewLifeAssistantAreaName',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Score`
   String get functionViewScoreTitle {
     return Intl.message(
@@ -320,6 +330,26 @@ class S {
     );
   }
 
+  /// `Social exams`
+  String get functionViewSocialExams {
+    return Intl.message(
+      'Social exams',
+      name: 'functionViewSocialExams',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empty classroom`
+  String get functionEmptyClassroom {
+    return Intl.message(
+      'Empty classroom',
+      name: 'functionEmptyClassroom',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get personViewSemesterTip {
     return Intl.message(
@@ -355,6 +385,36 @@ class S {
     return Intl.message(
       'Are you sure you want to log out?',
       name: 'personViewLogoutTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact`
+  String get personViewContact {
+    return Intl.message(
+      'Contact',
+      name: 'personViewContact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join QQ group`
+  String get personViewJoinQQGroup {
+    return Intl.message(
+      'Join QQ group',
+      name: 'personViewJoinQQGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QQ group number: 161324332`
+  String get personViewJoinQQGroupTip {
+    return Intl.message(
+      'QQ group number: 161324332',
+      name: 'personViewJoinQQGroupTip',
       desc: '',
       args: [],
     );
@@ -660,6 +720,26 @@ class S {
     );
   }
 
+  /// `Loading...`
+  String get functionAllCourseViewLoading {
+    return Intl.message(
+      'Loading...',
+      name: 'functionAllCourseViewLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lesson {lesson}`
+  String functionEmptyClassroomViewWhatLesson(Object lesson) {
+    return Intl.message(
+      'Lesson $lesson',
+      name: 'functionEmptyClassroomViewWhatLesson',
+      desc: '',
+      args: [lesson],
+    );
+  }
+
   /// `Sign in`
   String get functionViewLearnThroughSignIn {
     return Intl.message(
@@ -897,6 +977,16 @@ class S {
       name: 'functionViewLearnThroughPhotoNoFound',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Time:{time}`
+  String functionSocialExamsViewSub(Object time) {
+    return Intl.message(
+      'Time:$time',
+      name: 'functionSocialExamsViewSub',
+      desc: '',
+      args: [time],
     );
   }
 

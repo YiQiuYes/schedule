@@ -25,15 +25,21 @@
   "scheduleViewCourseTime" : "上课时间：",
 
   "functionViewFunctionAreaName" : "功能区域",
+  "functionViewLifeAssistantAreaName" : "生活助手",
   "functionViewScoreTitle" : "成绩查询",
   "functionViewAllCourseTitle" : "全校课表",
   "functionViewLearnThroughTitle" : "学习通",
   "functionViewDrink798" : "慧生活798",
+  "functionViewSocialExams" : "社会考试",
+  "functionEmptyClassroom" : "空教室",
 
   "personViewSemesterTip" : "学期",
   "personViewStartDayTip" : "开始日期",
   "personViewLogout" : "退出登录",
   "personViewLogoutTip" : "确定退出登录？",
+  "personViewContact" : "加入交流",
+  "personViewJoinQQGroup" : "加入QQ群",
+  "personViewJoinQQGroupTip" : "QQ群号：161324332",
 
   "pickerConfirm" : "确认",
   "pickerCancel" : "取消",
@@ -71,6 +77,8 @@
 
   "functionScoreViewGPA" : "绩点：{score}",
   "functionScoreViewEmpty" : "暂无成绩",
+  "functionAllCourseViewLoading" : "正在加载...",
+  "functionEmptyClassroomViewWhatLesson" : "第{lesson}节课",
   "functionViewLearnThroughSignIn" : "签到",
   "functionViewLearnThroughLoginError" : "登录失败！请检查用户名、密码是否正确！",
   "functionViewLearnThroughLoginSuccess" : "登录成功！",
@@ -95,6 +103,7 @@
   "functionViewLearnThroughAddressHint" : "湖南省株洲市天元区泰山西路88号湖南工业大学崇学楼(公共教学楼)",
   "functionViewLearnThroughLocationError" : "请输入格式正确的坐标",
   "functionViewLearnThroughPhotoNoFound" : "未找到照片",
+  "functionSocialExamsViewSub": "考试时间：{time}",
 
   "functionViewDrinkBtnStatus0Tip" : "喝水",
   "functionViewDrinkBtnStatus1Tip" : "结算",

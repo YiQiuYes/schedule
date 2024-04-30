@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -29,15 +30,31 @@ class _FunctionViewState extends State<FunctionView> {
       create: (_context) => FunctionViewModel(context: context),
       child: CustomScrollView(
         slivers: <Widget>[
+          // 课表区域
           _getFunctionAreaTitle(S.of(context).functionViewFunctionAreaName),
-          _getFunctionCardList(),
+          // 课表区域列表
+          _getFunctionScheduleCardList(),
+          // 生活助手
+          SliverPadding(
+            padding: EdgeInsets.only(
+              top: _screen.getLengthByOrientation(
+                vertical: 25.w,
+                horizon: 30.w,
+              ),
+            ),
+            sliver: _getFunctionAreaTitle(
+              S.of(context).functionViewLifeAssistantAreaName,
+            ),
+          ),
+          // 生活助手区域列表
+          _getFunctionLifeAssistantCardList(),
         ],
       ),
     );
   }
 
-  /// 功能区域列表
-  Widget _getFunctionCardList() {
+  /// 课表区域列表
+  Widget _getFunctionScheduleCardList() {
     return Consumer<FunctionViewModel>(builder: (context, model, child) {
       return SliverPadding(
         padding: EdgeInsets.only(
@@ -59,7 +76,7 @@ class _FunctionViewState extends State<FunctionView> {
             vertical: 5,
             horizon: 6,
           )!,
-          itemCount: model.functionCardList.length,
+          itemCount: model.functionScheduleCardList.length,
           crossAxisSpacing: _screen.getLengthByOrientation(
             vertical: 10.w,
             horizon: 7.w,
@@ -70,9 +87,53 @@ class _FunctionViewState extends State<FunctionView> {
           ),
           itemBuilder: (context, index) {
             return _getFunctionCardBtn(
-              model.functionCardList[index]['title'],
-              model.functionCardList[index]['icon'],
-              model.functionCardList[index]['route'],
+              model.functionScheduleCardList[index]['title'],
+              model.functionScheduleCardList[index]['icon'],
+              model.functionScheduleCardList[index]['route'],
+            );
+          },
+        ),
+      );
+    });
+  }
+
+  /// 生活助手区域列表
+  Widget _getFunctionLifeAssistantCardList() {
+    return Consumer<FunctionViewModel>(builder: (context, model, child) {
+      return SliverPadding(
+        padding: EdgeInsets.only(
+          left: _screen.getLengthByOrientation(
+            vertical: 20.w,
+            horizon: 15.w,
+          ),
+          right: _screen.getLengthByOrientation(
+            vertical: 20.w,
+            horizon: 15.w,
+          ),
+          top: _screen.getLengthByOrientation(
+            vertical: 20.w,
+            horizon: 15.w,
+          ),
+        ),
+        sliver: SliverAlignedGrid.count(
+          crossAxisCount: _screen.byOrientationReturn(
+            vertical: 5,
+            horizon: 6,
+          )!,
+          itemCount: model.functionLifeAssistantCardList.length,
+          crossAxisSpacing: _screen.getLengthByOrientation(
+            vertical: 10.w,
+            horizon: 7.w,
+          ),
+          mainAxisSpacing: _screen.getLengthByOrientation(
+            vertical: 10.w,
+            horizon: 7.w,
+          ),
+          itemBuilder: (context, index) {
+            return _getFunctionCardBtn(
+              model.functionLifeAssistantCardList[index]['title'],
+              model.functionLifeAssistantCardList[index]['icon'],
+              model.functionLifeAssistantCardList[index]['route'],
             );
           },
         ),

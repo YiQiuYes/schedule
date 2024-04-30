@@ -20,9 +20,13 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(score) => "GPA:${score}";
+  static String m0(lesson) => "Lesson ${lesson}";
 
-  static String m1(version) => "Current version ${version}";
+  static String m1(score) => "GPA:${score}";
+
+  static String m2(time) => "Time:${time}";
+
+  static String m3(version) => "Current version ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -34,9 +38,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cameraViewNoFoundQRENCODE":
             MessageLookupByLibrary.simpleMessage("No QR code found"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("Deep purple"),
+        "functionAllCourseViewLoading":
+            MessageLookupByLibrary.simpleMessage("Loading..."),
+        "functionEmptyClassroom":
+            MessageLookupByLibrary.simpleMessage("Empty classroom"),
+        "functionEmptyClassroomViewWhatLesson": m0,
         "functionScoreViewEmpty":
             MessageLookupByLibrary.simpleMessage("No score information"),
-        "functionScoreViewGPA": m0,
+        "functionScoreViewGPA": m1,
+        "functionSocialExamsViewSub": m2,
         "functionViewAllCourseTitle":
             MessageLookupByLibrary.simpleMessage("All courses"),
         "functionViewDrink798":
@@ -144,7 +154,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign in"),
         "functionViewLearnThroughTitle":
             MessageLookupByLibrary.simpleMessage("Learn through"),
+        "functionViewLifeAssistantAreaName":
+            MessageLookupByLibrary.simpleMessage("Life assistant"),
         "functionViewScoreTitle": MessageLookupByLibrary.simpleMessage("Score"),
+        "functionViewSocialExams":
+            MessageLookupByLibrary.simpleMessage("Social exams"),
         "greenColor": MessageLookupByLibrary.simpleMessage("Green"),
         "limeColor": MessageLookupByLibrary.simpleMessage("Lime"),
         "loginViewAutoLogin": MessageLookupByLibrary.simpleMessage(
@@ -166,6 +180,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationFunction": MessageLookupByLibrary.simpleMessage("function"),
         "navigationPerson": MessageLookupByLibrary.simpleMessage("person"),
         "navigationSchedule": MessageLookupByLibrary.simpleMessage("schedule"),
+        "personViewContact": MessageLookupByLibrary.simpleMessage("Contact"),
+        "personViewJoinQQGroup":
+            MessageLookupByLibrary.simpleMessage("Join QQ group"),
+        "personViewJoinQQGroupTip":
+            MessageLookupByLibrary.simpleMessage("QQ group number: 161324332"),
         "personViewLogout": MessageLookupByLibrary.simpleMessage("Logout"),
         "personViewLogoutTip": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
@@ -193,7 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mon&Tues&Wed&Thur&Fri&Sat&Sun"),
         "scheduleViewYearAndMonth":
             MessageLookupByLibrary.simpleMessage("%%/&& Month"),
-        "settingCurrentVersion": m1,
+        "settingCurrentVersion": m3,
         "settingViewAboutApplication":
             MessageLookupByLibrary.simpleMessage("Author: YiQiu"),
         "settingViewAboutApplicationName":

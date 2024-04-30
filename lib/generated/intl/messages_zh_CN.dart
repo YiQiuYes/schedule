@@ -20,9 +20,13 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_CN';
 
-  static String m0(score) => "绩点：${score}";
+  static String m0(lesson) => "第${lesson}节课";
 
-  static String m1(version) => "当前版本 ${version}";
+  static String m1(score) => "绩点：${score}";
+
+  static String m2(time) => "考试时间：${time}";
+
+  static String m3(version) => "当前版本 ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -33,8 +37,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "cameraViewNoFoundQRENCODE":
             MessageLookupByLibrary.simpleMessage("未找到二维码"),
         "deepPurpleColor": MessageLookupByLibrary.simpleMessage("深紫色"),
+        "functionAllCourseViewLoading":
+            MessageLookupByLibrary.simpleMessage("正在加载..."),
+        "functionEmptyClassroom": MessageLookupByLibrary.simpleMessage("空教室"),
+        "functionEmptyClassroomViewWhatLesson": m0,
         "functionScoreViewEmpty": MessageLookupByLibrary.simpleMessage("暂无成绩"),
-        "functionScoreViewGPA": m0,
+        "functionScoreViewGPA": m1,
+        "functionSocialExamsViewSub": m2,
         "functionViewAllCourseTitle":
             MessageLookupByLibrary.simpleMessage("全校课表"),
         "functionViewDrink798": MessageLookupByLibrary.simpleMessage("慧生活798"),
@@ -134,7 +143,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("签到"),
         "functionViewLearnThroughTitle":
             MessageLookupByLibrary.simpleMessage("学习通"),
+        "functionViewLifeAssistantAreaName":
+            MessageLookupByLibrary.simpleMessage("生活助手"),
         "functionViewScoreTitle": MessageLookupByLibrary.simpleMessage("成绩查询"),
+        "functionViewSocialExams": MessageLookupByLibrary.simpleMessage("社会考试"),
         "greenColor": MessageLookupByLibrary.simpleMessage("绿色"),
         "limeColor": MessageLookupByLibrary.simpleMessage("青柠色"),
         "loginViewAutoLogin":
@@ -155,6 +167,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationFunction": MessageLookupByLibrary.simpleMessage("功能"),
         "navigationPerson": MessageLookupByLibrary.simpleMessage("我的"),
         "navigationSchedule": MessageLookupByLibrary.simpleMessage("课表"),
+        "personViewContact": MessageLookupByLibrary.simpleMessage("加入交流"),
+        "personViewJoinQQGroup": MessageLookupByLibrary.simpleMessage("加入QQ群"),
+        "personViewJoinQQGroupTip":
+            MessageLookupByLibrary.simpleMessage("QQ群号：161324332"),
         "personViewLogout": MessageLookupByLibrary.simpleMessage("退出登录"),
         "personViewLogoutTip": MessageLookupByLibrary.simpleMessage("确定退出登录？"),
         "personViewSemesterTip": MessageLookupByLibrary.simpleMessage("学期"),
@@ -176,7 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("周一&周二&周三&周四&周五&周六&周日"),
         "scheduleViewYearAndMonth":
             MessageLookupByLibrary.simpleMessage("%%/&&月"),
-        "settingCurrentVersion": m1,
+        "settingCurrentVersion": m3,
         "settingViewAboutApplication":
             MessageLookupByLibrary.simpleMessage("作者：易秋"),
         "settingViewAboutApplicationName":

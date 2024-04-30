@@ -304,10 +304,7 @@ class LearnThroughViewModel with ChangeNotifier {
         builder: (context) {
           return AlertDialogTextField(
             title: S.current.functionViewLearnThroughLocationSignTitle,
-            textControllerList: [
-              lonAndLatController,
-              addressController
-            ],
+            textControllerList: [lonAndLatController, addressController],
             labelTextList: [
               S
                   .of(context)
@@ -321,8 +318,7 @@ class LearnThroughViewModel with ChangeNotifier {
             confirmCallback: () async {
               String latAndLon = lonAndLatController.text;
               // 判断经纬度是否为空
-              if (latAndLon.isEmpty ||
-                  latAndLon.split(",").length != 2) {
+              if (latAndLon.isEmpty || latAndLon.split(",").length != 2) {
                 FlutterToastUtil.errorToast(
                   S.current.functionViewLearnThroughLocationError,
                   milliseconds: 3000,

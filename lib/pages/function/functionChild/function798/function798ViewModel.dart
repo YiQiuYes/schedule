@@ -49,7 +49,9 @@ class Function798ViewModel with ChangeNotifier {
   int choiceDevice = 0;
 
   // 设备列表
-  List<Map> deviceList = [];
+  List<Map> deviceList = [
+    {"name": "(｡･∀･)ﾉﾞ嗨", "id": "..."}
+  ];
 
   // 喝水按钮状态
   int drinkStatus = 0;

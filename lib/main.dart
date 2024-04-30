@@ -25,6 +25,9 @@ Future<void> main() async {
   // 首先注册组件
   WidgetsFlutterBinding.ensureInitialized();
 
+  // 初始化版本信息
+  await PackageInfoUtils.packageInfoInit();
+
   // 初始化数据存储读取器
   await DataStorageManager().init();
 
@@ -36,9 +39,6 @@ Future<void> main() async {
 
   // 初始化网络请求管理
   await RequestManager().persistCookieJarInit();
-
-  // 初始化版本信息
-  await PackageInfoUtils.packageInfoInit();
 
   // 状态栏和底部小白条沉浸
   AppTheme.statusBarAndBottomBarImmersed();

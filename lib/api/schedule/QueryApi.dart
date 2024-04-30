@@ -15,6 +15,11 @@ abstract class QueryApi {
         bool retake = false,
         CachePolicy? cachePolicy});
 
+  /// 查询个人社会成绩
+  /// - [cachePolicy] : 缓存策略
+  Future<List<Map<String, dynamic>>> queryPersonSocialExams(
+      {CachePolicy? cachePolicy});
+
   /// 查询个人课程
   /// - [week] : 周次
   /// - [semester] : 学期
@@ -55,4 +60,28 @@ abstract class QueryApi {
         required String semester,
         required String majorName,
         CachePolicy? cachePolicy});
+
+  /// 获取校区和楼栋信息
+  /// - [cachePolicy] : 缓存策略
+  Future<List<Map>> queryBuildingInfo({
+    CachePolicy? cachePolicy,
+  });
+
+  /// 获取空教室
+  /// - [semester] : 学期
+  /// - [buildingId] : 教学楼ID
+  /// - [campusId] : 校区ID
+  /// - [week] : 星期几
+  /// - [lesson] : 第几节课
+  /// - [weekly] : 周次
+  /// - [cachePolicy] : 缓存策略
+  Future<List> queryEmptyClassroom({
+    required String semester,
+    required String buildingId,
+    required String campusId,
+    required int week,
+    required int lesson,
+    required String weekly,
+    CachePolicy? cachePolicy,
+  });
 }

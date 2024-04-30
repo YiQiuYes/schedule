@@ -21,15 +21,35 @@ class FunctionAllCourseView extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: NestedScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                // SliverAppBar
-                _getSliverAppBar(context),
-              ];
-            },
-            body: CustomScrollView(
+          child: Stack(
+            children: [
+              // 主体
+              _getMainBody(),
+              // 课表加载中
+              _getLoading(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 获取主体Widget
+  Widget _getMainBody() {
+    return NestedScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      headerSliverBuilder:
+          (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          // SliverAppBar
+          _getSliverAppBar(context),
+        ];
+      },
+      body: Consumer<FunctionAllCourseViewModel>(
+        builder: (context, model, child) {
+          return Visibility(
+            visible: !model.isLoad,
+            child: CustomScrollView(
               slivers: [
                 // 课表
                 _getCurriculum(),
@@ -44,22 +64,43 @@ class FunctionAllCourseView extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ),
+          );
+        }
       ),
+    );
+  }
+
+  /// 获取课表加载中
+  Widget _getLoading() {
+    return Consumer<FunctionAllCourseViewModel>(
+      builder: (context, model, child) {
+        return Visibility(
+          visible: model.isLoad,
+          child: Center(
+            child: Text(
+              S.of(context).functionAllCourseViewLoading,
+              style: TextStyle(
+                fontSize: ScreenAdaptor().getLengthByOrientation(
+                  vertical: 55.sp,
+                  horizon: 35.sp,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
   /// 获取课表组件
   Widget _getCurriculum() {
     return Consumer<FunctionAllCourseViewModel>(
-      builder: (context, model, child) {
-        return Curriculum(
-          showWeek: int.parse(model.week) - 1,
-          courseData: model.courseData,
-        );
-      }
-    );
+        builder: (context, model, child) {
+      return Curriculum(
+        showWeek: int.parse(model.week) - 1,
+        courseData: model.courseData,
+      );
+    });
   }
 
   /// 获取SliverAppBar
@@ -96,7 +137,7 @@ class FunctionAllCourseView extends StatelessWidget {
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
             onPressed: () {
-              _showSemesterList(context, model);
+              model.isLoad == false ? _showSemesterList(context, model) : null;
             },
           );
         }),
@@ -107,7 +148,7 @@ class FunctionAllCourseView extends StatelessWidget {
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
             onPressed: () {
-              _showWeeksList(context, model);
+              model.isLoad == false ? _showWeeksList(context, model) : null;
             },
           );
         }),
@@ -221,9 +262,6 @@ class FunctionAllCourseView extends StatelessWidget {
           ),
         ),
       ),
-      onSelect: (Picker picker, int index, List<int> selecteds) {
-        model.setCollegeAndMajorPickerData(selecteds[0], picker);
-      },
       onConfirm: model.selectCollegeAndMajorConfirm,
     );
     picker.showModal(context);

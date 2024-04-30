@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:schedule/common/utils/LoggerUtils.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -54,6 +53,11 @@ class SplashViewModel with ChangeNotifier {
   void getVersionUpdate() {
     _otherApi.getVersionInfo().then((value) {
       String version = value['tag_name'].replaceAll("v", "");
+      // 如果版本相同则不提示
+      if (version == PackageInfoUtils.version) {
+        return;
+      }
+
       bool isUpdate = PackageInfoUtils.compareTwoVersion(
         version,
         globalModel.settings["version"],

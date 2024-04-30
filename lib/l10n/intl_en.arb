@@ -25,15 +25,21 @@
   "scheduleViewCourseTime" : "Time:",
 
   "functionViewFunctionAreaName" : "Function area",
+  "functionViewLifeAssistantAreaName" : "Life assistant",
   "functionViewScoreTitle" : "Score",
   "functionViewAllCourseTitle" : "All courses",
   "functionViewLearnThroughTitle" : "Learn through",
   "functionViewDrink798" : "ILife798",
+  "functionViewSocialExams" : "Social exams",
+  "functionEmptyClassroom" : "Empty classroom",
 
   "personViewSemesterTip" : "Semester",
   "personViewStartDayTip" : "Start day",
   "personViewLogout" : "Logout",
   "personViewLogoutTip" : "Are you sure you want to log out?",
+  "personViewContact" : "Contact",
+  "personViewJoinQQGroup" : "Join QQ group",
+  "personViewJoinQQGroupTip" : "QQ group number: 161324332",
 
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel",
@@ -71,6 +77,8 @@
 
   "functionScoreViewGPA" : "GPA:{score}",
   "functionScoreViewEmpty" : "No score information",
+  "functionAllCourseViewLoading" : "Loading...",
+  "functionEmptyClassroomViewWhatLesson" : "Lesson {lesson}",
   "functionViewLearnThroughSignIn" : "Sign in",
   "functionViewLearnThroughLoginError" : "Login failed, please check your username and password!",
   "functionViewLearnThroughLoginSuccess" : "Login successful!",
@@ -95,6 +103,7 @@
   "functionViewLearnThroughAddressHint" : "Chongxue Building, Hunan University of Technology, No. 88, Taishan West Road, Tianyuan District, Zhuzhou City, Hunan Province (Public Teaching Building)",
   "functionViewLearnThroughLocationError" : "Please enter the correct coordinates",
   "functionViewLearnThroughPhotoNoFound" : "No photos found",
+  "functionSocialExamsViewSub": "Time:{time}",
 
   "functionViewDrinkBtnStatus0Tip" : "Drink",
   "functionViewDrinkBtnStatus1Tip" : "Billing",

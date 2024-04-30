@@ -7,7 +7,9 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:schedule/common/manager/FileManager.dart';
 import 'package:schedule/common/manager/RequestManager.dart';
+import 'package:schedule/common/utils/ResponseUtils.dart';
 
+import '../../../common/utils/LoggerUtils.dart';
 import '../QueryApi.dart';
 
 class QueryApiImpl extends QueryApi {
@@ -127,9 +129,57 @@ class QueryApiImpl extends QueryApi {
     });
   }
 
+  /// 查询个人社会成绩
+  /// - [cachePolicy] : 缓存策略
+  @override
+  Future<List<Map<String, dynamic>>> queryPersonSocialExams(
+      {CachePolicy? cachePolicy}) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    // 处理返回数据
+    return await _request
+        .post("/jsxsd/kscj/djkscj_list", options: options)
+        .then((value) {
+      Document doc = parse(value.data);
+      // logger.i(doc.outerHtml);
+      Element? table = doc.getElementById("dataList");
+      List<Map<String, dynamic>> result = [];
+      if (table != null) {
+        List<Element> trs = table.getElementsByTagName("tr");
+        trs.removeAt(0);
+        trs.removeAt(0);
+
+        for (Element tr in trs) {
+          if (tr.outerHtml.contains("未查询到数据")) {
+            continue;
+          }
+          List<Element> tds = tr.getElementsByTagName("td");
+
+          // 考试名称
+          String examName = tds[1].text.replaceAll(RegExp(r'（.*?）'), "");
+          // 考试成绩
+          String examScore = tds[4].text.replaceAll(RegExp(r'[\n\t]'), "");
+          // 绩点
+          String examTime = tds[8].text;
+
+          result.add({
+            "examName": examName,
+            "examScore": examScore,
+            "examTime": examTime,
+          });
+        }
+      }
+
+      return result;
+    });
+  }
+
   /// 查询个人课程
   /// - [week] : 周次
   /// - [semester] : 学期
+  /// - [cachePolicy] : 缓存策略
   @override
   Future<List> queryPersonCourse(
       {required String week,
@@ -164,7 +214,7 @@ class QueryApiImpl extends QueryApi {
           "8:00-9:40",
           "10:00-11:40",
           "14:00-15:40",
-          "16:30-17:40",
+          "16:00-17:40",
           "19:00-20:40",
         ];
 
@@ -286,7 +336,7 @@ class QueryApiImpl extends QueryApi {
           "8:00-9:40",
           "10:00-11:40",
           "14:00-15:40",
-          "16:30-17:40",
+          "16:00-17:40",
           "19:00-20:40",
         ];
         for (int i = 0; i < 5; i++) {
@@ -456,7 +506,7 @@ class QueryApiImpl extends QueryApi {
               "8:00-9:40",
               "10:00-11:40",
               "14:00-15:40",
-              "16:30-17:40",
+              "16:00-17:40",
               "19:00-20:40",
             ];
             String classTime = time[i % 5];
@@ -486,6 +536,174 @@ class QueryApiImpl extends QueryApi {
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 7; j++) {
           result.add(transposed[j][i]);
+        }
+      }
+
+      return result;
+    });
+  }
+
+  /// 获取校区和楼栋信息
+  /// - [cachePolicy] : 缓存策略
+  @override
+  Future<List<Map>> queryBuildingInfo({
+    CachePolicy? cachePolicy,
+  }) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    return await _request
+        .get("/jsxsd/kbcx/kbxx_classroom", options: options)
+        .then((value) async {
+      Document doc = parse(value.data);
+      Element? campusElement = doc.getElementById("xqid");
+      List<Map> result = [];
+      if (campusElement != null) {
+        List<Element> campusList = campusElement.getElementsByTagName("option");
+        campusList.removeAt(0);
+        for (Element campus in campusList) {
+          String campusName = campus.text;
+          String campusId = campus.attributes["value"] ?? "";
+
+          // 获取楼栋信息
+          List<Map> buildingList = [];
+          String url = "/jsxsd/kbcx/getJxlByAjax";
+          Map<String, dynamic> params = {
+            "xqid": campusId,
+          };
+          buildingList = await _request
+              .get(url, params: params, options: options)
+              .then((value) {
+            final List json = ResponseUtils.transformObj(value);
+            return json.map((e) {
+              return {
+                "buildingName": e["dmmc"],
+                "buildingId": e["dm"],
+              };
+            }).toList();
+          });
+
+          result.add({
+            "campusName": campusName,
+            "campusId": campusId,
+            "buildingList": buildingList,
+          });
+        }
+      }
+      return result;
+    });
+  }
+
+  /// 获取空教室
+  /// - [semester] : 学期
+  /// - [buildingId] : 教学楼ID
+  /// - [campusId] : 校区ID
+  /// - [week] : 星期几
+  /// - [lesson] : 第几节课
+  /// - [weekly] : 周次
+  /// - [cachePolicy] : 缓存策略
+  @override
+  Future<List> queryEmptyClassroom({
+    required String semester,
+    required String buildingId,
+    required String campusId,
+    required int week,
+    required int lesson,
+    required String weekly,
+    CachePolicy? cachePolicy,
+  }) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    Map<String, dynamic> params = {
+      "xnxqh": semester,
+      "kbjcmsid": "",
+      "skyx": "",
+      "xqid": campusId,
+      "jzwid": buildingId,
+      "skjsid": "",
+      "skjs": "",
+      "zc1": "",
+      "zc2": "",
+      "skxq1": "",
+      "skxq2": "",
+      "jc1": "",
+      "jc2": "",
+    };
+
+    return await _request
+        .post("/jsxsd/kbcx/kbxx_classroom_ifr",
+            params: params, options: options)
+        .then((value) {
+      Document doc = parse(value.data);
+      Element? table = doc.getElementById("kbtable");
+      List result = [];
+      if (table != null) {
+        // 去除thead标签
+        table.querySelector("thead")?.remove();
+        List<Element> trs = table.getElementsByTagName("tr");
+        // 判断是否为空
+        if (trs.isEmpty) {
+          return result;
+        }
+
+        for (Element tr in trs) {
+          List<Element> tds = tr.getElementsByTagName("td");
+          // 教室
+          Element classBuilding = tds.removeAt(0);
+          // 遍历td标签
+          Element td = tds[(week - 1) * 5 + lesson - 1];
+          // 文本
+          String text = td.text;
+          // 正则表达式提取所有 () 之间的内容
+          RegExp regExp = RegExp(r'\((.*?)\)');
+          Iterable<RegExpMatch> matches = regExp.allMatches(text);
+          List<String> classList = [];
+          for (RegExpMatch match in matches) {
+            classList.add(match.group(1) ?? "");
+          }
+
+          // 检查是否包含在当前周次
+          bool isContain = false;
+          if (classList.isNotEmpty) {
+            for (String classWeek in classList) {
+              if (!classWeek.contains("周")) {
+                continue;
+              }
+              classWeek = classWeek.replaceAll(RegExp(r'[周单双]'), "");
+              if (classWeek.contains(",")) {
+                List<String> split = classWeek.split(",");
+                for (String item in split) {
+                  List<String> interval = item.split("-");
+                  if (interval.length == 2) {
+                    int start = int.parse(interval[0]);
+                    int end = int.parse(interval[1]);
+                    if (start <= int.parse(weekly) &&
+                        int.parse(weekly) <= end) {
+                      isContain = true;
+                      break;
+                    }
+                  }
+                }
+              } else {
+                List<String> interval = classWeek.split("-");
+                if (interval.length == 2) {
+                  int start = int.parse(interval[0]);
+                  int end = int.parse(interval[1]);
+                  if (start <= int.parse(weekly) && int.parse(weekly) <= end) {
+                    isContain = true;
+                    break;
+                  }
+                }
+              }
+            }
+          }
+
+          if (!isContain) {
+            result.add(classBuilding.text.replaceAll(RegExp(r'[\t\n]'), ""));
+          }
         }
       }
 

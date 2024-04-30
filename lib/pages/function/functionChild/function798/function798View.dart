@@ -116,6 +116,7 @@ class Function798View extends StatelessWidget {
                   },
                 );
               },
+              heroTag: 'deviceManage',
               child: const Icon(Icons.web_stories_rounded),
             ),
             // 添加设备
@@ -124,6 +125,7 @@ class Function798View extends StatelessWidget {
                 onPressed: () {
                   model.scanQRCode(context);
                 },
+                heroTag: 'addDevice',
                 child: const Icon(Icons.qr_code_scanner_rounded),
               );
             }),
@@ -153,6 +155,7 @@ class Function798View extends StatelessWidget {
                   },
                 );
               },
+              heroTag: 'tokenManage',
               child: const Icon(Icons.key_rounded),
             ),
           ],

@@ -60,5 +60,21 @@
     <string>使用摄像头识别二维码</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>使用相册选择图片</string>
+
+    <key>LSApplicationQueriesSchemes</key>
+     <array>
+        <!-- QQ、Qzone URL Scheme 白名单-->
+        <string>mqqapi</string>
+        <string>mqq</string>
+        <string>mqqOpensdkSSoLogin</string>
+        <string>mqqconnect</string>
+        <string>mqqopensdkdataline</string>
+        <string>mqqopensdkgrouptribeshare</string>
+        <string>mqqopensdkfriend</string>
+        <string>mqqopensdkapi</string>
+        <string>mqqopensdkapiV2</string>
+        <string>mqqopensdkapiV3</string>
+        <string>mqzoneopensdk</string>
+    </array>
 </dict>
 </plist>
