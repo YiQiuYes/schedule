@@ -44,6 +44,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "functionScoreViewEmpty": MessageLookupByLibrary.simpleMessage("暂无成绩"),
         "functionScoreViewGPA": m1,
         "functionSocialExamsViewSub": m2,
+        "functionTeacherSearchHint":
+            MessageLookupByLibrary.simpleMessage("教师姓名"),
+        "functionTeacherTitle": MessageLookupByLibrary.simpleMessage("教师课表"),
         "functionViewAllCourseTitle":
             MessageLookupByLibrary.simpleMessage("全校课表"),
         "functionViewDrink798": MessageLookupByLibrary.simpleMessage("慧生活798"),
@@ -223,6 +226,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateDialogCurrentIsLastVersion":
             MessageLookupByLibrary.simpleMessage("当前已是最新版本！"),
         "updateDialogToastDownloadingVPN":
-            MessageLookupByLibrary.simpleMessage("如果遇到下载失败请开启VPN")
+            MessageLookupByLibrary.simpleMessage("如果遇到下载失败请开启VPN"),
+        "updateDialogVersionFail":
+            MessageLookupByLibrary.simpleMessage("版本获取失败！")
       };
 }

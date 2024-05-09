@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:schedule/common/manager/DataStorageManager.dart';
 import 'package:schedule/route/GoRouteConfig.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,6 +20,7 @@ class SplashViewModel with ChangeNotifier {
 
   final UserApi _userApi = UserApiImpl();
   final OtherApi _otherApi = OtherApiImpl();
+  final _storage = DataStorageManager();
 
   /// 初始化动画控制器
   void initAnimationController(TickerProvider vsync, BuildContext context) {
@@ -33,6 +35,12 @@ class SplashViewModel with ChangeNotifier {
       }
     });
     animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   /// 跳转主页面
@@ -51,7 +59,22 @@ class SplashViewModel with ChangeNotifier {
 
   /// 获取版本更新提示
   void getVersionUpdate() {
+    // 每隔1天检测一次
+    if (_storage.getString("lastCheckVersionTime") != null) {
+      DateTime lastCheckVersionTime =
+          DateTime.parse(_storage.getString("lastCheckVersionTime")!);
+      if (DateTime.now().difference(lastCheckVersionTime).inDays < 1) {
+        return;
+      }
+    } else {
+      _storage.setString("lastCheckVersionTime", DateTime.now().toString());
+    }
+
     _otherApi.getVersionInfo().then((value) {
+      if (value['tag_name'] == null) {
+        return;
+      }
+
       String version = value['tag_name'].replaceAll("v", "");
       // 如果版本相同则不提示
       if (version == PackageInfoUtils.version) {
@@ -134,6 +157,9 @@ class SplashViewModel with ChangeNotifier {
             );
           },
         );
+
+        // 保存检测时间
+        _storage.setString("lastCheckVersionTime", DateTime.now().toString());
       }
     });
   }

@@ -47,6 +47,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No score information"),
         "functionScoreViewGPA": m1,
         "functionSocialExamsViewSub": m2,
+        "functionTeacherSearchHint":
+            MessageLookupByLibrary.simpleMessage("Teacher name"),
+        "functionTeacherTitle":
+            MessageLookupByLibrary.simpleMessage("Teacher schedule"),
         "functionViewAllCourseTitle":
             MessageLookupByLibrary.simpleMessage("All courses"),
         "functionViewDrink798":
@@ -248,6 +252,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "The current version is the latest version!"),
         "updateDialogToastDownloadingVPN": MessageLookupByLibrary.simpleMessage(
-            "If the download fails, turn on the VPN")
+            "If the download fails, turn on the VPN"),
+        "updateDialogVersionFail": MessageLookupByLibrary.simpleMessage(
+            "Failed to get the latest version information!")
       };
 }

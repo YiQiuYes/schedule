@@ -33,6 +33,13 @@ class SettingViewModel with ChangeNotifier {
         FToast().removeQueuedCustomToasts();
         FToast().removeCustomToast();
 
+        if (value['tag_name'] == null) {
+          // 获取版本信息失败
+          // logger.i("获取版本信息失败");
+          FlutterToastUtil.errorToast(S.of(context).updateDialogVersionFail);
+          return;
+        }
+
         String version = value['tag_name'].replaceAll("v", "");
         bool isUpdate = PackageInfoUtils.compareVersion(version);
 

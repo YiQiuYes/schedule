@@ -74,7 +74,8 @@ class CurriculumModel with ChangeNotifier {
           if (currentSectionTime == i) {
             return heightColor;
           } else if (currentSectionTime > i) {
-            for (int j = day - 1; j < index; j += 7) {
+            int start = day - 1 + (currentSectionTime - 1) * 7;
+            for (int j = start; j < index; j += 7) {
               if (course[j].isNotEmpty) {
                 return defaultColor;
               }

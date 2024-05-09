@@ -32,6 +32,7 @@
   "functionViewDrink798" : "ILife798",
   "functionViewSocialExams" : "Social exams",
   "functionEmptyClassroom" : "Empty classroom",
+  "functionTeacherTitle" : "Teacher schedule",
 
   "personViewSemesterTip" : "Semester",
   "personViewStartDayTip" : "Start day",
@@ -52,6 +53,7 @@
   "updateDialogCancel" : "Cancel",
   "updateDialogToastDownloadingVPN" : "If the download fails, turn on the VPN",
   "updateDialogCurrentIsLastVersion": "The current version is the latest version!",
+  "updateDialogVersionFail" : "Failed to get the latest version information!",
 
   "settingViewGroupLanguage" : "Language",
   "settingViewSwitchLanguageTip" : "Switch languages",
@@ -104,6 +106,7 @@
   "functionViewLearnThroughLocationError" : "Please enter the correct coordinates",
   "functionViewLearnThroughPhotoNoFound" : "No photos found",
   "functionSocialExamsViewSub": "Time:{time}",
+  "functionTeacherSearchHint" : "Teacher name",
 
   "functionViewDrinkBtnStatus0Tip" : "Drink",
   "functionViewDrinkBtnStatus1Tip" : "Billing",

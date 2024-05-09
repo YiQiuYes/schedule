@@ -350,6 +350,16 @@ class S {
     );
   }
 
+  /// `Teacher schedule`
+  String get functionTeacherTitle {
+    return Intl.message(
+      'Teacher schedule',
+      name: 'functionTeacherTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get personViewSemesterTip {
     return Intl.message(
@@ -515,6 +525,16 @@ class S {
     return Intl.message(
       'The current version is the latest version!',
       name: 'updateDialogCurrentIsLastVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to get the latest version information!`
+  String get updateDialogVersionFail {
+    return Intl.message(
+      'Failed to get the latest version information!',
+      name: 'updateDialogVersionFail',
       desc: '',
       args: [],
     );
@@ -987,6 +1007,16 @@ class S {
       name: 'functionSocialExamsViewSub',
       desc: '',
       args: [time],
+    );
+  }
+
+  /// `Teacher name`
+  String get functionTeacherSearchHint {
+    return Intl.message(
+      'Teacher name',
+      name: 'functionTeacherSearchHint',
+      desc: '',
+      args: [],
     );
   }
 

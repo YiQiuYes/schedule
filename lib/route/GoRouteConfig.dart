@@ -7,6 +7,7 @@ import 'package:schedule/pages/function/functionChild/function798/function798Vie
 import 'package:schedule/pages/function/functionChild/functionEmptyClassroom/FunctionEmptyClassroomView.dart';
 import 'package:schedule/pages/function/functionChild/functionLearnThrough/LearnThroughView.dart';
 import 'package:schedule/pages/function/functionChild/functionSocialExams/FunctionSocialExamsView.dart';
+import 'package:schedule/pages/function/functionChild/functionTeacher/FunctionTeacherView.dart';
 import 'package:schedule/pages/login/LoginView.dart';
 import 'package:schedule/pages/setting/SettingView.dart';
 import 'package:schedule/pages/splash/SplashView.dart';
@@ -28,12 +29,13 @@ class GoRouteConfig {
   static const String function798 = '/function798';
   static const String functionSocialExams = '/functionSocialExams';
   static const String functionEmptyClassroom = '/functionEmptyClassroom';
+  static const String functionTeacher = '/functionTeacher';
   static const String camera = '/camera';
 
   static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: splash,
+    initialLocation: functionTeacher,
     // initialExtra: {"type": CameraType.desktop, "appBarTitle": "拍照"},
     redirect: (context, state) {
       if (state.fullPath == splash) {
@@ -135,13 +137,23 @@ class GoRouteConfig {
           return const FunctionEmptyClassroomView();
         },
       ),
-      GoRoute(path: camera, builder: (context, state) {
-        _setContext = context;
-        return CameraView(
-          type: (state.extra as Map)["type"],
-          appBarTitle: (state.extra as Map)["appBarTitle"],
-        );
-      }),
+      GoRoute(
+        name: 'functionTeacher',
+        path: functionTeacher,
+        builder: (context, state) {
+          _setContext = context;
+          return const FunctionTeacherView();
+        },
+      ),
+      GoRoute(
+          path: camera,
+          builder: (context, state) {
+            _setContext = context;
+            return CameraView(
+              type: (state.extra as Map)["type"],
+              appBarTitle: (state.extra as Map)["appBarTitle"],
+            );
+          }),
     ],
   );
 

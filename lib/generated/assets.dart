@@ -27,6 +27,8 @@ class Assets {
   static const String functionScoreFunctionScoreViewModel = 'lib/pages/function/functionChild/functionScore/FunctionScoreViewModel.dart';
   static const String functionSocialExamsFunctionSocialExamsView = 'lib/pages/function/functionChild/functionSocialExams/FunctionSocialExamsView.dart';
   static const String functionSocialExamsFunctionSocialExamsViewModel = 'lib/pages/function/functionChild/functionSocialExams/FunctionSocialExamsViewModel.dart';
+  static const String functionTeacherFunctionTeacherView = 'lib/pages/function/functionChild/functionTeacher/FunctionTeacherView.dart';
+  static const String functionTeacherFunctionTeacherViewModel = 'lib/pages/function/functionChild/functionTeacher/FunctionTeacherViewModel.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String generatedL10n = 'lib/generated/l10n.dart';
   static const String imagesLogo = 'lib/assets/images/logo.png';

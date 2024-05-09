@@ -32,6 +32,7 @@
   "functionViewDrink798" : "慧生活798",
   "functionViewSocialExams" : "社会考试",
   "functionEmptyClassroom" : "空教室",
+  "functionTeacherTitle" : "教师课表",
 
   "personViewSemesterTip" : "学期",
   "personViewStartDayTip" : "开始日期",
@@ -52,6 +53,7 @@
   "updateDialogCancel" : "取消",
   "updateDialogToastDownloadingVPN" : "如果遇到下载失败请开启VPN",
   "updateDialogCurrentIsLastVersion" : "当前已是最新版本！",
+  "updateDialogVersionFail" : "版本获取失败！",
 
   "settingViewGroupLanguage" : "语言",
   "settingViewSwitchLanguageTip" : "切换语言",
@@ -104,6 +106,7 @@
   "functionViewLearnThroughLocationError" : "请输入格式正确的坐标",
   "functionViewLearnThroughPhotoNoFound" : "未找到照片",
   "functionSocialExamsViewSub": "考试时间：{time}",
+  "functionTeacherSearchHint" : "教师姓名",
 
   "functionViewDrinkBtnStatus0Tip" : "喝水",
   "functionViewDrinkBtnStatus1Tip" : "结算",
