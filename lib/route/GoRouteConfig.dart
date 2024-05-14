@@ -35,7 +35,7 @@ class GoRouteConfig {
   static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: functionTeacher,
+    initialLocation: appMain,
     // initialExtra: {"type": CameraType.desktop, "appBarTitle": "拍照"},
     redirect: (context, state) {
       if (state.fullPath == splash) {

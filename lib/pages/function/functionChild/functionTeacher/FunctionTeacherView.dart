@@ -14,8 +14,10 @@ class FunctionTeacherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+      lazy: false,
       create: (_context) {
         final model = FunctionTeacherViewModel();
+        model.getTeacherCourse('肖');
         return model;
       },
       child: Scaffold(
@@ -52,7 +54,7 @@ class FunctionTeacherView extends StatelessWidget {
         horizon: 170.h,
       ),
       toolbarHeight: ScreenAdaptor().getLengthByOrientation(
-        vertical: 70.h,
+        vertical: 95.h,
         horizon: 100.h,
       ),
       pinned: true,
@@ -88,7 +90,7 @@ class FunctionTeacherView extends StatelessWidget {
       pinned: true,
       floating: true,
       toolbarHeight: ScreenAdaptor().getLengthByOrientation(
-        vertical: 70.h,
+        vertical: 110.h,
         horizon: 115.h,
       ),
       surfaceTintColor: Colors.transparent,
@@ -106,7 +108,7 @@ class FunctionTeacherView extends StatelessWidget {
                   MediaQuery.sizeOf(context).width -
                       model.scrollController.offset.roundToDouble() -
                       30.w,
-                  MediaQuery.sizeOf(context).width - 260.w,
+                  MediaQuery.sizeOf(context).width - 340.w,
                 ),
                 child: SearchBar(
                   leading: Padding(

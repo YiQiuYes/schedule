@@ -710,4 +710,77 @@ class QueryApiImpl extends QueryApi {
       return result;
     });
   }
+
+  /// 获取教师课表
+  /// - [teacherName] : 教师姓名
+  /// - [semester] : 学期
+  /// - [cachePolicy] : 缓存策略
+  @override
+  Future<List<Map>> queryTeacherCourse({
+    required String teacherName,
+    required String semester,
+    CachePolicy? cachePolicy,
+  }) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    Map<String, dynamic> params = {
+      "xnxqh": semester,
+      "kbjcmsid": "",
+      "skyx": "",
+      "jszc": "",
+      "skjsid": "",
+      "skjs": teacherName,
+      "zc1": "",
+      "zc2": "",
+      "skxq1": "",
+      "skxq2": "",
+      "jc1": "",
+      "jc2": "",
+    };
+
+    return await _request
+        .post("/jsxsd/kbcx/kbxx_teacher_ifr",
+        params: params, options: options)
+        .then((value) {
+      Document doc = parse(value.data);
+      Element? table = doc.getElementById("kbtable");
+      List<Map> result = [];
+      if (table != null) {
+        // 去除thead标签
+        table.querySelector("thead")?.remove();
+        // logger.i(table.outerHtml);
+        List<Element> trs = table.getElementsByTagName("tr");
+        // 判断是否为空
+        if (trs.isEmpty) {
+          return result;
+        }
+
+        for (Element tr in trs) {
+          List<Element> tds = tr.getElementsByTagName("td");
+          // 判断是否非空
+          if (tds.isEmpty) {
+            continue;
+          }
+
+          Element teacher = tds.removeAt(0);
+          // 遍历td标签
+          for (int i = 0; i < tds.length; i++) {
+            // 检查是否包含div标签
+            Element? div = tds[i].querySelector("div");
+            if (div == null) {
+              continue;
+            }
+
+            // 课程名称
+            String? className = div.firstChild?.text;
+            logger.i(className);
+          }
+        }
+      }
+
+      return result;
+    });
+  }
 }

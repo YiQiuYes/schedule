@@ -12,8 +12,8 @@ abstract class QueryApi {
   /// - [cachePolicy] : 缓存策略
   Future<List<Map<String, dynamic>>> queryPersonScore(
       {required String semester,
-        bool retake = false,
-        CachePolicy? cachePolicy});
+      bool retake = false,
+      CachePolicy? cachePolicy});
 
   /// 查询个人社会成绩
   /// - [cachePolicy] : 缓存策略
@@ -25,8 +25,8 @@ abstract class QueryApi {
   /// - [semester] : 学期
   Future<List> queryPersonCourse(
       {required String week,
-        required String semester,
-        CachePolicy? cachePolicy});
+      required String semester,
+      CachePolicy? cachePolicy});
 
   /// 查询个人实验课程
   /// - [week] : 周次
@@ -34,8 +34,8 @@ abstract class QueryApi {
   /// - [cachePolicy] : 缓存策略
   Future<List<Map>> queryPersonExperimentCourse(
       {required String week,
-        required String semester,
-        CachePolicy? cachePolicy});
+      required String semester,
+      CachePolicy? cachePolicy});
 
   /// 获取学院信息
   /// - [cachePolicy] : 缓存策略
@@ -57,9 +57,9 @@ abstract class QueryApi {
   /// - [cachePolicy] : 缓存策略
   Future<List<Map>> queryMajorCourse(
       {required String week,
-        required String semester,
-        required String majorName,
-        CachePolicy? cachePolicy});
+      required String semester,
+      required String majorName,
+      CachePolicy? cachePolicy});
 
   /// 获取校区和楼栋信息
   /// - [cachePolicy] : 缓存策略
@@ -82,6 +82,16 @@ abstract class QueryApi {
     required int week,
     required int lesson,
     required String weekly,
+    CachePolicy? cachePolicy,
+  });
+
+  /// 获取教师课表
+  /// - [teacherName] : 教师姓名
+  /// - [semester] : 学期
+  /// - [cachePolicy] : 缓存策略
+  Future<List<Map>> queryTeacherCourse({
+    required String teacherName,
+    required String semester,
     CachePolicy? cachePolicy,
   });
 }
