@@ -33,6 +33,7 @@
   "functionViewSocialExams" : "Social exams",
   "functionEmptyClassroom" : "Empty classroom",
   "functionTeacherTitle" : "Teacher schedule",
+  "functionExamSchedule" : "考试计划",
 
   "personViewSemesterTip" : "Semester",
   "personViewStartDayTip" : "Start day",
@@ -107,6 +108,7 @@
   "functionViewLearnThroughPhotoNoFound" : "No photos found",
   "functionSocialExamsViewSub": "Time:{time}",
   "functionTeacherSearchHint" : "Teacher name",
+  "functionTeacherNoData" : "No data",
 
   "functionViewDrinkBtnStatus0Tip" : "Drink",
   "functionViewDrinkBtnStatus1Tip" : "Billing",

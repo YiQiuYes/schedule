@@ -117,7 +117,7 @@ class FunctionEmptyClassroomView extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  ScheduleUtils.formatAddress(model.emptyClassroomList[index]),
+                  ScheduleUtils.formatAddress(model.emptyClassroomList[index], breakWord: true),
                   maxLines: 2,
                   style: TextStyle(
                     fontSize: ScreenAdaptor().getLengthByOrientation(

@@ -1,8 +1,13 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:schedule/common/components/scoreCard/ScoreCard.dart';
+import 'package:schedule/common/utils/LoggerUtils.dart';
+import 'package:schedule/common/utils/ScheduleUtils.dart';
 import 'package:schedule/pages/function/functionChild/functionTeacher/FunctionTeacherViewModel.dart';
 
 import '../../../../common/utils/ScreenAdaptor.dart';
@@ -14,10 +19,8 @@ class FunctionTeacherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      lazy: false,
       create: (_context) {
         final model = FunctionTeacherViewModel();
-        model.getTeacherCourse('肖');
         return model;
       },
       child: Scaffold(
@@ -37,13 +40,113 @@ class FunctionTeacherView extends StatelessWidget {
               },
               body: CustomScrollView(
                 physics: const NeverScrollableScrollPhysics(),
-                slivers: <Widget>[],
+                slivers: <Widget>[
+                  // 获取SliverList
+                  ..._getSliverList(context),
+                  // 安全间距
+                  SliverPadding(
+                    padding: EdgeInsets.only(
+                      bottom: ScreenAdaptor().getLengthByOrientation(
+                        vertical: 100.h,
+                        horizon: 130.h,
+                      ),
+                    ),
+                    sliver: const SliverToBoxAdapter(),
+                  ),
+                ],
               ),
             );
           }),
         ),
       ),
     );
+  }
+
+  /// 获取SliverList
+  List<Widget> _getSliverList(BuildContext context) {
+    List<Widget> widgets = [];
+    // 获取provider
+    final model = Provider.of<FunctionTeacherViewModel>(context);
+
+    if (model.teacherCourseList.isEmpty) {
+      widgets.add(SliverPadding(
+        padding: EdgeInsets.only(
+          top: ScreenAdaptor().getLengthByOrientation(
+            vertical: 300.h,
+            horizon: 60.h,
+          ),
+        ),
+        sliver: SliverToBoxAdapter(
+          child: Center(
+            child: Text(
+              S.of(context).functionTeacherNoData,
+              style: TextStyle(
+                fontSize: ScreenAdaptor().getLengthByOrientation(
+                  vertical: 40.sp,
+                  horizon: 33.sp,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      return widgets;
+    }
+
+    // 遍历教师课表数据
+    for (var item in model.teacherCourseList) {
+      widgets.add(
+        SliverPadding(
+          padding: EdgeInsets.only(
+            top: ScreenAdaptor().getLengthByOrientation(
+              vertical: 40.h,
+              horizon: 30.h,
+            ),
+            bottom: ScreenAdaptor().getLengthByOrientation(
+              vertical: 20.h,
+              horizon: 15.h,
+            ),
+            left: ScreenAdaptor().getLengthByOrientation(
+              vertical: 30.w,
+              horizon: 12.w,
+            ),
+          ),
+          sliver: SliverToBoxAdapter(
+            child: Text(
+              item["teacherName"],
+              style: TextStyle(
+                fontSize: ScreenAdaptor().getLengthByOrientation(
+                  vertical: 40.sp,
+                  horizon: 33.sp,
+                ),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      widgets.add(
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return ScoreCard(
+                subjectName: item["classList"][index]["className"],
+                subTitle: model.getCourseTime(
+                    item["classList"][index]["classTime"],
+                    item["classList"][index]["week"],
+                    item["classList"][index]["lesson"]),
+                score: ScheduleUtils.formatAddress(
+                    item["classList"][index]["classAddress"]),
+              );
+            },
+            childCount: item["classList"].length,
+          ),
+        ),
+      );
+    }
+
+    return widgets;
   }
 
   /// 获取SliverAppBar
@@ -89,6 +192,7 @@ class FunctionTeacherView extends StatelessWidget {
     return SliverAppBar(
       pinned: true,
       floating: true,
+      automaticallyImplyLeading: false,
       toolbarHeight: ScreenAdaptor().getLengthByOrientation(
         vertical: 110.h,
         horizon: 115.h,
@@ -108,9 +212,10 @@ class FunctionTeacherView extends StatelessWidget {
                   MediaQuery.sizeOf(context).width -
                       model.scrollController.offset.roundToDouble() -
                       30.w,
-                  MediaQuery.sizeOf(context).width - 340.w,
+                  MediaQuery.sizeOf(context).width - 350.w,
                 ),
                 child: SearchBar(
+                  controller: model.teacherNameController,
                   leading: Padding(
                     padding: EdgeInsets.only(
                       left: ScreenAdaptor().getLengthByOrientation(
@@ -125,6 +230,12 @@ class FunctionTeacherView extends StatelessWidget {
                     child: const Icon(Icons.search),
                   ),
                   hintText: S.of(context).functionTeacherSearchHint,
+                  onSubmitted: (value) {
+                    if (value.isEmpty) {
+                      return;
+                    }
+                    model.getTeacherCourse(value);
+                  },
                 ),
               );
             },

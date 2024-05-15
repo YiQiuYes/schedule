@@ -5,6 +5,7 @@ import 'package:schedule/main.dart';
 import 'package:schedule/pages/appMain/AppMainView.dart';
 import 'package:schedule/pages/function/functionChild/function798/function798View.dart';
 import 'package:schedule/pages/function/functionChild/functionEmptyClassroom/FunctionEmptyClassroomView.dart';
+import 'package:schedule/pages/function/functionChild/functionExam/functionExamView.dart';
 import 'package:schedule/pages/function/functionChild/functionLearnThrough/LearnThroughView.dart';
 import 'package:schedule/pages/function/functionChild/functionSocialExams/FunctionSocialExamsView.dart';
 import 'package:schedule/pages/function/functionChild/functionTeacher/FunctionTeacherView.dart';
@@ -30,12 +31,13 @@ class GoRouteConfig {
   static const String functionSocialExams = '/functionSocialExams';
   static const String functionEmptyClassroom = '/functionEmptyClassroom';
   static const String functionTeacher = '/functionTeacher';
+  static const String functionExam = '/functionExam';
   static const String camera = '/camera';
 
   static late BuildContext _context;
 
   static final _router = GoRouter(
-    initialLocation: appMain,
+    initialLocation: splash,
     // initialExtra: {"type": CameraType.desktop, "appBarTitle": "拍照"},
     redirect: (context, state) {
       if (state.fullPath == splash) {
@@ -146,14 +148,24 @@ class GoRouteConfig {
         },
       ),
       GoRoute(
-          path: camera,
-          builder: (context, state) {
-            _setContext = context;
-            return CameraView(
-              type: (state.extra as Map)["type"],
-              appBarTitle: (state.extra as Map)["appBarTitle"],
-            );
-          }),
+        name: 'functionExam',
+        path: functionExam,
+        builder: (context, state) {
+          _setContext = context;
+          return const FunctionExamView();
+        },
+      ),
+      GoRoute(
+        name: 'camera',
+        path: camera,
+        builder: (context, state) {
+          _setContext = context;
+          return CameraView(
+            type: (state.extra as Map)["type"],
+            appBarTitle: (state.extra as Map)["appBarTitle"],
+          );
+        },
+      ),
     ],
   );
 

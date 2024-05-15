@@ -765,18 +765,96 @@ class QueryApiImpl extends QueryApi {
           }
 
           Element teacher = tds.removeAt(0);
+          Map teacherMap = {
+            "teacherName": teacher.text.replaceAll(RegExp(r'[\r\n\t]'), ""),
+            "classList": [],
+          };
           // 遍历td标签
           for (int i = 0; i < tds.length; i++) {
             // 检查是否包含div标签
-            Element? div = tds[i].querySelector("div");
-            if (div == null) {
+            List<Element> divs = tds[i].querySelectorAll("div");
+            if (divs.isEmpty) {
               continue;
             }
 
-            // 课程名称
-            String? className = div.firstChild?.text;
-            logger.i(className);
+            for (Element div in divs) {
+              // 课程名称
+              String? className = div.firstChild?.text;
+              // 课程地点 在最后一个<br>标签之后
+              String classAddress = div.innerHtml.split("<br>").last;
+              classAddress = classAddress.replaceAll(RegExp(r'[\r\n\t]'), "");
+              // 课程时间 在()之间
+              String classTime = div.innerHtml.split("(").last.split(")")[0];
+              // 星期几
+              int week = i ~/ 5 + 1;
+              // 第几节课
+              int lesson = i % 5 + 1;
+              teacherMap["classList"].add({
+                "className": className ?? "",
+                "classTime": classTime,
+                "week": week,
+                "lesson": lesson,
+                "classAddress": classAddress,
+              });
+            }
           }
+
+          result.add(teacherMap);
+        }
+      }
+
+      // logger.i(result);
+      return result;
+    });
+  }
+
+  /// 获取考试计划
+  /// - [semester] : 学期
+  /// - [cachePolicy] : 缓存策略
+  @override
+  Future<List<Map<String, dynamic>>> queryPersonExamPlan(
+      {required String semester, CachePolicy? cachePolicy}) async {
+    Options options = _request.cacheOptions
+        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .toOptions();
+
+    Map<String, dynamic> params = {
+      "xqlbmc": "",
+      "xnxqid": semester,
+      "xqlb": "",
+    };
+
+    // 处理返回数据
+    return await _request
+        .post("/jsxsd/xsks/xsksap_list", params: params,options: options)
+        .then((value) {
+      Document doc = parse(value.data);
+      // logger.i(doc.outerHtml);
+      Element? table = doc.getElementById("dataList");
+      List<Map<String, dynamic>> result = [];
+      if (table != null) {
+        List<Element> trs = table.getElementsByTagName("tr");
+        trs.removeAt(0);
+
+        for (Element tr in trs) {
+          if (tr.outerHtml.contains("未查询到数据")) {
+            continue;
+          }
+          // logger.i(tr.outerHtml);
+          List<Element> tds = tr.getElementsByTagName("td");
+
+          // 考试名称
+          String examName = tds[2].text;
+          // 考试时间
+          String examTime = tds[6].text;
+          // 考试地点
+          String examAddress = tds[7].text;
+
+          result.add({
+            "examName": examName,
+            "examTime": examTime,
+            "examAddress": examAddress,
+          });
         }
       }
 

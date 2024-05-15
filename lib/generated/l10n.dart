@@ -360,6 +360,16 @@ class S {
     );
   }
 
+  /// `考试计划`
+  String get functionExamSchedule {
+    return Intl.message(
+      '考试计划',
+      name: 'functionExamSchedule',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get personViewSemesterTip {
     return Intl.message(
@@ -1015,6 +1025,16 @@ class S {
     return Intl.message(
       'Teacher name',
       name: 'functionTeacherSearchHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No data`
+  String get functionTeacherNoData {
+    return Intl.message(
+      'No data',
+      name: 'functionTeacherNoData',
       desc: '',
       args: [],
     );

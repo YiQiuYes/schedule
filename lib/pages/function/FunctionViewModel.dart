@@ -27,6 +27,16 @@ class FunctionViewModel with ChangeNotifier {
         'title': S.of(context).functionEmptyClassroom,
         'route': GoRouteConfig.functionEmptyClassroom,
       },
+      {
+        'icon': Icons.people_rounded,
+        'title': S.of(context).functionTeacherTitle,
+        'route': GoRouteConfig.functionTeacher,
+      },
+      {
+        'icon': Icons.schedule_rounded,
+        'title': S.of(context).functionExamSchedule,
+        'route': GoRouteConfig.functionExam,
+      }
     ];
 
     _functionLifeAssistantCardList = [

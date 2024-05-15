@@ -33,6 +33,7 @@
   "functionViewSocialExams" : "社会考试",
   "functionEmptyClassroom" : "空教室",
   "functionTeacherTitle" : "教师课表",
+  "functionExamSchedule" : "考试计划",
 
   "personViewSemesterTip" : "学期",
   "personViewStartDayTip" : "开始日期",
@@ -107,6 +108,7 @@
   "functionViewLearnThroughPhotoNoFound" : "未找到照片",
   "functionSocialExamsViewSub": "考试时间：{time}",
   "functionTeacherSearchHint" : "教师姓名",
+  "functionTeacherNoData" : "暂无数据",
 
   "functionViewDrinkBtnStatus0Tip" : "喝水",
   "functionViewDrinkBtnStatus1Tip" : "结算",

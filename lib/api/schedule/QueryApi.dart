@@ -94,4 +94,10 @@ abstract class QueryApi {
     required String semester,
     CachePolicy? cachePolicy,
   });
+
+  /// 获取考试计划
+  /// - [semester] : 学期
+  /// - [cachePolicy] : 缓存策略
+  Future<List<Map<String, dynamic>>> queryPersonExamPlan(
+      {required String semester, CachePolicy? cachePolicy});
 }

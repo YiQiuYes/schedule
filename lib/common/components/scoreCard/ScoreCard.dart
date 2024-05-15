@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -50,7 +51,7 @@ class ScoreCard extends StatelessWidget {
                 SizedBox(
                   width: ScreenAdaptor().getLengthByOrientation(
                     vertical: 400.w,
-                    horizon: 520.w,
+                    horizon: 400.w,
                   ),
                   child: Text(
                     subjectName ?? '',
@@ -72,13 +73,19 @@ class ScoreCard extends StatelessWidget {
                 // 绩点
                 Visibility(
                   visible: subTitle != null,
-                  child: Text(
-                    subTitle!,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      fontSize: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 35.sp,
-                        horizon: 24.sp,
+                  child: SizedBox(
+                    width: ScreenAdaptor().getLengthByOrientation(
+                      vertical: 400.w,
+                      horizon: 400.w,
+                    ),
+                    child: Text(
+                      subTitle!,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.tertiary,
+                        fontSize: ScreenAdaptor().getLengthByOrientation(
+                          vertical: 30.sp,
+                          horizon: 24.sp,
+                        ),
                       ),
                     ),
                   ),
@@ -89,13 +96,20 @@ class ScoreCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // 课程成绩
-                Text(
-                  score ?? "",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    fontSize: ScreenAdaptor().getLengthByOrientation(
-                      vertical: 40.sp,
-                      horizon: 28.sp,
+                SizedBox(
+                  width: ScreenAdaptor().getLengthByOrientation(
+                    vertical: 140.w,
+                    horizon: 170.w,
+                  ),
+                  child: Text(
+                    score ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      fontSize: ScreenAdaptor().getLengthByOrientation(
+                        vertical: 35.sp,
+                        horizon: 28.sp,
+                      ),
                     ),
                   ),
                 ),

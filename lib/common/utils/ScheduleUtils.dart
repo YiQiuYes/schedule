@@ -13,7 +13,7 @@ class ScheduleUtils {
   }
 
   /// 格式化课程地址
-  static String formatAddress(String address) {
+  static String formatAddress(String address, {bool breakWord = false}) {
     if (address.isNotEmpty &&
         address.contains(RegExp(r"\d\d\d")) &&
         !address.contains("楼")) {
@@ -21,13 +21,19 @@ class ScheduleUtils {
       address =
       "${address.substring(0, address.length - 3)}楼${address.substring(address.length - 3)}";
     }
-    // 打断字符
-    String str = '';
-    for (var element in address.runes) {
-      str += String.fromCharCode(element);
-      str += '\u200B';
+
+    if (breakWord) {
+      // 打断字符
+      String str = '';
+      for (var element in address.runes) {
+        str += String.fromCharCode(element);
+        str += '\u200B';
+      }
+
+      address = str;
     }
-    return str;
+
+    return address;
   }
 
   /// 获取课程地址

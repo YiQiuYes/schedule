@@ -41,9 +41,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("正在加载..."),
         "functionEmptyClassroom": MessageLookupByLibrary.simpleMessage("空教室"),
         "functionEmptyClassroomViewWhatLesson": m0,
+        "functionExamSchedule": MessageLookupByLibrary.simpleMessage("考试计划"),
         "functionScoreViewEmpty": MessageLookupByLibrary.simpleMessage("暂无成绩"),
         "functionScoreViewGPA": m1,
         "functionSocialExamsViewSub": m2,
+        "functionTeacherNoData": MessageLookupByLibrary.simpleMessage("暂无数据"),
         "functionTeacherSearchHint":
             MessageLookupByLibrary.simpleMessage("教师姓名"),
         "functionTeacherTitle": MessageLookupByLibrary.simpleMessage("教师课表"),
