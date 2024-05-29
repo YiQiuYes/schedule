@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule/common/components/scoreCard/ScoreCard.dart';
 import 'package:schedule/common/utils/LoggerUtils.dart';
@@ -26,38 +27,65 @@ class FunctionTeacherView extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: Consumer<FunctionTeacherViewModel>(
-              builder: (context, model, child) {
-            return NestedScrollView(
-              controller: model.scrollController,
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [
-                  // 获取SliverAppBar
-                  _getSliverAppBar(context),
-                  // 获取搜索条
-                  _getSliverSearchBar(context),
-                ];
-              },
-              body: CustomScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                slivers: <Widget>[
-                  // 获取SliverList
-                  ..._getSliverList(context),
-                  // 安全间距
-                  SliverPadding(
-                    padding: EdgeInsets.only(
-                      bottom: ScreenAdaptor().getLengthByOrientation(
-                        vertical: 100.h,
-                        horizon: 130.h,
+          child: Stack(
+            children: [
+              // 页面主体
+              Consumer<FunctionTeacherViewModel>(
+                  builder: (context, model, child) {
+                return NestedScrollView(
+                  controller: model.scrollController,
+                  headerSliverBuilder: (context, innerBoxIsScrolled) {
+                    return [
+                      // 获取SliverAppBar
+                      _getSliverAppBar(context),
+                      // 获取搜索条
+                      _getSliverSearchBar(context),
+                    ];
+                  },
+                  body: CustomScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    slivers: <Widget>[
+                      // 获取SliverList
+                      ..._getSliverList(context),
+                      // 安全间距
+                      SliverPadding(
+                        padding: EdgeInsets.only(
+                          bottom: ScreenAdaptor().getLengthByOrientation(
+                            vertical: 100.h,
+                            horizon: 130.h,
+                          ),
+                        ),
+                        sliver: const SliverToBoxAdapter(),
                       ),
-                    ),
-                    sliver: const SliverToBoxAdapter(),
+                    ],
                   ),
-                ],
-              ),
-            );
-          }),
+                );
+              }),
+              // 返回按钮
+              _getReturnButtonWidget(context),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  /// 返回按钮
+  Widget _getReturnButtonWidget(BuildContext context) {
+    return Positioned(
+      left: 0.w,
+      top: ScreenAdaptor().getLengthByOrientation(
+        vertical: 32.w,
+        horizon: 18.w,
+      ),
+      child: TextButton(
+        child: Icon(
+          Icons.arrow_back_rounded,
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+        onPressed: () {
+          GoRouter.of(context).pop();
+        },
       ),
     );
   }
@@ -152,37 +180,36 @@ class FunctionTeacherView extends StatelessWidget {
   /// 获取SliverAppBar
   Widget _getSliverAppBar(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       expandedHeight: ScreenAdaptor().getLengthByOrientation(
         vertical: 160.h,
         horizon: 170.h,
       ),
-      toolbarHeight: ScreenAdaptor().getLengthByOrientation(
-        vertical: 95.h,
-        horizon: 100.h,
-      ),
-      pinned: true,
-      surfaceTintColor: Colors.transparent,
       backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
-        title: Padding(
+        background: Padding(
           padding: EdgeInsets.only(
+            left: ScreenAdaptor().getLengthByOrientation(
+              vertical: 35.w,
+              horizon: 18.w,
+            ),
             top: ScreenAdaptor().getLengthByOrientation(
-              vertical: 16.h,
-              horizon: 32.h,
+              vertical: 130.w,
+              horizon: 60.w,
             ),
           ),
           child: Text(
             S.of(context).functionTeacherTitle,
             style: TextStyle(
-              color: Theme.of(context).textTheme.titleLarge?.color,
               fontSize: ScreenAdaptor().getLengthByOrientation(
                 vertical: 38.sp,
                 horizon: 20.sp,
               ),
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        centerTitle: false,
       ),
     );
   }
@@ -195,7 +222,7 @@ class FunctionTeacherView extends StatelessWidget {
       automaticallyImplyLeading: false,
       toolbarHeight: ScreenAdaptor().getLengthByOrientation(
         vertical: 110.h,
-        horizon: 115.h,
+        horizon: 130.h,
       ),
       surfaceTintColor: Colors.transparent,
       backgroundColor: Colors.transparent,
@@ -210,9 +237,12 @@ class FunctionTeacherView extends StatelessWidget {
                 duration: const Duration(milliseconds: 150),
                 width: max(
                   MediaQuery.sizeOf(context).width -
-                      model.scrollController.offset.roundToDouble() -
-                      30.w,
-                  MediaQuery.sizeOf(context).width - 350.w,
+                      model.scrollController.offset.roundToDouble(),
+                  MediaQuery.sizeOf(context).width -
+                      ScreenAdaptor().byOrientationReturn(
+                        vertical: 180.w,
+                        horizon: 90.w,
+                      )!,
                 ),
                 child: SearchBar(
                   controller: model.teacherNameController,

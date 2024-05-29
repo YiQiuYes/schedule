@@ -197,13 +197,6 @@ class FunctionAllCourseView extends StatelessWidget {
       containerColor:
           Theme.of(context).colorScheme.primaryContainer.withOpacity(0.01),
       backgroundColor: Colors.transparent,
-      textStyle: TextStyle(
-        color: Theme.of(context).colorScheme.onBackground,
-        fontSize: screen.getLengthByOrientation(
-          vertical: 22.sp,
-          horizon: 15.sp,
-        ),
-      ),
       height: screen.getLengthByOrientation(
         vertical: 500.w,
         horizon: 150.w,
@@ -307,13 +300,6 @@ class FunctionAllCourseView extends StatelessWidget {
       containerColor:
           Theme.of(context).colorScheme.primaryContainer.withOpacity(0.01),
       backgroundColor: Colors.transparent,
-      textStyle: TextStyle(
-        color: Theme.of(context).colorScheme.onBackground,
-        fontSize: screen.getLengthByOrientation(
-          vertical: 22.sp,
-          horizon: 15.sp,
-        ),
-      ),
       height: screen.getLengthByOrientation(
         vertical: 500.w,
         horizon: 150.w,

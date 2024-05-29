@@ -311,7 +311,7 @@ class Curriculum extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: curriculumModel.getTodayCourseColor(
-                      showWeek, index, context, courseData),
+                      showWeek, index, context, courseData, experimentData),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

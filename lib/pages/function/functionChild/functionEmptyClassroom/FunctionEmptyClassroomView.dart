@@ -31,6 +31,7 @@ class FunctionEmptyClassroomView extends StatelessWidget {
               ];
             },
             body: CustomScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               slivers: <Widget>[
                 // 第几节课选择器
                 _getLessonSelector(context),
@@ -158,10 +159,6 @@ class FunctionEmptyClassroomView extends StatelessWidget {
         top: ScreenAdaptor().getLengthByOrientation(
           vertical: 20.w,
           horizon: 4.w,
-        ),
-        left: ScreenAdaptor().getLengthByOrientation(
-          vertical: 25.w,
-          horizon: 15.w,
         ),
       ),
       sliver: SliverToBoxAdapter(

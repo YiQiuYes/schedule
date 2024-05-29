@@ -41,7 +41,7 @@ class CurriculumModel with ChangeNotifier {
 
   /// 获取今日课程背景颜色
   Color? getTodayCourseColor(
-      int showWeek, int index, BuildContext context, List course) {
+      int showWeek, int index, BuildContext context, List course, List experiment) {
     final defaultColor =
         Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.8);
     final heightColor = Theme.of(context).colorScheme.primary.withOpacity(0.3);
@@ -70,18 +70,20 @@ class CurriculumModel with ChangeNotifier {
           "${now.hour < 10 ? "0${now.hour}" : now.hour}:${now.minute}";
 
       for (int i = 0; i < time.length; i++) {
+        // 找到当前课程的时间
         if (currentHourAndMinute.compareTo(time[i]) < 0) {
           if (currentSectionTime == i) {
             return heightColor;
           } else if (currentSectionTime > i) {
             int start = day - 1 + (currentSectionTime - 1) * 7;
-            for (int j = start; j < index; j += 7) {
-              if (course[j].isNotEmpty) {
+            for (int j = start; j <= index; j += 7) {
+              if (course[j].isNotEmpty || experiment[j].isNotEmpty) {
                 return defaultColor;
               }
             }
             return heightColor;
           }
+          break;
         }
       }
       return defaultColor;
