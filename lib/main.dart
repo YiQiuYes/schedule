@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:schedule/pages/route_config.dart';
 
 import 'generated/l10n.dart';
 
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: S.delegate.supportedLocales,
-              home: const Scaffold(),
+              getPages: RouteConfig.getPages,
+              initialRoute: RouteConfig.appMain,
             );
           },
         );
