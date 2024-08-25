@@ -3,11 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/route_config.dart';
 
+import 'common/manager/data_storage_manager.dart';
+import 'common/manager/request_manager.dart';
 import 'generated/l10n.dart';
 
-void main() {
+Future<void> main() async {
+  // 首先注册组件
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 初始化数据存储读取器
+  await DataStorageManager().init();
+
+  // 初始化网络请求管理
+  await RequestManager().persistCookieJarInit();
+
+  // 初始化全局逻辑
+  final logic = Get.put(GlobalLogic());
+  logic.init();
+
   runApp(const MyApp());
 }
 
@@ -40,6 +56,7 @@ class MyApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: S.delegate.supportedLocales,
+              locale: const Locale('zh', 'CN'),
               getPages: RouteConfig.getPages,
               initialRoute: RouteConfig.appMain,
             );
