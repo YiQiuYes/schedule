@@ -22,4 +22,10 @@ class ScreenUtils {
   static T? byOrientationReturn<T>({T? vertical, T? horizon}) {
     return _screenUtil.orientation.index == 0 ? vertical : horizon;
   }
+
+  /// 当前设备宽度 dp
+  static double get screenWidth => _screenUtil.screenWidth;
+
+  ///当前设备高度 dp
+  static double get screenHeight => _screenUtil.screenHeight;
 }
