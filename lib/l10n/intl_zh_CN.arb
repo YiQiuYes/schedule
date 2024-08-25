@@ -1,5 +1,28 @@
 {
-  "schedule" : "课表",
-  "function" : "功能",
-  "person" : "我的"
+  "app_main_schedule" : "课表",
+  "app_main_function" : "功能",
+  "app_main_person" : "我的",
+
+  "login_tile": "登录",
+  "login_userHint": "用户名",
+  "login_user_not_empty": "用户名不能为空",
+  "login_passwordHint": "密码",
+  "login_password_not_empty": "密码不能为空",
+  "login_loginButton": "登录",
+  "login_flushbarTitleError": "错误",
+  "login_fail": "登录失败",
+  "login_timeout": "登录超时",
+
+  "schedule_week_tile" : "周一&周二&周三&周四&周五&周六&周日",
+  "schedule_course_time_tile" : "一&二&三&四&五",
+  "schedule_current_week" : "第{week}周",
+  "schedule_year_and_month" : "{year}/{month}月",
+  "schedule_course_detail" : "课程详情",
+  "schedule_course_name" : "课程名称：{className}",
+  "schedule_course_teacher" : "课程教师：{teacher}",
+  "schedule_course_room" : "上课地点：{room}",
+  "schedule_course_time" : "上课时间：{time}",
+
+  "pickerConfirm" : "确认",
+  "pickerCancel" : "取消"
 }

@@ -50,31 +50,231 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `课表`
-  String get schedule {
+  /// `schedule`
+  String get app_main_schedule {
     return Intl.message(
-      '课表',
-      name: 'schedule',
+      'schedule',
+      name: 'app_main_schedule',
       desc: '',
       args: [],
     );
   }
 
-  /// `功能`
-  String get function {
+  /// `function`
+  String get app_main_function {
     return Intl.message(
-      '功能',
-      name: 'function',
+      'function',
+      name: 'app_main_function',
       desc: '',
       args: [],
     );
   }
 
-  /// `我的`
-  String get person {
+  /// `person`
+  String get app_main_person {
     return Intl.message(
-      '我的',
-      name: 'person',
+      'person',
+      name: 'app_main_person',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login_tile {
+    return Intl.message(
+      'Login',
+      name: 'login_tile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get login_userHint {
+    return Intl.message(
+      'Name',
+      name: 'login_userHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name cannot be empty`
+  String get login_user_not_empty {
+    return Intl.message(
+      'Name cannot be empty',
+      name: 'login_user_not_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get login_passwordHint {
+    return Intl.message(
+      'Password',
+      name: 'login_passwordHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password cannot be empty`
+  String get login_password_not_empty {
+    return Intl.message(
+      'Password cannot be empty',
+      name: 'login_password_not_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LOGIN`
+  String get login_loginButton {
+    return Intl.message(
+      'LOGIN',
+      name: 'login_loginButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get login_flushbarTitleError {
+    return Intl.message(
+      'Error',
+      name: 'login_flushbarTitleError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login failed`
+  String get login_fail {
+    return Intl.message(
+      'Login failed',
+      name: 'login_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login timeout`
+  String get login_timeout {
+    return Intl.message(
+      'Login timeout',
+      name: 'login_timeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mon&Tues&Wed&Thur&Fri&Sat&Sun`
+  String get schedule_week_tile {
+    return Intl.message(
+      'Mon&Tues&Wed&Thur&Fri&Sat&Sun',
+      name: 'schedule_week_tile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1st&2nd&3rd&4th&5th`
+  String get schedule_course_time_tile {
+    return Intl.message(
+      '1st&2nd&3rd&4th&5th',
+      name: 'schedule_course_time_tile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Week {week}`
+  String schedule_current_week(Object week) {
+    return Intl.message(
+      'Week $week',
+      name: 'schedule_current_week',
+      desc: '',
+      args: [week],
+    );
+  }
+
+  /// `{year}/{month} Month`
+  String schedule_year_and_month(Object year, Object month) {
+    return Intl.message(
+      '$year/$month Month',
+      name: 'schedule_year_and_month',
+      desc: '',
+      args: [year, month],
+    );
+  }
+
+  /// `Course details`
+  String get schedule_course_detail {
+    return Intl.message(
+      'Course details',
+      name: 'schedule_course_detail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course name: {className}`
+  String schedule_course_name(Object className) {
+    return Intl.message(
+      'Course name: $className',
+      name: 'schedule_course_name',
+      desc: '',
+      args: [className],
+    );
+  }
+
+  /// `Teacher: {teacher}`
+  String schedule_course_teacher(Object teacher) {
+    return Intl.message(
+      'Teacher: $teacher',
+      name: 'schedule_course_teacher',
+      desc: '',
+      args: [teacher],
+    );
+  }
+
+  /// `Classroom: {room}`
+  String schedule_course_room(Object room) {
+    return Intl.message(
+      'Classroom: $room',
+      name: 'schedule_course_room',
+      desc: '',
+      args: [room],
+    );
+  }
+
+  /// `Time: {time}`
+  String schedule_course_time(Object time) {
+    return Intl.message(
+      'Time: $time',
+      name: 'schedule_course_time',
+      desc: '',
+      args: [time],
+    );
+  }
+
+  /// `Confirm`
+  String get pickerConfirm {
+    return Intl.message(
+      'Confirm',
+      name: 'pickerConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get pickerCancel {
+    return Intl.message(
+      'Cancel',
+      name: 'pickerCancel',
       desc: '',
       args: [],
     );
