@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
-import 'package:schedule/common/utils/screen_utils.dart';
+import 'package:schedule/global_logic.dart';
 
 import '../function/view.dart';
 import '../login/view.dart';
@@ -14,15 +13,17 @@ class AppMainRouteConfig {
   static const String login = "/login";
 
   static Route? onGenerateRoute(RouteSettings settings) {
+    final globalState = Get.find<GlobalLogic>().state;
+
     Map<String, GetPageRoute> getPages = {
       main: GetPageRoute(
         page: () {
-          final state = Get.find<AppMainLogic>().state;
-          return Obx(() {
+          return GetBuilder<AppMainLogic>(builder: (logic) {
             return PageView(
-              controller: state.mainTabController,
-              scrollDirection:
-                  state.orientation.value ? Axis.horizontal : Axis.vertical,
+              controller: logic.state.mainTabController,
+              scrollDirection: logic.state.orientation.value
+                  ? Axis.horizontal
+                  : Axis.vertical,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 const SchedulePage(),
@@ -32,11 +33,29 @@ class AppMainRouteConfig {
             );
           });
         },
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
       ),
       login: GetPageRoute(
         page: () => const LoginPage(),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
       ),
     };
+
+    if (!globalState.settings["isLogin"]) {
+      return GetPageRoute(
+        page: () => const LoginPage(type: LoginPageType.schedule),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
+      );
+    }
 
     return getPages[settings.name];
   }

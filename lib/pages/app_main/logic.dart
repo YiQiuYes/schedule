@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import 'package:schedule/common/api/schedule/schedule_user_api.dart';
+import 'package:schedule/common/utils/logger_utils.dart';
 import '../../common/utils/screen_utils.dart';
+import '../../generated/l10n.dart';
 import '../../global_logic.dart';
 import 'state.dart';
 
@@ -15,6 +18,15 @@ enum AppMainLogicAnimationMode {
 class AppMainLogic extends GetxController {
   final AppMainState state = AppMainState();
   final globalState = Get.find<GlobalLogic>().state;
+  final globalLogic = Get.find<GlobalLogic>();
+
+  final userApi = ScheduleUserApi();
+
+  /// 刷新屏幕旋转状态
+  void refreshOrientation() {
+    state.orientation.value = ScreenUtils.getOrientation();
+    update();
+  }
 
   /// 设置导航栏索引
   void setNavigateCurrentIndex(int index) {
@@ -29,49 +41,55 @@ class AppMainLogic extends GetxController {
   /// 初始化主页面控制器
   void initMainTabController(TickerProvider vsync) {
     state.mainTabController = PageController(
-      initialPage: 0,
+      initialPage: 1,
     );
   }
 
-  /// 初始化动画控制器
-  void initAnimationController(TickerProvider vsync) {
-    state.controller = AnimationController(
-        duration: const Duration(milliseconds: 300), vsync: vsync);
-    double begin = globalState.settings["isLogin"]
-        ? ScreenUtils.screenWidth * 2 / 11
-        : 0.0;
-    double end = globalState.settings["isLogin"]
-        ? 0.0
-        : ScreenUtils.screenWidth * 2 / 11;
-    state.animation = Tween(begin: begin, end: end).animate(state.controller);
-  }
-
-  void animationByOrientation(AppMainLogicAnimationMode mode) {
-    bool orientation = ScreenUtils.getOrientation();
-    state.orientation.value = orientation;
-    if (orientation) {
-      double begin = globalState.settings["isLogin"] ? 80.0 : 0.0;
-      double end = globalState.settings["isLogin"] ? 0.0 : 80.0;
-      state.animation = Tween(begin: begin, end: end).animate(state.controller);
-    } else {
-      double begin = globalState.settings["isLogin"]
-          ? ScreenUtils.screenWidth * 2 / 11
-          : 0.0;
-      double end = globalState.settings["isLogin"]
-          ? 0.0
-          : ScreenUtils.screenWidth * 2 / 11;
-      state.animation = Tween(begin: begin, end: end).animate(state.controller);
+  /// 自动登录教务系统
+  void autoLoginEducationalSystem(BuildContext context) {
+    // 获取用户信息
+    final username = globalState.scheduleUserInfo["username"];
+    final password = globalState.scheduleUserInfo["password"];
+    // 开始登录并超时时间为10s
+    if (username == null ||
+        password == null ||
+        username.isEmpty ||
+        password.isEmpty) {
+      return;
     }
-
-    switch (mode) {
-      case AppMainLogicAnimationMode.forward:
-        state.controller.forward();
-        break;
-      case AppMainLogicAnimationMode.reverse:
-        state.controller.reverse();
-        break;
-      case AppMainLogicAnimationMode.refresh:
-        break;
-    }
+    userApi
+        .loginEducationalSystem(userAccount: username, userPassword: password)
+        .then((loginStatus) {
+      switch (loginStatus) {
+        case ScheduleUserStatus.loginTimeOut:
+          Get.snackbar(
+            S.current.login_statue,
+            S.current.login_timeout,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            margin: EdgeInsets.only(
+              top: 30.w,
+              left: 50.w,
+              right: 50.w,
+            ),
+          );
+          break;
+        case ScheduleUserStatus.success:
+          // 储存登录成功
+          globalLogic.setIsLogin(true);
+          break;
+        case ScheduleUserStatus.fail:
+          Get.snackbar(
+            S.current.login_statue,
+            S.current.login_fail,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            margin: EdgeInsets.only(
+              top: 30.w,
+              left: 50.w,
+              right: 50.w,
+            ),
+          );
+          break;
+      }
+    });
   }
 }

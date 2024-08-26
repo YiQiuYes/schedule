@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
+import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/app_main/app_main_route_config.dart';
 
 import '../../generated/l10n.dart';
-import '../../global_logic.dart';
 import 'logic.dart';
 
 class AppMainPage extends StatefulWidget {
@@ -24,7 +26,8 @@ class _AppMainPageState extends State<AppMainPage>
     super.initState();
     // 初始化主页面控制器
     logic.initMainTabController(this);
-    logic.initAnimationController(this);
+    // 自动登录教务系统
+    logic.autoLoginEducationalSystem(context);
   }
 
   @override
@@ -35,7 +38,7 @@ class _AppMainPageState extends State<AppMainPage>
 
   @override
   Widget build(BuildContext context) {
-    logic.animationByOrientation(AppMainLogicAnimationMode.refresh);
+    logic.refreshOrientation();
 
     return Scaffold(
       body: ScreenUtils.byOrientationReturn(
@@ -44,20 +47,20 @@ class _AppMainPageState extends State<AppMainPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            AnimatedBuilder(
-              animation: state.animation,
-              builder: (context, child) {
-                return SizedBox(
-                  width: state.animation.value,
+            GetBuilder<GlobalLogic>(builder: (logic) {
+              return Visibility(
+                visible: logic.state.settings["isLogin"],
+                child: SizedBox(
+                  width: ScreenUtils.screenWidth * 2 / 11,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       _navigationRailWidget(),
                     ],
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            }),
             Expanded(
               child: navigatorWidget(),
             ),
@@ -70,28 +73,23 @@ class _AppMainPageState extends State<AppMainPage>
 
   /// 嵌套导航
   Widget navigatorWidget() {
-    return GetBuilder<GlobalLogic>(builder: (logic) {
-      return Navigator(
-        key: Get.nestedKey(1),
-        initialRoute: logic.state.settings["isLogin"]
-            ? AppMainRouteConfig.main
-            : AppMainRouteConfig.login,
-        onGenerateRoute: (settings) {
-          return AppMainRouteConfig.onGenerateRoute(settings);
-        },
-      );
-    });
+    return Navigator(
+      key: Get.nestedKey(1),
+      initialRoute: AppMainRouteConfig.main,
+      onGenerateRoute: (settings) {
+        return AppMainRouteConfig.onGenerateRoute(settings);
+      },
+    );
   }
 
   /// 底部导航栏
   Widget? _navigationWidget() {
     return ScreenUtils.byOrientationReturn(
-      vertical: AnimatedBuilder(
-        animation: state.animation,
-        builder: (context, child) {
-          return Obx(() {
+      vertical: GetBuilder<GlobalLogic>(builder: (globalLogic) {
+        return Visibility(
+          visible: globalLogic.state.settings["isLogin"],
+          child: Obx(() {
             return NavigationBar(
-              height: state.animation.value,
               destinations: [
                 NavigationDestination(
                   icon: const Icon(Icons.article_outlined),
@@ -114,9 +112,9 @@ class _AppMainPageState extends State<AppMainPage>
                 logic.setNavigateCurrentIndex(index);
               },
             );
-          });
-        },
-      ),
+          }),
+        );
+      }),
       horizon: null,
     );
   }
