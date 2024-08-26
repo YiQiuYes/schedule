@@ -190,10 +190,11 @@ packages:
   flutter_login:
     dependency: "direct main"
     description:
-      name: flutter_login
-      sha256: "1f7c46d0d76081cf4c5180e3a265b1f5b1d7e48c81859f58f03a8dcd27338b85"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "4d6c61b6545028064c9da84abbd35459889795bc"
+      url: "https://github.com/YiQiuYes/flutter_login.git"
+    source: git
     version: "5.0.0"
   flutter_picker_plus:
     dependency: "direct main"
@@ -489,10 +490,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: a7e8467e9181cef109f601e3f65765685786c1a738a83d7fbbde377589c0d974
+      sha256: "480ba4345773f56acda9abf5f50bd966f581dac5d514e5fc4a18c62976bbba7e"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   shared_preferences_foundation:
     dependency: transitive
     description:

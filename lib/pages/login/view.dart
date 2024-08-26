@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
 
 import '../../generated/l10n.dart';
 import '../app_main/logic.dart';
 import 'logic.dart';
 
+enum LoginPageType {
+  schedule,
+}
+
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, this.type = LoginPageType.schedule});
+
+  final LoginPageType type;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -29,11 +34,13 @@ class _LoginPageState extends State<LoginPage> {
         titleStyle: TextStyle(
           color: Theme.of(context).colorScheme.onPrimary,
         ),
-        cardInitialHeight: ScreenUtils.length(vertical: 20.w, horizon: 45.w),
+        cardInitialHeight:
+        ScreenUtils.length(vertical: 50.w, horizon: 45.w),
       ),
       hideForgotPasswordButton: true,
+      hideCaptchaTextField: true,
       onLogin: (data) {
-        return logic.loginEducationalSystem(data);
+        return logic.onLogin(widget.type, data);
       },
       messages: LoginMessages(
         userHint: S.of(context).login_userHint,
@@ -45,11 +52,7 @@ class _LoginPageState extends State<LoginPage> {
       userType: LoginUserType.name,
       userValidator: logic.userValidator,
       passwordValidator: logic.passwordValidator,
-      onSubmitAnimationCompleted: () {
-        final logic = Get.find<AppMainLogic>();
-        logic.animationByOrientation(AppMainLogicAnimationMode.forward);
-        Get.back(id: 1);
-      },
+      onSubmitAnimationCompleted: logic.onSubmitAnimationCompleted,
     );
   }
 }
