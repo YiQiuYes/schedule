@@ -38,6 +38,7 @@
   "function_score_empty" : "No score information",
   "function_social_exams_time": "Time:{time}",
   "function_all_course_loading" : "Loading...",
+  "function_empty_classroom_what_lesson" : "Lesson {lesson}",
 
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel"

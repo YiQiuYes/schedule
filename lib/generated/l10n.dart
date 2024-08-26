@@ -400,6 +400,16 @@ class S {
     );
   }
 
+  /// `Lesson {lesson}`
+  String function_empty_classroom_what_lesson(Object lesson) {
+    return Intl.message(
+      'Lesson $lesson',
+      name: 'function_empty_classroom_what_lesson',
+      desc: '',
+      args: [lesson],
+    );
+  }
+
   /// `Confirm`
   String get pickerConfirm {
     return Intl.message(

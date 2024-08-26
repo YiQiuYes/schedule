@@ -20,21 +20,23 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(score) => "GPA:${score}";
+  static String m0(lesson) => "Lesson ${lesson}";
 
-  static String m1(time) => "Time:${time}";
+  static String m1(score) => "GPA:${score}";
 
-  static String m2(className) => "Course name: ${className}";
+  static String m2(time) => "Time:${time}";
 
-  static String m3(room) => "Classroom: ${room}";
+  static String m3(className) => "Course name: ${className}";
 
-  static String m4(teacher) => "Teacher: ${teacher}";
+  static String m4(room) => "Classroom: ${room}";
 
-  static String m5(time) => "Time: ${time}";
+  static String m5(teacher) => "Teacher: ${teacher}";
 
-  static String m6(week) => "Week ${week}";
+  static String m6(time) => "Time: ${time}";
 
-  static String m7(year, month) => "${year}/${month} Month";
+  static String m7(week) => "Week ${week}";
+
+  static String m8(year, month) => "${year}/${month} Month";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -50,17 +52,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_drink": MessageLookupByLibrary.simpleMessage("ILife"),
         "function_empty_classroom":
             MessageLookupByLibrary.simpleMessage("Empty classroom"),
+        "function_empty_classroom_what_lesson": m0,
         "function_exam_schedule":
             MessageLookupByLibrary.simpleMessage("Exam schedule"),
         "function_life_assistant_area_name":
             MessageLookupByLibrary.simpleMessage("Life assistant"),
         "function_score_empty":
             MessageLookupByLibrary.simpleMessage("No score information"),
-        "function_score_gpa": m0,
+        "function_score_gpa": m1,
         "function_score_title": MessageLookupByLibrary.simpleMessage("Score"),
         "function_social_exams":
             MessageLookupByLibrary.simpleMessage("Social exams"),
-        "function_social_exams_time": m1,
+        "function_social_exams_time": m2,
         "function_teacher_title":
             MessageLookupByLibrary.simpleMessage("Teacher schedule"),
         "login_fail": MessageLookupByLibrary.simpleMessage("Login failed"),
@@ -80,15 +83,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "schedule_course_detail":
             MessageLookupByLibrary.simpleMessage("Course details"),
-        "schedule_course_name": m2,
-        "schedule_course_room": m3,
-        "schedule_course_teacher": m4,
-        "schedule_course_time": m5,
+        "schedule_course_name": m3,
+        "schedule_course_room": m4,
+        "schedule_course_teacher": m5,
+        "schedule_course_time": m6,
         "schedule_course_time_tile":
             MessageLookupByLibrary.simpleMessage("1st&2nd&3rd&4th&5th"),
-        "schedule_current_week": m6,
+        "schedule_current_week": m7,
         "schedule_week_tile": MessageLookupByLibrary.simpleMessage(
             "Mon&Tues&Wed&Thur&Fri&Sat&Sun"),
-        "schedule_year_and_month": m7
+        "schedule_year_and_month": m8
       };
 }
