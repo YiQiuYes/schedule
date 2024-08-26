@@ -3,6 +3,7 @@
   "app_main_function" : "function",
   "app_main_person" : "person",
 
+  "login_statue": "Login status",
   "login_tile": "Login",
   "login_userHint": "Name",
   "login_user_not_empty": "Name cannot be empty",
@@ -22,6 +23,19 @@
   "schedule_course_teacher" : "Teacher: {teacher}",
   "schedule_course_room" : "Classroom: {room}",
   "schedule_course_time" : "Time: {time}",
+
+  "function_area_name" : "Function area",
+  "function_life_assistant_area_name" : "Life assistant",
+  "function_score_title" : "Score",
+  "function_all_course_title" : "All courses",
+  "function_drink" : "ILife",
+  "function_social_exams" : "Social exams",
+  "function_empty_classroom" : "Empty classroom",
+  "function_teacher_title" : "Teacher schedule",
+  "function_exam_schedule" : "Exam schedule",
+
+  "function_score_gpa" : "GPA:{score}",
+  "function_score_empty" : "No score information",
 
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel"

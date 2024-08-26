@@ -80,6 +80,16 @@ class S {
     );
   }
 
+  /// `Login status`
+  String get login_statue {
+    return Intl.message(
+      'Login status',
+      name: 'login_statue',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get login_tile {
     return Intl.message(
@@ -257,6 +267,116 @@ class S {
       name: 'schedule_course_time',
       desc: '',
       args: [time],
+    );
+  }
+
+  /// `Function area`
+  String get function_area_name {
+    return Intl.message(
+      'Function area',
+      name: 'function_area_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Life assistant`
+  String get function_life_assistant_area_name {
+    return Intl.message(
+      'Life assistant',
+      name: 'function_life_assistant_area_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Score`
+  String get function_score_title {
+    return Intl.message(
+      'Score',
+      name: 'function_score_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All courses`
+  String get function_all_course_title {
+    return Intl.message(
+      'All courses',
+      name: 'function_all_course_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ILife`
+  String get function_drink {
+    return Intl.message(
+      'ILife',
+      name: 'function_drink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Social exams`
+  String get function_social_exams {
+    return Intl.message(
+      'Social exams',
+      name: 'function_social_exams',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empty classroom`
+  String get function_empty_classroom {
+    return Intl.message(
+      'Empty classroom',
+      name: 'function_empty_classroom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Teacher schedule`
+  String get function_teacher_title {
+    return Intl.message(
+      'Teacher schedule',
+      name: 'function_teacher_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exam schedule`
+  String get function_exam_schedule {
+    return Intl.message(
+      'Exam schedule',
+      name: 'function_exam_schedule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GPA:{score}`
+  String function_score_gpa(Object score) {
+    return Intl.message(
+      'GPA:$score',
+      name: 'function_score_gpa',
+      desc: '',
+      args: [score],
+    );
+  }
+
+  /// `No score information`
+  String get function_score_empty {
+    return Intl.message(
+      'No score information',
+      name: 'function_score_empty',
+      desc: '',
+      args: [],
     );
   }
 

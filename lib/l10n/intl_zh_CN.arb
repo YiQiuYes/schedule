@@ -3,6 +3,7 @@
   "app_main_function" : "功能",
   "app_main_person" : "我的",
 
+  "login_statue": "登录状态",
   "login_tile": "登录",
   "login_userHint": "用户名",
   "login_user_not_empty": "用户名不能为空",
@@ -22,6 +23,19 @@
   "schedule_course_teacher" : "课程教师：{teacher}",
   "schedule_course_room" : "上课地点：{room}",
   "schedule_course_time" : "上课时间：{time}",
+
+  "function_area_name" : "功能区域",
+  "function_life_assistant_area_name" : "生活助手",
+  "function_score_title" : "成绩查询",
+  "function_all_course_title" : "全校课表",
+  "function_drink" : "慧生活798",
+  "function_social_exams" : "社会考试",
+  "function_empty_classroom" : "空教室",
+  "function_teacher_title" : "教师课表",
+  "function_exam_schedule" : "考试计划",
+
+  "function_score_gpa" : "绩点：{score}",
+  "function_score_empty" : "暂无成绩",
 
   "pickerConfirm" : "确认",
   "pickerCancel" : "取消"
