@@ -30,7 +30,7 @@ class FunctionScorePage extends StatelessWidget {
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
             onPressed: () {
-              showSemesterList(context);
+              showSemesterList();
             },
           ),
         ],
@@ -109,7 +109,7 @@ class FunctionScorePage extends StatelessWidget {
   }
 
   /// 学期弹出选择列表
-  void showSemesterList(BuildContext context) {
+  void showSemesterList() {
     PickerDataAdapter<String> adapter = logic.getSemesterPickerData();
 
     // 弹出选择器
@@ -119,13 +119,13 @@ class FunctionScorePage extends StatelessWidget {
       changeToFirst: true,
       textAlign: TextAlign.left,
       textStyle: TextStyle(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(Get.context!).colorScheme.primary,
         fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
       ),
       headerDecoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
+            color: Theme.of(Get.context!).dividerColor,
             width: 0.5,
           ),
         ),
@@ -149,7 +149,7 @@ class FunctionScorePage extends StatelessWidget {
         ),
       ),
       containerColor:
-          Theme.of(context).colorScheme.primaryContainer.withOpacity(0.01),
+          Theme.of(Get.context!).colorScheme.primaryContainer.withOpacity(0.01),
       backgroundColor: Colors.transparent,
       height: ScreenUtils.length(
         vertical: 350.w,
@@ -168,10 +168,10 @@ class FunctionScorePage extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            adapter.picker!.doConfirm(context);
+            adapter.picker!.doConfirm(Get.context!);
           },
           child: Text(
-            S.of(context).pickerConfirm,
+            S.of(Get.context!).pickerConfirm,
             style: TextStyle(
               fontSize: ScreenUtils.length(
                 vertical: 22.sp,
@@ -183,28 +183,22 @@ class FunctionScorePage extends StatelessWidget {
       ),
       cancel: Padding(
         padding: EdgeInsets.only(
-          left: ScreenUtils.length(
-            vertical: 20.w,
-            horizon: 20.w,
-          ),
+          left: ScreenUtils.length(vertical: 20.w, horizon: 20.w),
         ),
         child: TextButton(
           onPressed: () {
-            adapter.picker!.doCancel(context);
+            adapter.picker!.doCancel(Get.context!);
           },
           child: Text(
-            S.of(context).pickerCancel,
+            S.of(Get.context!).pickerCancel,
             style: TextStyle(
-              fontSize: ScreenUtils.length(
-                vertical: 22.sp,
-                horizon: 15.sp,
-              ),
+              fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
             ),
           ),
         ),
       ),
       onConfirm: logic.selectSemesterConfirm,
     );
-    picker.showModal(context);
+    picker.showModal(Get.context!);
   }
 }
