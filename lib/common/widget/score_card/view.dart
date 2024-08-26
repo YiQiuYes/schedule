@@ -104,7 +104,7 @@ class ScoreCardComponent extends StatelessWidget {
                 SizedBox(
                   width: ScreenUtils.length(
                     vertical: 140.w,
-                    horizon: 20.w,
+                    horizon: 30.w,
                   ),
                   child: Text(
                     score ?? "",
