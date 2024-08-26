@@ -88,7 +88,7 @@ class _SchedulePageState extends State<SchedulePage>
     return SliverPadding(
       padding: EdgeInsets.only(
         left: ScreenUtils.length(vertical: 25.w, horizon: 15.w),
-        top: ScreenUtils.length(vertical: 5.w, horizon: 2.w),
+        top: ScreenUtils.length(vertical: 5.w, horizon: 0.w),
       ),
       sliver: SliverToBoxAdapter(
         child: Text(
@@ -96,7 +96,7 @@ class _SchedulePageState extends State<SchedulePage>
               logic.getTabPageTodayYear(showWeek),
               logic.getTabPageTodayMonth(showWeek)),
           style: TextStyle(
-            fontSize: ScreenUtils.length(vertical: 30.sp, horizon: 13.sp),
+            fontSize: ScreenUtils.length(vertical: 25.sp, horizon: 13.sp),
           ),
         ),
       ),
@@ -107,7 +107,7 @@ class _SchedulePageState extends State<SchedulePage>
   Widget weekTitleWidget(int showWeek) {
     return SliverPadding(
       padding: EdgeInsets.only(
-        top: ScreenUtils.length(vertical: 20.w, horizon: 4.w),
+        top: ScreenUtils.length(vertical: 20.w, horizon: 0.w),
         left: ScreenUtils.length(vertical: 25.w, horizon: 15.w),
       ),
       sliver: SliverToBoxAdapter(
@@ -124,7 +124,7 @@ class _SchedulePageState extends State<SchedulePage>
             child: Text(
               S.of(context).schedule_current_week(showWeek + 1),
               style: TextStyle(
-                fontSize: ScreenUtils.length(vertical: 50.sp, horizon: 20.sp),
+                fontSize: ScreenUtils.length(vertical: 37.sp, horizon: 20.sp),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -138,7 +138,7 @@ class _SchedulePageState extends State<SchedulePage>
   Widget heightSpaceWidget() {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: ScreenUtils.length(vertical: 20.w, horizon: 15.w),
+        height: ScreenUtils.length(vertical: 0.w, horizon: 0.w),
       ),
     );
   }

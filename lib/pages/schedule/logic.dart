@@ -28,7 +28,7 @@ class ScheduleLogic extends GetxController {
             week: i.toString(),
             semester: globalState.semesterWeekData["semester"]);
       }
-      globalLogic.setLoad20CountCourse(true);
+      await globalLogic.setLoad20CountCourse(true);
     } else {
       await globalLogic.getPersonCourseData(
           week: globalState.semesterWeekData["currentWeek"],
@@ -52,14 +52,14 @@ class ScheduleLogic extends GetxController {
       length: 20,
       vsync: vsync,
     );
-    state.tabController.addListener(() {
+    state.tabController.addListener(() async {
       // 获取课程数据
-      globalLogic.getPersonCourseData(
+      await globalLogic.getPersonCourseData(
         week: (state.tabController.index + 1).toString(),
         semester: globalState.semesterWeekData["semester"],
       );
       // 获取实验课程数据
-      globalLogic.getPersonExperimentData(
+      await globalLogic.getPersonExperimentData(
         week: (state.tabController.index + 1).toString(),
         semester: globalState.semesterWeekData["semester"],
       );
@@ -99,6 +99,10 @@ class ScheduleLogic extends GetxController {
       adapter: adapter,
       selecteds: [index],
       changeToFirst: true,
+      textStyle: TextStyle(
+        color: Theme.of(context).colorScheme.primary,
+        fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
+      ),
       textAlign: TextAlign.left,
       headerDecoration: BoxDecoration(
         border: Border(
@@ -117,7 +121,7 @@ class ScheduleLogic extends GetxController {
       containerColor:
           Theme.of(context).colorScheme.primaryContainer.withOpacity(0.01),
       backgroundColor: Colors.transparent,
-      height: ScreenUtils.length(vertical: 500.w, horizon: 150.w),
+      height: ScreenUtils.length(vertical: 350.w, horizon: 130.w),
       itemExtent: ScreenUtils.length(vertical: 70.w, horizon: 40.w),
       confirm: Padding(
         padding: EdgeInsets.only(
@@ -130,7 +134,7 @@ class ScheduleLogic extends GetxController {
           child: Text(
             S.of(context).pickerConfirm,
             style: TextStyle(
-              fontSize: ScreenUtils.length(vertical: 30.sp, horizon: 15.sp),
+              fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
             ),
           ),
         ),
@@ -146,7 +150,7 @@ class ScheduleLogic extends GetxController {
           child: Text(
             S.of(context).pickerCancel,
             style: TextStyle(
-              fontSize: ScreenUtils.length(vertical: 30.sp, horizon: 15.sp),
+              fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
             ),
           ),
         ),
