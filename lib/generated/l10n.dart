@@ -390,6 +390,16 @@ class S {
     );
   }
 
+  /// `Loading...`
+  String get function_all_course_loading {
+    return Intl.message(
+      'Loading...',
+      name: 'function_all_course_loading',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm`
   String get pickerConfirm {
     return Intl.message(

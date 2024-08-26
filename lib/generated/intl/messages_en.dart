@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_main_function": MessageLookupByLibrary.simpleMessage("function"),
         "app_main_person": MessageLookupByLibrary.simpleMessage("person"),
         "app_main_schedule": MessageLookupByLibrary.simpleMessage("schedule"),
+        "function_all_course_loading":
+            MessageLookupByLibrary.simpleMessage("Loading..."),
         "function_all_course_title":
             MessageLookupByLibrary.simpleMessage("All courses"),
         "function_area_name":

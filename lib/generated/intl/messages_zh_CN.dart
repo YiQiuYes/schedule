@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_main_function": MessageLookupByLibrary.simpleMessage("功能"),
         "app_main_person": MessageLookupByLibrary.simpleMessage("我的"),
         "app_main_schedule": MessageLookupByLibrary.simpleMessage("课表"),
+        "function_all_course_loading":
+            MessageLookupByLibrary.simpleMessage("正在加载..."),
         "function_all_course_title":
             MessageLookupByLibrary.simpleMessage("全校课表"),
         "function_area_name": MessageLookupByLibrary.simpleMessage("功能区域"),
