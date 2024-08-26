@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:schedule/pages/function/pages/function_all_course/view.dart';
 import 'package:schedule/pages/function/pages/function_score/view.dart';
 import 'package:schedule/pages/function/pages/function_social_exams/view.dart';
 import 'package:schedule/pages/function/view.dart';
@@ -41,6 +42,13 @@ class FunctionRouteConfig {
       ),
       functionSocialExams: GetPageRoute(
         page: () => FunctionSocialExamsPage(),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
+      ),
+      functionAllCourse: GetPageRoute(
+        page: () => FunctionAllCoursePage(),
         settings: RouteSettings(
           name: settings.name,
           arguments: settings.arguments,
