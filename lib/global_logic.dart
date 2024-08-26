@@ -61,7 +61,6 @@ class GlobalLogic extends GetxController {
     } else {
       _storage.setString("settings", jsonEncode(state.settings));
     }
-    state.settings["isLogin"] = true;
 
     // 读取学期周次数据
     String? semesterWeekDataStr = _storage.getString("semesterWeekData");

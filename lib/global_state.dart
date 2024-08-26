@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 
 class GlobalState {
   // 课程数据
-  RxList courseData =
-      List.generate(20, (index) => [for (int i = 0; i < 35; i++) {}]).obs;
+  late RxList courseData;
 
   // 实验课表数据
-  RxList experimentData =
-      List.generate(20, (index) => [for (int i = 0; i < 35; i++) {}]).obs;
+  late RxList experimentData;
 
   // 学期周次数据
   RxMap<String, dynamic> semesterWeekData = {
@@ -33,5 +31,15 @@ class GlobalState {
   // 定时器刷新数据
   Timer? timer;
 
-  GlobalState() {}
+  GlobalState() {
+    List generateCourseData =
+        List.generate(20, (index) => [for (int i = 0; i < 35; i++) {}])
+            as List<List<dynamic>>;
+    courseData = generateCourseData.obs;
+
+    List generateExperimentData =
+        List.generate(20, (index) => [for (int i = 0; i < 35; i++) {}])
+            as List<List<dynamic>>;
+    experimentData = generateExperimentData.obs;
+  }
 }
