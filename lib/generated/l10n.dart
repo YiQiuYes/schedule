@@ -380,6 +380,16 @@ class S {
     );
   }
 
+  /// `Time:{time}`
+  String function_social_exams_time(Object time) {
+    return Intl.message(
+      'Time:$time',
+      name: 'function_social_exams_time',
+      desc: '',
+      args: [time],
+    );
+  }
+
   /// `Confirm`
   String get pickerConfirm {
     return Intl.message(

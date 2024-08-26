@@ -22,17 +22,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(score) => "绩点：${score}";
 
-  static String m1(className) => "课程名称：${className}";
+  static String m1(time) => "考试时间：${time}";
 
-  static String m2(room) => "上课地点：${room}";
+  static String m2(className) => "课程名称：${className}";
 
-  static String m3(teacher) => "课程教师：${teacher}";
+  static String m3(room) => "上课地点：${room}";
 
-  static String m4(time) => "上课时间：${time}";
+  static String m4(teacher) => "课程教师：${teacher}";
 
-  static String m5(week) => "第${week}周";
+  static String m5(time) => "上课时间：${time}";
 
-  static String m6(year, month) => "${year}/${month}月";
+  static String m6(week) => "第${week}周";
+
+  static String m7(year, month) => "${year}/${month}月";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -51,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_score_gpa": m0,
         "function_score_title": MessageLookupByLibrary.simpleMessage("成绩查询"),
         "function_social_exams": MessageLookupByLibrary.simpleMessage("社会考试"),
+        "function_social_exams_time": m1,
         "function_teacher_title": MessageLookupByLibrary.simpleMessage("教师课表"),
         "login_fail": MessageLookupByLibrary.simpleMessage("登录失败"),
         "login_flushbarTitleError": MessageLookupByLibrary.simpleMessage("错误"),
@@ -66,15 +69,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "pickerCancel": MessageLookupByLibrary.simpleMessage("取消"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("确认"),
         "schedule_course_detail": MessageLookupByLibrary.simpleMessage("课程详情"),
-        "schedule_course_name": m1,
-        "schedule_course_room": m2,
-        "schedule_course_teacher": m3,
-        "schedule_course_time": m4,
+        "schedule_course_name": m2,
+        "schedule_course_room": m3,
+        "schedule_course_teacher": m4,
+        "schedule_course_time": m5,
         "schedule_course_time_tile":
             MessageLookupByLibrary.simpleMessage("一&二&三&四&五"),
-        "schedule_current_week": m5,
+        "schedule_current_week": m6,
         "schedule_week_tile":
             MessageLookupByLibrary.simpleMessage("周一&周二&周三&周四&周五&周六&周日"),
-        "schedule_year_and_month": m6
+        "schedule_year_and_month": m7
       };
 }

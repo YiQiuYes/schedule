@@ -36,6 +36,7 @@
 
   "function_score_gpa" : "绩点：{score}",
   "function_score_empty" : "暂无成绩",
+  "function_social_exams_time": "考试时间：{time}",
 
   "pickerConfirm" : "确认",
   "pickerCancel" : "取消"

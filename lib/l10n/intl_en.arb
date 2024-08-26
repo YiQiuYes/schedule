@@ -36,6 +36,7 @@
 
   "function_score_gpa" : "GPA:{score}",
   "function_score_empty" : "No score information",
+  "function_social_exams_time": "Time:{time}",
 
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel"
