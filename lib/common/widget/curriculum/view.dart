@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
 
 import '../../../generated/l10n.dart';
@@ -13,16 +14,44 @@ class CurriculumComponent extends StatelessWidget {
       {super.key,
       this.showWeek = 0,
       this.courseData = const [],
-      this.experimentData = const []});
+      this.experimentData = const [],
+      this.heightRatio,
+      this.crossAxisSpacing,
+      this.mainAxisSpacing,
+      this.classAddressFontSize,
+      this.classNameFontSize,
+      this.dateFontSize,
+      this.weekFontSize,
+      this.horizontalPadding,
+      this.verticalPadding,
+      this.classNameLinesLimit});
 
   // 显示周次
   final int showWeek;
-
   // 个人课表数据
   final List<dynamic> courseData;
-
   // 个人实验课数据
   final List<dynamic> experimentData;
+  // 高度比例
+  final int? heightRatio;
+  // 主轴间距
+  final double? mainAxisSpacing;
+  // 交叉轴间距
+  final double? crossAxisSpacing;
+  // 课程名称字体大小
+  final double? classNameFontSize;
+  // 课程地点字体大小
+  final double? classAddressFontSize;
+  // 星期字体大小
+  final double? weekFontSize;
+  // 日期字体大小
+  final double? dateFontSize;
+  // 垂直内边距
+  final double? verticalPadding;
+  // 水平内边距
+  final double? horizontalPadding;
+  // 课程名称行数限制
+  final int? classNameLinesLimit;
 
   final logic = Get.put(CurriculumLogic());
   final state = Get.find<CurriculumLogic>().state;
@@ -54,17 +83,43 @@ class CurriculumComponent extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverQuiltedGridDelegate(
           crossAxisCount: 46,
-          mainAxisSpacing: ScreenUtils.length(vertical: 11.w, horizon: 8.6.w),
-          crossAxisSpacing: ScreenUtils.length(vertical: 11.w, horizon: 8.6.w),
+          mainAxisSpacing: mainAxisSpacing ??
+              ScreenUtils.length(vertical: 11.w, horizon: 5.6.w),
+          crossAxisSpacing: crossAxisSpacing ??
+              ScreenUtils.length(vertical: 11.w, horizon: 5.6.w),
           pattern: [
-            QuiltedGridTile(ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!, 4),
-            QuiltedGridTile(ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!, 6),
-            QuiltedGridTile(ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!, 6),
-            QuiltedGridTile(ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!, 6),
-            QuiltedGridTile(ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!, 6),
-            QuiltedGridTile(ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!, 6),
-            QuiltedGridTile(ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!, 6),
-            QuiltedGridTile(ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!, 6),
+            QuiltedGridTile(
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!,
+                4),
+            QuiltedGridTile(
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!,
+                6),
+            QuiltedGridTile(
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!,
+                6),
+            QuiltedGridTile(
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!,
+                6),
+            QuiltedGridTile(
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!,
+                6),
+            QuiltedGridTile(
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!,
+                6),
+            QuiltedGridTile(
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!,
+                6),
+            QuiltedGridTile(
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 5, horizon: 4)!,
+                6),
           ],
         ),
         childrenDelegate: SliverChildBuilderDelegate(
@@ -88,7 +143,7 @@ class CurriculumComponent extends StatelessWidget {
                     Text(
                       weeks[index - 1],
                       style: TextStyle(
-                        fontSize:
+                        fontSize: weekFontSize ??
                             ScreenUtils.length(vertical: 17.sp, horizon: 10.sp),
                         height: 0,
                       ),
@@ -101,7 +156,7 @@ class CurriculumComponent extends StatelessWidget {
                     Text(
                       ScheduleUtils.getWeekDate(index - 1, showWeek + 1),
                       style: TextStyle(
-                        fontSize:
+                        fontSize: dateFontSize ??
                             ScreenUtils.length(vertical: 14.sp, horizon: 7.sp),
                         height: 0,
                       ),
@@ -130,25 +185,43 @@ class CurriculumComponent extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverQuiltedGridDelegate(
           crossAxisCount: 46,
-          mainAxisSpacing: ScreenUtils.length(vertical: 11.w, horizon: 5.6.w),
-          crossAxisSpacing: ScreenUtils.length(vertical: 11.w, horizon: 5.6.w),
+          mainAxisSpacing: mainAxisSpacing ??
+              ScreenUtils.length(vertical: 11.w, horizon: 5.6.w),
+          crossAxisSpacing: crossAxisSpacing ??
+              ScreenUtils.length(vertical: 11.w, horizon: 5.6.w),
           pattern: [
             QuiltedGridTile(
-                ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!, 4),
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!,
+                4),
             QuiltedGridTile(
-                ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!, 6),
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!,
+                6),
             QuiltedGridTile(
-                ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!, 6),
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!,
+                6),
             QuiltedGridTile(
-                ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!, 6),
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!,
+                6),
             QuiltedGridTile(
-                ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!, 6),
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!,
+                6),
             QuiltedGridTile(
-                ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!, 6),
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!,
+                6),
             QuiltedGridTile(
-                ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!, 6),
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!,
+                6),
             QuiltedGridTile(
-                ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!, 6),
+                heightRatio ??
+                    ScreenUtils.byOrientationReturn(vertical: 11, horizon: 6)!,
+                6),
           ],
         ),
         childrenDelegate: SliverChildBuilderDelegate(
@@ -185,7 +258,8 @@ class CurriculumComponent extends StatelessWidget {
         child: Text(
           time[index],
           style: TextStyle(
-            fontSize: ScreenUtils.length(vertical: 17.sp, horizon: 10.sp),
+            fontSize: weekFontSize ??
+                ScreenUtils.length(vertical: 17.sp, horizon: 10.sp),
             height: 0,
           ),
         ),
@@ -236,8 +310,8 @@ class CurriculumComponent extends StatelessWidget {
             Container(
               alignment: Alignment.topCenter,
               padding: EdgeInsets.symmetric(
-                vertical: ScreenUtils.length(vertical: 9.w, horizon: 6.w),
-                horizontal: ScreenUtils.length(vertical: 9.w, horizon: 7.w),
+                vertical: verticalPadding ?? ScreenUtils.length(vertical: 9.w, horizon: 6.w),
+                horizontal: horizontalPadding ?? ScreenUtils.length(vertical: 9.w, horizon: 7.w),
               ),
               decoration: BoxDecoration(
                 color: logic.getTodayCourseColor(
@@ -253,12 +327,12 @@ class CurriculumComponent extends StatelessWidget {
                       course,
                       experiment,
                     ),
-                    maxLines: ScreenUtils.byOrientationReturn(
+                    maxLines: classNameLinesLimit ?? ScreenUtils.byOrientationReturn(
                         vertical: 4, horizon: 3)!,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize:
+                      fontSize: classNameFontSize ??
                           ScreenUtils.length(vertical: 16.sp, horizon: 9.sp),
                       height: 1.2,
                     ),
@@ -271,7 +345,7 @@ class CurriculumComponent extends StatelessWidget {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize:
+                      fontSize: classAddressFontSize ??
                           ScreenUtils.length(vertical: 15.sp, horizon: 7.sp),
                       height: 1.3,
                     ),
