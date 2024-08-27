@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m8(year, month) => "${year}/${month} Month";
 
+  static String m9(version) => "Current version ${version}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_main_function": MessageLookupByLibrary.simpleMessage("function"),
@@ -110,6 +112,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "schedule_week_tile": MessageLookupByLibrary.simpleMessage(
             "Mon&Tues&Wed&Thur&Fri&Sat&Sun"),
         "schedule_year_and_month": m8,
-        "setting_title": MessageLookupByLibrary.simpleMessage("Setting")
+        "setting_about_application":
+            MessageLookupByLibrary.simpleMessage("Author: YiQiu"),
+        "setting_about_application_name":
+            MessageLookupByLibrary.simpleMessage("QiangZhi Schedule"),
+        "setting_current_version": m9,
+        "setting_group_about": MessageLookupByLibrary.simpleMessage("About"),
+        "setting_title": MessageLookupByLibrary.simpleMessage("Setting"),
+        "setting_update_main_text":
+            MessageLookupByLibrary.simpleMessage("Version updates"),
+        "snackbar_tip": MessageLookupByLibrary.simpleMessage("Tip"),
+        "update_dialog_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "update_dialog_confirm":
+            MessageLookupByLibrary.simpleMessage("Confirm"),
+        "update_dialog_current_is_last_version":
+            MessageLookupByLibrary.simpleMessage(
+                "The current version is the latest version!"),
+        "update_dialog_snackbar_vpn": MessageLookupByLibrary.simpleMessage(
+            "If the download fails, turn on the VPN"),
+        "update_dialog_version_fail": MessageLookupByLibrary.simpleMessage(
+            "Failed to get the latest version information!")
       };
 }

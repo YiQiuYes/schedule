@@ -52,7 +52,19 @@
   "person_join_qq_group_tip" : "QQ群号：161324332",
 
   "setting_title" : "设置",
+  "setting_group_about" : "关于",
+  "setting_update_main_text" : "版本更新",
+  "setting_current_version" : "当前版本 {version}",
+  "setting_about_application" : "作者：易秋",
+  "setting_about_application_name" : "强智课表",
+  "update_dialog_confirm" : "确定",
+  "update_dialog_cancel" : "取消",
+  "update_dialog_snackbar_vpn" : "如果遇到下载失败请开启VPN",
+  "update_dialog_current_is_last_version" : "当前已是最新版本！",
+  "update_dialog_version_fail" : "版本获取失败！",
+
 
   "pickerConfirm" : "确认",
-  "pickerCancel" : "取消"
+  "pickerCancel" : "取消",
+  "snackbar_tip" : "提示"
 }

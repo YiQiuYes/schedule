@@ -25,8 +25,8 @@ class AppMainRouteConfig {
                   ? Axis.horizontal
                   : Axis.vertical,
               physics: const NeverScrollableScrollPhysics(),
-              children: [
-                const SchedulePage(),
+              children: const [
+                SchedulePage(),
                 FunctionPage(),
                 PersonPage(),
               ],

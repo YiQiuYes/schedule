@@ -520,6 +520,106 @@ class S {
     );
   }
 
+  /// `About`
+  String get setting_group_about {
+    return Intl.message(
+      'About',
+      name: 'setting_group_about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version updates`
+  String get setting_update_main_text {
+    return Intl.message(
+      'Version updates',
+      name: 'setting_update_main_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current version {version}`
+  String setting_current_version(Object version) {
+    return Intl.message(
+      'Current version $version',
+      name: 'setting_current_version',
+      desc: '',
+      args: [version],
+    );
+  }
+
+  /// `Author: YiQiu`
+  String get setting_about_application {
+    return Intl.message(
+      'Author: YiQiu',
+      name: 'setting_about_application',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QiangZhi Schedule`
+  String get setting_about_application_name {
+    return Intl.message(
+      'QiangZhi Schedule',
+      name: 'setting_about_application_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get update_dialog_confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'update_dialog_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get update_dialog_cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'update_dialog_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If the download fails, turn on the VPN`
+  String get update_dialog_snackbar_vpn {
+    return Intl.message(
+      'If the download fails, turn on the VPN',
+      name: 'update_dialog_snackbar_vpn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The current version is the latest version!`
+  String get update_dialog_current_is_last_version {
+    return Intl.message(
+      'The current version is the latest version!',
+      name: 'update_dialog_current_is_last_version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to get the latest version information!`
+  String get update_dialog_version_fail {
+    return Intl.message(
+      'Failed to get the latest version information!',
+      name: 'update_dialog_version_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm`
   String get pickerConfirm {
     return Intl.message(
@@ -535,6 +635,16 @@ class S {
     return Intl.message(
       'Cancel',
       name: 'pickerCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tip`
+  String get snackbar_tip {
+    return Intl.message(
+      'Tip',
+      name: 'snackbar_tip',
       desc: '',
       args: [],
     );

@@ -41,7 +41,7 @@ class AppMainLogic extends GetxController {
   /// 初始化主页面控制器
   void initMainTabController(TickerProvider vsync) {
     state.mainTabController = PageController(
-      initialPage: 1,
+      initialPage: 0,
     );
   }
 

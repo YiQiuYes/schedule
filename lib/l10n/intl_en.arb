@@ -52,7 +52,18 @@
   "person_join_qq_group_tip" : "QQ group number: 161324332",
 
   "setting_title" : "Setting",
+  "setting_group_about" : "About",
+  "setting_update_main_text" : "Version updates",
+  "setting_current_version" : "Current version {version}",
+  "setting_about_application" : "Author: YiQiu",
+  "setting_about_application_name" : "QiangZhi Schedule",
+  "update_dialog_confirm" : "Confirm",
+  "update_dialog_cancel" : "Cancel",
+  "update_dialog_snackbar_vpn" : "If the download fails, turn on the VPN",
+  "update_dialog_current_is_last_version" : "The current version is the latest version!",
+  "update_dialog_version_fail" : "Failed to get the latest version information!",
 
   "pickerConfirm" : "Confirm",
-  "pickerCancel" : "Cancel"
+  "pickerCancel" : "Cancel",
+  "snackbar_tip" : "Tip"
 }

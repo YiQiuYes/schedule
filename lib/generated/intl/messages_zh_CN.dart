@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m8(year, month) => "${year}/${month}月";
 
+  static String m9(version) => "当前版本 ${version}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_main_function": MessageLookupByLibrary.simpleMessage("功能"),
@@ -98,6 +100,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "schedule_week_tile":
             MessageLookupByLibrary.simpleMessage("周一&周二&周三&周四&周五&周六&周日"),
         "schedule_year_and_month": m8,
-        "setting_title": MessageLookupByLibrary.simpleMessage("设置")
+        "setting_about_application":
+            MessageLookupByLibrary.simpleMessage("作者：易秋"),
+        "setting_about_application_name":
+            MessageLookupByLibrary.simpleMessage("强智课表"),
+        "setting_current_version": m9,
+        "setting_group_about": MessageLookupByLibrary.simpleMessage("关于"),
+        "setting_title": MessageLookupByLibrary.simpleMessage("设置"),
+        "setting_update_main_text":
+            MessageLookupByLibrary.simpleMessage("版本更新"),
+        "snackbar_tip": MessageLookupByLibrary.simpleMessage("提示"),
+        "update_dialog_cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "update_dialog_confirm": MessageLookupByLibrary.simpleMessage("确定"),
+        "update_dialog_current_is_last_version":
+            MessageLookupByLibrary.simpleMessage("当前已是最新版本！"),
+        "update_dialog_snackbar_vpn":
+            MessageLookupByLibrary.simpleMessage("如果遇到下载失败请开启VPN"),
+        "update_dialog_version_fail":
+            MessageLookupByLibrary.simpleMessage("版本获取失败！")
       };
 }
