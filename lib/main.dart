@@ -8,6 +8,7 @@ import 'package:schedule/pages/route_config.dart';
 
 import 'common/manager/data_storage_manager.dart';
 import 'common/manager/request_manager.dart';
+import 'common/utils/device_info_utils.dart';
 import 'common/utils/package_info_utils.dart';
 import 'generated/l10n.dart';
 
@@ -17,6 +18,9 @@ Future<void> main() async {
 
   // 初始化版本信息
   await PackageInfoUtils.packageInfoInit();
+
+  // 初始化设备信息
+  DeviceInfoUtils.specificDeviceConfigurations();
 
   // 初始化数据存储读取器
   await DataStorageManager().init();
