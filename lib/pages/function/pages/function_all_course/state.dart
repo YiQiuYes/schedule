@@ -14,7 +14,7 @@ class FunctionAllCourseState {
   ];
 
   // 学院网络请求源信息
-  List<Map> originCollegeInfo = [];
+  List originCollegeInfo = [];
 
   // 个人课表数据
   RxList courseData = [].obs;

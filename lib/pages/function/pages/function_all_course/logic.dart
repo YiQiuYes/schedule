@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker_plus/picker.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/api/schedule/schedule_query_api.dart';
+import 'package:schedule/common/manager/data_storage_manager.dart';
 import 'package:schedule/common/utils/logger_utils.dart';
 
 import '../../../../generated/l10n.dart';
@@ -14,6 +17,7 @@ class FunctionAllCourseLogic extends GetxController {
   final globalState = Get.find<GlobalLogic>().state;
 
   final queryApi = ScheduleQueryApi();
+  final storage = DataStorageManager();
 
   /// 选择周次
   void selectWeekConfirm(Picker picker, List<int> value) {
@@ -35,30 +39,84 @@ class FunctionAllCourseLogic extends GetxController {
 
   /// 初始化
   Future<void> init() async {
-    // 获取学院信息
-    await queryApi.queryCollegeInfo().then((value) {
-      state.originCollegeInfo = value;
+    // 读取缓存数据
+    String? originCollegeInfoStr =
+        storage.getString("functionAllCourseOriginCollegeInfo");
+    if (originCollegeInfoStr != null) {
+      List originCollegeInfo = (jsonDecode(originCollegeInfoStr) as List);
+      state.originCollegeInfo = originCollegeInfo;
       state.pickerData.clear();
-      state.pickerData.addAll(value
+      state.pickerData.addAll(originCollegeInfo
           .map((e) => PickerItem<String>(
               value: e["collegeName"],
               children: <PickerItem<String>>[PickerItem<String>(value: "")]))
           .toList());
-    });
 
-    // 多线程并发
-    List<Future<List<String>>> task = [];
-    for (int i = 0; i < state.pickerData.length; i++) {
-      task.add(queryApi.queryMajorInfo(
-          collegeId: getCollegeIdByName(state.pickerData[i].value!),
-          semester: globalState.semesterWeekData["semester"]));
-    }
+      String? originCollegeInfoChildrenStr =
+          storage.getString("functionAllCourseOriginCollegeInfoChildren");
+      if (originCollegeInfoChildrenStr != null) {
+        List originCollegeInfoChildren =
+            jsonDecode(originCollegeInfoChildrenStr);
+        for (int i = 0; i < state.pickerData.length; i++) {
+          state.pickerData[i].children?.clear();
+          List list = originCollegeInfoChildren[i];
+          state.pickerData[i].children
+              ?.addAll(list.map((e) => PickerItem<String>(value: e)).toList());
+        }
+      }
 
-    final result = await Future.wait(task);
-    for (int i = 0; i < state.pickerData.length; i++) {
-      state.pickerData[i].children?.clear();
-      state.pickerData[i].children
-          ?.addAll(result[i].map((e) => PickerItem<String>(value: e)).toList());
+      /// 刷新数据
+      // 获取学院信息
+      await queryApi.queryCollegeInfo().then((value) {
+        state.originCollegeInfo = value;
+        storage.setString(
+            "functionAllCourseOriginCollegeInfo", jsonEncode(value));
+      });
+
+      // 多线程并发
+      List<Future<List<String>>> task = [];
+      for (int i = 0; i < state.pickerData.length; i++) {
+        task.add(queryApi.queryMajorInfo(
+            collegeId: getCollegeIdByName(state.pickerData[i].value!),
+            semester: globalState.semesterWeekData["semester"]));
+      }
+
+      Future.delayed(const Duration(seconds: 1), () {
+        Future.wait(task).then((value) {
+          storage.setString(
+              "functionAllCourseOriginCollegeInfoChildren", jsonEncode(value));
+        });
+      });
+    } else {
+      // 获取学院信息
+      await queryApi.queryCollegeInfo().then((value) {
+        state.originCollegeInfo = value;
+        storage.setString(
+            "functionAllCourseOriginCollegeInfo", jsonEncode(value));
+        state.pickerData.clear();
+        state.pickerData.addAll(state.originCollegeInfo
+            .map((e) => PickerItem<String>(
+                value: e["collegeName"],
+                children: <PickerItem<String>>[PickerItem<String>(value: "")]))
+            .toList());
+      });
+
+      // 多线程并发
+      List<Future<List<String>>> task = [];
+      for (int i = 0; i < state.pickerData.length; i++) {
+        task.add(queryApi.queryMajorInfo(
+            collegeId: getCollegeIdByName(state.pickerData[i].value!),
+            semester: globalState.semesterWeekData["semester"]));
+      }
+
+      final result = await Future.wait(task);
+      storage.setString(
+          "functionAllCourseOriginCollegeInfoChildren", jsonEncode(result));
+      for (int i = 0; i < state.pickerData.length; i++) {
+        state.pickerData[i].children?.clear();
+        state.pickerData[i].children?.addAll(
+            result[i].map((e) => PickerItem<String>(value: e)).toList());
+      }
     }
 
     // 获取课程信息

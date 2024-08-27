@@ -116,7 +116,7 @@ class FunctionAllCoursePage extends StatelessWidget {
         classAddressFontSize: ScreenUtils.byOrientationReturn(horizon: 5.sp),
         weekFontSize: ScreenUtils.byOrientationReturn(horizon: 8.sp),
         dateFontSize: ScreenUtils.byOrientationReturn(horizon: 6.sp),
-        verticalPadding: ScreenUtils.byOrientationReturn(vertical: 2.5.w),
+        verticalPadding: ScreenUtils.byOrientationReturn(horizon: 4.5.w),
         horizontalPadding: ScreenUtils.byOrientationReturn(horizon: 3.w),
         classNameLinesLimit: ScreenUtils.byOrientationReturn(horizon: 4),
       );
