@@ -85,6 +85,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_userHint": MessageLookupByLibrary.simpleMessage("Name"),
         "login_user_not_empty":
             MessageLookupByLibrary.simpleMessage("Name cannot be empty"),
+        "person_contact": MessageLookupByLibrary.simpleMessage("Contact"),
+        "person_join_qq_group":
+            MessageLookupByLibrary.simpleMessage("Join QQ group"),
+        "person_join_qq_group_tip":
+            MessageLookupByLibrary.simpleMessage("QQ group number: 161324332"),
+        "person_logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "person_logout_tip": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
+        "person_semester_tip": MessageLookupByLibrary.simpleMessage("Semester"),
+        "person_start_day_tip":
+            MessageLookupByLibrary.simpleMessage("Start day"),
         "pickerCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "schedule_course_detail":
@@ -98,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "schedule_current_week": m7,
         "schedule_week_tile": MessageLookupByLibrary.simpleMessage(
             "Mon&Tues&Wed&Thur&Fri&Sat&Sun"),
-        "schedule_year_and_month": m8
+        "schedule_year_and_month": m8,
+        "setting_title": MessageLookupByLibrary.simpleMessage("Setting")
       };
 }

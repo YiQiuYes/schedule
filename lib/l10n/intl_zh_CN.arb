@@ -43,6 +43,16 @@
   "function_teacher_search_hint" : "教师姓名",
   "function_teacher_no_data" : "暂无教师数据",
 
+  "person_semester_tip" : "学期",
+  "person_start_day_tip" : "开始日期",
+  "person_logout" : "退出登录",
+  "person_logout_tip" : "确定退出登录？",
+  "person_contact" : "加入交流",
+  "person_join_qq_group" : "加入QQ群",
+  "person_join_qq_group_tip" : "QQ群号：161324332",
+
+  "setting_title" : "设置",
+
   "pickerConfirm" : "确认",
   "pickerCancel" : "取消"
 }

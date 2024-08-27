@@ -77,6 +77,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_timeout": MessageLookupByLibrary.simpleMessage("登录超时"),
         "login_userHint": MessageLookupByLibrary.simpleMessage("用户名"),
         "login_user_not_empty": MessageLookupByLibrary.simpleMessage("用户名不能为空"),
+        "person_contact": MessageLookupByLibrary.simpleMessage("加入交流"),
+        "person_join_qq_group": MessageLookupByLibrary.simpleMessage("加入QQ群"),
+        "person_join_qq_group_tip":
+            MessageLookupByLibrary.simpleMessage("QQ群号：161324332"),
+        "person_logout": MessageLookupByLibrary.simpleMessage("退出登录"),
+        "person_logout_tip": MessageLookupByLibrary.simpleMessage("确定退出登录？"),
+        "person_semester_tip": MessageLookupByLibrary.simpleMessage("学期"),
+        "person_start_day_tip": MessageLookupByLibrary.simpleMessage("开始日期"),
         "pickerCancel": MessageLookupByLibrary.simpleMessage("取消"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("确认"),
         "schedule_course_detail": MessageLookupByLibrary.simpleMessage("课程详情"),
@@ -89,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "schedule_current_week": m7,
         "schedule_week_tile":
             MessageLookupByLibrary.simpleMessage("周一&周二&周三&周四&周五&周六&周日"),
-        "schedule_year_and_month": m8
+        "schedule_year_and_month": m8,
+        "setting_title": MessageLookupByLibrary.simpleMessage("设置")
       };
 }

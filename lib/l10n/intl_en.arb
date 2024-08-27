@@ -43,6 +43,16 @@
   "function_teacher_search_hint" : "Teacher name",
   "function_teacher_no_data" : "No teacher information",
 
+  "person_semester_tip" : "Semester",
+  "person_start_day_tip" : "Start day",
+  "person_logout" : "Logout",
+  "person_logout_tip" : "Are you sure you want to log out?",
+  "person_contact" : "Contact",
+  "person_join_qq_group" : "Join QQ group",
+  "person_join_qq_group_tip" : "QQ group number: 161324332",
+
+  "setting_title" : "Setting",
+
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel"
 }

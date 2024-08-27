@@ -440,6 +440,86 @@ class S {
     );
   }
 
+  /// `Semester`
+  String get person_semester_tip {
+    return Intl.message(
+      'Semester',
+      name: 'person_semester_tip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start day`
+  String get person_start_day_tip {
+    return Intl.message(
+      'Start day',
+      name: 'person_start_day_tip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get person_logout {
+    return Intl.message(
+      'Logout',
+      name: 'person_logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get person_logout_tip {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'person_logout_tip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact`
+  String get person_contact {
+    return Intl.message(
+      'Contact',
+      name: 'person_contact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join QQ group`
+  String get person_join_qq_group {
+    return Intl.message(
+      'Join QQ group',
+      name: 'person_join_qq_group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QQ group number: 161324332`
+  String get person_join_qq_group_tip {
+    return Intl.message(
+      'QQ group number: 161324332',
+      name: 'person_join_qq_group_tip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting`
+  String get setting_title {
+    return Intl.message(
+      'Setting',
+      name: 'setting_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm`
   String get pickerConfirm {
     return Intl.message(
