@@ -56,7 +56,7 @@ class ScoreCardComponent extends StatelessWidget {
                 SizedBox(
                   width: ScreenUtils.length(
                     vertical: 400.w,
-                    horizon: 130.w,
+                    horizon: 90.w,
                   ),
                   child: Text(
                     subjectName ?? '',
@@ -81,7 +81,7 @@ class ScoreCardComponent extends StatelessWidget {
                   child: SizedBox(
                     width: ScreenUtils.length(
                       vertical: 400.w,
-                      horizon: 130.w,
+                      horizon: 90.w,
                     ),
                     child: Text(
                       subTitle!,
@@ -104,7 +104,7 @@ class ScoreCardComponent extends StatelessWidget {
                 SizedBox(
                   width: ScreenUtils.length(
                     vertical: 140.w,
-                    horizon: 30.w,
+                    horizon: 40.w,
                   ),
                   child: Text(
                     score ?? "",
@@ -113,7 +113,7 @@ class ScoreCardComponent extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onPrimaryContainer,
                       fontSize: ScreenUtils.length(
                         vertical: 30.sp,
-                        horizon: 13.sp,
+                        horizon: 11.sp,
                       ),
                     ),
                   ),
