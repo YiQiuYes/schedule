@@ -140,16 +140,34 @@ class GlobalLogic extends GetxController {
         "experimentData", jsonEncode(state.experimentData));
   }
 
+  /// 设置开始日期
+  Future<void> setStartDate(String startDate) async {
+    await setSemesterWeekData("startDay", startDate);
+  }
+
+  /// 设置学期
+  Future<void> setSemester(String semester) async {
+    await setSemesterWeekData("semester", semester);
+  }
+
   /// 设置数据是否第一次初始化完成
   Future<void> setLoad20CountCourse(bool load20CountCourse) async {
     state.settings["load20CountCourse"] = load20CountCourse;
-    await _setSettings("load20CountCourse", load20CountCourse);
+    await setSettings("load20CountCourse", load20CountCourse);
   }
 
   /// 设置数据
-  Future<bool> _setSettings(String key, dynamic value) async {
+  Future<bool> setSettings(String key, dynamic value) async {
     state.settings[key] = value;
     return await _storage.setString("settings", jsonEncode(state.settings));
+  }
+
+  /// 设置学期数据
+  Future<bool> setSemesterWeekData(String key, dynamic value) async {
+    state.semesterWeekData[key] = value;
+    update();
+    return await _storage.setString(
+        "semesterWeekData", jsonEncode(state.semesterWeekData));
   }
 
   /// 设置数据
@@ -162,7 +180,7 @@ class GlobalLogic extends GetxController {
   /// 设置登录状态
   Future<void> setIsLogin(bool isLogin) async {
     state.settings["isLogin"] = isLogin;
-    await _setSettings("isLogin", isLogin);
+    await setSettings("isLogin", isLogin);
     update();
   }
 }
