@@ -33,8 +33,8 @@ class FunctionState {
     },
     {
       'icon': Icons.schedule_rounded,
-      'title': S.current.function_exam_schedule,
-      'route': FunctionRouteConfig.functionExam,
+      'title': S.current.function_exam_plan,
+      'route': FunctionRouteConfig.functionExamPlan,
     }
   ];
 

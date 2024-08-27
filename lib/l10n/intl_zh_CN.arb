@@ -32,13 +32,14 @@
   "function_social_exams" : "社会考试",
   "function_empty_classroom" : "空教室",
   "function_teacher_title" : "教师课表",
-  "function_exam_schedule" : "考试计划",
+  "function_exam_plan" : "考试计划",
 
   "function_score_gpa" : "绩点：{score}",
   "function_score_empty" : "暂无成绩",
   "function_social_exams_time": "考试时间：{time}",
   "function_all_course_loading" : "正在加载...",
   "function_empty_classroom_what_lesson" : "第{lesson}节课",
+  "function_exam_plan_empty" : "暂无考试安排",
 
   "pickerConfirm" : "确认",
   "pickerCancel" : "取消"

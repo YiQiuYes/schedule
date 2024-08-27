@@ -53,8 +53,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_empty_classroom":
             MessageLookupByLibrary.simpleMessage("Empty classroom"),
         "function_empty_classroom_what_lesson": m0,
-        "function_exam_schedule":
+        "function_exam_plan":
             MessageLookupByLibrary.simpleMessage("Exam schedule"),
+        "function_exam_plan_empty":
+            MessageLookupByLibrary.simpleMessage("No exam information"),
         "function_life_assistant_area_name":
             MessageLookupByLibrary.simpleMessage("Life assistant"),
         "function_score_empty":

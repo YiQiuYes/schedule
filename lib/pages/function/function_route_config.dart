@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schedule/pages/function/pages/function_all_course/view.dart';
 import 'package:schedule/pages/function/pages/function_empty_classroom/view.dart';
+import 'package:schedule/pages/function/pages/function_exam_plan/view.dart';
 import 'package:schedule/pages/function/pages/function_score/view.dart';
 import 'package:schedule/pages/function/pages/function_social_exams/view.dart';
 import 'package:schedule/pages/function/view.dart';
@@ -16,7 +17,7 @@ class FunctionRouteConfig {
   static const String functionSocialExams = '/functionSocialExams';
   static const String functionEmptyClassroom = '/functionEmptyClassroom';
   static const String functionTeacher = '/functionTeacher';
-  static const String functionExam = '/functionExam';
+  static const String functionExamPlan = '/functionExamPlan';
 
   static Route? onGenerateRoute(RouteSettings settings) {
     Map<String, GetPageRoute> getPages = {
@@ -57,6 +58,13 @@ class FunctionRouteConfig {
       ),
       functionEmptyClassroom: GetPageRoute(
         page: () => FunctionEmptyClassroomPage(),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
+      ),
+      functionExamPlan: GetPageRoute(
+        page: () => FunctionExamPlanPage(),
         settings: RouteSettings(
           name: settings.name,
           arguments: settings.arguments,

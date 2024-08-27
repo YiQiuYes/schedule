@@ -51,7 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_drink": MessageLookupByLibrary.simpleMessage("慧生活798"),
         "function_empty_classroom": MessageLookupByLibrary.simpleMessage("空教室"),
         "function_empty_classroom_what_lesson": m0,
-        "function_exam_schedule": MessageLookupByLibrary.simpleMessage("考试计划"),
+        "function_exam_plan": MessageLookupByLibrary.simpleMessage("考试计划"),
+        "function_exam_plan_empty":
+            MessageLookupByLibrary.simpleMessage("暂无考试安排"),
         "function_life_assistant_area_name":
             MessageLookupByLibrary.simpleMessage("生活助手"),
         "function_score_empty": MessageLookupByLibrary.simpleMessage("暂无成绩"),

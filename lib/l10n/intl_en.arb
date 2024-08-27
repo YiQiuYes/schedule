@@ -32,13 +32,14 @@
   "function_social_exams" : "Social exams",
   "function_empty_classroom" : "Empty classroom",
   "function_teacher_title" : "Teacher schedule",
-  "function_exam_schedule" : "Exam schedule",
+  "function_exam_plan" : "Exam schedule",
 
   "function_score_gpa" : "GPA:{score}",
   "function_score_empty" : "No score information",
   "function_social_exams_time": "Time:{time}",
   "function_all_course_loading" : "Loading...",
   "function_empty_classroom_what_lesson" : "Lesson {lesson}",
+  "function_exam_plan_empty" : "No exam information",
 
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel"

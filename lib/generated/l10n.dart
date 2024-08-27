@@ -351,10 +351,10 @@ class S {
   }
 
   /// `Exam schedule`
-  String get function_exam_schedule {
+  String get function_exam_plan {
     return Intl.message(
       'Exam schedule',
-      name: 'function_exam_schedule',
+      name: 'function_exam_plan',
       desc: '',
       args: [],
     );
@@ -407,6 +407,16 @@ class S {
       name: 'function_empty_classroom_what_lesson',
       desc: '',
       args: [lesson],
+    );
+  }
+
+  /// `No exam information`
+  String get function_exam_plan_empty {
+    return Intl.message(
+      'No exam information',
+      name: 'function_exam_plan_empty',
+      desc: '',
+      args: [],
     );
   }
 
