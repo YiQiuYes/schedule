@@ -40,6 +40,8 @@
   "function_all_course_loading" : "正在加载...",
   "function_empty_classroom_what_lesson" : "第{lesson}节课",
   "function_exam_plan_empty" : "暂无考试安排",
+  "function_teacher_search_hint" : "教师姓名",
+  "function_teacher_no_data" : "暂无教师数据",
 
   "pickerConfirm" : "确认",
   "pickerCancel" : "取消"

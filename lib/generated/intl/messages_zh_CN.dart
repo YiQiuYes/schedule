@@ -61,6 +61,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_score_title": MessageLookupByLibrary.simpleMessage("成绩查询"),
         "function_social_exams": MessageLookupByLibrary.simpleMessage("社会考试"),
         "function_social_exams_time": m2,
+        "function_teacher_no_data":
+            MessageLookupByLibrary.simpleMessage("暂无教师数据"),
+        "function_teacher_search_hint":
+            MessageLookupByLibrary.simpleMessage("教师姓名"),
         "function_teacher_title": MessageLookupByLibrary.simpleMessage("教师课表"),
         "login_fail": MessageLookupByLibrary.simpleMessage("登录失败"),
         "login_flushbarTitleError": MessageLookupByLibrary.simpleMessage("错误"),

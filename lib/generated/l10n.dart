@@ -420,6 +420,26 @@ class S {
     );
   }
 
+  /// `Teacher name`
+  String get function_teacher_search_hint {
+    return Intl.message(
+      'Teacher name',
+      name: 'function_teacher_search_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No teacher information`
+  String get function_teacher_no_data {
+    return Intl.message(
+      'No teacher information',
+      name: 'function_teacher_no_data',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm`
   String get pickerConfirm {
     return Intl.message(

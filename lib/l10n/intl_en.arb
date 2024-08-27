@@ -40,6 +40,8 @@
   "function_all_course_loading" : "Loading...",
   "function_empty_classroom_what_lesson" : "Lesson {lesson}",
   "function_exam_plan_empty" : "No exam information",
+  "function_teacher_search_hint" : "Teacher name",
+  "function_teacher_no_data" : "No teacher information",
 
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel"

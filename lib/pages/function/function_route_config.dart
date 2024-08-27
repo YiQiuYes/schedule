@@ -5,6 +5,7 @@ import 'package:schedule/pages/function/pages/function_empty_classroom/view.dart
 import 'package:schedule/pages/function/pages/function_exam_plan/view.dart';
 import 'package:schedule/pages/function/pages/function_score/view.dart';
 import 'package:schedule/pages/function/pages/function_social_exams/view.dart';
+import 'package:schedule/pages/function/pages/function_teacher/view.dart';
 import 'package:schedule/pages/function/view.dart';
 
 class FunctionRouteConfig {
@@ -65,6 +66,13 @@ class FunctionRouteConfig {
       ),
       functionExamPlan: GetPageRoute(
         page: () => FunctionExamPlanPage(),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
+      ),
+      functionTeacher: GetPageRoute(
+        page: () => FunctionTeacherPage(),
         settings: RouteSettings(
           name: settings.name,
           arguments: settings.arguments,

@@ -66,6 +66,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_social_exams":
             MessageLookupByLibrary.simpleMessage("Social exams"),
         "function_social_exams_time": m2,
+        "function_teacher_no_data":
+            MessageLookupByLibrary.simpleMessage("No teacher information"),
+        "function_teacher_search_hint":
+            MessageLookupByLibrary.simpleMessage("Teacher name"),
         "function_teacher_title":
             MessageLookupByLibrary.simpleMessage("Teacher schedule"),
         "login_fail": MessageLookupByLibrary.simpleMessage("Login failed"),
