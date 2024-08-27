@@ -1,4 +1,4 @@
-package com.yiqiu.schedule.schedule
+package com.yiqiu.schedule
 
 import io.flutter.embedding.android.FlutterActivity
 
