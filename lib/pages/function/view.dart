@@ -96,10 +96,15 @@ class FunctionMainPage extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         final appMainLogic = Get.find<AppMainLogic>().state;
+
         if (appMainLogic.orientation.value) {
           Get.toNamed(route, id: 2);
         } else {
-          Get.toNamed(route, id: 3);
+          // 获取当前页面路由
+          final currentRoute = Get.currentRoute;
+          currentRoute == FunctionRouteConfig.empty
+              ? Get.toNamed(route, id: 3)
+              : Get.offNamed(route, id: 3);
         }
       },
       style: ButtonStyle(
