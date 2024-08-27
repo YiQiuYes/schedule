@@ -20,7 +20,6 @@ class FunctionEmptyClassroomPage extends StatelessWidget {
     return Scaffold(
       appBar: appBarWidget(context),
       body: CustomScrollView(
-        physics: const NeverScrollableScrollPhysics(),
         slivers: <Widget>[
           // 第几节课选择器
           lessonSelectorWidget(),
