@@ -103,6 +103,18 @@ class GlobalLogic extends GetxController {
     } else {
       _storage.setString("userInfoData", jsonEncode(state.scheduleUserInfo));
     }
+
+    // 读取惠生活798用户个人数据
+    String? hui798UserInfoDataStr = _storage.getString("hui798UserInfoData");
+    if (hui798UserInfoDataStr != null) {
+      Map<String, dynamic> map = jsonDecode(hui798UserInfoDataStr);
+      map.forEach((key, value) {
+        state.hui798UserInfo[key] = value;
+      });
+    } else {
+      _storage.setString(
+          "hui798UserInfoData", jsonEncode(state.hui798UserInfo));
+    }
   }
 
   /// 获取课程数据
@@ -175,6 +187,13 @@ class GlobalLogic extends GetxController {
     state.scheduleUserInfo[key] = value;
     return await _storage.setString(
         "userInfoData", jsonEncode(state.scheduleUserInfo));
+  }
+
+  /// 设置数据
+  Future<bool> setHui798UserInfo(String key, dynamic value) async {
+    state.hui798UserInfo[key] = value;
+    return await _storage.setString(
+        "hui798UserInfoData", jsonEncode(state.hui798UserInfo));
   }
 
   /// 设置登录状态

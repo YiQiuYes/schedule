@@ -101,10 +101,10 @@ class S {
   }
 
   /// `Name`
-  String get login_userHint {
+  String get login_user_hint {
     return Intl.message(
       'Name',
-      name: 'login_userHint',
+      name: 'login_user_hint',
       desc: '',
       args: [],
     );
@@ -121,10 +121,20 @@ class S {
   }
 
   /// `Password`
-  String get login_passwordHint {
+  String get login_password_hint {
     return Intl.message(
       'Password',
-      name: 'login_passwordHint',
+      name: 'login_password_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message code`
+  String get login_message_code_hint {
+    return Intl.message(
+      'Message code',
+      name: 'login_message_code_hint',
       desc: '',
       args: [],
     );
@@ -140,21 +150,41 @@ class S {
     );
   }
 
+  /// `Captcha cannot be empty`
+  String get login_captcha_not_empty {
+    return Intl.message(
+      'Captcha cannot be empty',
+      name: 'login_captcha_not_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message code cannot be empty`
+  String get login_message_code_not_empty {
+    return Intl.message(
+      'Message code cannot be empty',
+      name: 'login_message_code_not_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `LOGIN`
-  String get login_loginButton {
+  String get login_login_button {
     return Intl.message(
       'LOGIN',
-      name: 'login_loginButton',
+      name: 'login_login_button',
       desc: '',
       args: [],
     );
   }
 
   /// `Error`
-  String get login_flushbarTitleError {
+  String get login_flushbar_title_error {
     return Intl.message(
       'Error',
-      name: 'login_flushbarTitleError',
+      name: 'login_flushbar_title_error',
       desc: '',
       args: [],
     );
@@ -175,6 +205,66 @@ class S {
     return Intl.message(
       'Login timeout',
       name: 'login_timeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captcha`
+  String get login_captcha_hint {
+    return Intl.message(
+      'Captcha',
+      name: 'login_captcha_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send code`
+  String get login_send_message_code {
+    return Intl.message(
+      'Send code',
+      name: 'login_send_message_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Obtained the SMS verification code successfully!`
+  String get login_drink_message_code_success {
+    return Intl.message(
+      'Obtained the SMS verification code successfully!',
+      name: 'login_drink_message_code_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to obtain SMS verification code!`
+  String get login_drink_message_code_fail {
+    return Intl.message(
+      'Failed to obtain SMS verification code!',
+      name: 'login_drink_message_code_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login success!`
+  String get login_drink_login_success {
+    return Intl.message(
+      'Login success!',
+      name: 'login_drink_login_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check if the mobile phone number or verification code is correct!`
+  String get login_drink_login_fail {
+    return Intl.message(
+      'Please check if the mobile phone number or verification code is correct!',
+      name: 'login_drink_login_fail',
       desc: '',
       args: [],
     );

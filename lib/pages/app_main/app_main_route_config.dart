@@ -49,10 +49,10 @@ class AppMainRouteConfig {
 
     if (!globalState.settings["isLogin"]) {
       return GetPageRoute(
-        page: () => const LoginPage(type: LoginPageType.schedule),
+        page: () => const LoginPage(),
         settings: RouteSettings(
           name: settings.name,
-          arguments: settings.arguments,
+          arguments: const {"type", LoginPageType.schedule},
         ),
       );
     }

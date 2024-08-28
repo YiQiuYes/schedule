@@ -68,16 +68,34 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_teacher_search_hint":
             MessageLookupByLibrary.simpleMessage("教师姓名"),
         "function_teacher_title": MessageLookupByLibrary.simpleMessage("教师课表"),
+        "login_captcha_hint": MessageLookupByLibrary.simpleMessage("验证码"),
+        "login_captcha_not_empty":
+            MessageLookupByLibrary.simpleMessage("验证码不能为空"),
+        "login_drink_login_fail":
+            MessageLookupByLibrary.simpleMessage("登录失败！请检查手机号或验证码是否正确！"),
+        "login_drink_login_success":
+            MessageLookupByLibrary.simpleMessage("登录成功！"),
+        "login_drink_message_code_fail":
+            MessageLookupByLibrary.simpleMessage("获取短信验证码失败！"),
+        "login_drink_message_code_success":
+            MessageLookupByLibrary.simpleMessage("获取短信验证码成功！"),
         "login_fail": MessageLookupByLibrary.simpleMessage("登录失败"),
-        "login_flushbarTitleError": MessageLookupByLibrary.simpleMessage("错误"),
-        "login_loginButton": MessageLookupByLibrary.simpleMessage("登录"),
-        "login_passwordHint": MessageLookupByLibrary.simpleMessage("密码"),
+        "login_flushbar_title_error":
+            MessageLookupByLibrary.simpleMessage("错误"),
+        "login_login_button": MessageLookupByLibrary.simpleMessage("登录"),
+        "login_message_code_hint":
+            MessageLookupByLibrary.simpleMessage("短信验证码"),
+        "login_message_code_not_empty":
+            MessageLookupByLibrary.simpleMessage("短信验证码不能为空"),
+        "login_password_hint": MessageLookupByLibrary.simpleMessage("密码"),
         "login_password_not_empty":
             MessageLookupByLibrary.simpleMessage("密码不能为空"),
+        "login_send_message_code":
+            MessageLookupByLibrary.simpleMessage("发送验证码"),
         "login_statue": MessageLookupByLibrary.simpleMessage("登录状态"),
         "login_tile": MessageLookupByLibrary.simpleMessage("登录"),
         "login_timeout": MessageLookupByLibrary.simpleMessage("登录超时"),
-        "login_userHint": MessageLookupByLibrary.simpleMessage("用户名"),
+        "login_user_hint": MessageLookupByLibrary.simpleMessage("用户名"),
         "login_user_not_empty": MessageLookupByLibrary.simpleMessage("用户名不能为空"),
         "person_contact": MessageLookupByLibrary.simpleMessage("加入交流"),
         "person_join_qq_group": MessageLookupByLibrary.simpleMessage("加入QQ群"),

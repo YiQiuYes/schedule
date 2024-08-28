@@ -200,7 +200,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4d6c61b6545028064c9da84abbd35459889795bc"
+      resolved-ref: f6ccedb93dc9f7bae205058f933ff3240f7b7d78
       url: "https://github.com/YiQiuYes/flutter_login.git"
     source: git
     version: "5.0.0"

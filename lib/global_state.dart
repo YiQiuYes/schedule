@@ -22,6 +22,13 @@ class GlobalState {
     "password": "",
   }.obs;
 
+  // 惠生活798账号
+  RxMap<String, dynamic> hui798UserInfo = {
+    "hui798IsLogin": false,
+    "username": "",
+    "password": "",
+  }.obs;
+
   // 设置数据
   RxMap<String, dynamic> settings = {
     "isLogin": false,

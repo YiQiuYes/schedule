@@ -74,17 +74,35 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Teacher name"),
         "function_teacher_title":
             MessageLookupByLibrary.simpleMessage("Teacher schedule"),
+        "login_captcha_hint": MessageLookupByLibrary.simpleMessage("Captcha"),
+        "login_captcha_not_empty":
+            MessageLookupByLibrary.simpleMessage("Captcha cannot be empty"),
+        "login_drink_login_fail": MessageLookupByLibrary.simpleMessage(
+            "Please check if the mobile phone number or verification code is correct!"),
+        "login_drink_login_success":
+            MessageLookupByLibrary.simpleMessage("Login success!"),
+        "login_drink_message_code_fail": MessageLookupByLibrary.simpleMessage(
+            "Failed to obtain SMS verification code!"),
+        "login_drink_message_code_success":
+            MessageLookupByLibrary.simpleMessage(
+                "Obtained the SMS verification code successfully!"),
         "login_fail": MessageLookupByLibrary.simpleMessage("Login failed"),
-        "login_flushbarTitleError":
+        "login_flushbar_title_error":
             MessageLookupByLibrary.simpleMessage("Error"),
-        "login_loginButton": MessageLookupByLibrary.simpleMessage("LOGIN"),
-        "login_passwordHint": MessageLookupByLibrary.simpleMessage("Password"),
+        "login_login_button": MessageLookupByLibrary.simpleMessage("LOGIN"),
+        "login_message_code_hint":
+            MessageLookupByLibrary.simpleMessage("Message code"),
+        "login_message_code_not_empty": MessageLookupByLibrary.simpleMessage(
+            "Message code cannot be empty"),
+        "login_password_hint": MessageLookupByLibrary.simpleMessage("Password"),
         "login_password_not_empty":
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
+        "login_send_message_code":
+            MessageLookupByLibrary.simpleMessage("Send code"),
         "login_statue": MessageLookupByLibrary.simpleMessage("Login status"),
         "login_tile": MessageLookupByLibrary.simpleMessage("Login"),
         "login_timeout": MessageLookupByLibrary.simpleMessage("Login timeout"),
-        "login_userHint": MessageLookupByLibrary.simpleMessage("Name"),
+        "login_user_hint": MessageLookupByLibrary.simpleMessage("Name"),
         "login_user_not_empty":
             MessageLookupByLibrary.simpleMessage("Name cannot be empty"),
         "person_contact": MessageLookupByLibrary.simpleMessage("Contact"),
