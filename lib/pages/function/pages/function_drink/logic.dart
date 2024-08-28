@@ -92,6 +92,7 @@ class FunctionDrinkLogic extends GetxController {
                   id: state.deviceList[index]["id"]);
               // logger.i(isAvailable);
               if (isAvailable && count > 3) {
+                state.choiceDevice.value = -1;
                 state.deviceStatusTimer?.cancel();
                 update();
               } else if (isAvailable) {
