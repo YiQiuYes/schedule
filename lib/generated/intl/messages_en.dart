@@ -52,6 +52,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_area_name":
             MessageLookupByLibrary.simpleMessage("Function area"),
         "function_drink": MessageLookupByLibrary.simpleMessage("ILife"),
+        "function_drink_switch_end_fail":
+            MessageLookupByLibrary.simpleMessage("Bookmark failed!"),
+        "function_drink_switch_end_success":
+            MessageLookupByLibrary.simpleMessage("Collected successfully!"),
+        "function_drink_switch_start_fail":
+            MessageLookupByLibrary.simpleMessage(
+                "Failed to turn on the device!"),
+        "function_drink_switch_start_success":
+            MessageLookupByLibrary.simpleMessage(
+                "The device is turned on successfully!"),
         "function_empty_classroom":
             MessageLookupByLibrary.simpleMessage("Empty classroom"),
         "function_empty_classroom_what_lesson": m0,

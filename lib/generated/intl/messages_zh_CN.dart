@@ -51,6 +51,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("全校课表"),
         "function_area_name": MessageLookupByLibrary.simpleMessage("功能区域"),
         "function_drink": MessageLookupByLibrary.simpleMessage("慧生活798"),
+        "function_drink_switch_end_fail":
+            MessageLookupByLibrary.simpleMessage("结算失败！"),
+        "function_drink_switch_end_success":
+            MessageLookupByLibrary.simpleMessage("结算成功！"),
+        "function_drink_switch_start_fail":
+            MessageLookupByLibrary.simpleMessage("开启设备失败！"),
+        "function_drink_switch_start_success":
+            MessageLookupByLibrary.simpleMessage("开启设备成功！"),
         "function_empty_classroom": MessageLookupByLibrary.simpleMessage("空教室"),
         "function_empty_classroom_what_lesson": m0,
         "function_exam_plan": MessageLookupByLibrary.simpleMessage("考试计划"),

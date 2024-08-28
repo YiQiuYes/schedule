@@ -530,6 +530,46 @@ class S {
     );
   }
 
+  /// `The device is turned on successfully!`
+  String get function_drink_switch_start_success {
+    return Intl.message(
+      'The device is turned on successfully!',
+      name: 'function_drink_switch_start_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to turn on the device!`
+  String get function_drink_switch_start_fail {
+    return Intl.message(
+      'Failed to turn on the device!',
+      name: 'function_drink_switch_start_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Collected successfully!`
+  String get function_drink_switch_end_success {
+    return Intl.message(
+      'Collected successfully!',
+      name: 'function_drink_switch_end_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bookmark failed!`
+  String get function_drink_switch_end_fail {
+    return Intl.message(
+      'Bookmark failed!',
+      name: 'function_drink_switch_end_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get person_semester_tip {
     return Intl.message(

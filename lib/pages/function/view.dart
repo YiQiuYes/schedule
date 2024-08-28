@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/utils/logger_utils.dart';
+import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/app_main/logic.dart';
 import 'package:schedule/pages/function/function_route_config.dart';
 
@@ -100,11 +101,7 @@ class FunctionMainPage extends StatelessWidget {
         if (appMainLogic.orientation.value) {
           Get.toNamed(route, id: 2);
         } else {
-          // 获取当前页面路由
-          final currentRoute = Get.currentRoute;
-          currentRoute == FunctionRouteConfig.empty
-              ? Get.toNamed(route, id: 3)
-              : Get.offNamed(route, id: 3);
+          Get.offNamed(route, id: 3);
         }
       },
       style: ButtonStyle(
