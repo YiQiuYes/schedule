@@ -111,7 +111,7 @@ class FunctionAllCoursePage extends StatelessWidget {
       return CurriculumComponent(
         showWeek: int.parse(logic.state.week.value) - 1,
         courseData: logic.state.courseData,
-        crossAxisSpacing: ScreenUtils.byOrientationReturn(horizon: 0.6.w),
+        crossAxisSpacing: ScreenUtils.byOrientationReturn(horizon: 2.w),
         classNameFontSize: ScreenUtils.byOrientationReturn(horizon: 6.sp),
         classAddressFontSize: ScreenUtils.byOrientationReturn(horizon: 5.sp),
         weekFontSize: ScreenUtils.byOrientationReturn(horizon: 8.sp),
