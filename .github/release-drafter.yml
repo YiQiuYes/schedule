@@ -24,11 +24,8 @@ version-resolver:
   default: patch
 # 这里填写更新内容
 template: |
-  测试版 0.2.7
-  1、修复教师课表搜索条上滑数据后无法点击问题
-  2、修复单独实验课表存在时底色高亮错误问题
-  3、统一页面字体
-  4、修复了版本号过低的bug😜😜
+  测试版 0.2.8
+  修复个人页面学期选择
   $CHANGES
 no-changes-template: |
   快下载体验~
