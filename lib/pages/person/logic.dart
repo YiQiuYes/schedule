@@ -53,9 +53,11 @@ class PersonLogic extends GetxController {
     for (int i = 0; i < 5; i++) {
       // 判断为上半学期还是下班学期
       late int whereSemester;
-      if (now.month >= 2 && now.month <= 8) {
+      if (now.month >= 2 && now.month < 8) {
+        // 下半学期
         whereSemester = 1;
       } else {
+        // 上半学期
         whereSemester = 0;
       }
 
@@ -67,8 +69,8 @@ class PersonLogic extends GetxController {
         now = now.subtract(const Duration(days: 365));
       } else {
         // 上半学期
-        pickerData.add("${now.year - 1}-${now.year}-1");
-        pickerData.add("${now.year - 2}-${now.year - 1}-2");
+        pickerData.add("${now.year}-${now.year + 1}-1");
+        pickerData.add("${now.year - 1}-${now.year}-2");
         now = now.subtract(const Duration(days: 365));
       }
     }
