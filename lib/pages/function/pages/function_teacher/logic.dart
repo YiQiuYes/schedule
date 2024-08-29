@@ -10,10 +10,10 @@ class FunctionTeacherLogic extends GetxController {
   final queryApi = ScheduleQueryApi();
 
   @override
-  void onClose() {
+  void dispose() {
     state.teacherNameController.dispose();
     state.scrollController.dispose();
-    super.onClose();
+    super.dispose();
   }
 
   /// 获取教师课表
