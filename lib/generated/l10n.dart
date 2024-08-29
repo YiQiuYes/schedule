@@ -660,6 +660,26 @@ class S {
     );
   }
 
+  /// `Monet color`
+  String get setting_switch_monet_color {
+    return Intl.message(
+      'Monet color',
+      name: 'setting_switch_monet_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dynamically get the desktop wallpaper color`
+  String get setting_switch_monet_color_sub {
+    return Intl.message(
+      'Dynamically get the desktop wallpaper color',
+      name: 'setting_switch_monet_color_sub',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Select a light and shade theme`
   String get setting_interface_theme {
     return Intl.message(

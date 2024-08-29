@@ -161,6 +161,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_group_interface": MessageLookupByLibrary.simpleMessage("UI"),
         "setting_interface_theme": MessageLookupByLibrary.simpleMessage(
             "Select a light and shade theme"),
+        "setting_switch_monet_color":
+            MessageLookupByLibrary.simpleMessage("Monet color"),
+        "setting_switch_monet_color_sub": MessageLookupByLibrary.simpleMessage(
+            "Dynamically get the desktop wallpaper color"),
         "setting_theme_dark":
             MessageLookupByLibrary.simpleMessage("Dark theme"),
         "setting_theme_light":

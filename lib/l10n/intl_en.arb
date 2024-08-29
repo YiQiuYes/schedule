@@ -67,6 +67,8 @@
 
   "setting_title" : "Setting",
   "setting_group_interface" : "UI",
+  "setting_switch_monet_color" : "Monet color",
+  "setting_switch_monet_color_sub" : "Dynamically get the desktop wallpaper color",
   "setting_interface_theme" : "Select a light and shade theme",
   "setting_theme_light" : "Light theme",
   "setting_theme_dark" : "Dark theme",

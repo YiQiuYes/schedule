@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,8 @@ class PersonSettingPage extends StatelessWidget {
           groupTextWidget(context, S.of(context).setting_group_interface),
           // 深浅色主题模式
           themeSettingWidget(context),
+          // 是否支持莫奈取色
+          switchMonetColorWidget(context),
           // 选择主题
           choiceThemeColorWidget(context),
           // 关于文本
@@ -62,7 +65,8 @@ class PersonSettingPage extends StatelessWidget {
 
   /// 获取ListTile
   Widget listTileWidget(
-      String title, String subtitle, IconData icon, Function? onTap) {
+      String title, String subtitle, IconData icon, Function? onTap,
+      {Widget? trailing}) {
     return ListTile(
       onTap: onTap == null ? null : () => onTap(),
       contentPadding: EdgeInsets.only(
@@ -84,6 +88,7 @@ class PersonSettingPage extends StatelessWidget {
           fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 9.sp),
         ),
       ),
+      trailing: trailing,
     );
   }
 
@@ -136,6 +141,36 @@ class PersonSettingPage extends StatelessWidget {
         }
       },
     );
+  }
+
+  /// 获取是否支持莫奈取色
+  Widget switchMonetColorWidget(BuildContext context) {
+    return DynamicColorBuilder(
+        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      // 不支持莫奈取色则返回空组件
+      if (lightDynamic == null || darkDynamic == null) {
+        return const SizedBox();
+      }
+
+      return GetBuilder<GlobalLogic>(builder: (globalLogic) {
+        return listTileWidget(
+          S.of(context).setting_switch_monet_color,
+          S.of(context).setting_switch_monet_color_sub,
+          Icons.colorize_rounded,
+          () {
+            globalLogic
+                .setMonetColor(!globalLogic.state.settings["isMonetColor"]);
+          },
+          trailing: Switch(
+            value: globalLogic.state.settings["isMonetColor"],
+            onChanged: (value) {
+              globalLogic
+                  .setMonetColor(!globalLogic.state.settings["isMonetColor"]);
+            },
+          ),
+        );
+      });
+    });
   }
 
   /// 获取版本更新

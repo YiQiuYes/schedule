@@ -145,6 +145,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_group_interface": MessageLookupByLibrary.simpleMessage("界面"),
         "setting_interface_theme":
             MessageLookupByLibrary.simpleMessage("选择深浅主题"),
+        "setting_switch_monet_color":
+            MessageLookupByLibrary.simpleMessage("莫奈取色"),
+        "setting_switch_monet_color_sub":
+            MessageLookupByLibrary.simpleMessage("动态获取桌面壁纸颜色"),
         "setting_theme_dark": MessageLookupByLibrary.simpleMessage("深色主题"),
         "setting_theme_light": MessageLookupByLibrary.simpleMessage("浅色主题"),
         "setting_title": MessageLookupByLibrary.simpleMessage("设置"),

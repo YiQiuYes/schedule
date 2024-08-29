@@ -51,14 +51,18 @@ class MyApp extends StatelessWidget {
               return GetMaterialApp(
                 title: 'Flutter Demo',
                 theme: ThemeData(
-                  colorScheme: ColorScheme.fromSeed(
-                    seedColor: logic.getColorTheme(),
-                    brightness: Brightness.light,
-                  ),
+                  colorScheme: logic.state.settings["isMonetColor"]
+                      ? lightDynamic
+                      : ColorScheme.fromSeed(
+                          seedColor: logic.getColorTheme(),
+                          brightness: Brightness.light,
+                        ),
                   useMaterial3: true,
                 ),
                 darkTheme: ThemeData(
-                  colorScheme: ColorScheme.fromSeed(
+                  colorScheme: logic.state.settings["isMonetColor"]
+                      ? darkDynamic
+                      : ColorScheme.fromSeed(
                     seedColor: logic.getColorTheme(),
                     brightness: Brightness.dark,
                   ),

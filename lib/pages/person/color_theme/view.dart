@@ -165,7 +165,8 @@ class ColorThemePage extends StatelessWidget {
         GetBuilder<GlobalLogic>(builder: (globalLogic) {
           return AnimatedOpacity(
             opacity: globalLogic.state.settings["colorTheme"] ==
-                    logic.state.colorMap[logic.colorList[index]]?["hex"]
+                        logic.state.colorMap[logic.colorList[index]]?["hex"] &&
+                    !globalLogic.state.settings["isMonetColor"]
                 ? 1.0
                 : 0.0,
             duration: const Duration(milliseconds: 300),

@@ -35,6 +35,7 @@ class GlobalState {
     "load20CountCourse": false,
     "themeMode": "default",
     "colorTheme": "#673AB7",
+    "isMonetColor": false,
   }.obs;
 
   // 定时器刷新数据

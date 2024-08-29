@@ -67,6 +67,8 @@
 
   "setting_title" : "设置",
   "setting_group_interface" : "界面",
+  "setting_switch_monet_color" : "莫奈取色",
+  "setting_switch_monet_color_sub" : "动态获取桌面壁纸颜色",
   "setting_interface_theme" : "选择深浅主题",
   "setting_theme_light" : "浅色主题",
   "setting_theme_dark" : "深色主题",

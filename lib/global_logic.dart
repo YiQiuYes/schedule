@@ -169,9 +169,17 @@ class GlobalLogic extends GetxController {
     return Color(int.parse(state.settings["colorTheme"].substring(1), radix: 16));
   }
 
+  /// 设置莫奈取色
+  Future<void> setMonetColor(bool isMonetColor) async {
+    state.settings["isMonetColor"] = isMonetColor;
+    await setSettings("isMonetColor", isMonetColor);
+    update();
+  }
+
   /// 设置主题颜色
   Future<void> setColorTheme(String colorTheme) async {
     await setSettings("colorTheme", colorTheme);
+    await setSettings("isMonetColor", false);
     update();
   }
 
