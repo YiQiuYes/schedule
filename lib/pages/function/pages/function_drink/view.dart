@@ -49,50 +49,53 @@ class FunctionDrinkPage extends StatelessWidget {
                         width:
                             ScreenUtils.length(vertical: 400.w, horizon: 300.w),
                         child: StatefulBuilder(builder: (context, setState) {
-                          List<Widget> listTile = [];
+                          List<Widget> widget = [];
                           for (int i = 0;
                               i < logic.state.deviceList.length;
                               i++) {
-                            listTile.add(
-                              ListTile(
+                            widget.add(MyPopupMenuButton(
+                              position: PopupMenuPosition.under,
+                              offset: Offset(
+                                  ScreenUtils.length(
+                                      vertical: 100.w, horizon: 60.w),
+                                  0),
+                              itemBuilder: (BuildContext context) {
+                                List<PopupMenuEntry> widget = [];
+                                widget.add(
+                                  PopupMenuItem(
+                                    value: 0,
+                                    child: Text(S
+                                        .of(context)
+                                        .function_drink_unfavorite),
+                                  ),
+                                );
+                                return widget;
+                              },
+                              child: ListTile(
                                 title: Text(
                                   logic.formatDeviceName(
                                       logic.state.deviceList[i]["name"]),
                                 ),
-                                trailing: MyPopupMenuButton(
-                                  itemBuilder: (BuildContext context) {
-                                    List<PopupMenuEntry> widget = [];
-                                    widget.add(
-                                      PopupMenuItem(
-                                        value: 0,
-                                        child: Text(S
-                                            .of(context)
-                                            .function_drink_unfavorite),
-                                      ),
-                                    );
-                                    return widget;
-                                  },
-                                  child: const Icon(Icons.more_vert_rounded),
-                                  onSelected: (select) {
-                                    if (select == 0) {
-                                      logic.favoDevice(
-                                          logic.state.deviceList[i]["id"]
-                                              .toString(),
-                                          true);
-                                      logic.removeDeviceByName(
-                                          logic.state.deviceList[i]["name"]);
-                                      listTile.remove(this);
-                                      setState(() {});
-                                    }
-                                  },
-                                ),
+                                trailing: const Icon(Icons.more_vert_rounded),
                               ),
-                            );
+                              onSelected: (select) {
+                                if (select == 0) {
+                                  logic.favoDevice(
+                                      logic.state.deviceList[i]["id"]
+                                          .toString(),
+                                      true);
+                                  logic.removeDeviceByName(
+                                      logic.state.deviceList[i]["name"]);
+                                  widget.remove(this);
+                                  setState(() {});
+                                }
+                              },
+                            ));
                           }
 
                           return ListView(
                             shrinkWrap: true,
-                            children: listTile,
+                            children: widget,
                           );
                         }),
                       ),
@@ -132,7 +135,8 @@ class FunctionDrinkPage extends StatelessWidget {
                       content: TextField(
                         controller: logic.state.tokenController,
                         decoration: InputDecoration(
-                          labelText: S.of(context).function_drink_token_manage_label,
+                          labelText:
+                              S.of(context).function_drink_token_manage_label,
                         ),
                       ),
                       actions: [
