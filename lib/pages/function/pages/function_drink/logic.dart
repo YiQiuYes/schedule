@@ -67,6 +67,7 @@ class FunctionDrinkLogic extends GetxController {
         update();
         checkLogin();
       } else {
+        globalLogic.setHui798UserInfo("hui798IsLogin", true);
         state.deviceList.value = value;
         update();
       }
@@ -252,6 +253,7 @@ class FunctionDrinkLogic extends GetxController {
   /// 设置token
   void setToken(String token) {
     drinkApi.setToken(token: token).then((value) {
+      getDeviceList();
       update();
     });
   }
