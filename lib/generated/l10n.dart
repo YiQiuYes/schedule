@@ -650,6 +650,76 @@ class S {
     );
   }
 
+  /// `UI`
+  String get setting_group_interface {
+    return Intl.message(
+      'UI',
+      name: 'setting_group_interface',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a light and shade theme`
+  String get setting_interface_theme {
+    return Intl.message(
+      'Select a light and shade theme',
+      name: 'setting_interface_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light theme`
+  String get setting_theme_light {
+    return Intl.message(
+      'Light theme',
+      name: 'setting_theme_light',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark theme`
+  String get setting_theme_dark {
+    return Intl.message(
+      'Dark theme',
+      name: 'setting_theme_dark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a color theme`
+  String get setting_choice_color_theme {
+    return Intl.message(
+      'Select a color theme',
+      name: 'setting_choice_color_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personalize global color matching`
+  String get setting_choice_color_sub_title {
+    return Intl.message(
+      'Personalize global color matching',
+      name: 'setting_choice_color_sub_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Follow the system`
+  String get setting_follow_system {
+    return Intl.message(
+      'Follow the system',
+      name: 'setting_follow_system',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `About`
   String get setting_group_about {
     return Intl.message(
@@ -745,6 +815,56 @@ class S {
     return Intl.message(
       'Failed to get the latest version information!',
       name: 'update_dialog_version_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deep purple`
+  String get deep_purple_color {
+    return Intl.message(
+      'Deep purple',
+      name: 'deep_purple_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Green`
+  String get green_color {
+    return Intl.message(
+      'Green',
+      name: 'green_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pink`
+  String get pink_color {
+    return Intl.message(
+      'Pink',
+      name: 'pink_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blue`
+  String get blue_color {
+    return Intl.message(
+      'Blue',
+      name: 'blue_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lime`
+  String get lime_color {
+    return Intl.message(
+      'Lime',
+      name: 'lime_color',
       desc: '',
       args: [],
     );

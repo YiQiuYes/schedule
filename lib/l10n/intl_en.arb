@@ -66,6 +66,13 @@
   "person_join_qq_group_tip" : "QQ group number: 161324332",
 
   "setting_title" : "Setting",
+  "setting_group_interface" : "UI",
+  "setting_interface_theme" : "Select a light and shade theme",
+  "setting_theme_light" : "Light theme",
+  "setting_theme_dark" : "Dark theme",
+  "setting_choice_color_theme" : "Select a color theme",
+  "setting_choice_color_sub_title" : "Personalize global color matching",
+  "setting_follow_system" : "Follow the system",
   "setting_group_about" : "About",
   "setting_update_main_text" : "Version updates",
   "setting_current_version" : "Current version {version}",
@@ -76,6 +83,12 @@
   "update_dialog_snackbar_vpn" : "If the download fails, turn on the VPN",
   "update_dialog_current_is_last_version" : "The current version is the latest version!",
   "update_dialog_version_fail" : "Failed to get the latest version information!",
+
+  "deep_purple_color" : "Deep purple",
+  "green_color" : "Green",
+  "pink_color" : "Pink",
+  "blue_color" : "Blue",
+  "lime_color" : "Lime",
 
   "pickerConfirm" : "Confirm",
   "pickerCancel" : "Cancel",

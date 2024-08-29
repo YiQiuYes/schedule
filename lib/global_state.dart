@@ -33,6 +33,8 @@ class GlobalState {
   RxMap<String, dynamic> settings = {
     "isLogin": false,
     "load20CountCourse": false,
+    "themeMode": "default",
+    "colorTheme": "#673AB7",
   }.obs;
 
   // 定时器刷新数据

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/api/schedule/schedule_query_api.dart';
 import 'package:schedule/common/utils/logger_utils.dart';
@@ -117,6 +118,30 @@ class GlobalLogic extends GetxController {
     }
   }
 
+  /// 获取主题模式
+  ThemeMode getThemeMode() {
+    if (state.settings["themeMode"] == "default") {
+      return ThemeMode.system;
+    } else if (state.settings["themeMode"] == "light") {
+      // SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+      //   statusBarColor: Colors.transparent,
+      //   systemNavigationBarColor: Colors.transparent,
+      //   statusBarIconBrightness: Brightness.dark,
+      // );
+      // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+      return ThemeMode.light;
+    } else if (state.settings["themeMode"] == "dark") {
+      // SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+      //   statusBarColor: Colors.transparent,
+      //   systemNavigationBarColor: Colors.transparent,
+      //   statusBarIconBrightness: Brightness.light,
+      // );
+      // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+      return ThemeMode.dark;
+    }
+    return ThemeMode.system;
+  }
+
   /// 获取课程数据
   Future<void> getPersonCourseData(
       {required String week, required String semester}) async {
@@ -137,6 +162,23 @@ class GlobalLogic extends GetxController {
         .then((value) async {
       await setExperimentData(int.parse(week) - 1, value);
     });
+  }
+
+  /// 获取主题颜色
+  Color getColorTheme() {
+    return Color(int.parse(state.settings["colorTheme"].substring(1), radix: 16));
+  }
+
+  /// 设置主题颜色
+  Future<void> setColorTheme(String colorTheme) async {
+    await setSettings("colorTheme", colorTheme);
+    update();
+  }
+
+  /// 设置主题模式
+  Future<void> setThemeMode(String themeMode) async {
+    await setSettings("themeMode", themeMode);
+    update();
   }
 
   /// 设置数据

@@ -66,6 +66,13 @@
   "person_join_qq_group_tip" : "QQ群号：161324332",
 
   "setting_title" : "设置",
+  "setting_group_interface" : "界面",
+  "setting_interface_theme" : "选择深浅主题",
+  "setting_theme_light" : "浅色主题",
+  "setting_theme_dark" : "深色主题",
+  "setting_choice_color_theme" : "选择主题颜色",
+  "setting_choice_color_sub_title" : "个性化全局配色",
+  "setting_follow_system" : "跟随系统",
   "setting_group_about" : "关于",
   "setting_update_main_text" : "版本更新",
   "setting_current_version" : "当前版本 {version}",
@@ -76,6 +83,12 @@
   "update_dialog_snackbar_vpn" : "如果遇到下载失败请开启VPN",
   "update_dialog_current_is_last_version" : "当前已是最新版本！",
   "update_dialog_version_fail" : "版本获取失败！",
+
+  "deep_purple_color" : "深紫色",
+  "green_color" : "绿色",
+  "pink_color" : "粉色",
+  "blue_color" : "蓝色",
+  "lime_color" : "青柠色",
 
   "pickerConfirm" : "确认",
   "pickerCancel" : "取消",

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:schedule/common/widget/my_popup_menu/my_popup_menu.dart';
+import 'package:schedule/global_logic.dart';
+import 'package:schedule/pages/person/person_route_config.dart';
 
 import '../../../common/utils/package_info_utils.dart';
 import '../../../common/utils/screen_utils.dart';
 import '../../../generated/l10n.dart';
+import '../../app_main/logic.dart';
 import 'logic.dart';
 
 class PersonSettingPage extends StatelessWidget {
@@ -21,6 +25,12 @@ class PersonSettingPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          // 界面文本
+          groupTextWidget(context, S.of(context).setting_group_interface),
+          // 深浅色主题模式
+          themeSettingWidget(context),
+          // 选择主题
+          choiceThemeColorWidget(context),
           // 关于文本
           groupTextWidget(context, S.of(context).setting_group_about),
           // 获取版本更新
@@ -74,6 +84,57 @@ class PersonSettingPage extends StatelessWidget {
           fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 9.sp),
         ),
       ),
+    );
+  }
+
+  /// 获取深浅色主题模式
+  Widget themeSettingWidget(BuildContext context) {
+    return GetBuilder<GlobalLogic>(builder: (globalLogic) {
+      return MyPopupMenuButton(
+        tooltip: S.of(context).setting_interface_theme,
+        initialValue: globalLogic.state.settings["theme"],
+        position: PopupMenuPosition.under,
+        onSelected: (value) {
+          globalLogic.setThemeMode(value);
+        },
+        offset: Offset(ScreenUtils.length(vertical: 100.w, horizon: 60.w), 0),
+        itemBuilder: (context) {
+          List<PopupMenuEntry> widget = [];
+          logic.getThemesMap().forEach((key, value) {
+            widget.add(
+              PopupMenuItem(
+                value: key,
+                child: Text(value),
+              ),
+            );
+          });
+          return widget;
+        },
+        child: listTileWidget(
+          S.of(context).setting_interface_theme,
+          logic.getThemesMap()[globalLogic.state.settings["themeMode"]]!,
+          Icons.dark_mode_rounded,
+          null,
+        ),
+      );
+    });
+  }
+
+  /// 选择主题
+  Widget choiceThemeColorWidget(BuildContext context) {
+    return listTileWidget(
+      S.of(context).setting_choice_color_theme,
+      S.of(context).setting_choice_color_sub_title,
+      Icons.palette_rounded,
+      () {
+        final appMainLogic = Get.find<AppMainLogic>().state;
+
+        if (appMainLogic.orientation.value) {
+          Get.toNamed(PersonRouteConfig.colorTheme, id: 4);
+        } else {
+          Get.toNamed(PersonRouteConfig.colorTheme, id: 5);
+        }
+      },
     );
   }
 
@@ -141,10 +202,8 @@ class PersonSettingPage extends StatelessWidget {
 
   /// 关于应用弹窗
   Widget aboutApplicationDialogWidget(BuildContext context) {
-    return listTileWidget(
-        S.of(context).setting_about_application,
-        S.of(context).setting_about_application_name,
-        Icons.person_rounded, () {
+    return listTileWidget(S.of(context).setting_about_application,
+        S.of(context).setting_about_application_name, Icons.person_rounded, () {
       showAboutDialog(
         context: context,
         applicationName: S.of(context).setting_about_application_name,

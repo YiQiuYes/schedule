@@ -45,6 +45,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_main_function": MessageLookupByLibrary.simpleMessage("function"),
         "app_main_person": MessageLookupByLibrary.simpleMessage("person"),
         "app_main_schedule": MessageLookupByLibrary.simpleMessage("schedule"),
+        "blue_color": MessageLookupByLibrary.simpleMessage("Blue"),
+        "deep_purple_color":
+            MessageLookupByLibrary.simpleMessage("Deep purple"),
         "function_all_course_loading":
             MessageLookupByLibrary.simpleMessage("Loading..."),
         "function_all_course_title":
@@ -84,6 +87,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Teacher name"),
         "function_teacher_title":
             MessageLookupByLibrary.simpleMessage("Teacher schedule"),
+        "green_color": MessageLookupByLibrary.simpleMessage("Green"),
+        "lime_color": MessageLookupByLibrary.simpleMessage("Lime"),
         "login_captcha_hint": MessageLookupByLibrary.simpleMessage("Captcha"),
         "login_captcha_not_empty":
             MessageLookupByLibrary.simpleMessage("Captcha cannot be empty"),
@@ -128,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Start day"),
         "pickerCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "pink_color": MessageLookupByLibrary.simpleMessage("Pink"),
         "schedule_course_detail":
             MessageLookupByLibrary.simpleMessage("Course details"),
         "schedule_course_name": m3,
@@ -144,8 +150,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Author: YiQiu"),
         "setting_about_application_name":
             MessageLookupByLibrary.simpleMessage("QiangZhi Schedule"),
+        "setting_choice_color_sub_title": MessageLookupByLibrary.simpleMessage(
+            "Personalize global color matching"),
+        "setting_choice_color_theme":
+            MessageLookupByLibrary.simpleMessage("Select a color theme"),
         "setting_current_version": m9,
+        "setting_follow_system":
+            MessageLookupByLibrary.simpleMessage("Follow the system"),
         "setting_group_about": MessageLookupByLibrary.simpleMessage("About"),
+        "setting_group_interface": MessageLookupByLibrary.simpleMessage("UI"),
+        "setting_interface_theme": MessageLookupByLibrary.simpleMessage(
+            "Select a light and shade theme"),
+        "setting_theme_dark":
+            MessageLookupByLibrary.simpleMessage("Dark theme"),
+        "setting_theme_light":
+            MessageLookupByLibrary.simpleMessage("Light theme"),
         "setting_title": MessageLookupByLibrary.simpleMessage("Setting"),
         "setting_update_main_text":
             MessageLookupByLibrary.simpleMessage("Version updates"),

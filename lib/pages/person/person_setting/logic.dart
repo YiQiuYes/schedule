@@ -105,4 +105,14 @@ class PersonSettingLogic extends GetxController {
   void jumpBrowser(String url) {
     launchUrl(Uri.parse(url));
   }
+
+  /// 获取主题列表
+  Map<String, String> getThemesMap() {
+    final map = {
+      "default" : S.current.setting_follow_system,
+      "light" : S.current.setting_theme_light,
+      "dark" : S.current.setting_theme_dark,
+    };
+    return map;
+  }
 }

@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_main_function": MessageLookupByLibrary.simpleMessage("功能"),
         "app_main_person": MessageLookupByLibrary.simpleMessage("我的"),
         "app_main_schedule": MessageLookupByLibrary.simpleMessage("课表"),
+        "blue_color": MessageLookupByLibrary.simpleMessage("蓝色"),
+        "deep_purple_color": MessageLookupByLibrary.simpleMessage("深紫色"),
         "function_all_course_loading":
             MessageLookupByLibrary.simpleMessage("正在加载..."),
         "function_all_course_title":
@@ -76,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_teacher_search_hint":
             MessageLookupByLibrary.simpleMessage("教师姓名"),
         "function_teacher_title": MessageLookupByLibrary.simpleMessage("教师课表"),
+        "green_color": MessageLookupByLibrary.simpleMessage("绿色"),
+        "lime_color": MessageLookupByLibrary.simpleMessage("青柠色"),
         "login_captcha_hint": MessageLookupByLibrary.simpleMessage("验证码"),
         "login_captcha_not_empty":
             MessageLookupByLibrary.simpleMessage("验证码不能为空"),
@@ -115,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "person_start_day_tip": MessageLookupByLibrary.simpleMessage("开始日期"),
         "pickerCancel": MessageLookupByLibrary.simpleMessage("取消"),
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("确认"),
+        "pink_color": MessageLookupByLibrary.simpleMessage("粉色"),
         "schedule_course_detail": MessageLookupByLibrary.simpleMessage("课程详情"),
         "schedule_course_name": m3,
         "schedule_course_room": m4,
@@ -130,8 +135,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("作者：易秋"),
         "setting_about_application_name":
             MessageLookupByLibrary.simpleMessage("强智课表"),
+        "setting_choice_color_sub_title":
+            MessageLookupByLibrary.simpleMessage("个性化全局配色"),
+        "setting_choice_color_theme":
+            MessageLookupByLibrary.simpleMessage("选择主题颜色"),
         "setting_current_version": m9,
+        "setting_follow_system": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "setting_group_about": MessageLookupByLibrary.simpleMessage("关于"),
+        "setting_group_interface": MessageLookupByLibrary.simpleMessage("界面"),
+        "setting_interface_theme":
+            MessageLookupByLibrary.simpleMessage("选择深浅主题"),
+        "setting_theme_dark": MessageLookupByLibrary.simpleMessage("深色主题"),
+        "setting_theme_light": MessageLookupByLibrary.simpleMessage("浅色主题"),
         "setting_title": MessageLookupByLibrary.simpleMessage("设置"),
         "setting_update_main_text":
             MessageLookupByLibrary.simpleMessage("版本更新"),

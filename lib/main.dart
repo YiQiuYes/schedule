@@ -47,27 +47,36 @@ class MyApp extends StatelessWidget {
           splitScreenMode: true,
           ensureScreenSize: true,
           builder: (BuildContext context, Widget? child) {
-            return GetMaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                colorScheme: lightDynamic,
-                useMaterial3: true,
-              ),
-              darkTheme: ThemeData(
-                colorScheme: darkDynamic,
-                useMaterial3: true,
-              ),
-              localizationsDelegates: const [
-                S.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: S.delegate.supportedLocales,
-              locale: const Locale('zh', 'CN'),
-              getPages: RouteConfig.getPages,
-              initialRoute: RouteConfig.appMain,
-            );
+            return GetBuilder<GlobalLogic>(builder: (logic) {
+              return GetMaterialApp(
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  colorScheme: ColorScheme.fromSeed(
+                    seedColor: logic.getColorTheme(),
+                    brightness: Brightness.light,
+                  ),
+                  useMaterial3: true,
+                ),
+                darkTheme: ThemeData(
+                  colorScheme: ColorScheme.fromSeed(
+                    seedColor: logic.getColorTheme(),
+                    brightness: Brightness.dark,
+                  ),
+                  useMaterial3: true,
+                ),
+                themeMode: logic.getThemeMode(),
+                localizationsDelegates: const [
+                  S.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: S.delegate.supportedLocales,
+                locale: const Locale('zh', 'CN'),
+                getPages: RouteConfig.getPages,
+                initialRoute: RouteConfig.appMain,
+              );
+            });
           },
         );
       },
