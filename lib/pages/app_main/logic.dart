@@ -57,39 +57,43 @@ class AppMainLogic extends GetxController {
         password.isEmpty) {
       return;
     }
-    userApi
-        .loginEducationalSystem(userAccount: username, userPassword: password)
-        .then((loginStatus) {
-      switch (loginStatus) {
-        case ScheduleUserStatus.loginTimeOut:
-          Get.snackbar(
-            S.current.login_statue,
-            S.current.login_timeout,
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            margin: EdgeInsets.only(
-              top: 30.w,
-              left: 50.w,
-              right: 50.w,
-            ),
-          );
-          break;
-        case ScheduleUserStatus.success:
-          // 储存登录成功
-          globalLogic.setIsLogin(true);
-          break;
-        case ScheduleUserStatus.fail:
-          Get.snackbar(
-            S.current.login_statue,
-            S.current.login_fail,
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            margin: EdgeInsets.only(
-              top: 30.w,
-              left: 50.w,
-              right: 50.w,
-            ),
-          );
-          break;
-      }
+
+    // 采用延迟解决过早登录刷新cookie导致后面请求失效问题
+    Future.delayed(const Duration(seconds: 2), () {
+      userApi
+          .loginEducationalSystem(userAccount: username, userPassword: password)
+          .then((loginStatus) {
+        switch (loginStatus) {
+          case ScheduleUserStatus.loginTimeOut:
+            Get.snackbar(
+              S.current.login_statue,
+              S.current.login_timeout,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              margin: EdgeInsets.only(
+                top: 30.w,
+                left: 50.w,
+                right: 50.w,
+              ),
+            );
+            break;
+          case ScheduleUserStatus.success:
+            // 储存登录成功
+            globalLogic.setIsLogin(true);
+            break;
+          case ScheduleUserStatus.fail:
+            Get.snackbar(
+              S.current.login_statue,
+              S.current.login_fail,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              margin: EdgeInsets.only(
+                top: 30.w,
+                left: 50.w,
+                right: 50.w,
+              ),
+            );
+            break;
+        }
+      });
     });
   }
 }
