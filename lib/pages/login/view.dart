@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
       style: ButtonStyle(
         padding: WidgetStateProperty.all(
           EdgeInsets.symmetric(
-            horizontal: ScreenUtils.length(vertical: 8.w, horizon: 8.w),
+            horizontal: ScreenUtils.length(vertical: 22.w, horizon: 8.w),
             vertical: 0,
           ),
         ),
@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
               snapshot.data!.isNotEmpty) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(
-                  ScreenUtils.length(vertical: 4.w, horizon: 4.w)),
+                  ScreenUtils.length(vertical: 14.w, horizon: 4.w)),
               child: InkWell(
                 onTap: () {
                   logic.getDrinkPhotoCaptchaData();
@@ -137,15 +137,15 @@ class _LoginPageState extends State<LoginPage> {
                 splashColor: Colors.transparent,
                 child: Image.memory(
                   snapshot.data!,
-                  height: ScreenUtils.length(vertical: 38.w, horizon: 25.w),
-                  width: ScreenUtils.length(vertical: 78.w, horizon: 53.w),
+                  height: ScreenUtils.length(vertical: 48.h, horizon: 25.w),
+                  width: ScreenUtils.length(vertical: 140.w, horizon: 53.w),
                   fit: BoxFit.fill,
                 ),
               ),
             );
           }
           return SizedBox(
-            width: ScreenUtils.length(vertical: 78.w, horizon: 53.w),
+            width: ScreenUtils.length(vertical:140.w, horizon: 53.w),
             child: const Center(child: CircularProgressIndicator()),
           );
         },
