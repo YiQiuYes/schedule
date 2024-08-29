@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:schedule/common/api/drink/drink_api.dart';
 import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/global_logic.dart';
+import 'package:schedule/pages/camera/view.dart';
 import 'package:schedule/pages/login/view.dart';
 
 import '../../../../generated/l10n.dart';
@@ -22,7 +23,17 @@ class FunctionDrinkLogic extends GetxController {
 
   Future<void> init() async {
     checkLogin();
-    getDeviceList();
+    // 获取token
+    drinkApi.getToken().then((value) {
+      state.tokenController.text = value;
+    });
+  }
+
+  @override
+  void dispose() {
+    state.deviceStatusTimer?.cancel();
+    state.tokenController.dispose();
+    super.dispose();
   }
 
   /// 判断是否需要跳转登录
@@ -41,6 +52,8 @@ class FunctionDrinkLogic extends GetxController {
               id: 3, arguments: {"type": LoginPageType.hui798});
         });
       }
+    } else {
+      getDeviceList();
     }
   }
 
@@ -57,6 +70,36 @@ class FunctionDrinkLogic extends GetxController {
         state.deviceList.value = value;
         update();
       }
+    });
+  }
+
+  /// 收藏或取消收藏设备
+  Future<bool> favoDevice(String id, bool isUnFavo) async {
+    return await drinkApi.favoDevice(id: id, isUnFavo: isUnFavo).then((value) {
+      if (value) {
+        Get.snackbar(
+          S.current.snackbar_tip,
+          S.current.function_drink_favorite_success,
+          backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
+          margin: EdgeInsets.only(
+            top: 30.w,
+            left: 50.w,
+            right: 50.w,
+          ),
+        );
+      } else {
+        Get.snackbar(
+          S.current.snackbar_tip,
+          S.current.function_drink_favorite_fail,
+          backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
+          margin: EdgeInsets.only(
+            top: 30.w,
+            left: 50.w,
+            right: 50.w,
+          ),
+        );
+      }
+      return value;
     });
   }
 
@@ -77,7 +120,7 @@ class FunctionDrinkLogic extends GetxController {
         // 使用count增加容错
         int count = 0;
         Get.snackbar(
-          S.current.login_statue,
+          S.current.snackbar_tip,
           S.current.function_drink_switch_start_success,
           backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
           margin: EdgeInsets.only(
@@ -88,20 +131,20 @@ class FunctionDrinkLogic extends GetxController {
         );
         state.deviceStatusTimer =
             Timer.periodic(const Duration(seconds: 1), (timer) async {
-              bool isAvailable = await drinkApi.isAvailableDevice(
-                  id: state.deviceList[index]["id"]);
-              // logger.i(isAvailable);
-              if (isAvailable && count > 3) {
-                state.choiceDevice.value = -1;
-                state.deviceStatusTimer?.cancel();
-                update();
-              } else if (isAvailable) {
-                count++;
-              }
-            });
+          bool isAvailable = await drinkApi.isAvailableDevice(
+              id: state.deviceList[index]["id"]);
+          // logger.i(isAvailable);
+          if (isAvailable && count > 3) {
+            state.choiceDevice.value = -1;
+            state.deviceStatusTimer?.cancel();
+            update();
+          } else if (isAvailable) {
+            count++;
+          }
+        });
       } else {
         Get.snackbar(
-          S.current.login_statue,
+          S.current.snackbar_tip,
           S.current.function_drink_switch_start_fail,
           backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
           margin: EdgeInsets.only(
@@ -122,7 +165,7 @@ class FunctionDrinkLogic extends GetxController {
         state.choiceDevice.value = -1;
         state.deviceStatusTimer?.cancel();
         Get.snackbar(
-          S.current.login_statue,
+          S.current.snackbar_tip,
           S.current.function_drink_switch_end_success,
           backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
           margin: EdgeInsets.only(
@@ -133,7 +176,7 @@ class FunctionDrinkLogic extends GetxController {
         );
       } else {
         Get.snackbar(
-          S.current.login_statue,
+          S.current.snackbar_tip,
           S.current.function_drink_switch_end_fail,
           backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
           margin: EdgeInsets.only(
@@ -143,6 +186,72 @@ class FunctionDrinkLogic extends GetxController {
           ),
         );
       }
+      update();
+    });
+  }
+
+  /// 删除相对应的device
+  void removeDeviceByName(String name) {
+    state.deviceList.removeWhere((element) => element["name"] == name);
+    update();
+  }
+
+  /// 扫描二维码逻辑
+  void scanQRCode(BuildContext context) async {
+    final appMainLogic = Get.find<AppMainLogic>().state;
+
+    var result;
+
+    if (appMainLogic.orientation.value) {
+      result = await Get.toNamed(FunctionRouteConfig.camera, id: 2, arguments: {
+        "type": CameraPageType.qrCode,
+        "appBarTitle": S.of(context).function_drink_device_qr_code,
+      });
+    } else {
+      result =
+          await Get.toNamed(FunctionRouteConfig.camera, id: 3, arguments: {
+        "type": CameraPageType.qrCode,
+        "appBarTitle": S.of(context).function_drink_device_qr_code,
+      });
+    }
+
+    if (result != null) {
+      String enc = (result as Map)["enc"];
+      enc = enc.split("/").last;
+
+      // 添加到喜好
+      bool isFavo = await favoDevice(enc, false);
+      if (isFavo) {
+        Get.snackbar(
+          S.current.snackbar_tip,
+          S.current.function_drink_favorite_success,
+          backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
+          margin: EdgeInsets.only(
+            top: 30.w,
+            left: 50.w,
+            right: 50.w,
+          ),
+        );
+        // 获取设备列表
+        getDeviceList();
+      } else {
+        Get.snackbar(
+          S.current.snackbar_tip,
+          S.current.function_drink_favorite_fail,
+          backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
+          margin: EdgeInsets.only(
+            top: 30.w,
+            left: 50.w,
+            right: 50.w,
+          ),
+        );
+      }
+    }
+  }
+
+  /// 设置token
+  void setToken(String token) {
+    drinkApi.setToken(token: token).then((value) {
       update();
     });
   }

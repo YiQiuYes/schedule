@@ -11,6 +11,8 @@ import 'package:schedule/pages/function/pages/function_teacher/view.dart';
 import 'package:schedule/pages/function/view.dart';
 import 'package:schedule/pages/login/view.dart';
 
+import '../camera/view.dart';
+
 class FunctionRouteConfig {
   static const String empty = "/";
   static const String main = "/main";
@@ -23,6 +25,7 @@ class FunctionRouteConfig {
   static const String functionTeacher = '/functionTeacher';
   static const String functionExamPlan = '/functionExamPlan';
   static const String login = '/login';
+  static const String camera = '/camera';
 
   static Route? onGenerateRoute(RouteSettings settings) {
     Map<String, GetPageRoute> getPages = {
@@ -91,6 +94,13 @@ class FunctionRouteConfig {
       ),
       login: GetPageRoute(
         page: () => const LoginPage(),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
+      ),
+      camera: GetPageRoute(
+        page: () => CameraPage(),
         settings: RouteSettings(
           name: settings.name,
           arguments: settings.arguments,

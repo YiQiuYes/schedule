@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
 
+import '../../../../common/widget/my_popup_menu/my_popup_menu.dart';
 import '../../../../generated/l10n.dart';
 import 'logic.dart';
 
@@ -22,6 +24,142 @@ class FunctionDrinkPage extends StatelessWidget {
         title: Text(S.of(context).function_drink),
       ),
       body: listViewWidget(context),
+      floatingActionButton: settingFloatBtn(context),
+      floatingActionButtonLocation: ExpandableFab.location,
+    );
+  }
+
+  /// 获取设置按钮
+  Widget settingFloatBtn(BuildContext context) {
+    return GetBuilder<FunctionDrinkLogic>(
+      builder: (logic) {
+        return ExpandableFab(
+          type: ExpandableFabType.fan,
+          children: [
+            // 设备管理
+            FloatingActionButton.small(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(S.of(context).function_drink_device_manage),
+                      content: SizedBox(
+                        width:
+                            ScreenUtils.length(vertical: 400.w, horizon: 300.w),
+                        child: StatefulBuilder(builder: (context, setState) {
+                          List<Widget> listTile = [];
+                          for (int i = 0;
+                              i < logic.state.deviceList.length;
+                              i++) {
+                            listTile.add(
+                              ListTile(
+                                title: Text(
+                                  logic.formatDeviceName(
+                                      logic.state.deviceList[i]["name"]),
+                                ),
+                                trailing: MyPopupMenuButton(
+                                  itemBuilder: (BuildContext context) {
+                                    List<PopupMenuEntry> widget = [];
+                                    widget.add(
+                                      PopupMenuItem(
+                                        value: 0,
+                                        child: Text(S
+                                            .of(context)
+                                            .function_drink_unfavorite),
+                                      ),
+                                    );
+                                    return widget;
+                                  },
+                                  child: const Icon(Icons.more_vert_rounded),
+                                  onSelected: (select) {
+                                    if (select == 0) {
+                                      logic.favoDevice(
+                                          logic.state.deviceList[i]["id"]
+                                              .toString(),
+                                          true);
+                                      logic.removeDeviceByName(
+                                          logic.state.deviceList[i]["name"]);
+                                      listTile.remove(this);
+                                      setState(() {});
+                                    }
+                                  },
+                                ),
+                              ),
+                            );
+                          }
+
+                          return ListView(
+                            shrinkWrap: true,
+                            children: listTile,
+                          );
+                        }),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(S.of(context).pickerConfirm),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              heroTag: 'deviceManage',
+              child: const Icon(Icons.web_stories_rounded),
+            ),
+            // 添加设备
+            FloatingActionButton.small(
+              onPressed: () {
+                logic.scanQRCode(context);
+              },
+              heroTag: 'addDevice',
+              child: const Icon(Icons.qr_code_scanner_rounded),
+            ),
+            // token管理
+            FloatingActionButton.small(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AlertDialog(
+                      title:
+                          Text(S.of(context).function_drink_token_manage_title),
+                      content: TextField(
+                        controller: logic.state.tokenController,
+                        decoration: InputDecoration(
+                          labelText: S.of(context).function_drink_token_manage_label,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(S.of(context).pickerCancel),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            logic.setToken(logic.state.tokenController.text);
+                            Get.back();
+                          },
+                          child: Text(S.of(context).pickerConfirm),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              heroTag: 'tokenManage',
+              child: const Icon(Icons.key_rounded),
+            ),
+          ],
+        );
+      },
     );
   }
 
