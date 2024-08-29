@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_main_person": MessageLookupByLibrary.simpleMessage("person"),
         "app_main_schedule": MessageLookupByLibrary.simpleMessage("schedule"),
         "blue_color": MessageLookupByLibrary.simpleMessage("Blue"),
+        "camera_appBar_title":
+            MessageLookupByLibrary.simpleMessage("Camera Preview"),
         "deep_purple_color":
             MessageLookupByLibrary.simpleMessage("Deep purple"),
         "function_all_course_loading":
@@ -55,6 +57,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_area_name":
             MessageLookupByLibrary.simpleMessage("Function area"),
         "function_drink": MessageLookupByLibrary.simpleMessage("ILife"),
+        "function_drink_device_manage":
+            MessageLookupByLibrary.simpleMessage("Device management"),
+        "function_drink_device_qr_code":
+            MessageLookupByLibrary.simpleMessage("Device QR code"),
+        "function_drink_favorite_fail":
+            MessageLookupByLibrary.simpleMessage("Bookmark failed!"),
+        "function_drink_favorite_success":
+            MessageLookupByLibrary.simpleMessage("Collected successfully!"),
         "function_drink_switch_end_fail":
             MessageLookupByLibrary.simpleMessage("Bookmark failed!"),
         "function_drink_switch_end_success":
@@ -65,6 +75,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_drink_switch_start_success":
             MessageLookupByLibrary.simpleMessage(
                 "The device is turned on successfully!"),
+        "function_drink_token_manage_label":
+            MessageLookupByLibrary.simpleMessage("Token"),
+        "function_drink_token_manage_title":
+            MessageLookupByLibrary.simpleMessage("Token management"),
+        "function_drink_unfavorite":
+            MessageLookupByLibrary.simpleMessage("Unfavorite"),
         "function_empty_classroom":
             MessageLookupByLibrary.simpleMessage("Empty classroom"),
         "function_empty_classroom_what_lesson": m0,

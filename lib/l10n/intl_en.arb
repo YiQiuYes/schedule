@@ -56,6 +56,13 @@
   "function_drink_switch_start_fail" : "Failed to turn on the device!",
   "function_drink_switch_end_success" : "Collected successfully!",
   "function_drink_switch_end_fail" : "Bookmark failed!",
+  "function_drink_unfavorite" : "Unfavorite",
+  "function_drink_favorite_success" : "Collected successfully!",
+  "function_drink_favorite_fail" : "Bookmark failed!",
+  "function_drink_device_manage" : "Device management",
+  "function_drink_device_qr_code" : "Device QR code",
+  "function_drink_token_manage_title" : "Token management",
+  "function_drink_token_manage_label" : "Token",
 
   "person_semester_tip" : "Semester",
   "person_start_day_tip" : "Start day",
@@ -85,6 +92,8 @@
   "update_dialog_snackbar_vpn" : "If the download fails, turn on the VPN",
   "update_dialog_current_is_last_version" : "The current version is the latest version!",
   "update_dialog_version_fail" : "Failed to get the latest version information!",
+
+  "camera_appBar_title" : "Camera Preview",
 
   "deep_purple_color" : "Deep purple",
   "green_color" : "Green",

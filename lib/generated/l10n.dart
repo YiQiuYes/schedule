@@ -570,6 +570,76 @@ class S {
     );
   }
 
+  /// `Unfavorite`
+  String get function_drink_unfavorite {
+    return Intl.message(
+      'Unfavorite',
+      name: 'function_drink_unfavorite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Collected successfully!`
+  String get function_drink_favorite_success {
+    return Intl.message(
+      'Collected successfully!',
+      name: 'function_drink_favorite_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bookmark failed!`
+  String get function_drink_favorite_fail {
+    return Intl.message(
+      'Bookmark failed!',
+      name: 'function_drink_favorite_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device management`
+  String get function_drink_device_manage {
+    return Intl.message(
+      'Device management',
+      name: 'function_drink_device_manage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device QR code`
+  String get function_drink_device_qr_code {
+    return Intl.message(
+      'Device QR code',
+      name: 'function_drink_device_qr_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Token management`
+  String get function_drink_token_manage_title {
+    return Intl.message(
+      'Token management',
+      name: 'function_drink_token_manage_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Token`
+  String get function_drink_token_manage_label {
+    return Intl.message(
+      'Token',
+      name: 'function_drink_token_manage_label',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Semester`
   String get person_semester_tip {
     return Intl.message(
@@ -835,6 +905,16 @@ class S {
     return Intl.message(
       'Failed to get the latest version information!',
       name: 'update_dialog_version_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera Preview`
+  String get camera_appBar_title {
+    return Intl.message(
+      'Camera Preview',
+      name: 'camera_appBar_title',
       desc: '',
       args: [],
     );

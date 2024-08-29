@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_main_person": MessageLookupByLibrary.simpleMessage("我的"),
         "app_main_schedule": MessageLookupByLibrary.simpleMessage("课表"),
         "blue_color": MessageLookupByLibrary.simpleMessage("蓝色"),
+        "camera_appBar_title": MessageLookupByLibrary.simpleMessage("摄像头预览"),
         "deep_purple_color": MessageLookupByLibrary.simpleMessage("深紫色"),
         "function_all_course_loading":
             MessageLookupByLibrary.simpleMessage("正在加载..."),
@@ -53,6 +54,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("全校课表"),
         "function_area_name": MessageLookupByLibrary.simpleMessage("功能区域"),
         "function_drink": MessageLookupByLibrary.simpleMessage("慧生活798"),
+        "function_drink_device_manage":
+            MessageLookupByLibrary.simpleMessage("设备管理"),
+        "function_drink_device_qr_code":
+            MessageLookupByLibrary.simpleMessage("扫描设备二维码"),
+        "function_drink_favorite_fail":
+            MessageLookupByLibrary.simpleMessage("收藏失败！"),
+        "function_drink_favorite_success":
+            MessageLookupByLibrary.simpleMessage("收藏成功！"),
         "function_drink_switch_end_fail":
             MessageLookupByLibrary.simpleMessage("结算失败！"),
         "function_drink_switch_end_success":
@@ -61,6 +70,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("开启设备失败！"),
         "function_drink_switch_start_success":
             MessageLookupByLibrary.simpleMessage("开启设备成功！"),
+        "function_drink_token_manage_label":
+            MessageLookupByLibrary.simpleMessage("Token"),
+        "function_drink_token_manage_title":
+            MessageLookupByLibrary.simpleMessage("Token管理"),
+        "function_drink_unfavorite":
+            MessageLookupByLibrary.simpleMessage("取消收藏"),
         "function_empty_classroom": MessageLookupByLibrary.simpleMessage("空教室"),
         "function_empty_classroom_what_lesson": m0,
         "function_exam_plan": MessageLookupByLibrary.simpleMessage("考试计划"),

@@ -56,6 +56,13 @@
   "function_drink_switch_start_fail" : "开启设备失败！",
   "function_drink_switch_end_success" : "结算成功！",
   "function_drink_switch_end_fail" : "结算失败！",
+  "function_drink_unfavorite" : "取消收藏",
+  "function_drink_favorite_success" : "收藏成功！",
+  "function_drink_favorite_fail" : "收藏失败！",
+  "function_drink_device_manage" : "设备管理",
+  "function_drink_device_qr_code" : "扫描设备二维码",
+  "function_drink_token_manage_title" : "Token管理",
+  "function_drink_token_manage_label" : "Token",
 
   "person_semester_tip" : "学期",
   "person_start_day_tip" : "开始日期",
@@ -85,6 +92,8 @@
   "update_dialog_snackbar_vpn" : "如果遇到下载失败请开启VPN",
   "update_dialog_current_is_last_version" : "当前已是最新版本！",
   "update_dialog_version_fail" : "版本获取失败！",
+
+  "camera_appBar_title" : "摄像头预览",
 
   "deep_purple_color" : "深紫色",
   "green_color" : "绿色",
