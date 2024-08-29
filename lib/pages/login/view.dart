@@ -40,9 +40,13 @@ class _LoginPageState extends State<LoginPage> {
         logo: 'lib/assets/images/logo.png',
         theme: LoginTheme(
           titleStyle: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
           cardInitialHeight: ScreenUtils.length(vertical: 280.w, horizon: 60.w),
+          pageColorLight: Theme.of(context).colorScheme.surfaceContainer,
+          pageColorDark: Theme.of(context).colorScheme.surfaceContainer,
+          cardTheme:
+              CardTheme(color: Theme.of(context).colorScheme.primaryContainer),
         ),
         hideForgotPasswordButton: true,
         hideCaptchaTextField: logic.hideCaptchaTextField(type),
@@ -80,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
   /// 获取appBar
   PreferredSizeWidget? appBarWidget(BuildContext context) {
     final globalState = Get.find<GlobalLogic>().state;
-    if(!globalState.settings["isLogin"]) {
+    if (!globalState.settings["isLogin"]) {
       return null;
     }
 
