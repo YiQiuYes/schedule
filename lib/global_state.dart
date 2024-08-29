@@ -36,6 +36,7 @@ class GlobalState {
     "themeMode": "default",
     "colorTheme": "#673AB7",
     "isMonetColor": false,
+    "language": "zh-CN",
   }.obs;
 
   // 定时器刷新数据

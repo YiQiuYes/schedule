@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/common/widget/my_popup_menu/my_popup_menu.dart';
 import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/person/person_route_config.dart';
@@ -34,6 +35,10 @@ class PersonSettingPage extends StatelessWidget {
           switchMonetColorWidget(context),
           // 选择主题
           choiceThemeColorWidget(context),
+          // 语言文本
+          groupTextWidget(context, S.of(context).setting_group_language),
+          // 语言设置
+          languageSettingWidget(context),
           // 关于文本
           groupTextWidget(context, S.of(context).setting_group_about),
           // 获取版本更新
@@ -71,6 +76,7 @@ class PersonSettingPage extends StatelessWidget {
       onTap: onTap == null ? null : () => onTap(),
       contentPadding: EdgeInsets.only(
         left: ScreenUtils.length(vertical: 35.w, horizon: 20.w),
+        right: ScreenUtils.length(vertical: 35.w, horizon: 20.w),
       ),
       leading: Icon(
         icon,
@@ -92,12 +98,45 @@ class PersonSettingPage extends StatelessWidget {
     );
   }
 
+  /// 获取语言设置
+  Widget languageSettingWidget(BuildContext context) {
+    return GetBuilder<GlobalLogic>(builder: (globalLogic) {
+      return MyPopupMenuButton(
+        tooltip: S.of(context).setting_switch_language_tip,
+        //initialValue: globalLogic.state.settings["language"],
+        position: PopupMenuPosition.under,
+        onSelected: (value) {
+          globalLogic.setLocale(value);
+        },
+        offset: Offset(ScreenUtils.length(vertical: 100.w, horizon: 60.w), 0),
+        itemBuilder: (context) {
+          List<PopupMenuEntry> widget = [];
+          logic.getLanguagesMap().forEach((key, value) {
+            widget.add(
+              PopupMenuItem(
+                value: key,
+                child: Text(value),
+              ),
+            );
+          });
+          return widget;
+        },
+        child: listTileWidget(
+          S.of(context).setting_group_language,
+          logic.getLanguagesMap()[globalLogic.state.settings["language"]]!,
+          Icons.language_rounded,
+          null,
+        ),
+      );
+    });
+  }
+
   /// 获取深浅色主题模式
   Widget themeSettingWidget(BuildContext context) {
     return GetBuilder<GlobalLogic>(builder: (globalLogic) {
       return MyPopupMenuButton(
         tooltip: S.of(context).setting_interface_theme,
-        initialValue: globalLogic.state.settings["theme"],
+        //initialValue: globalLogic.state.settings["themeMode"],
         position: PopupMenuPosition.under,
         onSelected: (value) {
           globalLogic.setThemeMode(value);

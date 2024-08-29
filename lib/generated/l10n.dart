@@ -810,6 +810,26 @@ class S {
     );
   }
 
+  /// `Language`
+  String get setting_group_language {
+    return Intl.message(
+      'Language',
+      name: 'setting_group_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch languages`
+  String get setting_switch_language_tip {
+    return Intl.message(
+      'Switch languages',
+      name: 'setting_switch_language_tip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `About`
   String get setting_group_about {
     return Intl.message(

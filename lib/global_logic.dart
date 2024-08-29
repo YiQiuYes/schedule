@@ -169,6 +169,17 @@ class GlobalLogic extends GetxController {
     return Color(int.parse(state.settings["colorTheme"].substring(1), radix: 16));
   }
 
+  /// 获取语言
+  Locale? getLocale() {
+    String language = state.settings["language"];
+    if (language.split("-").length > 1) {
+      return Locale(language.split("-")[0], language.split("-")[1]);
+    } else {
+      return Locale(language);
+    }
+  }
+
+
   /// 设置莫奈取色
   Future<void> setMonetColor(bool isMonetColor) async {
     state.settings["isMonetColor"] = isMonetColor;
@@ -244,6 +255,12 @@ class GlobalLogic extends GetxController {
     state.hui798UserInfo[key] = value;
     return await _storage.setString(
         "hui798UserInfoData", jsonEncode(state.hui798UserInfo));
+  }
+
+  /// 设置语言
+  Future<void> setLocale(String select) async {
+    await setSettings("language", select);
+    update();
   }
 
   /// 设置登录状态

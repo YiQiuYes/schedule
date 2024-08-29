@@ -82,6 +82,8 @@
   "setting_choice_color_theme" : "Select a color theme",
   "setting_choice_color_sub_title" : "Personalize global color matching",
   "setting_follow_system" : "Follow the system",
+  "setting_group_language" : "Language",
+  "setting_switch_language_tip" : "Switch languages",
   "setting_group_about" : "About",
   "setting_update_main_text" : "Version updates",
   "setting_current_version" : "Current version {version}",

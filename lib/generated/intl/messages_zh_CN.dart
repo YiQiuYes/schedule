@@ -158,8 +158,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_follow_system": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "setting_group_about": MessageLookupByLibrary.simpleMessage("关于"),
         "setting_group_interface": MessageLookupByLibrary.simpleMessage("界面"),
+        "setting_group_language": MessageLookupByLibrary.simpleMessage("语言"),
         "setting_interface_theme":
             MessageLookupByLibrary.simpleMessage("选择深浅主题"),
+        "setting_switch_language_tip":
+            MessageLookupByLibrary.simpleMessage("切换语言"),
         "setting_switch_monet_color":
             MessageLookupByLibrary.simpleMessage("莫奈取色"),
         "setting_switch_monet_color_sub":

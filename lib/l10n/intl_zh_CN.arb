@@ -82,6 +82,8 @@
   "setting_choice_color_theme" : "选择主题颜色",
   "setting_choice_color_sub_title" : "个性化全局配色",
   "setting_follow_system" : "跟随系统",
+  "setting_group_language" : "语言",
+  "setting_switch_language_tip" : "切换语言",
   "setting_group_about" : "关于",
   "setting_update_main_text" : "版本更新",
   "setting_current_version" : "当前版本 {version}",

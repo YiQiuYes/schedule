@@ -175,8 +175,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Follow the system"),
         "setting_group_about": MessageLookupByLibrary.simpleMessage("About"),
         "setting_group_interface": MessageLookupByLibrary.simpleMessage("UI"),
+        "setting_group_language":
+            MessageLookupByLibrary.simpleMessage("Language"),
         "setting_interface_theme": MessageLookupByLibrary.simpleMessage(
             "Select a light and shade theme"),
+        "setting_switch_language_tip":
+            MessageLookupByLibrary.simpleMessage("Switch languages"),
         "setting_switch_monet_color":
             MessageLookupByLibrary.simpleMessage("Monet color"),
         "setting_switch_monet_color_sub": MessageLookupByLibrary.simpleMessage(

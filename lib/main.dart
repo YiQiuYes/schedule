@@ -63,9 +63,9 @@ class MyApp extends StatelessWidget {
                   colorScheme: logic.state.settings["isMonetColor"]
                       ? darkDynamic
                       : ColorScheme.fromSeed(
-                    seedColor: logic.getColorTheme(),
-                    brightness: Brightness.dark,
-                  ),
+                          seedColor: logic.getColorTheme(),
+                          brightness: Brightness.dark,
+                        ),
                   useMaterial3: true,
                 ),
                 themeMode: logic.getThemeMode(),
@@ -76,9 +76,14 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: S.delegate.supportedLocales,
-                locale: const Locale('zh', 'CN'),
                 getPages: RouteConfig.getPages,
                 initialRoute: RouteConfig.appMain,
+                locale: logic.getLocale(),
+                localeResolutionCallback:
+                    (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+                  String language = logic.state.settings["language"];
+                  return Locale(language.split("-")[0], language.split("-")[1]);
+                },
               );
             });
           },

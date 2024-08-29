@@ -115,4 +115,13 @@ class PersonSettingLogic extends GetxController {
     };
     return map;
   }
+
+  /// 获取语言列表
+  Map<String, String> getLanguagesMap() {
+    final map = {
+      "zh-CN" : "简体中文",
+      "en-US" : "English",
+    };
+    return map;
+  }
 }
