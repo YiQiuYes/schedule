@@ -26,6 +26,20 @@ class LoginLogic extends GetxController {
   final userApi = ScheduleUserApi();
   final drinkApi = DrinkApi();
 
+  void init(LoginPageType type) {
+    switch (type) {
+      case LoginPageType.schedule:
+        break;
+      case LoginPageType.hui798:
+        Future.delayed(const Duration(milliseconds: 300), () {
+          getDrinkPhotoCaptchaData();
+        });
+        break;
+      default:
+        break;
+    }
+  }
+
   Future<void> changeTextFieldCallback(InputData inputData) async {
     state.name = inputData.name;
     state.password = inputData.password;
@@ -180,7 +194,7 @@ class LoginLogic extends GetxController {
   double messageCodeTextRatio(LoginPageType type) {
     switch (type) {
       case LoginPageType.hui798:
-        return 2 / 3;
+        return 3 / 5;
       default:
         return 1.0;
     }

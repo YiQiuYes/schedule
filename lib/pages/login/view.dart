@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final type = logic.getPageType(context);
-    logic.getDrinkPhotoCaptchaData();
+    logic.init(type);
 
     return Scaffold(
       appBar: appBarWidget(context),
