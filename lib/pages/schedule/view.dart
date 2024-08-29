@@ -87,7 +87,7 @@ class _SchedulePageState extends State<SchedulePage>
   Widget dateTitleWidget(int showWeek) {
     return SliverPadding(
       padding: EdgeInsets.only(
-        left: ScreenUtils.length(vertical: 25.w, horizon: 15.w),
+        left: ScreenUtils.length(vertical: 30.w, horizon: 15.w),
         top: ScreenUtils.length(vertical: 5.w, horizon: 0.w),
       ),
       sliver: SliverToBoxAdapter(
@@ -96,7 +96,7 @@ class _SchedulePageState extends State<SchedulePage>
               logic.getTabPageTodayYear(showWeek),
               logic.getTabPageTodayMonth(showWeek)),
           style: TextStyle(
-            fontSize: ScreenUtils.length(vertical: 25.sp, horizon: 13.sp),
+            fontSize: ScreenUtils.length(vertical: 30.sp, horizon: 13.sp),
           ),
         ),
       ),
@@ -108,7 +108,7 @@ class _SchedulePageState extends State<SchedulePage>
     return SliverPadding(
       padding: EdgeInsets.only(
         top: ScreenUtils.length(vertical: 20.w, horizon: 0.w),
-        left: ScreenUtils.length(vertical: 25.w, horizon: 15.w),
+        left: ScreenUtils.length(vertical: 10.w, horizon: 15.w),
       ),
       sliver: SliverToBoxAdapter(
         child: Align(
@@ -121,11 +121,31 @@ class _SchedulePageState extends State<SchedulePage>
               // 点击周次标题
               logic.weekTitleTap(showWeek, context);
             },
-            child: Text(
-              S.of(context).schedule_current_week(showWeek + 1),
-              style: TextStyle(
-                fontSize: ScreenUtils.length(vertical: 37.sp, horizon: 20.sp),
-                fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: ScreenUtils.length(
+                  vertical: 20.w,
+                  horizon: 10.w,
+                ),
+                right: ScreenUtils.length(
+                  vertical: 20.w,
+                  horizon: 10.w,
+                ),
+                top: ScreenUtils.length(
+                  vertical: 5.w,
+                  horizon: 5.w,
+                ),
+                bottom: ScreenUtils.length(
+                  vertical: 5.w,
+                  horizon: 6.w,
+                ),
+              ),
+              child: Text(
+                S.of(context).schedule_current_week(showWeek + 1),
+                style: TextStyle(
+                  fontSize: ScreenUtils.length(vertical: 50.sp, horizon: 20.sp),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
