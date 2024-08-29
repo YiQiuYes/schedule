@@ -144,7 +144,7 @@ class CurriculumComponent extends StatelessWidget {
                       weeks[index - 1],
                       style: TextStyle(
                         fontSize: weekFontSize ??
-                            ScreenUtils.length(vertical: 17.sp, horizon: 10.sp),
+                            ScreenUtils.length(vertical: 22.sp, horizon: 10.sp),
                         height: 0,
                       ),
                     ),
@@ -157,7 +157,7 @@ class CurriculumComponent extends StatelessWidget {
                       ScheduleUtils.getWeekDate(index - 1, showWeek + 1),
                       style: TextStyle(
                         fontSize: dateFontSize ??
-                            ScreenUtils.length(vertical: 14.sp, horizon: 7.sp),
+                            ScreenUtils.length(vertical: 17.sp, horizon: 7.sp),
                         height: 0,
                       ),
                     ),
@@ -259,7 +259,7 @@ class CurriculumComponent extends StatelessWidget {
           time[index],
           style: TextStyle(
             fontSize: weekFontSize ??
-                ScreenUtils.length(vertical: 17.sp, horizon: 10.sp),
+                ScreenUtils.length(vertical: 25.sp, horizon: 10.sp),
             height: 0,
           ),
         ),
@@ -333,7 +333,7 @@ class CurriculumComponent extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: classNameFontSize ??
-                          ScreenUtils.length(vertical: 16.sp, horizon: 9.sp),
+                          ScreenUtils.length(vertical: 18.sp, horizon: 9.sp),
                       height: 1.2,
                     ),
                   ),
@@ -346,7 +346,7 @@ class CurriculumComponent extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: classAddressFontSize ??
-                          ScreenUtils.length(vertical: 15.sp, horizon: 7.sp),
+                          ScreenUtils.length(vertical: 16.sp, horizon: 7.sp),
                       height: 1.3,
                     ),
                   ),
