@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/utils/platform_utils.dart';
 import '../../generated/l10n.dart';
+import '../app_main/logic.dart';
 import 'state.dart';
 
 class PersonLogic extends GetxController {
@@ -118,6 +119,8 @@ class PersonLogic extends GetxController {
               Get.offAllNamed(AppMainRouteConfig.login, id: 1);
               await globalLogic.setIsLogin(false);
               await globalLogic.setLoad20CountCourse(false);
+              final appMainLogic = Get.find<AppMainLogic>();
+              appMainLogic.setNavigateCurrentIndex(0);
             },
             child: Text(S.of(context).pickerConfirm),
           ),
