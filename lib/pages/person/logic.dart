@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker_plus/picker.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:schedule/common/utils/screen_utils.dart';
 import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/app_main/app_main_route_config.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -137,6 +140,72 @@ class PersonLogic extends GetxController {
             },
             child: Text(S.of(context).pickerCancel),
           ),
+          TextButton(
+            onPressed: () async {
+              Get.back();
+              if (PlatformUtils.isAndroid || PlatformUtils.isAndroid) {
+                launchUrl(
+                  Uri.parse(
+                      "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=161324332&card_type=group&source=qrcode"),
+                  mode: LaunchMode.externalApplication,
+                );
+              } else {
+                launchUrl(
+                  Uri.parse(
+                      "https://qm.qq.com/cgi-bin/qm/qr?k=GMRIQg1MaMrDM_g7yShEjzK2fLAwf5Lg&jump_from=webapi&authKey=CGtV/q3yj4GX34mX5KcQsSDwD9bULknUAj4NSAhaDnzRqKBp0Uv1KWvzU3nJuYoR"),
+                  mode: LaunchMode.externalApplication,
+                );
+              }
+            },
+            child: Text(S.of(context).pickerConfirm),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 更新方式
+  void showUpdateMethod(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(S.of(context).setting_update_method),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: SvgPicture.asset(
+                "lib/assets/icons/github.svg",
+                width: ScreenUtils.length(vertical: 55.w, horizon: 20.w),
+                height: ScreenUtils.length(vertical: 55.w, horizon: 20.w),
+              ),
+              title: Text(S.of(context).setting_update_method_github),
+              onTap: () {
+                launchUrl(
+                  Uri.parse(
+                      "https://github.com/YiQiuYes/schedule/releases"),
+                  mode: LaunchMode.externalApplication,
+                );
+              },
+            ),
+            ListTile(
+              leading: SvgPicture.asset(
+                "lib/assets/icons/yuque.svg",
+                width: ScreenUtils.length(vertical: 55.w, horizon: 20.w),
+                height: ScreenUtils.length(vertical: 55.w, horizon: 20.w),
+              ),
+              title: Text(S.of(context).setting_update_method_yuque),
+              onTap: () {
+                launchUrl(
+                  Uri.parse(
+                      "https://www.yuque.com/yiqiuyes/schedule"),
+                  mode: LaunchMode.externalApplication,
+                );
+              },
+            ),
+          ],
+        ),
+        actions: [
           TextButton(
             onPressed: () async {
               Get.back();

@@ -172,6 +172,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_title": MessageLookupByLibrary.simpleMessage("设置"),
         "setting_update_main_text":
             MessageLookupByLibrary.simpleMessage("版本更新"),
+        "setting_update_method": MessageLookupByLibrary.simpleMessage("更新方式"),
+        "setting_update_method_github":
+            MessageLookupByLibrary.simpleMessage("GitHub"),
+        "setting_update_method_yuque":
+            MessageLookupByLibrary.simpleMessage("语雀"),
         "snackbar_tip": MessageLookupByLibrary.simpleMessage("提示"),
         "update_dialog_cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "update_dialog_confirm": MessageLookupByLibrary.simpleMessage("确定"),

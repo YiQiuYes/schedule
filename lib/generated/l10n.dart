@@ -880,6 +880,36 @@ class S {
     );
   }
 
+  /// `Update method`
+  String get setting_update_method {
+    return Intl.message(
+      'Update method',
+      name: 'setting_update_method',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GitHub`
+  String get setting_update_method_github {
+    return Intl.message(
+      'GitHub',
+      name: 'setting_update_method_github',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YuQue`
+  String get setting_update_method_yuque {
+    return Intl.message(
+      'YuQue',
+      name: 'setting_update_method_yuque',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm`
   String get update_dialog_confirm {
     return Intl.message(

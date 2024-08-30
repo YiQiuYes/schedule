@@ -28,11 +28,32 @@ class PersonMainPage extends StatelessWidget {
         semesterAndStartDateWidget(context),
         // 获取设置项
         settingItemWidget(context),
+        // 更新方式
+        updateMethodWidget(context),
         // 获取交流方式
         contactItemWidget(context),
         // 获取退出登录项
         logoutItemWidget(context),
       ],
+    );
+  }
+
+  /// 更新方式
+  Widget updateMethodWidget(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: ScreenUtils.length(
+          vertical: 40.w,
+          horizon: 25.w,
+        ),
+      ),
+      child: listTileItemWidget(
+        onTap: () {
+          logic.showUpdateMethod(context);
+        },
+        title: S.of(context).setting_update_method,
+        iconData: Icons.system_update_rounded,
+      ),
     );
   }
 

@@ -192,6 +192,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting_title": MessageLookupByLibrary.simpleMessage("Setting"),
         "setting_update_main_text":
             MessageLookupByLibrary.simpleMessage("Version updates"),
+        "setting_update_method":
+            MessageLookupByLibrary.simpleMessage("Update method"),
+        "setting_update_method_github":
+            MessageLookupByLibrary.simpleMessage("GitHub"),
+        "setting_update_method_yuque":
+            MessageLookupByLibrary.simpleMessage("YuQue"),
         "snackbar_tip": MessageLookupByLibrary.simpleMessage("Tip"),
         "update_dialog_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "update_dialog_confirm":
