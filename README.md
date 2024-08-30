@@ -21,15 +21,15 @@
 
 ## 特性
 
-- 使用Dart语言开发
+- 使用Flutter跨平台框架开发
 - Material3主题
+- 适配Pad UI
 - 日程课表
 - 成绩查询
 - 全校课表
 - 社会成绩查询
 - 空教室
-- 学习通签到
-- 慧生活798喝水
+- 慧生活798
 - 无任何广告
 - 更多特性开发中
 
@@ -56,14 +56,4 @@
 
 基于 [MIT license](https://opensource.org/licenses/MIT) 许可进行开源。
 
-## 截图
-
-![appmain][appmain-screenshot]
-![person][person-screenshot]
-![all-course][all-course-screenshot]
-![drink][drink-screenshot]
-
 [appmain-screenshot]: assets/images/appmain-screenshot.png
-[person-screenshot]: assets/images/person-screenshot.png
-[all-course-screenshot]: assets/images/all-course-screenshot.png
-[drink-screenshot]: assets/images/drink-screenshot.png
