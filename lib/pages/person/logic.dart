@@ -210,21 +210,8 @@ class PersonLogic extends GetxController {
         ),
         actions: [
           TextButton(
-            onPressed: () async {
+            onPressed: () {
               Get.back();
-              if (PlatformUtils.isAndroid || PlatformUtils.isAndroid) {
-                launchUrl(
-                  Uri.parse(
-                      "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=161324332&card_type=group&source=qrcode"),
-                  mode: LaunchMode.externalApplication,
-                );
-              } else {
-                launchUrl(
-                  Uri.parse(
-                      "https://qm.qq.com/cgi-bin/qm/qr?k=GMRIQg1MaMrDM_g7yShEjzK2fLAwf5Lg&jump_from=webapi&authKey=CGtV/q3yj4GX34mX5KcQsSDwD9bULknUAj4NSAhaDnzRqKBp0Uv1KWvzU3nJuYoR"),
-                  mode: LaunchMode.externalApplication,
-                );
-              }
             },
             child: Text(S.of(context).pickerConfirm),
           ),
