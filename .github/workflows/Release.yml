@@ -125,7 +125,7 @@ jobs:
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
           allowUpdates: true # 覆盖文件
-          #draft: true # 草稿 自己可见 版本号会保持一样 默认是自动发布 latest
+          draft: true # 草稿 自己可见 版本号会保持一样 默认是自动发布 latest
           #prerelease: true # 预发布 别人可以看到 版本号会继续加
           tag: ${{ env.version }} # 版本号 v0.1.0
           body: ${{ env.body }} # 输出的内容
