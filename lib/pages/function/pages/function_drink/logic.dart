@@ -64,11 +64,13 @@ class FunctionDrinkLogic extends GetxController {
       if (value[0]["name"] == "Account failure") {
         globalLogic.setHui798UserInfo("hui798IsLogin", false);
         state.deviceList.clear();
+        setChoiceDevice(-1);
+        state.drinkStatus.value = false;
         update();
         checkLogin();
       } else {
-        globalLogic.setHui798UserInfo("hui798IsLogin", true);
         state.deviceList.value = value;
+        setChoiceDevice(state.deviceList.isNotEmpty ? 0 : -1);
         update();
       }
     });
@@ -113,13 +115,21 @@ class FunctionDrinkLogic extends GetxController {
     }
   }
 
+  /// 改变选中的设备值
+  void setChoiceDevice(int device) {
+    state.choiceDevice.value = device;
+    update();
+  }
+
   /// 开始喝水
-  void startDrink(int index) {
-    drinkApi.startDrink(id: state.deviceList[index]["id"]).then((value) {
+  void startDrink() {
+    drinkApi
+        .startDrink(id: state.deviceList[state.choiceDevice.value]["id"])
+        .then((value) {
       if (value) {
-        state.choiceDevice.value = index;
         // 使用count增加容错
         int count = 0;
+        state.drinkStatus.value = true;
         Get.snackbar(
           S.current.snackbar_tip,
           S.current.function_drink_switch_start_success,
@@ -133,7 +143,7 @@ class FunctionDrinkLogic extends GetxController {
         state.deviceStatusTimer =
             Timer.periodic(const Duration(seconds: 1), (timer) async {
           bool isAvailable = await drinkApi.isAvailableDevice(
-              id: state.deviceList[index]["id"]);
+              id: state.deviceList[state.choiceDevice.value]["id"]);
           // logger.i(isAvailable);
           if (isAvailable && count > 3) {
             state.choiceDevice.value = -1;
@@ -160,11 +170,13 @@ class FunctionDrinkLogic extends GetxController {
   }
 
   /// 结束喝水
-  void endDrink(int index) {
-    drinkApi.endDrink(id: state.deviceList[index]["id"]).then((value) {
+  void endDrink() {
+    drinkApi
+        .endDrink(id: state.deviceList[state.choiceDevice.value]["id"])
+        .then((value) {
       if (value) {
-        state.choiceDevice.value = -1;
         state.deviceStatusTimer?.cancel();
+        state.drinkStatus.value = false;
         Get.snackbar(
           S.current.snackbar_tip,
           S.current.function_drink_switch_end_success,
@@ -209,8 +221,7 @@ class FunctionDrinkLogic extends GetxController {
         "appBarTitle": S.of(context).function_drink_device_qr_code,
       });
     } else {
-      result =
-          await Get.toNamed(FunctionRouteConfig.camera, id: 3, arguments: {
+      result = await Get.toNamed(FunctionRouteConfig.camera, id: 3, arguments: {
         "type": CameraPageType.qrCode,
         "appBarTitle": S.of(context).function_drink_device_qr_code,
       });

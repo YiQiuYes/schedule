@@ -52,6 +52,8 @@
   "function_teacher_search_hint" : "Teacher name",
   "function_teacher_no_data" : "No teacher information",
 
+  "function_drink_btn_status_enable" : "Drink",
+  "function_drink_btn_status_disable" : "Billing",
   "function_drink_switch_start_success" : "The device is turned on successfully!",
   "function_drink_switch_start_fail" : "Failed to turn on the device!",
   "function_drink_switch_end_success" : "Collected successfully!",

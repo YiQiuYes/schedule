@@ -57,6 +57,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_area_name":
             MessageLookupByLibrary.simpleMessage("Function area"),
         "function_drink": MessageLookupByLibrary.simpleMessage("ILife"),
+        "function_drink_btn_status_disable":
+            MessageLookupByLibrary.simpleMessage("Billing"),
+        "function_drink_btn_status_enable":
+            MessageLookupByLibrary.simpleMessage("Drink"),
         "function_drink_device_manage":
             MessageLookupByLibrary.simpleMessage("Device management"),
         "function_drink_device_qr_code":

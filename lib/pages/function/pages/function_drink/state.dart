@@ -8,6 +8,8 @@ class FunctionDrinkState {
   RxList deviceList = [].obs;
   // 选中的设备值
   RxInt choiceDevice = (-1).obs;
+  // 喝水按钮状态
+  RxBool drinkStatus = false.obs;
   // 设备状态检测
   Timer? deviceStatusTimer;
   // Token框控制器

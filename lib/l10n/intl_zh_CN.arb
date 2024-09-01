@@ -52,6 +52,8 @@
   "function_teacher_search_hint" : "教师姓名",
   "function_teacher_no_data" : "暂无教师数据",
 
+  "function_drink_btn_status_enable" : "喝水",
+  "function_drink_btn_status_disable" : "结算",
   "function_drink_switch_start_success" : "开启设备成功！",
   "function_drink_switch_start_fail" : "开启设备失败！",
   "function_drink_switch_end_success" : "结算成功！",

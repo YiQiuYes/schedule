@@ -54,6 +54,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("全校课表"),
         "function_area_name": MessageLookupByLibrary.simpleMessage("功能区域"),
         "function_drink": MessageLookupByLibrary.simpleMessage("慧生活798"),
+        "function_drink_btn_status_disable":
+            MessageLookupByLibrary.simpleMessage("结算"),
+        "function_drink_btn_status_enable":
+            MessageLookupByLibrary.simpleMessage("喝水"),
         "function_drink_device_manage":
             MessageLookupByLibrary.simpleMessage("设备管理"),
         "function_drink_device_qr_code":

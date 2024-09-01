@@ -23,9 +23,115 @@ class FunctionDrinkPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(S.of(context).function_drink),
       ),
-      body: listViewWidget(context),
+      body: Column(
+        children: [
+          // 获取选择饮水设备按钮
+          deviceDrinkRowBtnWidget(),
+          Center(
+            child: deviceDrinkBtnWidget(context),
+          ),
+        ],
+      ),
       floatingActionButton: settingFloatBtn(context),
       floatingActionButtonLocation: ExpandableFab.location,
+    );
+  }
+
+  /// 获取选择饮水设备按钮
+  Widget deviceDrinkRowBtnWidget() {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: ScreenUtils.length(vertical: 80.w, horizon: 0),
+      ),
+      child: GetBuilder<FunctionDrinkLogic>(builder: (logic) {
+        List<ButtonSegment<int>> list = [];
+        for (int i = 0; i < logic.state.deviceList.length && i < 4; i++) {
+          list.add(
+            ButtonSegment(
+              label: Text(
+                logic.formatDeviceName(logic.state.deviceList[i]["name"]),
+                style: TextStyle(
+                  fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 18.sp),
+                ),
+              ),
+              value: i,
+            ),
+          );
+        }
+
+        // 如果列表为空默认
+        if (list.isEmpty) {
+          return const SizedBox();
+        }
+
+        return SegmentedButton(
+          showSelectedIcon: false,
+          style: ButtonStyle(
+            padding: WidgetStateProperty.all(
+              EdgeInsets.symmetric(
+                horizontal: ScreenUtils.length(vertical: 28.w, horizon: 18.w),
+              ),
+            ),
+          ),
+          segments: list,
+          selected: {logic.state.choiceDevice.value},
+          onSelectionChanged: (Set<int> newSelected) {
+            if (logic.state.drinkStatus.value) {
+              return;
+            }
+            logic.setChoiceDevice(newSelected.first);
+          },
+        );
+      }),
+    );
+  }
+
+  /// 获取饮水按钮
+  Widget deviceDrinkBtnWidget(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: ScreenUtils.length(
+          vertical: 250.w,
+          horizon: 80.w,
+        ),
+      ),
+      child: GetBuilder<FunctionDrinkLogic>(builder: (logic) {
+        return ElevatedButton(
+          onPressed: () {
+            if (logic.state.choiceDevice.value == -1) {
+              return;
+            }
+
+            if (logic.state.drinkStatus.value) {
+              logic.endDrink();
+            } else {
+              logic.startDrink();
+            }
+          },
+          style: ButtonStyle(
+            elevation: WidgetStateProperty.all(13),
+            shape: WidgetStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(1000),
+              ),
+            ),
+            fixedSize: WidgetStateProperty.all(
+              Size(
+                ScreenUtils.length(vertical: 300.w, horizon: 150.w),
+                ScreenUtils.length(vertical: 300.w, horizon: 150.w),
+              ),
+            ),
+          ),
+          child: Text(
+            logic.state.drinkStatus.value
+                ? S.of(context).function_drink_btn_status_disable
+                : S.of(context).function_drink_btn_status_enable,
+            style: TextStyle(
+              fontSize: ScreenUtils.length(vertical: 55.sp, horizon: 28.sp),
+            ),
+          ),
+        );
+      }),
     );
   }
 
@@ -164,77 +270,6 @@ class FunctionDrinkPage extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  /// ListView widget
-  Widget listViewWidget(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: ScreenUtils.length(vertical: 20.w, horizon: 10.w),
-      ),
-      child: GetBuilder<FunctionDrinkLogic>(builder: (logic) {
-        return ListView.builder(
-          itemCount: logic.state.deviceList.length,
-          itemBuilder: (context, index) {
-            return deviceCardWidget(context, logic, index);
-          },
-        );
-      }),
-    );
-  }
-
-  /// Device card widget
-  Widget deviceCardWidget(
-    BuildContext context,
-    FunctionDrinkLogic state,
-    int index,
-  ) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: ScreenUtils.length(vertical: 50.w, horizon: 40.w),
-        right: ScreenUtils.length(vertical: 50.w, horizon: 40.w),
-        bottom: ScreenUtils.length(vertical: 50.w, horizon: 5.w),
-      ),
-      child: Card(
-        surfaceTintColor: Theme.of(context).colorScheme.primary,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: ScreenUtils.length(vertical: 50.w, horizon: 30.w),
-                top: ScreenUtils.length(vertical: 50.w, horizon: 20.w),
-                bottom: ScreenUtils.length(vertical: 50.w, horizon: 20.w),
-              ),
-              child: Text(
-                logic.formatDeviceName(logic.state.deviceList[index]["name"]),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                right: ScreenUtils.length(vertical: 50.w, horizon: 30.w),
-              ),
-              child: Switch(
-                value: logic.state.choiceDevice.value == index,
-                onChanged: (value) {
-                  // 如果当前设备不是选中设备，不执行操作
-                  if (logic.state.choiceDevice.value != -1 &&
-                      logic.state.choiceDevice.value != index) {
-                    return;
-                  }
-
-                  if (value) {
-                    logic.startDrink(index);
-                  } else {
-                    logic.endDrink(index);
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

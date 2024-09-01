@@ -530,6 +530,26 @@ class S {
     );
   }
 
+  /// `Drink`
+  String get function_drink_btn_status_enable {
+    return Intl.message(
+      'Drink',
+      name: 'function_drink_btn_status_enable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Billing`
+  String get function_drink_btn_status_disable {
+    return Intl.message(
+      'Billing',
+      name: 'function_drink_btn_status_disable',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `The device is turned on successfully!`
   String get function_drink_switch_start_success {
     return Intl.message(
