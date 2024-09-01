@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
                 ],
                 supportedLocales: S.delegate.supportedLocales,
                 getPages: RouteConfig.getPages,
-                initialRoute: RouteConfig.appMain,
+                initialRoute: RouteConfig.splash,
                 locale: logic.getLocale(),
                 localeResolutionCallback:
                     (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
