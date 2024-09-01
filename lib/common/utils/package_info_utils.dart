@@ -28,22 +28,6 @@ class PackageInfoUtils {
     return isUpdate;
   }
 
-  static bool compareTwoVersion(String newVersion, String oldVersion) {
-    List<String> netSplit = newVersion.split(".");
-    List<String> localSplit = oldVersion.split(".");
-    bool isUpdate = false;
-    for (int i = 0; i < netSplit.length; i++) {
-      if (int.parse(netSplit[i]) > int.parse(localSplit[i])) {
-        isUpdate = true;
-        break;
-      } else if (int.parse(netSplit[i]) < int.parse(localSplit[i])) {
-        break;
-      }
-    }
-    return isUpdate;
-  }
-
-
   static get packageInfo => _into;
 
   static get version => _into.version;
