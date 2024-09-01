@@ -24,8 +24,7 @@ class _AppMainPageState extends State<AppMainPage>
     super.initState();
     // 初始化主页面控制器
     logic.initMainTabController(this);
-    // 自动登录教务系统
-    logic.autoLoginEducationalSystem(context);
+    logic.getVersionUpdate();
   }
 
   @override
