@@ -52,7 +52,7 @@ class AppMainLogic extends GetxController {
     // 每隔1天检测一次
     if (storage.getString("lastCheckVersionTime") != null) {
       DateTime lastCheckVersionTime =
-      DateTime.parse(storage.getString("lastCheckVersionTime")!);
+          DateTime.parse(storage.getString("lastCheckVersionTime")!);
       if (DateTime.now().difference(lastCheckVersionTime).inDays < 1) {
         return;
       }
@@ -71,66 +71,69 @@ class AppMainLogic extends GetxController {
         return;
       }
 
-      // 有新版本
-      String info = value['body'];
-      List assets = value['assets'];
-      List<String> downloadUrls = [];
-      String downloadUrl = "";
+      bool isUpdate = PackageInfoUtils.compareVersion(version);
+      if (isUpdate) {
+        // 有新版本
+        String info = value['body'];
+        List assets = value['assets'];
+        List<String> downloadUrls = [];
+        String downloadUrl = "";
 
-      // 遍历获取下载url
-      for (var asset in assets) {
-        downloadUrls.add(asset['browser_download_url']);
-      }
+        // 遍历获取下载url
+        for (var asset in assets) {
+          downloadUrls.add(asset['browser_download_url']);
+        }
 
-      // 判断平台
-      if (PlatformUtils.isAndroid) {
-        for (String url in downloadUrls) {
-          if (url.contains("android")) {
-            downloadUrl = url;
-            break;
+        // 判断平台
+        if (PlatformUtils.isAndroid) {
+          for (String url in downloadUrls) {
+            if (url.contains("android")) {
+              downloadUrl = url;
+              break;
+            }
+          }
+        } else if (PlatformUtils.isIOS) {
+          for (String url in downloadUrls) {
+            if (url.contains("ios")) {
+              downloadUrl = url;
+              break;
+            }
           }
         }
-      } else if (PlatformUtils.isIOS) {
-        for (String url in downloadUrls) {
-          if (url.contains("ios")) {
-            downloadUrl = url;
-            break;
-          }
-        }
+
+        // 弹窗显示
+        showDialog(
+          context: Get.context!,
+          barrierDismissible: false,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(S.of(context).setting_update_main_text),
+              content: Text(info),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(S.of(context).update_dialog_cancel),
+                ),
+                TextButton(
+                  onPressed: () {
+                    FlutterToastUtil.toastNoContent(
+                        S.of(context).update_dialog_snackbar_vpn);
+                    // 跳转到浏览器
+                    launchUrl(Uri.parse(downloadUrl),
+                        mode: LaunchMode.externalApplication);
+                  },
+                  child: Text(S.of(context).update_dialog_confirm),
+                ),
+              ],
+            );
+          },
+        );
+
+        // 保存检测时间
+        storage.setString("lastCheckVersionTime", DateTime.now().toString());
       }
-
-      // 弹窗显示
-      showDialog(
-        context: Get.context!,
-        barrierDismissible: false,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(S.of(context).setting_update_main_text),
-            content: Text(info),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(S.of(context).update_dialog_cancel),
-              ),
-              TextButton(
-                onPressed: () {
-                  FlutterToastUtil.toastNoContent(
-                      S.of(context).update_dialog_snackbar_vpn);
-                  // 跳转到浏览器
-                  launchUrl(Uri.parse(downloadUrl),
-                      mode: LaunchMode.externalApplication);
-                },
-                child: Text(S.of(context).update_dialog_confirm),
-              ),
-            ],
-          );
-        },
-      );
-
-      // 保存检测时间
-      storage.setString("lastCheckVersionTime", DateTime.now().toString());
     });
   }
 }
