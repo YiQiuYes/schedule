@@ -108,7 +108,7 @@ class _SchedulePageState extends State<SchedulePage>
     return SliverPadding(
       padding: EdgeInsets.only(
         top: ScreenUtils.length(vertical: 20.w, horizon: 0.w),
-        left: ScreenUtils.length(vertical: 10.w, horizon: 15.w),
+        left: ScreenUtils.length(vertical: 10.w, horizon: 4.w),
       ),
       sliver: SliverToBoxAdapter(
         child: Align(
