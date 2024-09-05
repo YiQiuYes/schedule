@@ -6,6 +6,34 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
+enum ResponseCode {
+  success,
+  error,
+  noLogin,
+}
+
+class ResponseData<T> {
+  ResponseCode? code;
+  String? message;
+  T? data;
+
+  ResponseData({this.code, this.message, this.data});
+
+  ResponseData.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+    message = json['message'];
+    data = json['data'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
+    data['message'] = message;
+    data['data'] = this.data;
+    return data;
+  }
+}
+
 class RequestManager {
   RequestManager._privateConstructor();
   static final RequestManager _instance = RequestManager._privateConstructor();
