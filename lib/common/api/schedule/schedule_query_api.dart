@@ -9,7 +9,8 @@ import '../../utils/response_utils.dart';
 class ScheduleQueryApi {
   ScheduleQueryApi._privateConstructor();
 
-  static final ScheduleQueryApi _instance = ScheduleQueryApi._privateConstructor();
+  static final ScheduleQueryApi _instance =
+      ScheduleQueryApi._privateConstructor();
 
   factory ScheduleQueryApi() {
     return _instance;
@@ -24,8 +25,8 @@ class ScheduleQueryApi {
   /// - [cachePolicy] : 缓存策略
   Future<List<Map<String, dynamic>>> queryPersonScore(
       {required String semester,
-        bool retake = false,
-        CachePolicy? cachePolicy}) async {
+      bool retake = false,
+      CachePolicy? cachePolicy}) async {
     Options options = _request.cacheOptions
         .copyWith(policy: cachePolicy ?? CachePolicy.request)
         .toOptions();
@@ -59,7 +60,7 @@ class ScheduleQueryApi {
           String className = tds[3].text; // 课程名称
           String classCredit = tds[7].text; // 学分
           String classScore =
-          tds[5].text.replaceAll(RegExp(r'[\n\t]'), ""); // 成绩
+              tds[5].text.replaceAll(RegExp(r'[\n\t]'), ""); // 成绩
           String classGPA = tds[9].text; // 绩点
           String classType = tds[13].text; // 课程性质
 
@@ -127,10 +128,10 @@ class ScheduleQueryApi {
   /// - [week] : 周次
   /// - [semester] : 学期
   /// - [cachePolicy] : 缓存策略
-  Future<List> queryPersonCourse(
+  Future<ResponseData<List>> queryPersonCourse(
       {required String week,
-        required String semester,
-        CachePolicy? cachePolicy}) async {
+      required String semester,
+      CachePolicy? cachePolicy}) async {
     Options options = _request.cacheOptions
         .copyWith(policy: cachePolicy ?? CachePolicy.request)
         .toOptions();
@@ -148,6 +149,13 @@ class ScheduleQueryApi {
     return await _request
         .post("/jsxsd/xskb/xskb_list.do", params: params, options: options)
         .then((value) {
+      if (RegExp(r"<title>登录</title>").hasMatch(value.data)) {
+        return ResponseData(
+          code: ResponseCode.noLogin,
+          message: "login failed",
+        );
+      }
+
       Document doc = parse(value.data);
       List<Element> tables = doc.getElementsByTagName("table");
 
@@ -176,7 +184,7 @@ class ScheduleQueryApi {
 
           // 正则表达式取出 >面向过程程序设计(C语言)<br> 之间的内容
           RegExp regExp =
-          RegExp(r'<br>---------------------<br>(.*)<br><font title="老师">');
+              RegExp(r'<br>---------------------<br>(.*)<br><font title="老师">');
           Iterable<RegExpMatch> matches = regExp.allMatches(element.outerHtml);
           for (RegExpMatch match in matches) {
             classNameList
@@ -194,8 +202,8 @@ class ScheduleQueryApi {
           });
           if (classNameList.length > classAddressList.length) {
             for (int i = classAddressList.length;
-            i < classNameList.length;
-            i++) {
+                i < classNameList.length;
+                i++) {
               classAddressList.add("");
             }
           }
@@ -207,8 +215,8 @@ class ScheduleQueryApi {
           });
           if (classNameList.length > classTeacherList.length) {
             for (int i = classTeacherList.length;
-            i < classNameList.length;
-            i++) {
+                i < classNameList.length;
+                i++) {
               classTeacherList.add("");
             }
           }
@@ -245,7 +253,7 @@ class ScheduleQueryApi {
         }
       }
 
-      return result;
+      return ResponseData(code: ResponseCode.success, data: result);
     });
   }
 
@@ -253,10 +261,10 @@ class ScheduleQueryApi {
   /// - [week] : 周次
   /// - [semester] : 学期
   /// - [cachePolicy] : 缓存策略
-  Future<List<Map>> queryPersonExperimentCourse(
+  Future<ResponseData<List<Map>>> queryPersonExperimentCourse(
       {required String week,
-        required String semester,
-        CachePolicy? cachePolicy}) async {
+      required String semester,
+      CachePolicy? cachePolicy}) async {
     Options options = _request.cacheOptions
         .copyWith(policy: cachePolicy ?? CachePolicy.request)
         .toOptions();
@@ -271,6 +279,13 @@ class ScheduleQueryApi {
     return await _request
         .get("/jsxsd/syjx/toXskb.do", params: params, options: options)
         .then((value) {
+      if (RegExp(r"<title>登录</title>").hasMatch(value.data)) {
+        return ResponseData(
+          code: ResponseCode.noLogin,
+          message: "login failed",
+        );
+      }
+
       Document doc = parse(value.data);
       Element? table = doc.getElementById("tblHead");
       if (table != null) {
@@ -314,7 +329,8 @@ class ScheduleQueryApi {
           }
         }
       }
-      return result;
+
+      return ResponseData(code: ResponseCode.success, data: result);
     });
   }
 
@@ -336,7 +352,7 @@ class ScheduleQueryApi {
 
       if (collegeElement != null) {
         List<Element> collegeList =
-        collegeElement.getElementsByTagName("option");
+            collegeElement.getElementsByTagName("option");
         collegeList.removeAt(0);
         for (Element college in collegeList) {
           String collegeName = college.text;
@@ -397,9 +413,9 @@ class ScheduleQueryApi {
   /// - [cachePolicy] : 缓存策略
   Future<List<Map>> queryMajorCourse(
       {required String week,
-        required String semester,
-        required String majorName,
-        CachePolicy? cachePolicy}) async {
+      required String semester,
+      required String majorName,
+      CachePolicy? cachePolicy}) async {
     Options options = _request.cacheOptions
         .copyWith(policy: cachePolicy ?? CachePolicy.request)
         .toOptions();
@@ -575,7 +591,7 @@ class ScheduleQueryApi {
 
     return await _request
         .post("/jsxsd/kbcx/kbxx_classroom_ifr",
-        params: params, options: options)
+            params: params, options: options)
         .then((value) {
       Document doc = parse(value.data);
       Element? table = doc.getElementById("kbtable");
@@ -680,8 +696,7 @@ class ScheduleQueryApi {
     };
 
     return await _request
-        .post("/jsxsd/kbcx/kbxx_teacher_ifr",
-        params: params, options: options)
+        .post("/jsxsd/kbcx/kbxx_teacher_ifr", params: params, options: options)
         .then((value) {
       Document doc = parse(value.data);
       Element? table = doc.getElementById("kbtable");
@@ -764,7 +779,7 @@ class ScheduleQueryApi {
 
     // 处理返回数据
     return await _request
-        .post("/jsxsd/xsks/xsksap_list", params: params,options: options)
+        .post("/jsxsd/xsks/xsksap_list", params: params, options: options)
         .then((value) {
       Document doc = parse(value.data);
       // logger.i(doc.outerHtml);

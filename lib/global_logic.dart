@@ -5,7 +5,7 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/api/schedule/schedule_query_api.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
+import 'package:schedule/common/manager/request_manager.dart';
 import 'package:schedule/global_state.dart';
 
 import 'common/manager/data_storage_manager.dart';
@@ -144,29 +144,60 @@ class GlobalLogic extends GetxController {
 
   /// 获取课程数据
   Future<void> getPersonCourseData(
-      {required String week, required String semester}) async {
+      {required String week,
+      required String semester,
+      bool continuous = true}) async {
     await queryApi
         .queryPersonCourse(
             week: week, semester: semester, cachePolicy: CachePolicy.refresh)
         .then((value) async {
-      await setCourseData(int.parse(week) - 1, value);
+      if (value.code == ResponseCode.success) {
+        await setCourseData(int.parse(week) - 1, value.data!);
+      } else if (value.code == ResponseCode.noLogin) {
+        if (!continuous) {
+          return;
+        }
+        await Future.delayed(const Duration(seconds: 4), () async {
+          await getPersonCourseData(
+            week: week,
+            semester: semester,
+            continuous: false,
+          );
+        });
+      }
     });
   }
 
   /// 获取实验课表数据
   Future<void> getPersonExperimentData(
-      {required String week, required String semester}) async {
+      {required String week,
+      required String semester,
+      bool continuous = true}) async {
     await queryApi
         .queryPersonExperimentCourse(
             week: week, semester: semester, cachePolicy: CachePolicy.refresh)
         .then((value) async {
-      await setExperimentData(int.parse(week) - 1, value);
+      if (value.code == ResponseCode.success) {
+        await setExperimentData(int.parse(week) - 1, value.data!);
+      } else if (value.code == ResponseCode.noLogin) {
+        if (!continuous) {
+          return;
+        }
+        await Future.delayed(const Duration(seconds: 4), () async {
+          await getPersonExperimentData(
+            week: week,
+            semester: semester,
+            continuous: false,
+          );
+        });
+      }
     });
   }
 
   /// 获取主题颜色
   Color getColorTheme() {
-    return Color(int.parse(state.settings["colorTheme"].substring(1), radix: 16));
+    return Color(
+        int.parse(state.settings["colorTheme"].substring(1), radix: 16));
   }
 
   /// 获取语言
@@ -178,7 +209,6 @@ class GlobalLogic extends GetxController {
       return Locale(language);
     }
   }
-
 
   /// 设置莫奈取色
   Future<void> setMonetColor(bool isMonetColor) async {
