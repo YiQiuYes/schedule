@@ -1,8 +1,10 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:schedule/common/utils/app_theme_utils.dart';
 import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/route_config.dart';
 
@@ -27,6 +29,9 @@ Future<void> main() async {
 
   // 初始化网络请求管理
   await RequestManager().persistCookieJarInit();
+
+  // 沉浸式状态栏
+  AppThemeUtils.statusBarAndBottomBarImmersed();
 
   // 初始化全局逻辑
   final logic = Get.put(GlobalLogic());
