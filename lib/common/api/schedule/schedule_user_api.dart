@@ -6,14 +6,11 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
+import 'package:schedule/common/utils/logger_utils.dart';
 
 import '../../manager/request_manager.dart';
 
-enum ScheduleUserStatus {
-  loginTimeOut,
-  success,
-  fail
-}
+enum ScheduleUserStatus { loginTimeOut, success, fail }
 
 class ScheduleUserApi {
   ScheduleUserApi._privateConstructor();
@@ -50,7 +47,7 @@ class ScheduleUserApi {
   }
 
   /// 登录api
-  Future<ScheduleUserStatus> loginEducationalSystem({
+  Future<ScheduleUserStatus> autoLoginEducationalSystem({
     required String userAccount,
     required String userPassword,
   }) async {
@@ -72,7 +69,9 @@ class ScheduleUserApi {
     String encoded = "$userAccountBase64%%%$userPasswordBase64";
     params["encoded"] = encoded;
 
-    return await _request.post("/jsxsd/xk/LoginToXk", params: params, options: options).then((value) {
+    return await _request
+        .post("/jsxsd/xk/LoginToXk", params: params, options: options)
+        .then((value) {
       bool status = value.data == "";
       switch (status) {
         case true:
@@ -83,6 +82,89 @@ class ScheduleUserApi {
     }).timeout(const Duration(seconds: 10), onTimeout: () {
       return ScheduleUserStatus.loginTimeOut;
     });
+  }
+
+  /// 登录api
+  Future<ScheduleUserStatus> loginEducationalSystem(
+      {required String userAccount, required String userPassword}) async {
+    Response res = await _request.post(
+      "/Logon.do?method=logon&flag=sess",
+      options: _request.cacheOptions
+          .copyWith(policy: CachePolicy.noCache)
+          .toOptions(),
+    );
+    String dataStr = res.data;
+    var scode = dataStr.split("#")[0];
+    var sxh = dataStr.split("#")[1];
+    var code = "$userAccount%%%$userPassword";
+    var encoded = "";
+    for (var i = 0; i < code.length; i++) {
+      if (i < 20) {
+        encoded = encoded +
+            code.substring(i, i + 1) +
+            scode.substring(0, int.parse(sxh.substring(i, i + 1)));
+        scode =
+            scode.substring(int.parse(sxh.substring(i, i + 1)), scode.length);
+      } else {
+        encoded = encoded + code.substring(i, code.length);
+        i = code.length;
+      }
+    }
+
+    // 获取验证码
+    Uint8List captchaData = await getCaptcha();
+    String captchaBase64 = base64Encode(captchaData);
+    String captcha = await _request
+        .post("http://134.175.119.27:8000/ocr",
+            options: _request.cacheOptions
+                .copyWith(policy: CachePolicy.noCache)
+                .toOptions(),
+            data: FormData.fromMap({
+              "image": captchaBase64,
+              "probability": false,
+              "png_fix": false,
+            }))
+        .then((value) {
+      if (value.data["code"] == 200) {
+        return value.data["data"];
+      } else {
+        return "";
+      }
+    });
+
+    Map<String, dynamic> params = {
+      "userAccount": "",
+      "userPassword": "",
+      "RANDOMCODE": captcha,
+      "encoded": encoded,
+    };
+
+    Options options =
+        _request.cacheOptions.copyWith(policy: CachePolicy.noCache).toOptions();
+    options.validateStatus = (status) {
+      return status! < 500;
+    };
+    options.followRedirects = false;
+    options.contentType = "application/x-www-form-urlencoded";
+
+    res = await _request.post("/Logon.do?method=logon",
+        params: params, options: options);
+
+    bool status = res.data == "";
+    switch (status) {
+      case true:
+        String url = res.headers.value("location")!;
+        url = url.split("/jsxsd")[1];
+        url = "/jsxsd$url";
+        res = await _request.get(url, options: options);
+        url = res.headers.value("location")!;
+        url = url.split("/jsxsd")[1];
+        url = "/jsxsd$url";
+        res = await _request.get(url, options: options);
+        return ScheduleUserStatus.success;
+      case false:
+        return ScheduleUserStatus.fail;
+    }
   }
 
   /// 获取个人信息
