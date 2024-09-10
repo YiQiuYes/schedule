@@ -58,9 +58,9 @@ class FunctionDrinkLogic extends GetxController {
   }
 
   /// 获取喝水设备列表
-  void getDeviceList() {
+  Future<void> getDeviceList() async {
     // 获取设备列表
-    drinkApi.deviceList().then((value) {
+    await drinkApi.deviceList().then((value) {
       if (value[0]["name"] == "Account failure") {
         globalLogic.setHui798UserInfo("hui798IsLogin", false);
         state.deviceList.clear();
@@ -263,8 +263,9 @@ class FunctionDrinkLogic extends GetxController {
 
   /// 设置token
   void setToken(String token) {
-    drinkApi.setToken(token: token).then((value) {
-      getDeviceList();
+    drinkApi.setToken(token: token).then((value) async {
+      await globalLogic.setHui798UserInfo("hui798IsLogin", true);
+      await getDeviceList();
       update();
     });
   }
