@@ -15,22 +15,22 @@ class AppThemeUtils {
     PlatformDispatcher window = PlatformDispatcher.instance;
     Brightness brightness = window.platformBrightness;
 
-    SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       systemNavigationBarColor: Colors.transparent,
-      // statusBarIconBrightness:
-      //     brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+      statusBarIconBrightness:
+          brightness == Brightness.dark ? Brightness.light : Brightness.dark,
     );
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
     window.onPlatformBrightnessChanged = () {
       Brightness brightness = window.platformBrightness;
-      SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+      SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent,
-        // statusBarIconBrightness:
-        //     brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+        statusBarIconBrightness:
+            brightness == Brightness.dark ? Brightness.light : Brightness.dark,
       );
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
