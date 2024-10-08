@@ -82,7 +82,8 @@ class CurriculumLogic extends GetxController {
           } else if (currentSectionTime > i) {
             int start = day - 1 + (currentSectionTime - 1) * 7;
             for (int j = start; j <= index; j += 7) {
-              if (course[j].isNotEmpty || experiment[j].isNotEmpty) {
+              if (course[j].isNotEmpty ||
+                  (experiment.isNotEmpty && experiment[j].isNotEmpty)) {
                 return defaultColor;
               }
             }
