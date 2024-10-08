@@ -64,6 +64,8 @@ class FunctionAllCourseLogic extends GetxController {
     String? originCollegeInfoStr =
         storage.getString("functionAllCourseOriginCollegeInfo");
     if (originCollegeInfoStr != null) {
+      refreshData();
+
       List originCollegeInfo = (jsonDecode(originCollegeInfoStr) as List);
       state.originCollegeInfo = originCollegeInfo;
       state.pickerData.clear();
@@ -86,8 +88,6 @@ class FunctionAllCourseLogic extends GetxController {
               .map((e) => PickerItem<String>(value: e["majorName"]))
               .toList());
         }
-
-        await refreshData();
       } else {
         await reGetNetworkData();
       }
