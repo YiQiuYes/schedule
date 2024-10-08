@@ -1,7 +1,7 @@
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter_picker_plus/picker.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/api/schedule/schedule_query_api.dart';
+import 'package:schedule/common/api/schedule/v2/schedule_query_api_v2.dart';
 import 'package:schedule/global_logic.dart';
 
 import 'state.dart';
@@ -10,7 +10,7 @@ class FunctionScoreLogic extends GetxController {
   final FunctionScoreState state = FunctionScoreState();
   final globalState = Get.find<GlobalLogic>().state;
 
-  final queryApi = ScheduleQueryApi();
+  final queryApi = ScheduleQueryApiV2();
 
   void init() {
     queryPersonScore(globalState.semesterWeekData['semester']);

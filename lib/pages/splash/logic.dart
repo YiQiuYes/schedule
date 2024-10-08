@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:schedule/common/api/schedule/v2/schedule_user_api_v2.dart';
+import 'package:schedule/common/utils/logger_utils.dart';
 import '../../common/api/schedule/schedule_user_api.dart';
 import '../../generated/l10n.dart';
 import '../../global_logic.dart';
@@ -12,7 +14,7 @@ class SplashLogic extends GetxController {
   final globalState = Get.find<GlobalLogic>().state;
   final globalLogic = Get.find<GlobalLogic>();
 
-  final userApi = ScheduleUserApi();
+  final userApi = ScheduleUserApiV2();
 
   @override
   void dispose() {

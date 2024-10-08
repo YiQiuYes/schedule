@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/api/schedule/schedule_query_api.dart';
+import 'package:schedule/common/api/schedule/v2/schedule_query_api_v2.dart';
 import 'package:schedule/common/manager/request_manager.dart';
 import 'package:schedule/global_state.dart';
 
@@ -14,7 +14,7 @@ import 'common/utils/schedule_utils.dart';
 class GlobalLogic extends GetxController {
   final GlobalState state = GlobalState();
   final _storage = DataStorageManager();
-  final ScheduleQueryApi queryApi = ScheduleQueryApi();
+  final ScheduleQueryApiV2 queryApi = ScheduleQueryApiV2();
 
   /// 刷新数据
   void refreshData() {

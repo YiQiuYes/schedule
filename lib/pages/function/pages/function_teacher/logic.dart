@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:schedule/common/api/schedule/schedule_query_api.dart';
+import 'package:schedule/common/api/schedule/v2/schedule_query_api_v2.dart';
 import 'package:schedule/global_logic.dart';
 
 import 'state.dart';
@@ -7,7 +7,7 @@ import 'state.dart';
 class FunctionTeacherLogic extends GetxController {
   final FunctionTeacherState state = FunctionTeacherState();
   final globalState = Get.find<GlobalLogic>().state;
-  final queryApi = ScheduleQueryApi();
+  final queryApi = ScheduleQueryApiV2();
 
   @override
   void dispose() {

@@ -8,17 +8,16 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:schedule/common/utils/logger_utils.dart';
 
-import '../../manager/request_manager.dart';
+import '../../../manager/request_manager.dart';
+import '../schedule_user_api.dart';
 
-enum ScheduleUserStatus { loginTimeOut, success, fail }
+class ScheduleUserApiV2 {
+  ScheduleUserApiV2._privateConstructor();
 
-class ScheduleUserApi {
-  ScheduleUserApi._privateConstructor();
+  static final ScheduleUserApiV2 _instance =
+  ScheduleUserApiV2._privateConstructor();
 
-  static final ScheduleUserApi _instance =
-      ScheduleUserApi._privateConstructor();
-
-  factory ScheduleUserApi() {
+  factory ScheduleUserApiV2() {
     return _instance;
   }
 
@@ -159,33 +158,35 @@ class ScheduleUserApi {
   /// 获取个人信息
   Future<Map<String, dynamic>> userInfo({CachePolicy? cachePolicy}) async {
     Options options = _request.cacheOptions
-        .copyWith(policy: cachePolicy ?? CachePolicy.request)
+        .copyWith(policy: cachePolicy ?? CachePolicy.refresh)
         .toOptions();
 
     return await _request
-        .get("/jsxsd/framework/xsMain_new.jsp?t1=1", options: options)
+        .get("/jsxsd/framework/xsMainV_new.htmlx?t1=1", options: options)
         .then((value) async {
       Document document = parse(value.data);
       Element? userinfo =
-          document.getElementsByClassName("middletopttxlr").firstOrNull;
+          document.getElementsByClassName("qz-infoContent").firstOrNull;
+
       if (userinfo != null) {
-        List<Element> infoList =
-            userinfo.getElementsByClassName("middletopdwxxcont");
+        List<Element> infoListTitle = userinfo.getElementsByClassName("infoContentTitle qz-ellipse");
+        List<Element> infoListBody =
+            userinfo.getElementsByClassName("qz-rowlan qz-flex-row qz-ellipse");
 
-        infoList.removeAt(0);
-        String name = infoList[0].text;
-        String studentId = infoList[1].text;
-        String academyName = infoList[2].text;
-        String professionalName = infoList[3].text;
-        String className = infoList[4].text;
+        String name = infoListTitle[0].text.trim().split("-")[0];
+        String studentId = infoListTitle[0].text.trim().split("-")[1];
+        String academyName = infoListBody[1].text.trim().split("：")[1];
+        String professionalName = infoListBody[2].text.trim().split("：")[1];
+        String className = infoListBody[3].text.trim().split("：")[1];
 
-        return {
+        Map<String, dynamic> result = {
           "name": name,
           "studentId": studentId,
           "academyName": academyName,
           "professionalName": professionalName,
           "className": className,
         };
+        return result;
       } else {
         return {};
       }

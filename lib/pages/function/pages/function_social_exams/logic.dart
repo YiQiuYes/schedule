@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
-import 'package:schedule/common/api/schedule/schedule_query_api.dart';
+import 'package:schedule/common/api/schedule/v2/schedule_query_api_v2.dart';
 
 import 'state.dart';
 
 class FunctionSocialExamsLogic extends GetxController {
   final FunctionSocialExamsState state = FunctionSocialExamsState();
 
-  final queryApi = ScheduleQueryApi();
+  final queryApi = ScheduleQueryApiV2();
 
   void init() {
     querySocialExamsScore();

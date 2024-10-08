@@ -16,6 +16,9 @@ class FunctionAllCourseState {
   // 学院网络请求源信息
   List originCollegeInfo = [];
 
+  // 专业缓存数据源
+  List originMajorInfo = [];
+
   // 个人课表数据
   RxList courseData = [].obs;
 

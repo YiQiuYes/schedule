@@ -25,10 +25,19 @@ class FunctionEmptyClassroomPage extends StatelessWidget {
           lessonSelectorWidget(),
           // 空教室列表
           gridViewWidget(context),
+          // 安全间距
+          safeHeightWidget(),
         ],
       ),
       floatingActionButton: settingFloatBtnWidget(),
     );
+  }
+
+  /// 获取安全间距
+  Widget safeHeightWidget() {
+    return SliverToBoxAdapter(
+        child: SizedBox(
+            height: ScreenUtils.length(vertical: 150.w, horizon: 50.w)));
   }
 
   /// 获取网格布局

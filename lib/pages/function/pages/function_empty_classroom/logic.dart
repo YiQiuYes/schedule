@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker_plus/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/api/schedule/schedule_query_api.dart';
 import 'package:schedule/common/manager/data_storage_manager.dart';
+import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/global_logic.dart';
 
+import '../../../../common/api/schedule/v2/schedule_query_api_v2.dart';
 import '../../../../common/utils/screen_utils.dart';
 import '../../../../generated/l10n.dart';
 import 'state.dart';
@@ -17,7 +18,7 @@ class FunctionEmptyClassroomLogic extends GetxController {
   final globalState = Get.find<GlobalLogic>().state;
 
   final storage = DataStorageManager();
-  final queryApi = ScheduleQueryApi();
+  final queryApi = ScheduleQueryApiV2();
 
   /// 初始化
   void init() async {
@@ -64,19 +65,13 @@ class FunctionEmptyClassroomLogic extends GetxController {
     state.buildingInfo.value = await queryApi.queryBuildingInfo();
 
     // 获取空教室列表
-    await queryEmptyClassroomData(
-      state.selectedBuilding["buildingId"],
-      state.selectedBuilding["campusId"],
-    );
+    await queryEmptyClassroomData();
 
     update();
   }
 
   /// 查询空教室
-  Future<void> queryEmptyClassroomData(
-    String buildingId,
-    String campusId,
-  ) async {
+  Future<void> queryEmptyClassroomData() async {
     state.emptyClassroomList.value = await queryApi.queryEmptyClassroom(
       semester: globalState.semesterWeekData["semester"],
       buildingId: state.selectedBuilding["buildingId"],
@@ -180,10 +175,7 @@ class FunctionEmptyClassroomLogic extends GetxController {
       onConfirm: (Picker picker, List value) async {
         state.lessonIndex.value = value[0];
 
-        await queryEmptyClassroomData(
-          state.selectedBuilding["buildingId"],
-          state.selectedBuilding["campusId"],
-        );
+        await queryEmptyClassroomData();
 
         update();
       },
@@ -286,10 +278,7 @@ class FunctionEmptyClassroomLogic extends GetxController {
         String name = picker.getSelectedValues()[0];
         final ids = getBuildingIdAndCampusId(name);
         changeSelectedBuilding(ids["buildingId"]!, ids["campusId"]!, name);
-        await queryEmptyClassroomData(
-          state.selectedBuilding["buildingId"],
-          state.selectedBuilding["campusId"],
-        );
+        await queryEmptyClassroomData();
         update();
       },
     );

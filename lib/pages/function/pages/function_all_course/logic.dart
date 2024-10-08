@@ -4,7 +4,7 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker_plus/picker.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/api/schedule/schedule_query_api.dart';
+import 'package:schedule/common/api/schedule/v2/schedule_query_api_v2.dart';
 import 'package:schedule/common/manager/data_storage_manager.dart';
 import 'package:schedule/common/utils/logger_utils.dart';
 
@@ -16,29 +16,50 @@ class FunctionAllCourseLogic extends GetxController {
   final FunctionAllCourseState state = FunctionAllCourseState();
   final globalState = Get.find<GlobalLogic>().state;
 
-  final queryApi = ScheduleQueryApi();
+  final queryApi = ScheduleQueryApiV2();
   final storage = DataStorageManager();
 
   /// 选择周次
   void selectWeekConfirm(Picker picker, List<int> value) {
     state.week.value = (value[0] + 1).toString();
+    Map<String, dynamic> major = getMajorIdByName(
+        state.collegeAndMajorIndex[0],
+        state.pickerData[state.collegeAndMajorIndex[0]]
+            .children![state.collegeAndMajorIndex[1]].value!);
     getCourseData(
-      state.pickerData[state.collegeAndMajorIndex[0]]
-          .children![state.collegeAndMajorIndex[1]].value!,
+      major["majorId"],
       state.week.value,
+      major["grade"].toString(),
+      major["collegeId"],
+      major["classId"],
     );
   }
 
   /// 选择学院和专业
   void selectCollegeAndMajorConfirm(Picker picker, List<int> value) {
+    Map<String, dynamic> major = getMajorIdByName(
+      state.collegeAndMajorIndex[0],
+      state.pickerData[value[0]].children![value[1]].value!,
+    );
+
     // 获取课程信息
-    getCourseData(state.pickerData[value[0]].children![value[1]].value!,
-        state.week.value);
+    getCourseData(
+      major["majorId"],
+      state.week.value,
+      major["grade"].toString(),
+      major["collegeId"],
+      major["classId"],
+    );
     state.collegeAndMajorIndex = value;
   }
 
   /// 初始化
   Future<void> init() async {
+    // var data = await queryApi.queryCollegeInfo();
+    // queryApi.queryMajorInfo(
+    //     collegeId: data[0]["collegeId"]);
+    // return;
+
     // 读取缓存数据
     String? originCollegeInfoStr =
         storage.getString("functionAllCourseOriginCollegeInfo");
@@ -57,11 +78,13 @@ class FunctionAllCourseLogic extends GetxController {
       if (originCollegeInfoChildrenStr != null) {
         List originCollegeInfoChildren =
             jsonDecode(originCollegeInfoChildrenStr);
-        for (int i = 0; i < state.pickerData.length; i++) {
+        state.originMajorInfo = originCollegeInfoChildren;
+        for (int i = 0; i < originCollegeInfoChildren.length; i++) {
           state.pickerData[i].children?.clear();
           List list = originCollegeInfoChildren[i];
-          state.pickerData[i].children
-              ?.addAll(list.map((e) => PickerItem<String>(value: e)).toList());
+          state.pickerData[i].children?.addAll(list
+              .map((e) => PickerItem<String>(value: e["majorName"]))
+              .toList());
         }
 
         await refreshData();
@@ -73,8 +96,15 @@ class FunctionAllCourseLogic extends GetxController {
     }
 
     // 获取课程信息
-    await getCourseData(
-        state.pickerData[0].children![0].value!, state.week.value);
+    Map<String, dynamic> major =
+        getMajorIdByName(0, state.pickerData[0].children![0].value!);
+    getCourseData(
+      major["majorId"],
+      state.week.value,
+      major["grade"].toString(),
+      major["collegeId"],
+      major["classId"],
+    );
     state.isLoad.value = false;
     update();
   }
@@ -89,17 +119,16 @@ class FunctionAllCourseLogic extends GetxController {
       state.pickerData.clear();
       state.pickerData.addAll(state.originCollegeInfo
           .map((e) => PickerItem<String>(
-          value: e["collegeName"],
-          children: <PickerItem<String>>[PickerItem<String>(value: "")]))
+              value: e["collegeName"],
+              children: <PickerItem<String>>[PickerItem<String>(value: "")]))
           .toList());
     });
 
     // 多线程并发
-    List<Future<List<String>>> task = [];
+    List<Future<List<Map<String, dynamic>>>> task = [];
     for (int i = 0; i < state.pickerData.length; i++) {
       task.add(queryApi.queryMajorInfo(
-          collegeId: getCollegeIdByName(state.pickerData[i].value!),
-          semester: globalState.semesterWeekData["semester"]));
+          collegeId: getCollegeIdByName(state.pickerData[i].value!)));
     }
 
     final result = await Future.wait(task);
@@ -107,8 +136,9 @@ class FunctionAllCourseLogic extends GetxController {
         "functionAllCourseOriginCollegeInfoChildren", jsonEncode(result));
     for (int i = 0; i < state.pickerData.length; i++) {
       state.pickerData[i].children?.clear();
-      state.pickerData[i].children?.addAll(
-          result[i].map((e) => PickerItem<String>(value: e)).toList());
+      state.pickerData[i].children?.addAll(result[i]
+          .map((e) => PickerItem<String>(value: e["majorName"]))
+          .toList());
     }
   }
 
@@ -122,11 +152,10 @@ class FunctionAllCourseLogic extends GetxController {
     });
 
     // 多线程并发
-    List<Future<List<String>>> task = [];
+    List<Future<List<Map<String, dynamic>>>> task = [];
     for (int i = 0; i < state.pickerData.length; i++) {
       task.add(queryApi.queryMajorInfo(
-          collegeId: getCollegeIdByName(state.pickerData[i].value!),
-          semester: globalState.semesterWeekData["semester"]));
+          collegeId: getCollegeIdByName(state.pickerData[i].value!)));
     }
 
     Future.delayed(const Duration(seconds: 1), () {
@@ -151,6 +180,12 @@ class FunctionAllCourseLogic extends GetxController {
         (element) => element["collegeName"] == collegeName)["collegeId"];
   }
 
+  /// 根据名称获取专业ID
+  Map<String, dynamic> getMajorIdByName(int collegeIndex, String majorName) {
+    return state.originMajorInfo[collegeIndex]
+        .firstWhere((element) => element["majorName"] == majorName);
+  }
+
   /// 获取周次数据
   PickerDataAdapter getWeekPickerData(BuildContext context) {
     List<PickerItem<String>> weekPickerData = List.generate(20, (index) {
@@ -165,12 +200,16 @@ class FunctionAllCourseLogic extends GetxController {
   }
 
   /// 获取课程表数据
-  Future<void> getCourseData(String majorName, String week) async {
+  Future<void> getCourseData(String majorId, String week, String grade,
+      String collegeId, String classId) async {
     await queryApi
         .queryMajorCourse(
             week: week,
             semester: globalState.semesterWeekData["semester"],
-            majorName: majorName,
+            grade: grade,
+            collegeId: collegeId,
+            majorId: majorId,
+            classId: classId,
             cachePolicy: CachePolicy.refresh)
         .then((value) {
       // logger.i(value);
