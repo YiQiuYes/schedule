@@ -292,7 +292,7 @@ class ScheduleQueryApiV2 {
         }
       }
 
-      if(result.isEmpty) {
+      if (result.isEmpty) {
         result = List.generate(35, (int index) => {});
       }
       return ResponseData(code: ResponseCode.success, data: result);
@@ -554,13 +554,66 @@ class ScheduleQueryApiV2 {
       "jc2": "",
     };
 
+    const weekTile = [
+      "星期一",
+      "星期二",
+      "星期三",
+      "星期四",
+      "星期五",
+      "星期六",
+      "星期日",
+    ];
+
     return await _request
         .get("/jsxsd/kbcx/kbxx_classroom_ifr", params: params, options: options)
         .then((value) {
       final List list = ResponseUtils.transformObj(value)["data"];
       List result = [];
+
       for (Map<String, dynamic> item in list) {
-        result.add(item["jsmc"]);
+        bool isMatchWeek = false;
+        bool isMatchLesson = false;
+        bool isMatchWeekly = false;
+
+        if (item["zzdweek"] != weekTile[week - 1]) {
+          isMatchWeek = true;
+        }
+
+        if (item["jc"] != "${lesson * 2 - 1}-${lesson * 2}") {
+          isMatchLesson = true;
+        }
+
+        String classWeek = item["kkzc"];
+        if (classWeek.contains(",")) {
+          List<String> split = classWeek.split(",");
+          for (String item in split) {
+            List<String> interval = item.split("-");
+            if (interval.length == 2) {
+              int start = int.parse(interval[0]);
+              int end = int.parse(interval[1]);
+              if (start <= int.parse(weekly) && int.parse(weekly) <= end) {
+                isMatchWeekly = true;
+                break;
+              }
+            }
+          }
+        } else {
+          List<String> interval = classWeek.split("-");
+          if (interval.length == 2) {
+            int start = int.parse(interval[0]);
+            int end = int.parse(interval[1]);
+            if (start <= int.parse(weekly) && int.parse(weekly) <= end) {
+              isMatchWeekly = true;
+            }
+          }
+        }
+
+        if (isMatchWeek &&
+            isMatchLesson &&
+            isMatchWeekly &&
+            !result.contains(item["jsmc"])) {
+          result.add(item["jsmc"]);
+        }
       }
       return result;
     });
@@ -608,7 +661,6 @@ class ScheduleQueryApiV2 {
     return await _request
         .get("/jsxsd/kbcx/kbxx_teacher_ifr", params: params, options: options)
         .then((value) {
-
       List data = jsonDecode(value.data)["data"];
       List<Map> result = [];
       // logger.i(data);
@@ -618,7 +670,7 @@ class ScheduleQueryApiV2 {
         "classList": [],
       };
 
-      for(Map<String, dynamic> item in data) {
+      for (Map<String, dynamic> item in data) {
         if (teacherMap["teacherName"] != item["xm"]) {
           if (teacherMap["teacherName"] != "") {
             result.add(teacherMap);
