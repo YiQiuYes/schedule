@@ -173,7 +173,7 @@ class ScheduleQueryApiV2 {
 
               RegExp regExp = RegExp(r'\(([^)]+)\)');
               Match? match =
-                  regExp.firstMatch(classInfoList[6 + j * 10].text.trim());
+                  regExp.firstMatch(classInfoList[7 + j * 10].text.trim());
               if (match != null) {
                 classAddress = match.group(1)!;
               }
