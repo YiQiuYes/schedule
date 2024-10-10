@@ -2,7 +2,7 @@ name: schedule
 description: "A new Flutter project."
 publish_to: 'none'
 
-version: 0.3.4+1
+version: 0.3.5+1
 
 environment:
   sdk: ^3.5.1
@@ -52,6 +52,7 @@ flutter:
     - lib/assets/images/
     - lib/assets/lotties/
     - lib/assets/icons/
+    - shorebird.yaml
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
