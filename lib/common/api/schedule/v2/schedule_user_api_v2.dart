@@ -56,21 +56,25 @@ class ScheduleUserApiV2 {
     options.validateStatus = (status) {
       return status! < 500;
     };
+    options.contentType = "application/x-www-form-urlencoded";
 
-    Map<String, dynamic> params = {
-      "userAccount": "",
+    Map<String, dynamic> data = {
+      "userAccount": userAccount,
       "userPassword": "",
+      "loginMethod": "LoginToXk",
+      "userlanguage": 0,
     };
 
     // base64加密
     String userAccountBase64 = base64Encode(utf8.encode(userAccount));
     String userPasswordBase64 = base64Encode(utf8.encode(userPassword));
     String encoded = "$userAccountBase64%%%$userPasswordBase64";
-    params["encoded"] = encoded;
+    data["encoded"] = encoded;
 
     return await _request
-        .post("/jsxsd/xk/LoginToXk", params: params, options: options)
+        .post("/jsxsd/xk/LoginToXk", data: data, options: options)
         .then((value) {
+          // logger.i(value.data);
       bool status = value.data == "";
       switch (status) {
         case true:
@@ -86,7 +90,6 @@ class ScheduleUserApiV2 {
   /// 登录api
   Future<ScheduleUserStatus> loginEducationalSystem(
       {required String userAccount, required String userPassword}) async {
-
     Response res = await _request.get(
       "/",
       options: _request.cacheOptions

@@ -3,6 +3,7 @@ import 'package:flutter_picker_plus/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:schedule/common/manager/request_manager.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
 import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/app_main/app_main_route_config.dart';
@@ -17,6 +18,8 @@ class PersonLogic extends GetxController {
   final PersonState state = PersonState();
   final globalLogic = Get.find<GlobalLogic>();
   final globalState = Get.find<GlobalLogic>().state;
+
+  final _request = RequestManager();
 
   @override
   void dispose() {
@@ -119,6 +122,7 @@ class PersonLogic extends GetxController {
               Get.offAllNamed(AppMainRouteConfig.login, id: 1);
               await globalLogic.setIsLogin(false);
               await globalLogic.setLoad20CountCourse(false);
+              await _request.clearCookie();
               final appMainLogic = Get.find<AppMainLogic>();
               appMainLogic.setNavigateCurrentIndex(0);
             },

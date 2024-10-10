@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/api/drink/drink_api.dart';
 import 'package:schedule/common/api/schedule/schedule_user_api.dart';
+import 'package:schedule/common/api/schedule/v2/schedule_user_api_v2.dart';
 import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/pages/app_main/app_main_route_config.dart';
 import 'package:schedule/pages/login/view.dart';
@@ -23,7 +24,7 @@ class LoginLogic extends GetxController {
   final globalLogic = Get.find<GlobalLogic>();
   final globalState = Get.find<GlobalLogic>().state;
 
-  final userApi = ScheduleUserApi();
+  final userApi = ScheduleUserApiV2();
   final drinkApi = DrinkApi();
   final hutUserApi = HutUserApi();
 
@@ -208,7 +209,7 @@ class LoginLogic extends GetxController {
   /// 登录教务系统
   Future<String?>? loginEducationalSystem(LoginData data) async {
     // 开始登录并超时时间为10s
-    final loginStatus = await userApi.loginEducationalSystem(
+    final loginStatus = await userApi.autoLoginEducationalSystem(
       userAccount: data.name,
       userPassword: data.password,
     );
