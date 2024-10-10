@@ -63,7 +63,11 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION  }}
       - name: Build (ios)
         run: |
-          sh scripts/build-ipa.sh
+          flutter pub get
+          flutter build ios --release --no-codesign
+          mkdir -p build/ios/iphoneos/Payload
+          mv build/ios/iphoneos/Runner.app build/ios/iphoneos/Payload
+          zip -9 build/ios/iphoneos/release-ios.ipa -r build/ios/iphoneos/Payload
       - name: 重命名文件
         run:  mv build/ios/iphoneos/release-ios.ipa build/ios/iphoneos/schedule-ios-${{ env.version }}.ipa
       - name: 上传产物
