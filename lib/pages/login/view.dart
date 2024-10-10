@@ -14,6 +14,7 @@ import 'logic.dart';
 enum LoginPageType {
   schedule,
   hui798,
+  hut,
 }
 
 class LoginPage extends StatefulWidget {

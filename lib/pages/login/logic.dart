@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +11,7 @@ import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/pages/app_main/app_main_route_config.dart';
 import 'package:schedule/pages/login/view.dart';
 
+import '../../common/api/hut/hut_user_api.dart';
 import '../../generated/l10n.dart';
 import '../../global_logic.dart';
 import '../app_main/logic.dart';
@@ -25,6 +25,7 @@ class LoginLogic extends GetxController {
 
   final userApi = ScheduleUserApi();
   final drinkApi = DrinkApi();
+  final hutUserApi = HutUserApi();
 
   void init(LoginPageType type) {
     switch (type) {
@@ -34,6 +35,8 @@ class LoginLogic extends GetxController {
         Future.delayed(const Duration(milliseconds: 300), () {
           getDrinkPhotoCaptchaData();
         });
+        break;
+      case LoginPageType.hut:
         break;
       default:
         break;
@@ -126,6 +129,8 @@ class LoginLogic extends GetxController {
         return loginEducationalSystem(data);
       case LoginPageType.hui798:
         return loginHui798Drink(data);
+      case LoginPageType.hut:
+        return loginHut(data);
       default:
         return loginEducationalSystem(data);
     }
@@ -222,6 +227,42 @@ class LoginLogic extends GetxController {
     }
   }
 
+  /// 登录HUT
+  Future<String?>? loginHut(LoginData data) async {
+    return await hutUserApi
+        .userLogin(username: data.name, password: data.password)
+        .then((value) async {
+      if (value) {
+        Get.snackbar(
+          S.current.snackbar_tip,
+          S.current.login_hut_login_success,
+          backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
+          margin: EdgeInsets.only(
+            top: 30.w,
+            left: 50.w,
+            right: 50.w,
+          ),
+        );
+        // 保存用户信息
+        await globalLogic.setHutUserInfo("username", data.name);
+        await globalLogic.setHutUserInfo("password", data.password);
+        return null;
+      } else {
+        Get.snackbar(
+          S.current.snackbar_tip,
+          S.current.login_hut_login_fail,
+          backgroundColor: Theme.of(Get.context!).colorScheme.primaryContainer,
+          margin: EdgeInsets.only(
+            top: 30.w,
+            left: 50.w,
+            right: 50.w,
+          ),
+        );
+        return S.current.login_hut_login_fail;
+      }
+    });
+  }
+
   /// 登录惠生活798
   Future<String?>? loginHui798Drink(LoginData data) async {
     return await drinkApi
@@ -305,6 +346,15 @@ class LoginLogic extends GetxController {
           Get.back(id: 2);
         } else {
           Get.offNamed(FunctionRouteConfig.functionDrink, id: 3);
+        }
+        break;
+      case LoginPageType.hut:
+        final appMainLogic = Get.find<AppMainLogic>().state;
+        await globalLogic.setHutUserInfo("hutIsLogin", true);
+        if (appMainLogic.orientation.value) {
+          Get.back(id: 2);
+        } else {
+          Get.offNamed(FunctionRouteConfig.functionHotWater, id: 3);
         }
         break;
       default:

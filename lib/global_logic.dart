@@ -116,6 +116,18 @@ class GlobalLogic extends GetxController {
       _storage.setString(
           "hui798UserInfoData", jsonEncode(state.hui798UserInfo));
     }
+
+    // 读取Hut用户个人数据
+    String? hutUserInfoDataStr = _storage.getString("hutUserInfoData");
+    if (hutUserInfoDataStr != null) {
+      Map<String, dynamic> map = jsonDecode(hutUserInfoDataStr);
+      map.forEach((key, value) {
+        state.hutUserInfo[key] = value;
+      });
+    } else {
+      _storage.setString(
+          "hutUserInfoData", jsonEncode(state.hutUserInfo));
+    }
   }
 
   /// 获取主题模式
@@ -285,6 +297,13 @@ class GlobalLogic extends GetxController {
     state.hui798UserInfo[key] = value;
     return await _storage.setString(
         "hui798UserInfoData", jsonEncode(state.hui798UserInfo));
+  }
+
+  /// 设置数据
+  Future<bool> setHutUserInfo(String key, dynamic value) async {
+    state.hutUserInfo[key] = value;
+    return await _storage.setString(
+        "hutUserInfoData", jsonEncode(state.hutUserInfo));
   }
 
   /// 设置语言

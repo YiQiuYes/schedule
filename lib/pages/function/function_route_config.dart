@@ -5,6 +5,7 @@ import 'package:schedule/pages/function/pages/function_all_course/view.dart';
 import 'package:schedule/pages/function/pages/function_drink/view.dart';
 import 'package:schedule/pages/function/pages/function_empty_classroom/view.dart';
 import 'package:schedule/pages/function/pages/function_exam_plan/view.dart';
+import 'package:schedule/pages/function/pages/function_hot_water/view.dart';
 import 'package:schedule/pages/function/pages/function_score/view.dart';
 import 'package:schedule/pages/function/pages/function_social_exams/view.dart';
 import 'package:schedule/pages/function/pages/function_teacher/view.dart';
@@ -24,6 +25,7 @@ class FunctionRouteConfig {
   static const String functionEmptyClassroom = '/functionEmptyClassroom';
   static const String functionTeacher = '/functionTeacher';
   static const String functionExamPlan = '/functionExamPlan';
+  static const String functionHotWater = '/functionHotWater';
   static const String login = '/login';
   static const String camera = '/camera';
 
@@ -87,6 +89,13 @@ class FunctionRouteConfig {
       ),
       functionDrink: GetPageRoute(
         page: () => FunctionDrinkPage(),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
+      ),
+      functionHotWater: GetPageRoute(
+        page: () => FunctionHotWaterPage(),
         settings: RouteSettings(
           name: settings.name,
           arguments: settings.arguments,

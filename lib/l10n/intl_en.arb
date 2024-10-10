@@ -22,6 +22,8 @@
   "login_drink_message_code_fail" : "Failed to obtain SMS verification code!",
   "login_drink_login_success" : "Login success!",
   "login_drink_login_fail" : "Please check if the mobile phone number or verification code is correct!",
+  "login_hut_login_success" : "Login success!",
+  "login_hut_login_fail" : "Please check if the account or password is correct!",
 
   "schedule_week_tile" : "Mon&Tues&Wed&Thur&Fri&Sat&Sun",
   "schedule_course_time_tile" : "1st&2nd&3rd&4th&5th",
@@ -42,6 +44,7 @@
   "function_empty_classroom" : "Empty classroom",
   "function_teacher_title" : "Teacher schedule",
   "function_exam_plan" : "Exam schedule",
+  "function_hot_water" : "Bathe",
 
   "function_score_gpa" : "GPA:{score}",
   "function_score_empty" : "No score information",
@@ -65,6 +68,10 @@
   "function_drink_device_qr_code" : "Device QR code",
   "function_drink_token_manage_title" : "Token management",
   "function_drink_token_manage_label" : "Token",
+
+  "function_hot_water_btn_status_enable" : "Start",
+  "function_hot_water_btn_status_disable" : "End",
+  "function_hot_water_have_device_not_off" : "The device is not turned off, please turn off the device first!",
 
   "person_semester_tip" : "Semester",
   "person_start_day_tip" : "Start day",

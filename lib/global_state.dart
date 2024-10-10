@@ -29,6 +29,13 @@ class GlobalState {
     "password": "",
   }.obs;
 
+  // Hut账号
+  RxMap<String, dynamic> hutUserInfo = {
+    "hutIsLogin": false,
+    "username": "",
+    "password": "",
+  }.obs;
+
   // 设置数据
   RxMap<String, dynamic> settings = {
     "isLogin": false,

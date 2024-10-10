@@ -85,6 +85,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "function_exam_plan": MessageLookupByLibrary.simpleMessage("考试计划"),
         "function_exam_plan_empty":
             MessageLookupByLibrary.simpleMessage("暂无考试安排"),
+        "function_hot_water": MessageLookupByLibrary.simpleMessage("洗澡"),
+        "function_hot_water_btn_status_disable":
+            MessageLookupByLibrary.simpleMessage("结束"),
+        "function_hot_water_btn_status_enable":
+            MessageLookupByLibrary.simpleMessage("开始"),
+        "function_hot_water_have_device_not_off":
+            MessageLookupByLibrary.simpleMessage("您有设备未关闭！"),
         "function_life_assistant_area_name":
             MessageLookupByLibrary.simpleMessage("生活助手"),
         "function_score_empty": MessageLookupByLibrary.simpleMessage("暂无成绩"),
@@ -113,6 +120,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_fail": MessageLookupByLibrary.simpleMessage("登录失败"),
         "login_flushbar_title_error":
             MessageLookupByLibrary.simpleMessage("错误"),
+        "login_hut_login_fail":
+            MessageLookupByLibrary.simpleMessage("登录失败！请检查账号或密码是否正确！"),
+        "login_hut_login_success":
+            MessageLookupByLibrary.simpleMessage("登录成功！"),
         "login_login_button": MessageLookupByLibrary.simpleMessage("登录"),
         "login_message_code_hint":
             MessageLookupByLibrary.simpleMessage("短信验证码"),

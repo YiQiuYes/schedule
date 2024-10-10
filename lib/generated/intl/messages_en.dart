@@ -92,6 +92,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Exam schedule"),
         "function_exam_plan_empty":
             MessageLookupByLibrary.simpleMessage("No exam information"),
+        "function_hot_water": MessageLookupByLibrary.simpleMessage("Bathe"),
+        "function_hot_water_btn_status_disable":
+            MessageLookupByLibrary.simpleMessage("End"),
+        "function_hot_water_btn_status_enable":
+            MessageLookupByLibrary.simpleMessage("Start"),
+        "function_hot_water_have_device_not_off":
+            MessageLookupByLibrary.simpleMessage(
+                "The device is not turned off, please turn off the device first!"),
         "function_life_assistant_area_name":
             MessageLookupByLibrary.simpleMessage("Life assistant"),
         "function_score_empty":
@@ -124,6 +132,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_fail": MessageLookupByLibrary.simpleMessage("Login failed"),
         "login_flushbar_title_error":
             MessageLookupByLibrary.simpleMessage("Error"),
+        "login_hut_login_fail": MessageLookupByLibrary.simpleMessage(
+            "Please check if the account or password is correct!"),
+        "login_hut_login_success":
+            MessageLookupByLibrary.simpleMessage("Login success!"),
         "login_login_button": MessageLookupByLibrary.simpleMessage("LOGIN"),
         "login_message_code_hint":
             MessageLookupByLibrary.simpleMessage("Message code"),

@@ -44,6 +44,11 @@ class FunctionState {
       'title': S.current.function_drink,
       'route': FunctionRouteConfig.functionDrink,
     },
+    {
+      'icon': Icons.bathtub_rounded,
+      'title': S.current.function_hot_water,
+      'route': FunctionRouteConfig.functionHotWater,
+    }
   ];
 
   FunctionState() {

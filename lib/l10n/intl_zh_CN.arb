@@ -22,6 +22,8 @@
   "login_drink_message_code_fail" : "获取短信验证码失败！",
   "login_drink_login_success" : "登录成功！",
   "login_drink_login_fail" : "登录失败！请检查手机号或验证码是否正确！",
+  "login_hut_login_success" : "登录成功！",
+  "login_hut_login_fail" : "登录失败！请检查账号或密码是否正确！",
 
   "schedule_week_tile" : "周一&周二&周三&周四&周五&周六&周日",
   "schedule_course_time_tile" : "一&二&三&四&五",
@@ -42,6 +44,7 @@
   "function_empty_classroom" : "空教室",
   "function_teacher_title" : "教师课表",
   "function_exam_plan" : "考试计划",
+  "function_hot_water" : "洗澡",
 
   "function_score_gpa" : "绩点：{score}",
   "function_score_empty" : "暂无成绩",
@@ -65,6 +68,10 @@
   "function_drink_device_qr_code" : "扫描设备二维码",
   "function_drink_token_manage_title" : "Token管理",
   "function_drink_token_manage_label" : "Token",
+
+  "function_hot_water_btn_status_enable" : "开始",
+  "function_hot_water_btn_status_disable" : "结束",
+  "function_hot_water_have_device_not_off" : "您有设备未关闭！",
 
   "person_semester_tip" : "学期",
   "person_start_day_tip" : "开始日期",

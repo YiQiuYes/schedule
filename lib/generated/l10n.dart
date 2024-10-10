@@ -270,6 +270,26 @@ class S {
     );
   }
 
+  /// `Login success!`
+  String get login_hut_login_success {
+    return Intl.message(
+      'Login success!',
+      name: 'login_hut_login_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check if the account or password is correct!`
+  String get login_hut_login_fail {
+    return Intl.message(
+      'Please check if the account or password is correct!',
+      name: 'login_hut_login_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Mon&Tues&Wed&Thur&Fri&Sat&Sun`
   String get schedule_week_tile {
     return Intl.message(
@@ -445,6 +465,16 @@ class S {
     return Intl.message(
       'Exam schedule',
       name: 'function_exam_plan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bathe`
+  String get function_hot_water {
+    return Intl.message(
+      'Bathe',
+      name: 'function_hot_water',
       desc: '',
       args: [],
     );
@@ -655,6 +685,36 @@ class S {
     return Intl.message(
       'Token',
       name: 'function_drink_token_manage_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get function_hot_water_btn_status_enable {
+    return Intl.message(
+      'Start',
+      name: 'function_hot_water_btn_status_enable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End`
+  String get function_hot_water_btn_status_disable {
+    return Intl.message(
+      'End',
+      name: 'function_hot_water_btn_status_disable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The device is not turned off, please turn off the device first!`
+  String get function_hot_water_have_device_not_off {
+    return Intl.message(
+      'The device is not turned off, please turn off the device first!',
+      name: 'function_hot_water_have_device_not_off',
       desc: '',
       args: [],
     );
