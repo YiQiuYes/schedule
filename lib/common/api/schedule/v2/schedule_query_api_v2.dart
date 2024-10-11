@@ -222,7 +222,6 @@ class ScheduleQueryApiV2 {
   /// - [week] : 周次
   /// - [semester] : 学期
   /// - [cachePolicy] : 缓存策略
-  /// ToDo
   Future<ResponseData<List<Map>>> queryPersonExperimentCourse(
       {required String week,
       required String semester,
@@ -234,9 +233,12 @@ class ScheduleQueryApiV2 {
     Map<String, dynamic> params = {
       "xnxq01id": semester,
       "zc": week,
+      "a": 1,
+      "qsskz": 1,
+      "zzskz": 19,
+      "xs0101id": "B31C2FB0C5204F06A041400012B57EC8",
     };
 
-    List<Map> result = [];
     // 处理返回数据
     return await _request
         .get("/jsxsd/syjx/toXskb.do", params: params, options: options)
@@ -249,11 +251,15 @@ class ScheduleQueryApiV2 {
       }
 
       Document doc = parse(value.data);
-      Element? table = doc.getElementById("tblHead");
-      if (table != null) {
-        List<Element> trs = table.getElementsByTagName("tr");
-        trs.removeAt(0);
+      List<Element> tables =
+          doc.getElementsByClassName("qz-weeklyTable-td ").where((element) {
+        return !element.attributes["class"]!.contains("qz-weeklyTable-label");
+      }).toList();
+      tables = tables.sublist(0, 35);
+      // logger.i(tables.length);
 
+      List<Map> result = [];
+      if (tables.isNotEmpty) {
         const time = [
           "8:00-9:40",
           "10:00-11:40",
@@ -261,33 +267,42 @@ class ScheduleQueryApiV2 {
           "16:00-17:40",
           "19:00-20:40",
         ];
-        for (int i = 0; i < 5; i++) {
-          Element tr = trs[i];
-          tr.querySelector("[rowspan]")?.remove();
-          List<Element> tds = tr.getElementsByTagName("td");
 
-          tds.removeAt(0);
-          for (int j = 0; j < tds.length; j++) {
+        for (int i = 0; i < tables.length; i++) {
+          List<Element> list = tables[i].getElementsByClassName("qz-tooltip");
+          if (list.isNotEmpty) {
+            Element item = list.first;
+            List<Element> classTileList = item
+                .getElementsByClassName("qz-tooltipContent-title qz-ellipse");
+            String className = classTileList.first.text;
+
+            List<Element> classInfoList =
+                item.getElementsByClassName("qz-tooltipContent-detailitem");
+
             // 获取课程时间
-            String classTime = time[i];
+            int index = i ~/ 7;
+            String classTime = time[index];
 
-            List<String> split = tds[j].innerHtml.split("<br>");
-            if (split.length != 1) {
-              // 获取课程名称
-              String className = split[0];
-              // 获取课程地点
-              String classAddress = split[2].split("   ")[1];
+            // 课程地址
+            String classAddress =
+                classInfoList[2].text.trim().replaceAll("地址：", "");
 
-              result.add({
-                "className": className,
-                "classTime": classTime,
-                "classAddress": classAddress,
-                "classTeacher": "",
-                "classWeek": week,
-              });
-            } else {
-              result.add({});
-            }
+            // 课程教师
+            String classTeacher = "";
+
+            // 获取课程周数
+            String classWeek;
+            classWeek = week;
+
+            result.add({
+              "className": className,
+              "classTime": classTime,
+              "classAddress": classAddress,
+              "classTeacher": classTeacher,
+              "classWeek": classWeek,
+            });
+          } else {
+            result.add({});
           }
         }
       }
