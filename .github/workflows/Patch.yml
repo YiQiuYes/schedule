@@ -7,6 +7,13 @@ on:
         description: Version to release (x.x.x+x)
         default: 1.0.0+1
         required: true
+      staging:
+        description: Staging or not
+        required: true
+        type: choice
+        options:
+          - true
+          - false
 env:
   SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
 
@@ -40,7 +47,8 @@ jobs:
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
         with:
           platform: android
-          args: --release-version=${{env.version}} --staging
+          # args: --release-version=${{env.version}} --staging
+          args: --release-version=${{env.version}} ${{ inputs.staging == 'true' && '--staging' || '' }}
 
   job_ipa:
     name: 构建ios patch
@@ -57,4 +65,5 @@ jobs:
         uses: shorebirdtech/shorebird-patch@v0
         with:
           platform: ios
-          args: --release-version=${{env.version}} --staging --no-codesign
+          # args: --release-version=${{env.version}} --staging --no-codesign
+          args: --release-version=${{env.version}} ${{ inputs.staging == 'true' && '--staging' || '' }} --no-codesign
