@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/api/drink/drink_api.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/camera/view.dart';
 import 'package:schedule/pages/login/view.dart';
@@ -215,6 +214,7 @@ class FunctionDrinkLogic extends GetxController {
   void scanQRCode(BuildContext context) async {
     final appMainLogic = Get.find<AppMainLogic>().state;
 
+    // ignore: prefer_typing_uninitialized_variables
     var result;
 
     if (appMainLogic.orientation.value) {

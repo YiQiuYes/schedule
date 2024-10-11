@@ -24,5 +24,5 @@ class LoginState {
   // 验证码数据
   Rx<Future<Uint8List>> captchaData = Future.value(Uint8List(0)).obs;
 
-  LoginState() {}
+  LoginState();
 }

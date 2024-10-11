@@ -11,5 +11,5 @@ class AppMainState {
   // 屏幕旋转方向
   RxBool orientation = true.obs;
 
-  AppMainState() {}
+  AppMainState();
 }

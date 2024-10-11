@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/pages/camera/view.dart';
 
 import '../../generated/l10n.dart';

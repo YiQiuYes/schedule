@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
 
 import '../../../../common/widget/my_popup_menu/my_popup_menu.dart';

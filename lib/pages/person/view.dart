@@ -185,7 +185,7 @@ class PersonMainPage extends StatelessWidget {
         top: ScreenUtils.length(vertical: 30.h, horizon: 20.h),
       ),
       textStyle: TextStyle(
-        color: Theme.of(context).colorScheme.onBackground,
+        color: Theme.of(context).colorScheme.onSurface,
         fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
       ),
       containerColor:

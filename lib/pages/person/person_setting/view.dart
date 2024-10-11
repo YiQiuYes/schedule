@@ -2,7 +2,6 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/common/widget/my_popup_menu/my_popup_menu.dart';
 import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/person/person_route_config.dart';

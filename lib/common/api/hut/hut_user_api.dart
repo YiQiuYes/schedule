@@ -5,9 +5,9 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/common/utils/response_utils.dart';
 import 'package:uuid/uuid.dart';
+// ignore: depend_on_referenced_packages
 import 'package:pointycastle/asymmetric/api.dart';
 
 import '../../manager/data_storage_manager.dart';

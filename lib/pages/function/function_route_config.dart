@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/pages/function/pages/function_all_course/view.dart';
 import 'package:schedule/pages/function/pages/function_drink/view.dart';
 import 'package:schedule/pages/function/pages/function_empty_classroom/view.dart';

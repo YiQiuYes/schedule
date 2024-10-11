@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker_plus/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/common/widget/curriculum/view.dart';
 
 import '../../../../common/utils/screen_utils.dart';

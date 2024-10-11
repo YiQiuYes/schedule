@@ -4,7 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../common/api/other/other_api.dart';
 import '../../common/manager/data_storage_manager.dart';
 import '../../common/utils/flutter_toast_utils.dart';
-import '../../common/utils/logger_utils.dart';
 import '../../common/utils/package_info_utils.dart';
 import '../../common/utils/platform_utils.dart';
 import '../../common/utils/screen_utils.dart';

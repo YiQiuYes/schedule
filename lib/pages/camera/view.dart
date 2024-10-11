@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 
 import '../../common/utils/screen_utils.dart';
 import '../app_main/logic.dart';

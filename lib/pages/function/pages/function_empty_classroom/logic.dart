@@ -5,7 +5,6 @@ import 'package:flutter_picker_plus/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/manager/data_storage_manager.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/global_logic.dart';
 
 import '../../../../common/api/schedule/v2/schedule_query_api_v2.dart';

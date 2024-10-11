@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 
 import '../../../manager/request_manager.dart';
 import '../../../utils/response_utils.dart';

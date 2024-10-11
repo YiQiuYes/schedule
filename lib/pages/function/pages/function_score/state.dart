@@ -9,5 +9,5 @@ class FunctionScoreState {
   // 是否正在加载
   RxBool isLoading = true.obs;
 
-  FunctionScoreState() {}
+  FunctionScoreState();
 }
