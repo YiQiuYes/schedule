@@ -21,7 +21,9 @@ class FunctionDrinkLogic extends GetxController {
 
   final drinkApi = DrinkApi();
 
-  Future<void> init() async {
+  @override
+  onInit() {
+    super.onInit();
     checkLogin();
     // 获取token
     drinkApi.getToken().then((value) {

@@ -17,8 +17,6 @@ class FunctionDrinkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logic.init();
-
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).function_drink),
