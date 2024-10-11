@@ -344,7 +344,10 @@ class LoginLogic extends GetxController {
         final appMainLogic = Get.find<AppMainLogic>().state;
         await globalLogic.setHui798UserInfo("hui798IsLogin", true);
         if (appMainLogic.orientation.value) {
-          Get.back(id: 2);
+          Get.offNamedUntil(FunctionRouteConfig.functionDrink, (route) {
+            logger.i(route.settings.name);
+            return route.settings.name == FunctionRouteConfig.main;
+          }, id: 2);
         } else {
           Get.offNamed(FunctionRouteConfig.functionDrink, id: 3);
         }
@@ -353,7 +356,10 @@ class LoginLogic extends GetxController {
         final appMainLogic = Get.find<AppMainLogic>().state;
         await globalLogic.setHutUserInfo("hutIsLogin", true);
         if (appMainLogic.orientation.value) {
-          Get.back(id: 2);
+          Get.offNamedUntil(FunctionRouteConfig.functionHotWater, (route) {
+            logger.i(route.settings.name);
+            return route.settings.name == FunctionRouteConfig.main;
+          }, id: 2);
         } else {
           Get.offNamed(FunctionRouteConfig.functionHotWater, id: 3);
         }
