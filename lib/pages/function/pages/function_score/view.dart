@@ -56,7 +56,7 @@ class FunctionScorePage extends StatelessWidget {
             padding: EdgeInsets.only(
               top: ScreenUtils.length(
                 vertical: 350.w,
-                horizon: 120.w,
+                horizon: 150.w,
               ),
             ),
             sliver: SliverToBoxAdapter(
@@ -66,7 +66,7 @@ class FunctionScorePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: ScreenUtils.length(
                       vertical: 40.sp,
-                      horizon: 30.sp,
+                      horizon: 22.sp,
                     ),
                   ),
                 ),

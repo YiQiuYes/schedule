@@ -37,7 +37,7 @@ class FunctionHotWaterPage extends StatelessWidget {
   Widget balanceCardWidget(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        bottom: ScreenUtils.length(vertical: 150.w, horizon: 0),
+        bottom: ScreenUtils.length(vertical: 150.w, horizon: 30.w),
       ),
       child: GetBuilder<FunctionHotWaterLogic>(builder: (logic) {
         if(logic.state.balance.value == "null") {
@@ -51,7 +51,7 @@ class FunctionHotWaterPage extends StatelessWidget {
                 Text(
                   "",
                   style: TextStyle(
-                    fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 18.sp),
+                    fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 13.sp),
                   ),
                 ),
               ],
@@ -67,7 +67,7 @@ class FunctionHotWaterPage extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: ScreenUtils.length(vertical: 60.w, horizon: 20.w),
-              vertical: ScreenUtils.length(vertical: 20.w, horizon: 20.w),
+              vertical: ScreenUtils.length(vertical: 20.w, horizon: 10.w),
             ),
             child: Column(
               children: [
@@ -76,7 +76,7 @@ class FunctionHotWaterPage extends StatelessWidget {
                     logic.state.balance.value,
                   ),
                   style: TextStyle(
-                    fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 18.sp),
+                    fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 13.sp),
                   ),
                 ),
               ],
@@ -91,7 +91,7 @@ class FunctionHotWaterPage extends StatelessWidget {
   Widget deviceDrinkRowBtnWidget() {
     return Padding(
       padding: EdgeInsets.only(
-        top: ScreenUtils.length(vertical: 80.w, horizon: 0),
+        top: ScreenUtils.length(vertical: 80.w, horizon: 20.w),
       ),
       child: GetBuilder<FunctionHotWaterLogic>(builder: (logic) {
         List<ButtonSegment<int>> list = [];
@@ -101,7 +101,7 @@ class FunctionHotWaterPage extends StatelessWidget {
               label: Text(
                 logic.state.deviceList[i]["posname"],
                 style: TextStyle(
-                  fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 18.sp),
+                  fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 13.sp),
                 ),
               ),
               value: i,
@@ -161,8 +161,8 @@ class FunctionHotWaterPage extends StatelessWidget {
             ),
             fixedSize: WidgetStateProperty.all(
               Size(
-                ScreenUtils.length(vertical: 300.w, horizon: 150.w),
-                ScreenUtils.length(vertical: 300.w, horizon: 150.w),
+                ScreenUtils.length(vertical: 300.w, horizon: 120.w),
+                ScreenUtils.length(vertical: 300.w, horizon: 120.w),
               ),
             ),
           ),
@@ -171,7 +171,7 @@ class FunctionHotWaterPage extends StatelessWidget {
                 ? S.of(context).function_hot_water_btn_status_disable
                 : S.of(context).function_hot_water_btn_status_enable,
             style: TextStyle(
-              fontSize: ScreenUtils.length(vertical: 43.sp, horizon: 28.sp),
+              fontSize: ScreenUtils.length(vertical: 43.sp, horizon: 22.sp),
             ),
           ),
         );

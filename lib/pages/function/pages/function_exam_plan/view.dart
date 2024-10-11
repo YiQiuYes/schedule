@@ -36,7 +36,7 @@ class FunctionExamPlanPage extends StatelessWidget {
       if (logic.state.personExamList.isEmpty && !logic.state.isLoading.value) {
         return SliverPadding(
           padding: EdgeInsets.only(
-            top: ScreenUtils.length(vertical: 350.w, horizon: 120.w),
+            top: ScreenUtils.length(vertical: 350.w, horizon: 150.w),
           ),
           sliver: SliverToBoxAdapter(
             child: Center(

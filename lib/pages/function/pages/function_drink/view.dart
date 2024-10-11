@@ -38,7 +38,7 @@ class FunctionDrinkPage extends StatelessWidget {
   Widget deviceDrinkRowBtnWidget() {
     return Padding(
       padding: EdgeInsets.only(
-        top: ScreenUtils.length(vertical: 80.w, horizon: 0),
+        top: ScreenUtils.length(vertical: 80.w, horizon: 20.w),
       ),
       child: GetBuilder<FunctionDrinkLogic>(builder: (logic) {
         List<ButtonSegment<int>> list = [];
@@ -48,7 +48,7 @@ class FunctionDrinkPage extends StatelessWidget {
               label: Text(
                 logic.formatDeviceName(logic.state.deviceList[i]["name"]),
                 style: TextStyle(
-                  fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 18.sp),
+                  fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 13.sp),
                 ),
               ),
               value: i,
@@ -114,8 +114,8 @@ class FunctionDrinkPage extends StatelessWidget {
             ),
             fixedSize: WidgetStateProperty.all(
               Size(
-                ScreenUtils.length(vertical: 300.w, horizon: 150.w),
-                ScreenUtils.length(vertical: 300.w, horizon: 150.w),
+                ScreenUtils.length(vertical: 300.w, horizon: 120.w),
+                ScreenUtils.length(vertical: 300.w, horizon: 120.w),
               ),
             ),
           ),
@@ -124,7 +124,7 @@ class FunctionDrinkPage extends StatelessWidget {
                 ? S.of(context).function_drink_btn_status_disable
                 : S.of(context).function_drink_btn_status_enable,
             style: TextStyle(
-              fontSize: ScreenUtils.length(vertical: 55.sp, horizon: 28.sp),
+              fontSize: ScreenUtils.length(vertical: 55.sp, horizon: 22.sp),
             ),
           ),
         );

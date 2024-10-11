@@ -89,7 +89,7 @@ class PersonMainPage extends StatelessWidget {
             readOnly: true,
             textAlign: TextAlign.center,
             onTap: () {
-              showSemesterList(context);
+              showSemesterList();
             },
             style: TextStyle(
               fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 11.sp),
@@ -161,7 +161,7 @@ class PersonMainPage extends StatelessWidget {
   }
 
   /// 学期弹出选择列表
-  void showSemesterList(BuildContext context) {
+  void showSemesterList() {
     var adapter = logic.getSemesterPickerData();
 
     // 弹出选择器
@@ -173,7 +173,7 @@ class PersonMainPage extends StatelessWidget {
       headerDecoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
+            color: Theme.of(Get.context!).dividerColor,
             width: 0.5,
           ),
         ),
@@ -185,11 +185,11 @@ class PersonMainPage extends StatelessWidget {
         top: ScreenUtils.length(vertical: 30.h, horizon: 20.h),
       ),
       textStyle: TextStyle(
-        color: Theme.of(context).colorScheme.onSurface,
+        color: Theme.of(Get.context!).colorScheme.onSurface,
         fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
       ),
       containerColor:
-          Theme.of(context).colorScheme.primaryContainer.withOpacity(0.01),
+          Theme.of(Get.context!).colorScheme.primaryContainer.withOpacity(0.01),
       backgroundColor: Colors.transparent,
       height: ScreenUtils.length(vertical: 350.w, horizon: 130.w),
       itemExtent: ScreenUtils.length(vertical: 70.w, horizon: 40.w),
@@ -199,10 +199,10 @@ class PersonMainPage extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            adapter.picker!.doConfirm(context);
+            adapter.picker!.doConfirm(Get.context!);
           },
           child: Text(
-            S.of(context).pickerConfirm,
+            S.of(Get.context!).pickerConfirm,
             style: TextStyle(
               fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
             ),
@@ -215,10 +215,10 @@ class PersonMainPage extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            adapter.picker!.doCancel(context);
+            adapter.picker!.doCancel(Get.context!);
           },
           child: Text(
-            S.of(context).pickerCancel,
+            S.of(Get.context!).pickerCancel,
             style: TextStyle(
               fontSize: ScreenUtils.length(vertical: 22.sp, horizon: 15.sp),
             ),
@@ -227,7 +227,7 @@ class PersonMainPage extends StatelessWidget {
       ),
       onConfirm: logic.selectSemesterConfirm,
     );
-    picker.showModal(context);
+    picker.showModal(Get.context!);
   }
 
   /// 获取ListTile
