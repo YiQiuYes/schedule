@@ -8,5 +8,8 @@ class FunctionHotWaterState {
   RxInt choiceDevice = (-1).obs;
   // 洗澡按钮状态
   RxBool waterStatus = false.obs;
+  // 余额
+  RxString balance = "null".obs;
+
   FunctionHotWaterState();
 }

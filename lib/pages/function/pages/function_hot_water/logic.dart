@@ -69,6 +69,7 @@ class FunctionHotWaterLogic extends GetxController {
                 state.deviceList.value = value["data"];
                 setChoiceDevice(state.deviceList.isNotEmpty ? 0 : -1);
                 await checkHotWaterDevice();
+                await getBalance();
                 update();
               }
             });
@@ -85,8 +86,17 @@ class FunctionHotWaterLogic extends GetxController {
         state.deviceList.value = value["data"];
         setChoiceDevice(state.deviceList.isNotEmpty ? 0 : -1);
         await checkHotWaterDevice();
+        await getBalance();
         update();
       }
+    });
+  }
+
+  /// 获取余额
+  Future<void> getBalance() async {
+    await hutUserApi.getCardBalance().then((value) {
+      state.balance.value = value;
+      update();
     });
   }
 
@@ -172,6 +182,7 @@ class FunctionHotWaterLogic extends GetxController {
             right: 50.w,
           ),
         );
+        getBalance();
       } else {
         Get.snackbar(
           S.current.snackbar_tip,

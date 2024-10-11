@@ -720,6 +720,16 @@ class S {
     );
   }
 
+  /// `balance:￥{balance}`
+  String function_hot_water_campus_balance(Object balance) {
+    return Intl.message(
+      'balance:￥$balance',
+      name: 'function_hot_water_campus_balance',
+      desc: '',
+      args: [balance],
+    );
+  }
+
   /// `Semester`
   String get person_semester_tip {
     return Intl.message(

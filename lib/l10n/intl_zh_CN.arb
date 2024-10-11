@@ -72,6 +72,7 @@
   "function_hot_water_btn_status_enable" : "开始",
   "function_hot_water_btn_status_disable" : "结束",
   "function_hot_water_have_device_not_off" : "您有设备未关闭！",
+  "function_hot_water_campus_balance" : "余额：￥{balance}",
 
   "person_semester_tip" : "学期",
   "person_start_day_tip" : "开始日期",

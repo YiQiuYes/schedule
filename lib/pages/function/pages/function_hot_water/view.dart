@@ -21,13 +21,70 @@ class FunctionHotWaterPage extends StatelessWidget {
       ),
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // 获取选择饮水设备按钮
           deviceDrinkRowBtnWidget(),
           // 获取点击洗澡按钮按钮
           deviceHotWaterBtnWidget(context),
+          // 余额显示
+          balanceCardWidget(context),
         ],
       ),
+    );
+  }
+
+  /// 余额卡片
+  Widget balanceCardWidget(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: ScreenUtils.length(vertical: 150.w, horizon: 0),
+      ),
+      child: GetBuilder<FunctionHotWaterLogic>(builder: (logic) {
+        if(logic.state.balance.value == "null") {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: ScreenUtils.length(vertical: 60.w, horizon: 20.w),
+              vertical: ScreenUtils.length(vertical: 20.w, horizon: 20.w),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  "",
+                  style: TextStyle(
+                    fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 18.sp),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
+        return Card(
+          elevation: 13,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: ScreenUtils.length(vertical: 60.w, horizon: 20.w),
+              vertical: ScreenUtils.length(vertical: 20.w, horizon: 20.w),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  S.of(context).function_hot_water_campus_balance(
+                    logic.state.balance.value,
+                  ),
+                  style: TextStyle(
+                    fontSize: ScreenUtils.length(vertical: 28.sp, horizon: 18.sp),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 
@@ -83,51 +140,43 @@ class FunctionHotWaterPage extends StatelessWidget {
   /// 获取点击洗澡按钮按钮
   Widget deviceHotWaterBtnWidget(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: ScreenUtils.length(
-            vertical: 250.w,
-            horizon: 80.w,
-          ),
-        ),
-        child: GetBuilder<FunctionHotWaterLogic>(builder: (logic) {
-          return ElevatedButton(
-            onPressed: () {
-              if (logic.state.choiceDevice.value == -1) {
-                return;
-              }
+      child: GetBuilder<FunctionHotWaterLogic>(builder: (logic) {
+        return ElevatedButton(
+          onPressed: () {
+            if (logic.state.choiceDevice.value == -1) {
+              return;
+            }
 
-              if (logic.state.waterStatus.value) {
-                logic.endWater();
-              } else {
-                logic.startWater();
-              }
-            },
-            style: ButtonStyle(
-              elevation: WidgetStateProperty.all(13),
-              shape: WidgetStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(1000),
-                ),
-              ),
-              fixedSize: WidgetStateProperty.all(
-                Size(
-                  ScreenUtils.length(vertical: 300.w, horizon: 150.w),
-                  ScreenUtils.length(vertical: 300.w, horizon: 150.w),
-                ),
+            if (logic.state.waterStatus.value) {
+              logic.endWater();
+            } else {
+              logic.startWater();
+            }
+          },
+          style: ButtonStyle(
+            elevation: WidgetStateProperty.all(13),
+            shape: WidgetStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(1000),
               ),
             ),
-            child: Text(
-              logic.state.waterStatus.value
-                  ? S.of(context).function_hot_water_btn_status_disable
-                  : S.of(context).function_hot_water_btn_status_enable,
-              style: TextStyle(
-                fontSize: ScreenUtils.length(vertical: 43.sp, horizon: 28.sp),
+            fixedSize: WidgetStateProperty.all(
+              Size(
+                ScreenUtils.length(vertical: 300.w, horizon: 150.w),
+                ScreenUtils.length(vertical: 300.w, horizon: 150.w),
               ),
             ),
-          );
-        }),
-      ),
+          ),
+          child: Text(
+            logic.state.waterStatus.value
+                ? S.of(context).function_hot_water_btn_status_disable
+                : S.of(context).function_hot_water_btn_status_enable,
+            style: TextStyle(
+              fontSize: ScreenUtils.length(vertical: 43.sp, horizon: 28.sp),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

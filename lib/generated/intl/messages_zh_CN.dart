@@ -22,23 +22,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(lesson) => "第${lesson}节课";
 
-  static String m1(score) => "绩点：${score}";
+  static String m1(balance) => "余额：￥${balance}";
 
-  static String m2(time) => "考试时间：${time}";
+  static String m2(score) => "绩点：${score}";
 
-  static String m3(className) => "课程名称：${className}";
+  static String m3(time) => "考试时间：${time}";
 
-  static String m4(room) => "上课地点：${room}";
+  static String m4(className) => "课程名称：${className}";
 
-  static String m5(teacher) => "课程教师：${teacher}";
+  static String m5(room) => "上课地点：${room}";
 
-  static String m6(time) => "上课时间：${time}";
+  static String m6(teacher) => "课程教师：${teacher}";
 
-  static String m7(week) => "第${week}周";
+  static String m7(time) => "上课时间：${time}";
 
-  static String m8(year, month) => "${year}/${month}月";
+  static String m8(week) => "第${week}周";
 
-  static String m9(version) => "当前版本 ${version}";
+  static String m9(year, month) => "${year}/${month}月";
+
+  static String m10(version) => "当前版本 ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -90,15 +92,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("结束"),
         "function_hot_water_btn_status_enable":
             MessageLookupByLibrary.simpleMessage("开始"),
+        "function_hot_water_campus_balance": m1,
         "function_hot_water_have_device_not_off":
             MessageLookupByLibrary.simpleMessage("您有设备未关闭！"),
         "function_life_assistant_area_name":
             MessageLookupByLibrary.simpleMessage("生活助手"),
         "function_score_empty": MessageLookupByLibrary.simpleMessage("暂无成绩"),
-        "function_score_gpa": m1,
+        "function_score_gpa": m2,
         "function_score_title": MessageLookupByLibrary.simpleMessage("成绩查询"),
         "function_social_exams": MessageLookupByLibrary.simpleMessage("社会考试"),
-        "function_social_exams_time": m2,
+        "function_social_exams_time": m3,
         "function_teacher_no_data":
             MessageLookupByLibrary.simpleMessage("暂无教师数据"),
         "function_teacher_search_hint":
@@ -151,16 +154,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "pickerConfirm": MessageLookupByLibrary.simpleMessage("确认"),
         "pink_color": MessageLookupByLibrary.simpleMessage("粉色"),
         "schedule_course_detail": MessageLookupByLibrary.simpleMessage("课程详情"),
-        "schedule_course_name": m3,
-        "schedule_course_room": m4,
-        "schedule_course_teacher": m5,
-        "schedule_course_time": m6,
+        "schedule_course_name": m4,
+        "schedule_course_room": m5,
+        "schedule_course_teacher": m6,
+        "schedule_course_time": m7,
         "schedule_course_time_tile":
             MessageLookupByLibrary.simpleMessage("一&二&三&四&五"),
-        "schedule_current_week": m7,
+        "schedule_current_week": m8,
         "schedule_week_tile":
             MessageLookupByLibrary.simpleMessage("周一&周二&周三&周四&周五&周六&周日"),
-        "schedule_year_and_month": m8,
+        "schedule_year_and_month": m9,
         "setting_about_application":
             MessageLookupByLibrary.simpleMessage("作者：易秋"),
         "setting_about_application_name":
@@ -169,7 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("个性化全局配色"),
         "setting_choice_color_theme":
             MessageLookupByLibrary.simpleMessage("选择主题颜色"),
-        "setting_current_version": m9,
+        "setting_current_version": m10,
         "setting_follow_system": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "setting_group_about": MessageLookupByLibrary.simpleMessage("关于"),
         "setting_group_interface": MessageLookupByLibrary.simpleMessage("界面"),

@@ -22,23 +22,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(lesson) => "Lesson ${lesson}";
 
-  static String m1(score) => "GPA:${score}";
+  static String m1(balance) => "balance:￥${balance}";
 
-  static String m2(time) => "Time:${time}";
+  static String m2(score) => "GPA:${score}";
 
-  static String m3(className) => "Course name: ${className}";
+  static String m3(time) => "Time:${time}";
 
-  static String m4(room) => "Classroom: ${room}";
+  static String m4(className) => "Course name: ${className}";
 
-  static String m5(teacher) => "Teacher: ${teacher}";
+  static String m5(room) => "Classroom: ${room}";
 
-  static String m6(time) => "Time: ${time}";
+  static String m6(teacher) => "Teacher: ${teacher}";
 
-  static String m7(week) => "Week ${week}";
+  static String m7(time) => "Time: ${time}";
 
-  static String m8(year, month) => "${year}/${month} Month";
+  static String m8(week) => "Week ${week}";
 
-  static String m9(version) => "Current version ${version}";
+  static String m9(year, month) => "${year}/${month} Month";
+
+  static String m10(version) => "Current version ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -97,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("End"),
         "function_hot_water_btn_status_enable":
             MessageLookupByLibrary.simpleMessage("Start"),
+        "function_hot_water_campus_balance": m1,
         "function_hot_water_have_device_not_off":
             MessageLookupByLibrary.simpleMessage(
                 "The device is not turned off, please turn off the device first!"),
@@ -104,11 +107,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Life assistant"),
         "function_score_empty":
             MessageLookupByLibrary.simpleMessage("No score information"),
-        "function_score_gpa": m1,
+        "function_score_gpa": m2,
         "function_score_title": MessageLookupByLibrary.simpleMessage("Score"),
         "function_social_exams":
             MessageLookupByLibrary.simpleMessage("Social exams"),
-        "function_social_exams_time": m2,
+        "function_social_exams_time": m3,
         "function_teacher_no_data":
             MessageLookupByLibrary.simpleMessage("No teacher information"),
         "function_teacher_search_hint":
@@ -168,16 +171,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "pink_color": MessageLookupByLibrary.simpleMessage("Pink"),
         "schedule_course_detail":
             MessageLookupByLibrary.simpleMessage("Course details"),
-        "schedule_course_name": m3,
-        "schedule_course_room": m4,
-        "schedule_course_teacher": m5,
-        "schedule_course_time": m6,
+        "schedule_course_name": m4,
+        "schedule_course_room": m5,
+        "schedule_course_teacher": m6,
+        "schedule_course_time": m7,
         "schedule_course_time_tile":
             MessageLookupByLibrary.simpleMessage("1st&2nd&3rd&4th&5th"),
-        "schedule_current_week": m7,
+        "schedule_current_week": m8,
         "schedule_week_tile": MessageLookupByLibrary.simpleMessage(
             "Mon&Tues&Wed&Thur&Fri&Sat&Sun"),
-        "schedule_year_and_month": m8,
+        "schedule_year_and_month": m9,
         "setting_about_application":
             MessageLookupByLibrary.simpleMessage("Author: YiQiu"),
         "setting_about_application_name":
@@ -186,7 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Personalize global color matching"),
         "setting_choice_color_theme":
             MessageLookupByLibrary.simpleMessage("Select a color theme"),
-        "setting_current_version": m9,
+        "setting_current_version": m10,
         "setting_follow_system":
             MessageLookupByLibrary.simpleMessage("Follow the system"),
         "setting_group_about": MessageLookupByLibrary.simpleMessage("About"),

@@ -311,4 +311,29 @@ class HutUserApi {
       return data["resultData"]["result"] == "000000";
     });
   }
+
+  /// 获取校园卡余额
+  /// return 余额
+  Future<String> getCardBalance() async {
+    String url = "https://v8mobile.hut.edu.cn/homezzdx/openHomePage";
+    Options options =
+        _request.cacheOptions.copyWith(policy: CachePolicy.noCache).toOptions();
+    Map<String, dynamic> params = {
+      "X-Id-Token": getToken(),
+    };
+    return await _request
+        .get(url, params: params, options: options)
+        .then((value) {
+      // logger.i(value.data);
+      Document doc = parse(value.data);
+      var list = doc.getElementsByTagName("span").where((element) {
+        return element.attributes["name"] == "showbalanceid";
+      }).toList();
+      if (list.isNotEmpty) {
+        return list.first.text.replaceAll("主钱包余额:￥", "");
+      } else {
+        return "null";
+      }
+    });
+  }
 }

@@ -72,6 +72,7 @@
   "function_hot_water_btn_status_enable" : "Start",
   "function_hot_water_btn_status_disable" : "End",
   "function_hot_water_have_device_not_off" : "The device is not turned off, please turn off the device first!",
+  "function_hot_water_campus_balance" : "balance:￥{balance}",
 
   "person_semester_tip" : "Semester",
   "person_start_day_tip" : "Start day",
