@@ -2,6 +2,7 @@
   "app_main_schedule" : "课表",
   "app_main_function" : "功能",
   "app_main_person" : "我的",
+  "app_main_exit_app" : "再按一次退出应用",
 
   "login_statue": "登录状态",
   "login_tile": "登录",

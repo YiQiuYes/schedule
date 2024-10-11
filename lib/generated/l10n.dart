@@ -80,6 +80,16 @@ class S {
     );
   }
 
+  /// `Press again to exit the app`
+  String get app_main_exit_app {
+    return Intl.message(
+      'Press again to exit the app',
+      name: 'app_main_exit_app',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login status`
   String get login_statue {
     return Intl.message(

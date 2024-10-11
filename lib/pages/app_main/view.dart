@@ -37,34 +37,38 @@ class _AppMainPageState extends State<AppMainPage>
   Widget build(BuildContext context) {
     logic.refreshOrientation();
 
-    return Scaffold(
-      body: ScreenUtils.byOrientationReturn(
-        vertical: navigatorWidget(),
-        horizon: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            GetBuilder<GlobalLogic>(builder: (logic) {
-              return Visibility(
-                visible: logic.state.settings["isLogin"],
-                child: SizedBox(
-                  width: ScreenUtils.screenWidth * 2 / 11,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      _navigationRailWidget(),
-                    ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: logic.onPopInvokedWithResult,
+      child: Scaffold(
+        body: ScreenUtils.byOrientationReturn(
+          vertical: navigatorWidget(),
+          horizon: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              GetBuilder<GlobalLogic>(builder: (logic) {
+                return Visibility(
+                  visible: logic.state.settings["isLogin"],
+                  child: SizedBox(
+                    width: ScreenUtils.screenWidth * 2 / 11,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        _navigationRailWidget(),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
-            Expanded(
-              child: navigatorWidget(),
-            ),
-          ],
+                );
+              }),
+              Expanded(
+                child: navigatorWidget(),
+              ),
+            ],
+          ),
         ),
+        bottomNavigationBar: _navigationWidget(),
       ),
-      bottomNavigationBar: _navigationWidget(),
     );
   }
 

@@ -2,6 +2,7 @@
   "app_main_schedule" : "schedule",
   "app_main_function" : "function",
   "app_main_person" : "person",
+  "app_main_exit_app" : "Press again to exit the app",
 
   "login_statue": "Login status",
   "login_tile": "Login",

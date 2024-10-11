@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../common/api/other/other_api.dart';
@@ -8,6 +11,8 @@ import '../../common/utils/package_info_utils.dart';
 import '../../common/utils/platform_utils.dart';
 import '../../common/utils/screen_utils.dart';
 import '../../generated/l10n.dart';
+import '../function/function_route_config.dart';
+import '../person/person_route_config.dart';
 import 'state.dart';
 
 // 枚举方向
@@ -134,5 +139,57 @@ class AppMainLogic extends GetxController {
         storage.setString("lastCheckVersionTime", DateTime.now().toString());
       }
     });
+  }
+
+  /// 手势返回拦截
+  void onPopInvokedWithResult(isTrue, result) {
+    bool isExit = false;
+    switch (state.navigateCurrentIndex.value) {
+      case 1:
+        if(state.orientation.value) {
+          Get.nestedKey(2)?.currentState?.popUntil((route) {
+            if (route.settings.name == FunctionRouteConfig.main) {
+              isExit = true;
+              return true;
+            }
+
+            Get.back(id: 2);
+            return true;
+          });
+        } else {
+          isExit = true;
+        }
+        break;
+      case 2:
+        if (state.orientation.value) {
+          Get.nestedKey(4)?.currentState?.popUntil((route) {
+            if (route.settings.name == PersonRouteConfig.main) {
+              isExit = true;
+              return true;
+            }
+
+            Get.back(id: 4);
+            return true;
+          });
+        } else {
+          isExit = true;
+        }
+        break;
+      default:
+        isExit = true;
+        break;
+    }
+
+    if (isExit) {
+      if (DateTime.now().difference(state.lastPressedAt) >
+          const Duration(seconds: 1)) {
+        // 两次点击间隔超过1秒则重新计时
+        state.lastPressedAt = DateTime.now();
+        FlutterToastUtil.okToastNoContent(S.current.app_main_exit_app);
+      } else {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        exit(0);
+      }
+    }
   }
 }

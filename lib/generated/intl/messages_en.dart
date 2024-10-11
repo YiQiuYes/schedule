@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "app_main_exit_app":
+            MessageLookupByLibrary.simpleMessage("Press again to exit the app"),
         "app_main_function": MessageLookupByLibrary.simpleMessage("function"),
         "app_main_person": MessageLookupByLibrary.simpleMessage("person"),
         "app_main_schedule": MessageLookupByLibrary.simpleMessage("schedule"),

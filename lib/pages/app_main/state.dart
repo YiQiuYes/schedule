@@ -10,6 +10,8 @@ class AppMainState {
   RxBool isLogin = false.obs;
   // 屏幕旋转方向
   RxBool orientation = true.obs;
+  // 手势返回时间
+  DateTime lastPressedAt = DateTime.now();
 
   AppMainState();
 }

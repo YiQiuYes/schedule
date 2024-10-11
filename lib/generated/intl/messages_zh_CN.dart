@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "app_main_exit_app": MessageLookupByLibrary.simpleMessage("再按一次退出应用"),
         "app_main_function": MessageLookupByLibrary.simpleMessage("功能"),
         "app_main_person": MessageLookupByLibrary.simpleMessage("我的"),
         "app_main_schedule": MessageLookupByLibrary.simpleMessage("课表"),

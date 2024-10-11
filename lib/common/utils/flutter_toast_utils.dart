@@ -16,6 +16,26 @@ class FlutterToastUtil {
     );
   }
 
+  static void okToastNoContent(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.green,
+    );
+  }
+
+  static void errorToastNoContent(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.redAccent,
+    );
+  }
+
   static void errorToast(String text, {int milliseconds = 2000}) {
     fToast.removeQueuedCustomToasts();
     fToast.removeCustomToast();
