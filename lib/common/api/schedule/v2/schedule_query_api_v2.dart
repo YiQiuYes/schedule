@@ -141,7 +141,7 @@ class ScheduleQueryApiV2 {
       List<Element> tables =
           doc.getElementsByClassName("qz-weeklyTable-td  qz-hasCourse ");
 
-      List result = [];
+      List result = List.generate(35, (int index) => {});
       if (tables.isNotEmpty) {
         const time = [
           "8:00-9:40",
@@ -151,28 +151,52 @@ class ScheduleQueryApiV2 {
           "19:00-20:40",
         ];
 
-        for (int i = 0; i < tables.length; i++) {
+        int resultIndex = 0;
+        for (int i = 0; i < tables.length; i++, resultIndex++) {
+          if (result[resultIndex].isNotEmpty) {
+            resultIndex++;
+          }
+
           List<Element> list = tables[i].getElementsByClassName("qz-tooltip");
           if (list.isNotEmpty) {
-            for (int j = 0; j < list.length; j++) {
-              Element item = list[j];
-              List<Element> classTileList = item
-                  .getElementsByClassName("qz-tooltipContent-title qz-ellipse");
+            Element item = list.first;
+            List<Element> classTileList = item
+                .getElementsByClassName("qz-tooltipContent-title qz-ellipse");
+
+            List<Element> classInfoList =
+                item.getElementsByClassName("qz-tooltipContent-detailitem");
+
+            for (int j = 0; j < classTileList.length; j++) {
+              // 获取课程名称
               String className = classTileList[j].text;
 
-              List<Element> classInfoList =
-                  item.getElementsByClassName("qz-tooltipContent-detailitem");
+              // 获取课程时间 获取字符串中 "时间：7-14周[5-8节]" 中的 "5-8"
+              List<int> resultIndexList = [];
+              RegExp regExp = RegExp(r'\[(.*?)\节]');
+              Match? match =
+                  regExp.firstMatch(classInfoList[5 + j * 11].text.trim());
+              if (match != null) {
+                List<int> list = match
+                    .group(1)!
+                    .split("-")
+                    .map((e) => int.parse(e))
+                    .toList();
+                int timeDiff = list[1] - list[0];
+                if (timeDiff > 1) {
+                  for (int k = 0; k < (timeDiff + 1) ~/ 2; k++) {
+                    resultIndexList.add(resultIndex + k * 7);
+                  }
+                }
+              }
 
-              // 获取课程时间
-              int index = i ~/ 7;
-              String classTime = time[index];
+              if (resultIndexList.isEmpty) {
+                resultIndexList.add(resultIndex);
+              }
 
               // 课程地址
               String classAddress = "";
-
-              RegExp regExp = RegExp(r'\(([^)]+)\)');
-              Match? match =
-                  regExp.firstMatch(classInfoList[7 + j * 10].text.trim());
+              regExp = RegExp(r'\(([^)]+)\)');
+              match = regExp.firstMatch(classInfoList[7 + j * 11].text.trim());
               if (match != null) {
                 classAddress = match.group(1)!;
               }
@@ -186,29 +210,37 @@ class ScheduleQueryApiV2 {
               classWeek = week;
 
               if (classTileList.length == 1) {
-                result.add({
-                  "className": className,
-                  "classTime": classTime,
-                  "classAddress": classAddress,
-                  "classTeacher": classTeacher,
-                  "classWeek": classWeek,
-                });
-              } else {
-                if (result.length != i + 1) {
-                  result.add([]);
-                }
+                for (int multiIndex in resultIndexList) {
+                  int index = multiIndex ~/ 7;
+                  String classTime = time[index];
 
-                result[i].add({
-                  "className": className,
-                  "classTime": classTime,
-                  "classAddress": classAddress,
-                  "classTeacher": classTeacher,
-                  "classWeek": classWeek,
-                });
+                  result[multiIndex] = {
+                    "className": className,
+                    "classTime": classTime,
+                    "classAddress": classAddress,
+                    "classTeacher": classTeacher,
+                    "classWeek": classWeek,
+                  };
+                }
+              } else {
+                // logger.i(classTileList.length);
+                if (result[resultIndex].runtimeType != List) {
+                  result[resultIndex] = [];
+                }
+                for (int multiIndex in resultIndexList) {
+                  int index = multiIndex ~/ 7;
+                  String classTime = time[index];
+
+                  result[multiIndex].add({
+                    "className": className,
+                    "classTime": classTime,
+                    "classAddress": classAddress,
+                    "classTeacher": classTeacher,
+                    "classWeek": classWeek,
+                  });
+                }
               }
             }
-          } else {
-            result.add({});
           }
         }
       }
