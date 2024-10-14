@@ -8,7 +8,7 @@ on:
         default: 1.0.0
         required: true
 env:
-  FLUTTER_VERSION: '3.24.1'
+  FLUTTER_VERSION: '3.24.3'
   SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
 
 permissions: write-all # 给所有工作写权限
