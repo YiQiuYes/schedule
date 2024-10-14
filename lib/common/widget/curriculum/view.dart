@@ -301,7 +301,7 @@ class CurriculumComponent extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(
-          ScreenUtils.length(vertical: 15.w, horizon: 10.w),
+          ScreenUtils.length(vertical: 15.w, horizon: 5.w),
         ),
         child: Stack(
           children: [
