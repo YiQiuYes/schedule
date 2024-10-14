@@ -584,83 +584,37 @@ class ScheduleQueryApiV2 {
         .toOptions();
 
     Map<String, dynamic> params = {
-      "pageNum": 1,
-      "pageSize": 10000,
-      "xnxq01id": semester,
+      "xnxqh": semester,
+      "xqbh": campusId,
+      "jxqbh": "",
+      "jxlbh": buildingId,
+      "jsbh": "",
+      "jslx": "",
+      "bjfh": "=",
+      "rnrs": "",
+      "yx": "",
       "kbjcmsid": "94D51EECEBF4F9B4E053474110AC8060",
-      "skyx": "",
-      "xqid": campusId,
-      "jzwid": buildingId,
-      "jsmc": "",
-      "zc1": "",
-      "zc2": "",
-      "skxq1": "",
-      "skxq2": "",
-      "jc1": "",
-      "jc2": "",
+      "selectZc": weekly,
+      "startdate": "",
+      "enddate": "",
+      "pageNum": "",
+      "selectXq": week,
+      "selectJc": "0102,0304,0506,0708,0910",
+      "syjs0601id": "",
+      "typewhere": "jszq",
     };
 
-    const weekTile = [
-      "星期一",
-      "星期二",
-      "星期三",
-      "星期四",
-      "星期五",
-      "星期六",
-      "星期日",
-    ];
-
     return await _request
-        .get("/jsxsd/kbcx/kbxx_classroom_ifr", params: params, options: options)
+        .get("/jsxsd/kbxx/jsjy_query2", params: params, options: options)
         .then((value) {
-      final List list = ResponseUtils.transformObj(value)["data"];
+      final List list = ResponseUtils.transformObj(value)[4];
       List result = [];
-
-      for (Map<String, dynamic> item in list) {
-        bool isMatchWeek = false;
-        bool isMatchLesson = false;
-        bool isMatchWeekly = false;
-
-        if (item["zzdweek"] != weekTile[week - 1]) {
-          isMatchWeek = true;
-        }
-
-        if (item["jc"] != "${lesson * 2 - 1}-${lesson * 2}") {
-          isMatchLesson = true;
-        }
-
-        String classWeek = item["kkzc"];
-        if (classWeek.contains(",")) {
-          List<String> split = classWeek.split(",");
-          for (String item in split) {
-            List<String> interval = item.split("-");
-            if (interval.length == 2) {
-              int start = int.parse(interval[0]);
-              int end = int.parse(interval[1]);
-              if (start <= int.parse(weekly) && int.parse(weekly) <= end) {
-                isMatchWeekly = true;
-                break;
-              }
-            }
-          }
-        } else {
-          List<String> interval = classWeek.split("-");
-          if (interval.length == 2) {
-            int start = int.parse(interval[0]);
-            int end = int.parse(interval[1]);
-            if (start <= int.parse(weekly) && int.parse(weekly) <= end) {
-              isMatchWeekly = true;
-            }
-          }
-        }
-
-        if (isMatchWeek &&
-            isMatchLesson &&
-            isMatchWeekly &&
-            !result.contains(item["jsmc"])) {
-          result.add(item["jsmc"]);
+      for (List item in list) {
+        if (item[lesson] == null) {
+          result.add(item[0]);
         }
       }
+
       return result;
     });
   }
