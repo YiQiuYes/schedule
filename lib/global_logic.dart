@@ -4,8 +4,10 @@ import 'dart:convert';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:schedule/common/api/schedule/v2/schedule_query_api_v2.dart';
 import 'package:schedule/common/manager/request_manager.dart';
+import 'package:schedule/common/utils/platform_utils.dart';
 import 'package:schedule/global_state.dart';
 
 import 'common/manager/data_storage_manager.dart';
@@ -26,7 +28,9 @@ class GlobalLogic extends GetxController {
     // 计算当前周次
     int currentWeek = now.difference(startDayTime).inDays ~/ 7 + 1;
     if (currentWeek > 20) currentWeek = 20;
-    state.semesterWeekData["currentWeek"] = currentWeek.toString();
+    setSemesterWeekData("currentWeek", currentWeek.toString());
+    _updateHomeWidgetData(
+        "semesterWeekData", jsonEncode(state.semesterWeekData));
   }
 
   /// 初始化
@@ -79,7 +83,7 @@ class GlobalLogic extends GetxController {
       // 计算当前周次
       int currentWeek = now.difference(startDayTime).inDays ~/ 7 + 1;
       if (currentWeek > 20) currentWeek = 20;
-      state.semesterWeekData["currentWeek"] = currentWeek.toString();
+      setSemesterWeekData("currentWeek", currentWeek.toString());
       // logger.i("当前周次: $currentWeek");
     } else {
       // 格式化日期格式
@@ -125,8 +129,7 @@ class GlobalLogic extends GetxController {
         state.hutUserInfo[key] = value;
       });
     } else {
-      _storage.setString(
-          "hutUserInfoData", jsonEncode(state.hutUserInfo));
+      _storage.setString("hutUserInfoData", jsonEncode(state.hutUserInfo));
     }
   }
 
@@ -245,12 +248,14 @@ class GlobalLogic extends GetxController {
   /// 设置数据
   Future<bool> setCourseData(int index, List<dynamic> value) async {
     state.courseData[index] = value;
+    _updateHomeWidgetData("courseData", jsonEncode(state.courseData));
     return await _storage.setString("courseData", jsonEncode(state.courseData));
   }
 
   /// 设置数据
   Future<bool> setExperimentData(int index, List<dynamic> value) async {
     state.experimentData[index] = value;
+    _updateHomeWidgetData("experimentData", jsonEncode(state.experimentData));
     return await _storage.setString(
         "experimentData", jsonEncode(state.experimentData));
   }
@@ -281,6 +286,8 @@ class GlobalLogic extends GetxController {
   Future<bool> setSemesterWeekData(String key, dynamic value) async {
     state.semesterWeekData[key] = value;
     update();
+    _updateHomeWidgetData(
+        "semesterWeekData", jsonEncode(state.semesterWeekData));
     return await _storage.setString(
         "semesterWeekData", jsonEncode(state.semesterWeekData));
   }
@@ -317,5 +324,16 @@ class GlobalLogic extends GetxController {
     state.settings["isLogin"] = isLogin;
     await setSettings("isLogin", isLogin);
     update();
+  }
+
+  /// 传递并更新小组件数据
+  void _updateHomeWidgetData(String key, String data) {
+    HomeWidget.saveWidgetData<String>(key, jsonEncode(data));
+    if (PlatformUtils.isAndroid) {
+      HomeWidget.updateWidget(
+        qualifiedAndroidName:
+            "com.yiqiu.schedule.glance.TodayScheduleWidgetReceiver",
+      );
+    }
   }
 }
