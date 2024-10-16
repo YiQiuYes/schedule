@@ -17,7 +17,6 @@ import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.color.DynamicThemeColorProviders
 import androidx.glance.currentState
-import androidx.glance.extractModifier
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
@@ -34,7 +33,6 @@ import androidx.glance.text.TextAlign
 import androidx.glance.text.TextStyle
 import es.antonborri.home_widget.actionStartActivity
 import com.yiqiu.schedule.MainActivity
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -42,7 +40,7 @@ import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import java.util.Calendar
 
-class HomeWidgetGlanceAppWidget : GlanceAppWidget() {
+class TodayScheduleWidget : GlanceAppWidget() {
 
     /** Needed for Updating */
     override val stateDefinition = HomeWidgetGlanceStateDefinition()
@@ -165,10 +163,10 @@ class HomeWidgetGlanceAppWidget : GlanceAppWidget() {
     // 获取课程卡片
     @Composable
     private fun GetCourseCard(context: Context, course: JsonObject) {
-        val classTime = course["classTime"].toString().replace("\"", "")
+        val classTimeList = course["classTime"].toString().replace("\"", "")
             .split("-")
         val currentTime = getCurrentTime()
-        if (currentTime > formatTime(classTime[1])) {
+        if (currentTime > formatTime(classTimeList[1])) {
             return
         } else {
             hasCourse = true
@@ -177,6 +175,7 @@ class HomeWidgetGlanceAppWidget : GlanceAppWidget() {
         val className = course["className"].toString().replace("\"", "")
         val classAddress = course["classAddress"].toString().replace("\"", "")
         val classTeacher = course["classTeacher"].toString().replace("\"", "")
+        val classTime = classTimeList.joinToString(separator = "\n") { formatTime(it) }
 
         val subText = when {
             classAddress == "" && classTeacher == "" -> ""
@@ -196,12 +195,13 @@ class HomeWidgetGlanceAppWidget : GlanceAppWidget() {
                 verticalAlignment = Alignment.Vertical.CenterVertically
             ) {
                 Text(
-                    text = classTime.joinToString(separator = "\n"),
+                    modifier = GlanceModifier.width(32.dp),
+                    text = classTime,
                     style = TextStyle(fontSize = 11.sp)
                 )
 
                 Spacer(
-                    modifier = GlanceModifier.width(9.dp)
+                    modifier = GlanceModifier.width(4.dp)
                 )
 
                 Spacer(
