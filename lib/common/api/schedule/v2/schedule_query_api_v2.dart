@@ -151,9 +151,13 @@ class ScheduleQueryApiV2 {
           "19:00-20:40",
         ];
 
+        // 需要跳过的需要列表
+        List<int> needSkipList = [];
+        // result当前索引
         int resultIndex = 0;
+
         for (int i = 0; i < tables.length; i++, resultIndex++) {
-          if (result[resultIndex].isNotEmpty) {
+          while (needSkipList.contains(resultIndex) && resultIndex < 34) {
             resultIndex++;
           }
 
@@ -162,19 +166,16 @@ class ScheduleQueryApiV2 {
             Element item = list.first;
             List<Element> classTileList = item
                 .getElementsByClassName("qz-tooltipContent-title qz-ellipse");
-
             List<Element> classInfoList =
                 item.getElementsByClassName("qz-tooltipContent-detailitem");
-
             for (int j = 0; j < classTileList.length; j++) {
               // 获取课程名称
               String className = classTileList[j].text;
-
               // 获取课程时间 获取字符串中 "时间：7-14周[5-8节]" 中的 "5-8"
-              List<int> resultIndexList = [];
-              RegExp regExp = RegExp(r'\[(.*?)\节]');
+              RegExp regExp = RegExp(r'\[(.*?)节]');
               Match? match =
                   regExp.firstMatch(classInfoList[5 + j * 11].text.trim());
+              List<int> tempResultIndexList = [];
               if (match != null) {
                 List<int> list = match
                     .group(1)!
@@ -183,14 +184,16 @@ class ScheduleQueryApiV2 {
                     .toList();
                 int timeDiff = list[1] - list[0];
                 if (timeDiff > 1) {
-                  for (int k = 0; k < (timeDiff + 1) ~/ 2; k++) {
-                    resultIndexList.add(resultIndex + k * 7);
+                  for (int k = 0; k < (timeDiff - 1) ~/ 2; k++) {
+                    needSkipList.add(resultIndex + (k + 1) * 7);
                   }
-                }
-              }
 
-              if (resultIndexList.isEmpty) {
-                resultIndexList.add(resultIndex);
+                  for (int k = 0; k < (timeDiff + 1) ~/ 2; k++) {
+                    tempResultIndexList.add(resultIndex + k  * 7);
+                  }
+                } else {
+                  tempResultIndexList.add(resultIndex);
+                }
               }
 
               // 课程地址
@@ -209,29 +212,38 @@ class ScheduleQueryApiV2 {
               String classWeek;
               classWeek = week;
 
-              if (classTileList.length == 1) {
-                for (int multiIndex in resultIndexList) {
-                  int index = multiIndex ~/ 7;
+
+              for (int tempIndex in tempResultIndexList) {
+                int index = tempIndex ~/ 7;
+                String classTime = time[index];
+
+                if (classTileList.length == 1) {
+                  if (result[tempIndex] is List) {
+                    result[tempIndex].add({
+                      "className": className,
+                      "classTime": classTime,
+                      "classAddress": classAddress,
+                      "classTeacher": classTeacher,
+                      "classWeek": classWeek,
+                    });
+                  } else {
+                    result[tempIndex] = {
+                      "className": className,
+                      "classTime": classTime,
+                      "classAddress": classAddress,
+                      "classTeacher": classTeacher,
+                      "classWeek": classWeek,
+                    };
+                  }
+                } else {
+                  if (result[tempIndex].runtimeType != List) {
+                    result[tempIndex] = [];
+                  }
+
+                  int index = tempIndex ~/ 7;
                   String classTime = time[index];
 
-                  result[multiIndex] = {
-                    "className": className,
-                    "classTime": classTime,
-                    "classAddress": classAddress,
-                    "classTeacher": classTeacher,
-                    "classWeek": classWeek,
-                  };
-                }
-              } else {
-                // logger.i(classTileList.length);
-                if (result[resultIndex].runtimeType != List) {
-                  result[resultIndex] = [];
-                }
-                for (int multiIndex in resultIndexList) {
-                  int index = multiIndex ~/ 7;
-                  String classTime = time[index];
-
-                  result[multiIndex].add({
+                  result[tempIndex].add({
                     "className": className,
                     "classTime": classTime,
                     "classAddress": classAddress,
