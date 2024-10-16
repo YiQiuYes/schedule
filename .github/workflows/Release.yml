@@ -2,11 +2,6 @@ name: Release
 
 on:
   workflow_dispatch: # 手动触发
-    inputs:
-      version:
-        description: Version to release (x.x.x)
-        default: 1.0.0
-        required: true
 env:
   FLUTTER_VERSION: '3.24.3'
   SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
@@ -52,20 +47,8 @@ jobs:
         env:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: echo $SIGNING_KEY | base64 -d > android/app/key.jks
-#      - name: 构造Flutter环境
-#        uses: subosito/flutter-action@v2
-#        with:
-#          flutter-version: ${{ env.FLUTTER_VERSION  }}
       - name: 设置 Shorebird
         uses: shorebirdtech/setup-shorebird@v1
-#      - name: 执行编译命令
-#        env:
-#          ALIAS: ${{ secrets.ALIAS }}
-#          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-#          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-#        run: |
-#          flutter pub get
-#          flutter build apk --release --target-platform android-arm,android-arm64
       - name: 执行编译
         uses: shorebirdtech/shorebird-release@v0
         env:
@@ -94,13 +77,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: 读入环境信息
-        run: |
-          echo ${{ format('version {0}', env.version ) }}
-#      - name: 编译环境设置
-#        uses: subosito/flutter-action@v2
-#        with:
-#          flutter-version: ${{ env.FLUTTER_VERSION  }}
       - name: 设置 Shorebird
         uses: shorebirdtech/setup-shorebird@v1
       - name: Build (ios)
@@ -108,8 +84,6 @@ jobs:
         with:
           platform: ios
           args: --flutter-version=${{env.FLUTTER_VERSION}} --no-codesign
-#      - name: Setup tmate session
-#        uses: mxschmitt/action-tmate@v3
       - name: 构造ipa
         run: |
           sh scripts/build-ipa.sh
