@@ -78,6 +78,7 @@
   "person_semester_tip" : "Semester",
   "person_start_day_tip" : "Start day",
   "person_logout" : "Logout",
+  "person_login" : "Login",
   "person_logout_tip" : "Are you sure you want to log out?",
   "person_contact" : "Contact",
   "person_join_qq_group" : "Join QQ group",

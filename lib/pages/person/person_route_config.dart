@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:schedule/pages/person/person_setting/view.dart';
 import 'package:schedule/pages/person/view.dart';
 
+import '../login/view.dart';
 import 'color_theme/view.dart';
 
 class PersonRouteConfig {
   static const String empty = "/";
+  static const String login = "/login";
   static const String main = "/main";
   static const String setting = "/setting";
   static const String colorTheme = "/colorTheme";
@@ -15,6 +17,13 @@ class PersonRouteConfig {
     Map<String, GetPageRoute> getPages = {
       empty: GetPageRoute(
         page: () => Container(),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: settings.arguments,
+        ),
+      ),
+      login: GetPageRoute(
+        page: () => const LoginPage(),
         settings: RouteSettings(
           name: settings.name,
           arguments: settings.arguments,

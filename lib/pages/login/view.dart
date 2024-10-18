@@ -3,7 +3,6 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
-import 'package:schedule/global_logic.dart';
 
 import '../../generated/l10n.dart';
 import 'logic.dart';
@@ -81,11 +80,6 @@ class _LoginPageState extends State<LoginPage> {
 
   /// 获取appBar
   PreferredSizeWidget? appBarWidget(BuildContext context) {
-    final globalState = Get.find<GlobalLogic>().state;
-    if (!globalState.settings["isLogin"]) {
-      return null;
-    }
-
     return AppBar(
       title: Text(S.of(context).login_tile),
       backgroundColor: Colors.transparent,

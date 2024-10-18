@@ -3,6 +3,7 @@ import 'package:flutter_picker_plus/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/person/person_route_config.dart';
 
 import '../../common/utils/screen_utils.dart';
@@ -307,13 +308,21 @@ class PersonMainPage extends StatelessWidget {
       padding: EdgeInsets.only(
         top: ScreenUtils.length(vertical: 40.w, horizon: 25.w),
       ),
-      child: listTileItemWidget(
-        onTap: () {
-          logic.logout(context);
-        },
-        title: S.of(context).person_logout,
-        iconData: Icons.logout_rounded,
-      ),
+      child: GetBuilder<GlobalLogic>(builder: (globalLogic) {
+        return listTileItemWidget(
+          onTap: () {
+            globalLogic.state.settings["isLogin"]
+                ? logic.logout(context)
+                : logic.login();
+          },
+          title: globalLogic.state.settings["isLogin"]
+              ? S.of(context).person_logout
+              : S.of(context).person_login,
+          iconData: globalLogic.state.settings["isLogin"]
+              ? Icons.logout_rounded
+              : Icons.login_rounded,
+        );
+      }),
     );
   }
 }

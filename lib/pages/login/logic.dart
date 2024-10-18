@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 import 'package:schedule/common/api/drink/drink_api.dart';
 import 'package:schedule/common/api/schedule/schedule_user_api.dart';
 import 'package:schedule/common/api/schedule/v2/schedule_user_api_v2.dart';
-import 'package:schedule/common/utils/logger_utils.dart';
 import 'package:schedule/pages/app_main/app_main_route_config.dart';
 import 'package:schedule/pages/login/view.dart';
+import 'package:schedule/pages/schedule/logic.dart';
 
 import '../../common/api/hut/hut_user_api.dart';
 import '../../generated/l10n.dart';
@@ -140,11 +140,9 @@ class LoginLogic extends GetxController {
   /// 获取页面类型
   LoginPageType getPageType(BuildContext context) {
     Object? arguments = ModalRoute.of(context)?.settings.arguments;
-    if (arguments != null &&
-        arguments is Map &&
-        arguments["type"] != null &&
-        arguments["type"] is LoginPageType) {
-      return arguments["type"];
+    if (arguments != null && arguments is Map) {
+      state.returnId = arguments["returnId"] ?? 1;
+      return arguments["type"] ?? LoginPageType.schedule;
     } else {
       return LoginPageType.schedule;
     }
@@ -338,14 +336,16 @@ class LoginLogic extends GetxController {
       case LoginPageType.schedule:
         // 储存登录成功
         await globalLogic.setIsLogin(true);
-        Get.offAllNamed(AppMainRouteConfig.main, id: 1);
+        // Get.offAllNamed(AppMainRouteConfig.main, id: 1);
+        final scheduleLogic = Get.find<ScheduleLogic>();
+        scheduleLogic.init();
+        Get.back(id: state.returnId);
         break;
       case LoginPageType.hui798:
         final appMainLogic = Get.find<AppMainLogic>().state;
         await globalLogic.setHui798UserInfo("hui798IsLogin", true);
         if (appMainLogic.orientation.value) {
           Get.offNamedUntil(FunctionRouteConfig.functionDrink, (route) {
-            logger.i(route.settings.name);
             return route.settings.name == FunctionRouteConfig.main;
           }, id: 2);
         } else {
@@ -357,7 +357,6 @@ class LoginLogic extends GetxController {
         await globalLogic.setHutUserInfo("hutIsLogin", true);
         if (appMainLogic.orientation.value) {
           Get.offNamedUntil(FunctionRouteConfig.functionHotWater, (route) {
-            logger.i(route.settings.name);
             return route.settings.name == FunctionRouteConfig.main;
           }, id: 2);
         } else {
@@ -367,7 +366,7 @@ class LoginLogic extends GetxController {
       default:
         // 储存登录成功
         await globalLogic.setIsLogin(true);
-        Get.offAllNamed(AppMainRouteConfig.main, id: 1);
+        Get.offAllNamed(AppMainRouteConfig.main, id: state.returnId);
         break;
     }
   }

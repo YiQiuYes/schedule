@@ -7,11 +7,13 @@ import 'package:schedule/common/manager/request_manager.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
 import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/app_main/app_main_route_config.dart';
+import 'package:schedule/pages/person/person_route_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/utils/platform_utils.dart';
 import '../../generated/l10n.dart';
 import '../app_main/logic.dart';
+import '../login/view.dart';
 import 'state.dart';
 
 class PersonLogic extends GetxController {
@@ -119,12 +121,10 @@ class PersonLogic extends GetxController {
               await globalLogic.setScheduleUserInfo("username", "");
               await globalLogic.setScheduleUserInfo("password", "");
               Get.back();
-              Get.offAllNamed(AppMainRouteConfig.login, id: 1);
+              Get.toNamed(AppMainRouteConfig.login, id: 1);
               await globalLogic.setIsLogin(false);
               await globalLogic.setLoad20CountCourse(false);
               await _request.clearCookie();
-              final appMainLogic = Get.find<AppMainLogic>();
-              appMainLogic.setNavigateCurrentIndex(0);
             },
             child: Text(S.of(context).pickerConfirm),
           ),
@@ -189,8 +189,7 @@ class PersonLogic extends GetxController {
               title: Text(S.of(context).setting_update_method_github),
               onTap: () {
                 launchUrl(
-                  Uri.parse(
-                      "https://github.com/YiQiuYes/schedule/releases"),
+                  Uri.parse("https://github.com/YiQiuYes/schedule/releases"),
                   mode: LaunchMode.externalApplication,
                 );
               },
@@ -204,8 +203,7 @@ class PersonLogic extends GetxController {
               title: Text(S.of(context).setting_update_method_yuque),
               onTap: () {
                 launchUrl(
-                  Uri.parse(
-                      "https://www.yuque.com/yiqiuyes/schedule"),
+                  Uri.parse("https://www.yuque.com/yiqiuyes/schedule"),
                   mode: LaunchMode.externalApplication,
                 );
               },
@@ -222,5 +220,31 @@ class PersonLogic extends GetxController {
         ],
       ),
     );
+  }
+
+  void login() {
+    final appMainLogic = Get.find<AppMainLogic>().state;
+
+    if (appMainLogic.orientation.value) {
+      Get.toNamed(
+        PersonRouteConfig.login,
+        id: 4,
+        arguments: const {"type": LoginPageType.schedule, "returnId": 4},
+      );
+    } else {
+      // 获取当前页面路由
+      final currentRoute = Get.currentRoute;
+      currentRoute == PersonRouteConfig.empty
+          ? Get.toNamed(
+              PersonRouteConfig.login,
+              id: 5,
+              arguments: const {"type": LoginPageType.schedule, "returnId": 5},
+            )
+          : Get.offNamed(
+              PersonRouteConfig.login,
+              id: 5,
+              arguments: const {"type": LoginPageType.schedule, "returnId": 5},
+            );
+    }
   }
 }

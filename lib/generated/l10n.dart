@@ -770,6 +770,16 @@ class S {
     );
   }
 
+  /// `Login`
+  String get person_login {
+    return Intl.message(
+      'Login',
+      name: 'person_login',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Are you sure you want to log out?`
   String get person_logout_tip {
     return Intl.message(

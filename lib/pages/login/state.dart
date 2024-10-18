@@ -20,6 +20,8 @@ class LoginState {
   String captcha = "";
   // 短信验证码
   String messageCode = "";
+  // 页面返回id
+  int returnId = 1;
 
   // 验证码数据
   Rx<Future<Uint8List>> captchaData = Future.value(Uint8List(0)).obs;

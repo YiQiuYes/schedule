@@ -8,9 +8,12 @@ import 'package:schedule/pages/function/pages/function_hot_water/view.dart';
 import 'package:schedule/pages/function/pages/function_score/view.dart';
 import 'package:schedule/pages/function/pages/function_social_exams/view.dart';
 import 'package:schedule/pages/function/pages/function_teacher/view.dart';
+import 'package:schedule/pages/function/state.dart';
 import 'package:schedule/pages/function/view.dart';
 import 'package:schedule/pages/login/view.dart';
 
+import '../../global_logic.dart';
+import '../app_main/logic.dart';
 import '../camera/view.dart';
 
 class FunctionRouteConfig {
@@ -29,6 +32,9 @@ class FunctionRouteConfig {
   static const String camera = '/camera';
 
   static Route? onGenerateRoute(RouteSettings settings) {
+    final globalState = Get.find<GlobalLogic>().state;
+    final FunctionState state = FunctionState();
+
     Map<String, GetPageRoute> getPages = {
       empty: GetPageRoute(
         page: () => Container(),
@@ -115,6 +121,21 @@ class FunctionRouteConfig {
         ),
       ),
     };
+
+    if (!globalState.settings["isLogin"] &&
+        state.functionScheduleCardList
+            .any((element) => element["route"] == settings.name)) {
+      final appMainLogic = Get.find<AppMainLogic>();
+      int returnId = appMainLogic.state.orientation.value ? 2 : 3;
+
+      return GetPageRoute(
+        page: () => const LoginPage(),
+        settings: RouteSettings(
+          name: settings.name,
+          arguments: {"type": LoginPageType.schedule, "returnId": returnId},
+        ),
+      );
+    }
 
     return getPages[settings.name];
   }

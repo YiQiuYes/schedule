@@ -147,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "person_join_qq_group": MessageLookupByLibrary.simpleMessage("加入QQ群"),
         "person_join_qq_group_tip":
             MessageLookupByLibrary.simpleMessage("QQ群号：161324332"),
+        "person_login": MessageLookupByLibrary.simpleMessage("登录"),
         "person_logout": MessageLookupByLibrary.simpleMessage("退出登录"),
         "person_logout_tip": MessageLookupByLibrary.simpleMessage("确定退出登录？"),
         "person_semester_tip": MessageLookupByLibrary.simpleMessage("学期"),

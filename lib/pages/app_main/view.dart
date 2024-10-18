@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
-import 'package:schedule/global_logic.dart';
 import 'package:schedule/pages/app_main/app_main_route_config.dart';
 
 import '../../generated/l10n.dart';
@@ -47,20 +46,15 @@ class _AppMainPageState extends State<AppMainPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              GetBuilder<GlobalLogic>(builder: (logic) {
-                return Visibility(
-                  visible: logic.state.settings["isLogin"],
-                  child: SizedBox(
-                    width: ScreenUtils.screenWidth * 2 / 11,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        _navigationRailWidget(),
-                      ],
-                    ),
-                  ),
-                );
-              }),
+              SizedBox(
+                width: ScreenUtils.screenWidth * 2 / 11,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _navigationRailWidget(),
+                  ],
+                ),
+              ),
               Expanded(
                 child: navigatorWidget(),
               ),
@@ -86,34 +80,29 @@ class _AppMainPageState extends State<AppMainPage>
   /// 底部导航栏
   Widget? _navigationWidget() {
     return ScreenUtils.byOrientationReturn(
-      vertical: GetBuilder<GlobalLogic>(builder: (globalLogic) {
-        return Visibility(
-          visible: globalLogic.state.settings["isLogin"],
-          child: Obx(() {
-            return NavigationBar(
-              destinations: [
-                NavigationDestination(
-                  icon: const Icon(Icons.article_outlined),
-                  selectedIcon: const Icon(Icons.article_rounded),
-                  label: S.current.app_main_schedule,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.explore_outlined),
-                  selectedIcon: const Icon(Icons.explore_rounded),
-                  label: S.current.app_main_function,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.person_outline),
-                  selectedIcon: const Icon(Icons.person),
-                  label: S.current.app_main_person,
-                ),
-              ],
-              selectedIndex: state.navigateCurrentIndex.value,
-              onDestinationSelected: (int index) {
-                logic.setNavigateCurrentIndex(index);
-              },
-            );
-          }),
+      vertical: Obx(() {
+        return NavigationBar(
+          destinations: [
+            NavigationDestination(
+              icon: const Icon(Icons.article_outlined),
+              selectedIcon: const Icon(Icons.article_rounded),
+              label: S.current.app_main_schedule,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.explore_outlined),
+              selectedIcon: const Icon(Icons.explore_rounded),
+              label: S.current.app_main_function,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.person_outline),
+              selectedIcon: const Icon(Icons.person),
+              label: S.current.app_main_person,
+            ),
+          ],
+          selectedIndex: state.navigateCurrentIndex.value,
+          onDestinationSelected: (int index) {
+            logic.setNavigateCurrentIndex(index);
+          },
         );
       }),
       horizon: null,

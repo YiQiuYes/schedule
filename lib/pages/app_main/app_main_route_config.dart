@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schedule/global_logic.dart';
 
 import '../function/view.dart';
 import '../login/view.dart';
@@ -13,8 +12,6 @@ class AppMainRouteConfig {
   static const String login = "/login";
 
   static Route? onGenerateRoute(RouteSettings settings) {
-    final globalState = Get.find<GlobalLogic>().state;
-
     Map<String, GetPageRoute> getPages = {
       main: GetPageRoute(
         page: () {
@@ -46,16 +43,6 @@ class AppMainRouteConfig {
         ),
       ),
     };
-
-    if (!globalState.settings["isLogin"]) {
-      return GetPageRoute(
-        page: () => const LoginPage(),
-        settings: RouteSettings(
-          name: settings.name,
-          arguments: const {"type", LoginPageType.schedule},
-        ),
-      );
-    }
 
     return getPages[settings.name];
   }

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:schedule/common/utils/screen_utils.dart';
 import 'package:schedule/global_logic.dart';
 
+import '../../common/api/schedule/schedule_user_api.dart';
+import '../../common/api/schedule/v2/schedule_user_api_v2.dart';
 import '../../common/utils/schedule_utils.dart';
 import '../../generated/l10n.dart';
 import 'state.dart';
@@ -14,8 +16,15 @@ class ScheduleLogic extends GetxController {
   final globalLogic = Get.find<GlobalLogic>();
   final globalState = Get.find<GlobalLogic>().state;
 
+  final userApi = ScheduleUserApiV2();
+
   /// 初始化
   Future<void> init() async {
+    if(!globalState.settings["isLogin"]) {
+      return;
+    }
+
+    await autoLoginEducationalSystem();
     // 获取课程数据
     bool load20CountCourse = globalState.settings["load20CountCourse"];
     if (!load20CountCourse) {
@@ -159,5 +168,56 @@ class ScheduleLogic extends GetxController {
       },
     );
     picker.showModal(context);
+  }
+
+  /// 自动登录教务系统
+  Future<void> autoLoginEducationalSystem() async {
+    // 获取用户信息
+    final username = globalState.scheduleUserInfo["username"];
+    final password = globalState.scheduleUserInfo["password"];
+    // 开始登录并超时时间为10s
+    if (username == null ||
+        password == null ||
+        username.isEmpty ||
+        password.isEmpty) {
+      return;
+    }
+
+    await userApi
+        .autoLoginEducationalSystem(userAccount: username, userPassword: password)
+        .then((loginStatus) {
+      switch (loginStatus) {
+        case ScheduleUserStatus.loginTimeOut:
+          Get.snackbar(
+            S.current.login_statue,
+            S.current.login_timeout,
+            backgroundColor:
+            Theme.of(Get.context!).colorScheme.primaryContainer,
+            margin: EdgeInsets.only(
+              top: 30.w,
+              left: 50.w,
+              right: 50.w,
+            ),
+          );
+          break;
+        case ScheduleUserStatus.success:
+        // 储存登录成功
+          globalLogic.setIsLogin(true);
+          break;
+        case ScheduleUserStatus.fail:
+          Get.snackbar(
+            S.current.login_statue,
+            S.current.login_fail,
+            backgroundColor:
+            Theme.of(Get.context!).colorScheme.primaryContainer,
+            margin: EdgeInsets.only(
+              top: 30.w,
+              left: 50.w,
+              right: 50.w,
+            ),
+          );
+          break;
+      }
+    });
   }
 }

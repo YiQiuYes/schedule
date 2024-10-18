@@ -162,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Join QQ group"),
         "person_join_qq_group_tip":
             MessageLookupByLibrary.simpleMessage("QQ group number: 161324332"),
+        "person_login": MessageLookupByLibrary.simpleMessage("Login"),
         "person_logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "person_logout_tip": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
