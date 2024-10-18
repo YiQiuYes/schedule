@@ -80,6 +80,7 @@ class TodayScheduleWidget : GlanceAppWidget() {
             GlanceModifier.background(DynamicThemeColorProviders.secondaryContainer)
                 .padding(16.dp)
                 .fillMaxSize()
+                .cornerRadius(15.dp)
                 .clickable(onClick = actionStartActivity<MainActivity>(context))
         ) {
             Row(modifier = GlanceModifier.fillMaxWidth()) {
