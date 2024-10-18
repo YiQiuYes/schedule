@@ -23,8 +23,8 @@ class CurriculumComponent extends StatelessWidget {
       this.weekFontSize,
       this.horizontalPadding,
       this.verticalPadding,
-      this.classNameLinesLimit});
-
+      this.classNameLinesLimit,
+      this.classContainerBorderRadius});
   // 显示周次
   final int showWeek;
   // 个人课表数据
@@ -51,6 +51,8 @@ class CurriculumComponent extends StatelessWidget {
   final double? horizontalPadding;
   // 课程名称行数限制
   final int? classNameLinesLimit;
+  // 课程容器圆角
+  final double? classContainerBorderRadius;
 
   final logic = Get.put(CurriculumLogic());
   final state = Get.find<CurriculumLogic>().state;
@@ -301,7 +303,8 @@ class CurriculumComponent extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(
-          ScreenUtils.length(vertical: 15.w, horizon: 5.w),
+          classContainerBorderRadius ??
+              ScreenUtils.length(vertical: 15.w, horizon: 10.w),
         ),
         child: Stack(
           children: [
@@ -309,8 +312,10 @@ class CurriculumComponent extends StatelessWidget {
             Container(
               alignment: Alignment.topCenter,
               padding: EdgeInsets.symmetric(
-                vertical: verticalPadding ?? ScreenUtils.length(vertical: 9.w, horizon: 6.w),
-                horizontal: horizontalPadding ?? ScreenUtils.length(vertical: 9.w, horizon: 7.w),
+                vertical: verticalPadding ??
+                    ScreenUtils.length(vertical: 9.w, horizon: 6.w),
+                horizontal: horizontalPadding ??
+                    ScreenUtils.length(vertical: 9.w, horizon: 7.w),
               ),
               decoration: BoxDecoration(
                 color: logic.getTodayCourseColor(
@@ -326,8 +331,9 @@ class CurriculumComponent extends StatelessWidget {
                       course,
                       experiment,
                     ),
-                    maxLines: classNameLinesLimit ?? ScreenUtils.byOrientationReturn(
-                        vertical: 4, horizon: 3)!,
+                    maxLines: classNameLinesLimit ??
+                        ScreenUtils.byOrientationReturn(
+                            vertical: 4, horizon: 3)!,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(

@@ -118,6 +118,8 @@ class FunctionAllCoursePage extends StatelessWidget {
         verticalPadding: ScreenUtils.byOrientationReturn(horizon: 4.5.w),
         horizontalPadding: ScreenUtils.byOrientationReturn(horizon: 3.w),
         classNameLinesLimit: ScreenUtils.byOrientationReturn(horizon: 4),
+        classContainerBorderRadius:
+            ScreenUtils.byOrientationReturn(horizon: 5.w),
       );
     });
   }
