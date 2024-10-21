@@ -177,23 +177,28 @@ class ScheduleQueryApiV2 {
                   regExp.firstMatch(classInfoList[5 + j * 11].text.trim());
               List<int> tempResultIndexList = [];
               if (match != null) {
-                List<int> list = match
-                    .group(1)!
-                    .split("-")
-                    .map((e) => int.parse(e))
-                    .toList();
-                int timeDiff = list[1] - list[0];
-                if (timeDiff > 1) {
-                  for (int k = 0; k < (timeDiff - 1) ~/ 2; k++) {
-                    needSkipList.add(resultIndex + (k + 1) * 7);
-                  }
-
-                  for (int k = 0; k < (timeDiff + 1) ~/ 2; k++) {
-                    tempResultIndexList.add(resultIndex + k  * 7);
-                  }
-                } else {
+                String str = match.group(1)!;
+                if(str.length == 1) {
                   tempResultIndexList.add(resultIndex);
+                } else {
+                  List<int> list =
+                  str.split("-").map((e) => int.parse(e)).toList();
+                  int timeDiff = list[1] - list[0];
+                  if (timeDiff > 1) {
+                    for (int k = 0; k < (timeDiff - 1) ~/ 2; k++) {
+                      needSkipList.add(resultIndex + (k + 1) * 7);
+                    }
+
+                    for (int k = 0; k < (timeDiff + 1) ~/ 2; k++) {
+                      tempResultIndexList.add(resultIndex + k * 7);
+                    }
+                  } else {
+                    tempResultIndexList.add(resultIndex);
+                  }
                 }
+
+              } else {
+                tempResultIndexList.add(resultIndex);
               }
 
               // 课程地址
@@ -211,7 +216,6 @@ class ScheduleQueryApiV2 {
               // 获取课程周数
               String classWeek;
               classWeek = week;
-
 
               for (int tempIndex in tempResultIndexList) {
                 int index = tempIndex ~/ 7;
@@ -505,6 +509,10 @@ class ScheduleQueryApiV2 {
       ];
 
       for (Map<String, dynamic> item in data["data"]) {
+        if (item["jc"] == null) {
+          continue;
+        }
+
         int section = (int.parse(item["jc"].split("-")[1]) / 2).ceil();
         int indexOf = weekTile.indexOf(item["zzdweek"]) + 1;
         int index = (section - 1) * 7 + indexOf - 1;
